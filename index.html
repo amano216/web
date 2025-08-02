@@ -526,6 +526,94 @@
 </tbody>
 </table>
 
+<hr>
+
+<h3><code>&lt;img&gt;</code>タグの主な属性一覧</h3>
+
+<p>画像を表示する<code>&lt;img&gt;</code>タグで使用できる主要な属性をまとめました。</p>
+
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>src</code></strong></td>
+<td>画像ファイルのURLやパスを指定します（必須属性）。</td>
+<td><code>&lt;img src="images/photo.jpg"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>alt</code></strong></td>
+<td>画像が表示できない場合の代替テキスト。アクセシビリティのため必須。</td>
+<td><code>&lt;img src="..." alt="富士山の写真"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>width</code></strong></td>
+<td>画像の幅をピクセル単位で指定します。</td>
+<td><code>&lt;img src="..." width="300"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>height</code></strong></td>
+<td>画像の高さをピクセル単位で指定します。</td>
+<td><code>&lt;img src="..." height="200"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>loading</code></strong></td>
+<td>画像の読み込みタイミングを制御。"lazy"で遅延読み込みを有効化。</td>
+<td><code>&lt;img src="..." loading="lazy"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>srcset</code></strong></td>
+<td>異なる解像度の画像を複数指定し、デバイスに応じて最適な画像を選択。</td>
+<td><code>&lt;img src="..." srcset="small.jpg 300w, large.jpg 1000w"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>sizes</code></strong></td>
+<td>レスポンシブ画像で、画像の表示サイズを指定。srcsetと併用。</td>
+<td><code>&lt;img srcset="..." sizes="(max-width: 600px) 100vw, 50vw"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>title</code></strong></td>
+<td>画像にマウスを合わせた時に表示されるツールチップテキスト。</td>
+<td><code>&lt;img src="..." title="クリックで拡大"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>class</code></strong></td>
+<td>CSSクラスを指定してスタイルを適用。</td>
+<td><code>&lt;img src="..." class="thumbnail rounded"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>id</code></strong></td>
+<td>要素に一意のIDを付与。JavaScriptやCSSでの操作に使用。</td>
+<td><code>&lt;img src="..." id="main-image"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>style</code></strong></td>
+<td>インラインCSSスタイルを直接指定。</td>
+<td><code>&lt;img src="..." style="border-radius: 10px;"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>decoding</code></strong></td>
+<td>画像のデコード方法を指定。"async"で非同期デコードを有効化。</td>
+<td><code>&lt;img src="..." decoding="async"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>crossorigin</code></strong></td>
+<td>CORSの設定。"anonymous"や"use-credentials"を指定。</td>
+<td><code>&lt;img src="..." crossorigin="anonymous"&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>usemap</code></strong></td>
+<td>クライアントサイドイメージマップを使用する場合のmap要素への参照。</td>
+<td><code>&lt;img src="..." usemap="#map1"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
 <p>承知いたしました。<code>&lt;a&gt;</code>タグの主な属性を、表形式でまとめました。</p>
 
 <hr>
