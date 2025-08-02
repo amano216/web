@@ -4,15 +4,18 @@ const searchIndex = [
         title: "HTMLタグ一覧",
         url: "index.html",
         category: "HTML",
-        keywords: ["html", "タグ", "要素", "マークアップ"],
+        keywords: ["html", "タグ", "要素", "マークアップ", "<a>", "<img>", "<div>", "<span>", "<p>", "<h1>", "<table>", "<form>"],
         sections: [
             { heading: "基本的な文書構造", keywords: ["DOCTYPE", "html", "head", "body"] },
             { heading: "メタデータ", keywords: ["title", "meta", "link", "style", "script"] },
             { heading: "セクショニング", keywords: ["header", "footer", "main", "nav", "article", "section", "aside", "div"] },
-            { heading: "テキストコンテンツ", keywords: ["p", "a", "span", "strong", "em", "br", "hr", "blockquote", "ul", "ol", "li"] },
-            { heading: "埋め込みコンテンツ", keywords: ["img", "video", "audio", "iframe"] },
+            { heading: "テキストコンテンツ", keywords: ["p", "a", "span", "strong", "em", "br", "hr", "blockquote", "ul", "ol", "li", "<p>", "<a>", "<span>", "<strong>", "<em>", "<br>", "<hr>"] },
+            { heading: "<a>タグの属性", keywords: ["href", "target", "download", "rel", "type", "hreflang", "ping", "referrerpolicy", "_blank", "_self", "_parent", "_top", "nofollow", "noopener", "noreferrer"] },
+            { heading: "埋め込みコンテンツ", keywords: ["img", "video", "audio", "iframe", "<img>", "<video>", "<audio>", "<iframe>"] },
+            { heading: "<img>タグの属性", keywords: ["src", "alt", "width", "height", "loading", "decoding", "crossorigin", "referrerpolicy", "sizes", "srcset", "usemap", "lazy", "eager", "async", "sync", "anonymous", "use-credentials"] },
             { heading: "テーブル", keywords: ["table", "thead", "tbody", "tr", "td", "th"] },
-            { heading: "フォーム", keywords: ["form", "input", "textarea", "select", "button", "label"] }
+            { heading: "フォーム", keywords: ["form", "input", "textarea", "select", "button", "label", "<form>", "<input>", "<textarea>", "<select>", "<button>", "<label>"] },
+            { heading: "フォーム属性", keywords: ["action", "method", "name", "value", "placeholder", "required", "disabled", "readonly", "maxlength", "minlength", "pattern", "autocomplete", "autofocus"] }
         ]
     },
     {
@@ -24,7 +27,7 @@ const searchIndex = [
             { heading: "HTML文書の基本構造", keywords: ["DOCTYPE", "テンプレート", "構造"] },
             { heading: "タグの記法ルール", keywords: ["開始タグ", "終了タグ", "空要素", "属性"] },
             { heading: "文字参照とエンティティ", keywords: ["エンティティ", "&lt;", "&gt;", "&amp;", "特殊文字"] },
-            { heading: "グローバル属性", keywords: ["id", "class", "style", "title", "data-*"] },
+            { heading: "グローバル属性", keywords: ["id", "class", "style", "title", "data-*", "lang", "dir", "tabindex", "contenteditable", "hidden", "draggable", "spellcheck"] },
             { heading: "メタタグの種類", keywords: ["charset", "viewport", "description", "og:"] },
             { heading: "フォーム要素のタイプ", keywords: ["text", "password", "email", "number", "date", "checkbox", "radio"] },
             { heading: "イベント属性", keywords: ["onclick", "onchange", "onsubmit", "onload"] },
@@ -128,8 +131,8 @@ const searchIndex = [
 
 // ページ内容のキャッシュ（実際のコンテンツから抽出）
 const contentCache = {
-    "index.html": "HTML HyperText Markup Language ハイパーテキスト マークアップ 言語 DOCTYPE 文書型宣言 head メタデータ body 本文 title タイトル meta メタ情報 link リンク style スタイル script スクリプト",
-    "html-cheatsheet.html": "HTML5 テンプレート template 最小限 minimal 完全 complete DOCTYPE html lang charset viewport description keywords author favicon Open Graph Twitter",
+    "index.html": "HTML HyperText Markup Language ハイパーテキスト マークアップ 言語 DOCTYPE 文書型宣言 head メタデータ body 本文 title タイトル meta メタ情報 link リンク style スタイル script スクリプト href src alt target download rel width height loading crossorigin referrerpolicy",
+    "html-cheatsheet.html": "HTML5 テンプレート template 最小限 minimal 完全 complete DOCTYPE html lang charset viewport description keywords author favicon Open Graph Twitter 属性 attribute href src alt class id style",
     "css-reference.html": "CSS Cascading Style Sheets カスケーディング スタイルシート color 色 font フォント font-size 文字サイズ margin 外側余白 padding 内側余白 border 境界線",
     "css-cheatsheet.html": "セレクタ selector 要素 element クラス class ID 属性 attribute 擬似クラス pseudo-class 擬似要素 pseudo-element hover active focus before after",
     "symbols-reference.html": "記号 symbol 読み方 小なり less than 大なり greater than スラッシュ slash イコール equals ダブルクォート double quote アンパサンド ampersand",

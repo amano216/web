@@ -99,6 +99,10 @@ class NavSearch {
     searchInIndex(query) {
         const results = [];
         const queryWords = query.split(/\s+/);
+        
+        // HTMLタグ形式の検索をサポート（例: <a>, <img>）
+        const normalizedQuery = query.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const normalizedWords = normalizedQuery.split(/\s+/);
 
         searchIndex.forEach(page => {
             let score = 0;
@@ -111,11 +115,16 @@ class NavSearch {
                 matches.push({ type: 'title', text: page.title });
             }
 
-            // キーワードでの一致
-            queryWords.forEach(word => {
+            // キーワードでの一致（通常の検索とHTMLタグ形式の両方をチェック）
+            [...queryWords, ...normalizedWords].forEach(word => {
                 page.keywords.forEach(keyword => {
-                    if (keyword.toLowerCase().includes(word)) {
+                    const keywordLower = keyword.toLowerCase();
+                    if (keywordLower === word || keywordLower.includes(word)) {
                         score += 3;
+                        // 完全一致の場合はボーナススコア
+                        if (keywordLower === word) {
+                            score += 2;
+                        }
                     }
                 });
             });
@@ -128,12 +137,17 @@ class NavSearch {
                     matches.push({ type: 'section', text: section.heading });
                 }
 
-                queryWords.forEach(word => {
+                [...queryWords, ...normalizedWords].forEach(word => {
                     section.keywords.forEach(keyword => {
-                        if (keyword.toLowerCase().includes(word)) {
+                        const keywordLower = keyword.toLowerCase();
+                        if (keywordLower === word || keywordLower.includes(word)) {
                             score += 1;
                             if (!matches.find(m => m.text === section.heading)) {
                                 matches.push({ type: 'section', text: section.heading });
+                            }
+                            // 完全一致の場合はボーナススコア
+                            if (keywordLower === word) {
+                                score += 1;
                             }
                         }
                     });
