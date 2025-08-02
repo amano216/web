@@ -79,6 +79,37 @@ const searchIndex = [
         ]
     },
     {
+        title: "JavaScriptメソッド・プロパティ一覧",
+        url: "javascript-reference.html",
+        category: "JavaScript",
+        keywords: ["javascript", "js", "メソッド", "プロパティ", "API"],
+        sections: [
+            { heading: "文字列（String）メソッド", keywords: ["length", "charAt", "indexOf", "slice", "substring", "split", "replace", "toLowerCase", "toUpperCase"] },
+            { heading: "配列（Array）メソッド", keywords: ["push", "pop", "shift", "unshift", "map", "filter", "reduce", "forEach", "find"] },
+            { heading: "数値（Number）メソッド", keywords: ["parseInt", "parseFloat", "toFixed", "toPrecision", "isNaN", "isFinite"] },
+            { heading: "Mathオブジェクト", keywords: ["Math.floor", "Math.ceil", "Math.round", "Math.max", "Math.min", "Math.random", "Math.sqrt"] },
+            { heading: "日付（Date）メソッド", keywords: ["getFullYear", "getMonth", "getDate", "getHours", "getMinutes", "getSeconds", "setFullYear"] },
+            { heading: "DOM操作メソッド", keywords: ["getElementById", "querySelector", "querySelectorAll", "addEventListener", "removeEventListener", "createElement", "appendChild"] },
+            { heading: "非同期処理", keywords: ["Promise", "async", "await", "then", "catch", "finally", "fetch", "setTimeout", "setInterval"] }
+        ]
+    },
+    {
+        title: "JavaScript記法チートシート",
+        url: "javascript-cheatsheet.html",
+        category: "JavaScript",
+        keywords: ["javascript", "js", "記法", "構文", "チートシート"],
+        sections: [
+            { heading: "変数と定数", keywords: ["let", "const", "var", "変数宣言", "スコープ"] },
+            { heading: "データ型", keywords: ["number", "string", "boolean", "null", "undefined", "object", "array", "symbol"] },
+            { heading: "演算子", keywords: ["+", "-", "*", "/", "%", "===", "!==", "&&", "||", "!", "??"] },
+            { heading: "制御構文", keywords: ["if", "else", "switch", "for", "while", "do while", "break", "continue"] },
+            { heading: "関数", keywords: ["function", "arrow function", "アロー関数", "return", "arguments", "default parameters"] },
+            { heading: "クラス", keywords: ["class", "constructor", "extends", "super", "static", "getter", "setter"] },
+            { heading: "モジュール", keywords: ["import", "export", "default", "module", "ES6 modules"] },
+            { heading: "正規表現", keywords: ["RegExp", "test", "match", "replace", "\\d", "\\w", "\\s", "^", "$"] }
+        ]
+    },
+    {
         title: "Git/GitHubコマンド",
         url: "git-commands.html",
         category: "その他",
@@ -102,5 +133,7 @@ const contentCache = {
     "css-reference.html": "CSS Cascading Style Sheets カスケーディング スタイルシート color 色 font フォント font-size 文字サイズ margin 外側余白 padding 内側余白 border 境界線",
     "css-cheatsheet.html": "セレクタ selector 要素 element クラス class ID 属性 attribute 擬似クラス pseudo-class 擬似要素 pseudo-element hover active focus before after",
     "symbols-reference.html": "記号 symbol 読み方 小なり less than 大なり greater than スラッシュ slash イコール equals ダブルクォート double quote アンパサンド ampersand",
-    "git-commands.html": "Git GitHub バージョン管理 version control init 初期化 add 追加 commit コミット push プッシュ pull プル branch ブランチ merge マージ"
+    "git-commands.html": "Git GitHub バージョン管理 version control init 初期化 add 追加 commit コミット push プッシュ pull プル branch ブランチ merge マージ",
+    "javascript-reference.html": "JavaScript JS ジャバスクリプト メソッド method プロパティ property API String 文字列 Array 配列 Number 数値 Math Date 日付 DOM Promise async await",
+    "javascript-cheatsheet.html": "JavaScript JS ジャバスクリプト 記法 syntax 構文 チートシート cheatsheet let const var function class 関数 クラス if for while"
 };

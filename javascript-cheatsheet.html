@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        /* 構文例のスタイル */
+        .syntax-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .syntax-example code {
+            color: #abb2bf;
+            background: transparent;
+            padding: 0;
+        }
+
+        /* コメント */
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* キーワード */
+        .keyword {
+            color: #c678dd;
+        }
+
+        /* 文字列 */
+        .string {
+            color: #98c379;
+        }
+
+        /* 数値 */
+        .number {
+            color: #d19a66;
+        }
+
+        /* 関数名 */
+        .function {
+            color: #61afef;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html" class="active">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>JavaScript記法チートシート</h1>
+
+<p>JavaScriptの基本的な記法と構文をまとめたクイックリファレンスです。</p>
+
+<hr>
+
+<h2>変数と定数</h2>
+
+<h3><strong>変数宣言の方法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>宣言方法</th>
+<th>特徴 (Features)</th>
+<th>使用例・説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>let</code></td>
+<td>Block Scope</td>
+<td>再代入可能な変数。ブロックスコープを持つ</td>
+</tr>
+<tr>
+<td><code>const</code></td>
+<td>Constant</td>
+<td>再代入不可能な定数。ブロックスコープを持つ</td>
+</tr>
+<tr>
+<td><code>var</code></td>
+<td>Function Scope</td>
+<td>古い変数宣言。関数スコープ（非推奨）</td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="keyword">let</span> name = <span class="string">"山田太郎"</span>;     <span class="comment">// 変更可能</span>
+<span class="keyword">const</span> PI = <span class="number">3.14159</span>;      <span class="comment">// 変更不可</span>
+<span class="keyword">var</span> oldStyle = <span class="string">"古い"</span>;   <span class="comment">// 使用を避ける</span>
+
+<span class="comment">// ブロックスコープの例</span>
+{
+    <span class="keyword">let</span> blockScoped = <span class="string">"ブロック内"</span>;
+    <span class="keyword">const</span> CONSTANT = <span class="number">100</span>;
+}
+<span class="comment">// blockScoped はここでは使えない</span></code></pre>
+</div>
+
+<hr>
+
+<h2>データ型</h2>
+
+<h3><strong>基本的なデータ型</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>データ型</th>
+<th>説明 (Description)</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Number</code></td>
+<td>数値</td>
+<td><code>42</code>, <code>3.14</code>, <code>-100</code></td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td>文字列</td>
+<td><code>"Hello"</code>, <code>'World'</code>, <code>`テンプレート`</code></td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td>真偽値</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>空値</td>
+<td><code>null</code></td>
+</tr>
+<tr>
+<td><code>undefined</code></td>
+<td>未定義</td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td><code>Symbol</code></td>
+<td>シンボル</td>
+<td><code>Symbol("id")</code></td>
+</tr>
+<tr>
+<td><code>BigInt</code></td>
+<td>巨大整数</td>
+<td><code>123n</code>, <code>BigInt(123)</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 型の確認</span>
+<span class="keyword">typeof</span> <span class="number">42</span>;              <span class="comment">// "number"</span>
+<span class="keyword">typeof</span> <span class="string">"Hello"</span>;        <span class="comment">// "string"</span>
+<span class="keyword">typeof</span> <span class="keyword">true</span>;           <span class="comment">// "boolean"</span>
+<span class="keyword">typeof</span> <span class="keyword">undefined</span>;      <span class="comment">// "undefined"</span>
+<span class="keyword">typeof</span> <span class="keyword">null</span>;           <span class="comment">// "object" (歴史的バグ)</span>
+<span class="keyword">typeof</span> {};              <span class="comment">// "object"</span>
+<span class="keyword">typeof</span> [];              <span class="comment">// "object"</span></code></pre>
+</div>
+
+<hr>
+
+<h2>演算子</h2>
+
+<h3><strong>算術演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>演算子</th>
+<th>意味 (Meaning)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>加算</td>
+<td><code>5 + 3</code> → <code>8</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>減算</td>
+<td><code>5 - 3</code> → <code>2</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乗算</td>
+<td><code>5 * 3</code> → <code>15</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>除算</td>
+<td><code>10 / 2</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>剰余</td>
+<td><code>10 % 3</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>累乗</td>
+<td><code>2 ** 3</code> → <code>8</code></td>
+</tr>
+<tr>
+<td><code>++</code></td>
+<td>インクリメント</td>
+<td><code>i++</code> または <code>++i</code></td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>デクリメント</td>
+<td><code>i--</code> または <code>--i</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>比較演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>演算子</th>
+<th>意味 (Meaning)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>等価（型変換あり）</td>
+<td><code>"5" == 5</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>===</code></td>
+<td>厳密等価</td>
+<td><code>"5" === 5</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等価（型変換あり）</td>
+<td><code>"5" != 5</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>!==</code></td>
+<td>厳密不等価</td>
+<td><code>"5" !== 5</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>より大きい</td>
+<td><code>5 &gt; 3</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>より小さい</td>
+<td><code>5 &lt; 3</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>以上</td>
+<td><code>5 &gt;= 5</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>以下</td>
+<td><code>5 &lt;= 3</code> → <code>false</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>論理演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>演算子</th>
+<th>意味 (Meaning)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>AND（かつ）</td>
+<td><code>true &amp;&amp; false</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>OR（または）</td>
+<td><code>true || false</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NOT（否定）</td>
+<td><code>!true</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>??</code></td>
+<td>Null合体演算子</td>
+<td><code>null ?? "デフォルト"</code> → <code>"デフォルト"</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 論理演算子の短絡評価</span>
+<span class="keyword">const</span> result = value1 || value2;  <span class="comment">// value1がtruthyならvalue1、そうでなければvalue2</span>
+<span class="keyword">const</span> result = value1 && value2;  <span class="comment">// value1がfalsyならvalue1、そうでなければvalue2</span>
+
+<span class="comment">// Null合体演算子（ES2020）</span>
+<span class="keyword">const</span> name = user.name ?? <span class="string">"ゲスト"</span>;  <span class="comment">// nullまたはundefinedの場合のみデフォルト値</span></code></pre>
+</div>
+
+<hr>
+
+<h2>制御構文</h2>
+
+<h3><strong>条件分岐</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// if文</span>
+<span class="keyword">if</span> (condition) {
+    <span class="comment">// 条件が真の場合</span>
+} <span class="keyword">else if</span> (anotherCondition) {
+    <span class="comment">// 別の条件が真の場合</span>
+} <span class="keyword">else</span> {
+    <span class="comment">// いずれも偽の場合</span>
+}
+
+<span class="comment">// 三項演算子</span>
+<span class="keyword">const</span> result = condition ? <span class="string">"真"</span> : <span class="string">"偽"</span>;
+
+<span class="comment">// switch文</span>
+<span class="keyword">switch</span> (value) {
+    <span class="keyword">case</span> <span class="string">"A"</span>:
+        console.log(<span class="string">"Aです"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> <span class="string">"B"</span>:
+        console.log(<span class="string">"Bです"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">default</span>:
+        console.log(<span class="string">"その他"</span>);
+}</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>ループ処理</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// for文</span>
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < <span class="number">10</span>; i++) {
+    console.log(i);
+}
+
+<span class="comment">// while文</span>
+<span class="keyword">let</span> i = <span class="number">0</span>;
+<span class="keyword">while</span> (i < <span class="number">10</span>) {
+    console.log(i);
+    i++;
+}
+
+<span class="comment">// do-while文</span>
+<span class="keyword">let</span> j = <span class="number">0</span>;
+<span class="keyword">do</span> {
+    console.log(j);
+    j++;
+} <span class="keyword">while</span> (j < <span class="number">10</span>);
+
+<span class="comment">// for...of（配列の要素）</span>
+<span class="keyword">const</span> arr = [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>];
+<span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> arr) {
+    console.log(item);
+}
+
+<span class="comment">// for...in（オブジェクトのキー）</span>
+<span class="keyword">const</span> obj = {a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>};
+<span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> obj) {
+    console.log(key, obj[key]);
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>関数</h2>
+
+<h3><strong>関数の定義方法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>定義方法</th>
+<th>特徴 (Features)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>関数宣言</td>
+<td>Hoisting あり</td>
+<td><code>function name() {}</code></td>
+</tr>
+<tr>
+<td>関数式</td>
+<td>変数に代入</td>
+<td><code>const name = function() {}</code></td>
+</tr>
+<tr>
+<td>アロー関数</td>
+<td>簡潔な記法</td>
+<td><code>const name = () => {}</code></td>
+</tr>
+<tr>
+<td>メソッド</td>
+<td>オブジェクト内</td>
+<td><code>obj.method()</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 関数宣言</span>
+<span class="keyword">function</span> <span class="function">greet</span>(name) {
+    <span class="keyword">return</span> <span class="string">`こんにちは、${name}さん！`</span>;
+}
+
+<span class="comment">// 関数式</span>
+<span class="keyword">const</span> <span class="function">greet</span> = <span class="keyword">function</span>(name) {
+    <span class="keyword">return</span> <span class="string">`こんにちは、${name}さん！`</span>;
+};
+
+<span class="comment">// アロー関数</span>
+<span class="keyword">const</span> <span class="function">greet</span> = (name) => {
+    <span class="keyword">return</span> <span class="string">`こんにちは、${name}さん！`</span>;
+};
+
+<span class="comment">// アロー関数（省略形）</span>
+<span class="keyword">const</span> <span class="function">greet</span> = name => <span class="string">`こんにちは、${name}さん！`</span>;
+
+<span class="comment">// デフォルト引数</span>
+<span class="keyword">const</span> <span class="function">greet</span> = (name = <span class="string">"ゲスト"</span>) => {
+    <span class="keyword">return</span> <span class="string">`こんにちは、${name}さん！`</span>;
+};
+
+<span class="comment">// 可変長引数</span>
+<span class="keyword">const</span> <span class="function">sum</span> = (...numbers) => {
+    <span class="keyword">return</span> numbers.reduce((a, b) => a + b, <span class="number">0</span>);
+};</code></pre>
+</div>
+
+<hr>
+
+<h2>配列操作</h2>
+
+<h3><strong>配列の作成と操作</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 配列の作成</span>
+<span class="keyword">const</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="keyword">const</span> arr2 = <span class="keyword">new</span> Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);
+<span class="keyword">const</span> arr3 = Array.from(<span class="string">"abc"</span>);  <span class="comment">// ["a", "b", "c"]</span>
+
+<span class="comment">// 配列の操作</span>
+arr1.push(<span class="number">4</span>);              <span class="comment">// 末尾に追加</span>
+arr1.pop();                <span class="comment">// 末尾から削除</span>
+arr1.unshift(<span class="number">0</span>);          <span class="comment">// 先頭に追加</span>
+arr1.shift();              <span class="comment">// 先頭から削除</span>
+
+<span class="comment">// 配列のメソッドチェーン</span>
+<span class="keyword">const</span> result = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+    .filter(n => n > <span class="number">2</span>)    <span class="comment">// 2より大きい要素</span>
+    .map(n => n * <span class="number">2</span>)       <span class="comment">// 各要素を2倍</span>
+    .reduce((a, b) => a + b); <span class="comment">// 合計</span>
+
+<span class="comment">// スプレッド構文</span>
+<span class="keyword">const</span> combined = [...arr1, ...arr2];
+<span class="keyword">const</span> copy = [...arr1];</code></pre>
+</div>
+
+<hr>
+
+<h2>オブジェクト</h2>
+
+<h3><strong>オブジェクトの作成と操作</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// オブジェクトの作成</span>
+<span class="keyword">const</span> obj = {
+    name: <span class="string">"太郎"</span>,
+    age: <span class="number">20</span>,
+    <span class="function">greet</span>() {
+        console.log(<span class="string">`私は${this.name}です`</span>);
+    }
+};
+
+<span class="comment">// プロパティへのアクセス</span>
+console.log(obj.name);      <span class="comment">// ドット記法</span>
+console.log(obj[<span class="string">"name"</span>]);  <span class="comment">// ブラケット記法</span>
+
+<span class="comment">// プロパティの追加・削除</span>
+obj.email = <span class="string">"taro@example.com"</span>;
+<span class="keyword">delete</span> obj.age;
+
+<span class="comment">// 分割代入</span>
+<span class="keyword">const</span> {name, age} = obj;
+<span class="keyword">const</span> {name: userName} = obj; <span class="comment">// 別名を付ける</span>
+
+<span class="comment">// スプレッド構文</span>
+<span class="keyword">const</span> newObj = {...obj, city: <span class="string">"東京"</span>};
+
+<span class="comment">// オプショナルチェーン（ES2020）</span>
+<span class="keyword">const</span> city = user?.address?.city;</code></pre>
+</div>
+
+<hr>
+
+<h2>クラス</h2>
+
+<h3><strong>クラスの定義と継承</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// クラスの定義</span>
+<span class="keyword">class</span> <span class="function">Person</span> {
+    <span class="comment">// コンストラクタ</span>
+    <span class="keyword">constructor</span>(name, age) {
+        <span class="keyword">this</span>.name = name;
+        <span class="keyword">this</span>.age = age;
+    }
+    
+    <span class="comment">// メソッド</span>
+    <span class="function">greet</span>() {
+        console.log(<span class="string">`こんにちは、${this.name}です`</span>);
+    }
+    
+    <span class="comment">// ゲッター</span>
+    <span class="keyword">get</span> <span class="function">info</span>() {
+        <span class="keyword">return</span> <span class="string">`${this.name} (${this.age}歳)`</span>;
+    }
+    
+    <span class="comment">// セッター</span>
+    <span class="keyword">set</span> <span class="function">info</span>(value) {
+        [<span class="keyword">this</span>.name, <span class="keyword">this</span>.age] = value.split(<span class="string">","</span>);
+    }
+    
+    <span class="comment">// 静的メソッド</span>
+    <span class="keyword">static</span> <span class="function">create</span>(name, age) {
+        <span class="keyword">return</span> <span class="keyword">new</span> Person(name, age);
+    }
+}
+
+<span class="comment">// 継承</span>
+<span class="keyword">class</span> <span class="function">Student</span> <span class="keyword">extends</span> Person {
+    <span class="keyword">constructor</span>(name, age, grade) {
+        <span class="keyword">super</span>(name, age);  <span class="comment">// 親クラスのコンストラクタ</span>
+        <span class="keyword">this</span>.grade = grade;
+    }
+    
+    <span class="function">study</span>() {
+        console.log(<span class="string">`${this.name}は勉強中です`</span>);
+    }
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>非同期処理</h2>
+
+<h3><strong>Promise と async/await</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// Promise</span>
+<span class="keyword">const</span> promise = <span class="keyword">new</span> Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(<span class="string">"成功！"</span>);
+        <span class="comment">// reject("エラー！");</span>
+    }, <span class="number">1000</span>);
+});
+
+promise
+    .then(result => console.log(result))
+    .catch(error => console.error(error))
+    .finally(() => console.log(<span class="string">"完了"</span>));
+
+<span class="comment">// async/await</span>
+<span class="keyword">async</span> <span class="keyword">function</span> <span class="function">fetchData</span>() {
+    <span class="keyword">try</span> {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">"https://api.example.com/data"</span>);
+        <span class="keyword">const</span> data = <span class="keyword">await</span> response.json();
+        <span class="keyword">return</span> data;
+    } <span class="keyword">catch</span> (error) {
+        console.error(<span class="string">"エラー:"</span>, error);
+    }
+}
+
+<span class="comment">// 並列処理</span>
+<span class="keyword">const</span> [result1, result2] = <span class="keyword">await</span> Promise.all([
+    promise1,
+    promise2
+]);</code></pre>
+</div>
+
+<hr>
+
+<h2>モジュール</h2>
+
+<h3><strong>ES6 モジュール</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// エクスポート (module.js)</span>
+<span class="keyword">export</span> <span class="keyword">const</span> PI = <span class="number">3.14159</span>;
+<span class="keyword">export</span> <span class="keyword">function</span> <span class="function">add</span>(a, b) {
+    <span class="keyword">return</span> a + b;
+}
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="function">Calculator</span> {
+    <span class="comment">// ...</span>
+}
+
+<span class="comment">// インポート (main.js)</span>
+<span class="keyword">import</span> Calculator <span class="keyword">from</span> <span class="string">"./module.js"</span>;        <span class="comment">// デフォルトインポート</span>
+<span class="keyword">import</span> {PI, add} <span class="keyword">from</span> <span class="string">"./module.js"</span>;       <span class="comment">// 名前付きインポート</span>
+<span class="keyword">import</span> * <span class="keyword">as</span> math <span class="keyword">from</span> <span class="string">"./module.js"</span>;       <span class="comment">// すべてインポート</span>
+<span class="keyword">import</span> {add <span class="keyword">as</span> sum} <span class="keyword">from</span> <span class="string">"./module.js"</span>;   <span class="comment">// エイリアス付き</span></code></pre>
+</div>
+
+<hr>
+
+<h2>エラーハンドリング</h2>
+
+<h3><strong>try-catch-finally</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="keyword">try</span> {
+    <span class="comment">// エラーが発生する可能性のあるコード</span>
+    <span class="keyword">const</span> result = riskyOperation();
+    console.log(result);
+} <span class="keyword">catch</span> (error) {
+    <span class="comment">// エラーが発生した場合の処理</span>
+    console.error(<span class="string">"エラーが発生しました:"</span>, error.message);
+} <span class="keyword">finally</span> {
+    <span class="comment">// 必ず実行される処理</span>
+    console.log(<span class="string">"処理完了"</span>);
+}
+
+<span class="comment">// カスタムエラー</span>
+<span class="keyword">class</span> <span class="function">CustomError</span> <span class="keyword">extends</span> Error {
+    <span class="keyword">constructor</span>(message) {
+        <span class="keyword">super</span>(message);
+        <span class="keyword">this</span>.name = <span class="string">"CustomError"</span>;
+    }
+}
+
+<span class="keyword">throw</span> <span class="keyword">new</span> CustomError(<span class="string">"カスタムエラーメッセージ"</span>);</code></pre>
+</div>
+
+<hr>
+
+<h2>正規表現</h2>
+
+<h3><strong>正規表現の基本</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>意味 (Meaning)</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>任意の1文字</td>
+<td><code>/a.c/</code> → "abc", "a1c"</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>0回以上</td>
+<td><code>/ab*/</code> → "a", "ab", "abbb"</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>1回以上</td>
+<td><code>/ab+/</code> → "ab", "abbb"</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>0回または1回</td>
+<td><code>/ab?/</code> → "a", "ab"</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>行頭</td>
+<td><code>/^Hello/</code></td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>行末</td>
+<td><code>/world$/</code></td>
+</tr>
+<tr>
+<td><code>[abc]</code></td>
+<td>文字クラス</td>
+<td><code>/[aeiou]/</code> → 母音</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>数字</td>
+<td><code>/\d{3}/</code> → 3桁の数字</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>英数字とアンダースコア</td>
+<td><code>/\w+/</code></td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>空白文字</td>
+<td><code>/\s+/</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 正規表現の使用例</span>
+<span class="keyword">const</span> pattern = <span class="string">/^\d{3}-\d{4}$/</span>;  <span class="comment">// 郵便番号パターン</span>
+<span class="keyword">const</span> isValid = pattern.test(<span class="string">"123-4567"</span>);
+
+<span class="comment">// 文字列の置換</span>
+<span class="keyword">const</span> text = <span class="string">"Hello World"</span>;
+<span class="keyword">const</span> newText = text.replace(<span class="string">/World/</span>, <span class="string">"JavaScript"</span>);
+
+<span class="comment">// グループのキャプチャ</span>
+<span class="keyword">const</span> match = <span class="string">"2024-01-15"</span>.match(<span class="string">/(\d{4})-(\d{2})-(\d{2})/</span>);
+<span class="keyword">const</span> [full, year, month, day] = match;</code></pre>
+</div>
+
+<hr>
+
+<h2>便利な新機能（ES6以降）</h2>
+
+<h3><strong>最新のJavaScript機能</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// テンプレートリテラル</span>
+<span class="keyword">const</span> name = <span class="string">"太郎"</span>;
+<span class="keyword">const</span> message = <span class="string">`こんにちは、${name}さん！
+複数行の
+テキストも書けます。`</span>;
+
+<span class="comment">// 分割代入</span>
+<span class="keyword">const</span> [first, second, ...rest] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];
+<span class="keyword">const</span> {name: userName, age = <span class="number">20</span>} = user;
+
+<span class="comment">// オプショナルチェーン（?.）</span>
+<span class="keyword">const</span> city = user?.address?.city;
+
+<span class="comment">// Null合体演算子（??）</span>
+<span class="keyword">const</span> value = input ?? <span class="string">"デフォルト値"</span>;
+
+<span class="comment">// 動的インポート</span>
+<span class="keyword">const</span> module = <span class="keyword">await</span> <span class="keyword">import</span>(<span class="string">"./module.js"</span>);
+
+<span class="comment">// プライベートフィールド</span>
+<span class="keyword">class</span> <span class="function">MyClass</span> {
+    #privateField = <span class="number">42</span>;
+    
+    <span class="function">getPrivate</span>() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.#privateField;
+    }
+}</code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>

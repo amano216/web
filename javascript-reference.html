@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptメソッド・プロパティ一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html" class="active">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>JavaScriptメソッド・プロパティ一覧</h1>
+
+<p>JavaScriptでよく使用されるメソッドとプロパティを、カテゴリ別にまとめました。</p>
+
+<hr>
+
+<h2>文字列（String）メソッド</h2>
+
+<h3><strong>基本的な文字列操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length</code></td>
+<td>Length</td>
+<td>文字列の長さを取得する。文字数をカウント</td>
+</tr>
+<tr>
+<td><code>charAt(index)</code></td>
+<td>Character At</td>
+<td>指定位置の文字を取得する。インデックスは0から開始</td>
+</tr>
+<tr>
+<td><code>charCodeAt(index)</code></td>
+<td>Character Code At</td>
+<td>指定位置の文字のUnicodeコードを取得する</td>
+</tr>
+<tr>
+<td><code>concat(str)</code></td>
+<td>Concatenate</td>
+<td>文字列を連結する。複数の文字列を結合</td>
+</tr>
+<tr>
+<td><code>indexOf(searchValue)</code></td>
+<td>Index Of</td>
+<td>文字列を検索して最初の位置を返す。見つからない場合は-1</td>
+</tr>
+<tr>
+<td><code>lastIndexOf(searchValue)</code></td>
+<td>Last Index Of</td>
+<td>文字列を後ろから検索して位置を返す</td>
+</tr>
+<tr>
+<td><code>includes(searchString)</code></td>
+<td>Includes</td>
+<td>文字列が含まれているかを判定する。true/falseを返す</td>
+</tr>
+<tr>
+<td><code>startsWith(searchString)</code></td>
+<td>Starts With</td>
+<td>文字列が指定文字で始まるかを判定する</td>
+</tr>
+<tr>
+<td><code>endsWith(searchString)</code></td>
+<td>Ends With</td>
+<td>文字列が指定文字で終わるかを判定する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>文字列の変換・整形</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toLowerCase()</code></td>
+<td>To Lower Case</td>
+<td>すべて小文字に変換する</td>
+</tr>
+<tr>
+<td><code>toUpperCase()</code></td>
+<td>To Upper Case</td>
+<td>すべて大文字に変換する</td>
+</tr>
+<tr>
+<td><code>trim()</code></td>
+<td>Trim</td>
+<td>前後の空白を削除する</td>
+</tr>
+<tr>
+<td><code>trimStart()</code></td>
+<td>Trim Start</td>
+<td>先頭の空白を削除する</td>
+</tr>
+<tr>
+<td><code>trimEnd()</code></td>
+<td>Trim End</td>
+<td>末尾の空白を削除する</td>
+</tr>
+<tr>
+<td><code>padStart(length, padString)</code></td>
+<td>Pad Start</td>
+<td>文字列の先頭を指定文字で埋める</td>
+</tr>
+<tr>
+<td><code>padEnd(length, padString)</code></td>
+<td>Pad End</td>
+<td>文字列の末尾を指定文字で埋める</td>
+</tr>
+<tr>
+<td><code>repeat(count)</code></td>
+<td>Repeat</td>
+<td>文字列を指定回数繰り返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>文字列の分割・抽出</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>slice(start, end)</code></td>
+<td>Slice</td>
+<td>文字列の一部を抽出する。開始位置から終了位置まで</td>
+</tr>
+<tr>
+<td><code>substring(start, end)</code></td>
+<td>Substring</td>
+<td>文字列の一部を抽出する。負の値は0として扱う</td>
+</tr>
+<tr>
+<td><code>substr(start, length)</code></td>
+<td>Substr (deprecated)</td>
+<td>指定位置から指定長さの文字列を抽出（非推奨）</td>
+</tr>
+<tr>
+<td><code>split(separator)</code></td>
+<td>Split</td>
+<td>文字列を分割して配列にする。区切り文字で分割</td>
+</tr>
+<tr>
+<td><code>replace(pattern, replacement)</code></td>
+<td>Replace</td>
+<td>文字列を置換する。最初の一致のみ</td>
+</tr>
+<tr>
+<td><code>replaceAll(pattern, replacement)</code></td>
+<td>Replace All</td>
+<td>すべての一致を置換する</td>
+</tr>
+<tr>
+<td><code>match(regexp)</code></td>
+<td>Match</td>
+<td>正規表現にマッチする部分を取得する</td>
+</tr>
+<tr>
+<td><code>search(regexp)</code></td>
+<td>Search</td>
+<td>正規表現で検索して位置を返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>配列（Array）メソッド</h2>
+
+<h3><strong>配列の基本操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length</code></td>
+<td>Length</td>
+<td>配列の要素数を取得・設定する</td>
+</tr>
+<tr>
+<td><code>push(element)</code></td>
+<td>Push</td>
+<td>配列の末尾に要素を追加する</td>
+</tr>
+<tr>
+<td><code>pop()</code></td>
+<td>Pop</td>
+<td>配列の末尾から要素を削除して返す</td>
+</tr>
+<tr>
+<td><code>unshift(element)</code></td>
+<td>Unshift</td>
+<td>配列の先頭に要素を追加する</td>
+</tr>
+<tr>
+<td><code>shift()</code></td>
+<td>Shift</td>
+<td>配列の先頭から要素を削除して返す</td>
+</tr>
+<tr>
+<td><code>concat(array)</code></td>
+<td>Concatenate</td>
+<td>配列を結合する。元の配列は変更しない</td>
+</tr>
+<tr>
+<td><code>join(separator)</code></td>
+<td>Join</td>
+<td>配列を文字列に変換する。区切り文字を指定可能</td>
+</tr>
+<tr>
+<td><code>reverse()</code></td>
+<td>Reverse</td>
+<td>配列の順序を反転する。元の配列を変更</td>
+</tr>
+<tr>
+<td><code>sort(compareFunction)</code></td>
+<td>Sort</td>
+<td>配列をソートする。比較関数を指定可能</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>配列の検索・判定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>indexOf(searchElement)</code></td>
+<td>Index Of</td>
+<td>要素を検索して最初の位置を返す</td>
+</tr>
+<tr>
+<td><code>lastIndexOf(searchElement)</code></td>
+<td>Last Index Of</td>
+<td>要素を後ろから検索して位置を返す</td>
+</tr>
+<tr>
+<td><code>includes(searchElement)</code></td>
+<td>Includes</td>
+<td>要素が含まれているかを判定する</td>
+</tr>
+<tr>
+<td><code>find(callback)</code></td>
+<td>Find</td>
+<td>条件に合う最初の要素を返す</td>
+</tr>
+<tr>
+<td><code>findIndex(callback)</code></td>
+<td>Find Index</td>
+<td>条件に合う最初の要素の位置を返す</td>
+</tr>
+<tr>
+<td><code>every(callback)</code></td>
+<td>Every</td>
+<td>すべての要素が条件を満たすか判定する</td>
+</tr>
+<tr>
+<td><code>some(callback)</code></td>
+<td>Some</td>
+<td>いずれかの要素が条件を満たすか判定する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>配列の変換・操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>slice(start, end)</code></td>
+<td>Slice</td>
+<td>配列の一部を抽出する。元の配列は変更しない</td>
+</tr>
+<tr>
+<td><code>splice(start, deleteCount, items)</code></td>
+<td>Splice</td>
+<td>配列の要素を削除・追加する。元の配列を変更</td>
+</tr>
+<tr>
+<td><code>map(callback)</code></td>
+<td>Map</td>
+<td>各要素を変換して新しい配列を作成する</td>
+</tr>
+<tr>
+<td><code>filter(callback)</code></td>
+<td>Filter</td>
+<td>条件に合う要素だけの新しい配列を作成する</td>
+</tr>
+<tr>
+<td><code>reduce(callback, initialValue)</code></td>
+<td>Reduce</td>
+<td>配列を単一の値に集約する。累積処理</td>
+</tr>
+<tr>
+<td><code>forEach(callback)</code></td>
+<td>For Each</td>
+<td>各要素に対して処理を実行する。返り値なし</td>
+</tr>
+<tr>
+<td><code>flat(depth)</code></td>
+<td>Flat</td>
+<td>ネストされた配列を平坦化する</td>
+</tr>
+<tr>
+<td><code>flatMap(callback)</code></td>
+<td>Flat Map</td>
+<td>mapとflatを同時に実行する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>数値（Number）メソッド</h2>
+
+<h3><strong>数値の変換・判定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Number.parseInt(string)</code></td>
+<td>Parse Integer</td>
+<td>文字列を整数に変換する</td>
+</tr>
+<tr>
+<td><code>Number.parseFloat(string)</code></td>
+<td>Parse Float</td>
+<td>文字列を浮動小数点数に変換する</td>
+</tr>
+<tr>
+<td><code>Number.isInteger(value)</code></td>
+<td>Is Integer</td>
+<td>整数かどうかを判定する</td>
+</tr>
+<tr>
+<td><code>Number.isNaN(value)</code></td>
+<td>Is Not a Number</td>
+<td>NaN（非数）かどうかを判定する</td>
+</tr>
+<tr>
+<td><code>Number.isFinite(value)</code></td>
+<td>Is Finite</td>
+<td>有限数かどうかを判定する</td>
+</tr>
+<tr>
+<td><code>toFixed(digits)</code></td>
+<td>To Fixed</td>
+<td>小数点以下の桁数を指定して文字列に変換</td>
+</tr>
+<tr>
+<td><code>toPrecision(precision)</code></td>
+<td>To Precision</td>
+<td>有効桁数を指定して文字列に変換</td>
+</tr>
+<tr>
+<td><code>toString(radix)</code></td>
+<td>To String</td>
+<td>数値を文字列に変換。基数を指定可能</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>Math オブジェクト</h2>
+
+<h3><strong>数学的計算</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Math.PI</code></td>
+<td>Pi</td>
+<td>円周率（π）の値。約3.14159</td>
+</tr>
+<tr>
+<td><code>Math.abs(x)</code></td>
+<td>Absolute</td>
+<td>絶対値を返す。負の数を正にする</td>
+</tr>
+<tr>
+<td><code>Math.ceil(x)</code></td>
+<td>Ceiling</td>
+<td>切り上げる。小数点以下を切り上げて整数に</td>
+</tr>
+<tr>
+<td><code>Math.floor(x)</code></td>
+<td>Floor</td>
+<td>切り捨てる。小数点以下を切り捨てて整数に</td>
+</tr>
+<tr>
+<td><code>Math.round(x)</code></td>
+<td>Round</td>
+<td>四捨五入する。最も近い整数に丸める</td>
+</tr>
+<tr>
+<td><code>Math.max(...values)</code></td>
+<td>Maximum</td>
+<td>最大値を返す。複数の値から最大を選択</td>
+</tr>
+<tr>
+<td><code>Math.min(...values)</code></td>
+<td>Minimum</td>
+<td>最小値を返す。複数の値から最小を選択</td>
+</tr>
+<tr>
+<td><code>Math.pow(base, exponent)</code></td>
+<td>Power</td>
+<td>累乗を計算する。baseのexponent乗</td>
+</tr>
+<tr>
+<td><code>Math.sqrt(x)</code></td>
+<td>Square Root</td>
+<td>平方根を計算する</td>
+</tr>
+<tr>
+<td><code>Math.random()</code></td>
+<td>Random</td>
+<td>0以上1未満の乱数を生成する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>日付（Date）メソッド</h2>
+
+<h3><strong>日付の取得</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getFullYear()</code></td>
+<td>Get Full Year</td>
+<td>4桁の年を取得する（例：2024）</td>
+</tr>
+<tr>
+<td><code>getMonth()</code></td>
+<td>Get Month</td>
+<td>月を取得する（0-11、0が1月）</td>
+</tr>
+<tr>
+<td><code>getDate()</code></td>
+<td>Get Date</td>
+<td>日を取得する（1-31）</td>
+</tr>
+<tr>
+<td><code>getDay()</code></td>
+<td>Get Day</td>
+<td>曜日を取得する（0-6、0が日曜）</td>
+</tr>
+<tr>
+<td><code>getHours()</code></td>
+<td>Get Hours</td>
+<td>時を取得する（0-23）</td>
+</tr>
+<tr>
+<td><code>getMinutes()</code></td>
+<td>Get Minutes</td>
+<td>分を取得する（0-59）</td>
+</tr>
+<tr>
+<td><code>getSeconds()</code></td>
+<td>Get Seconds</td>
+<td>秒を取得する（0-59）</td>
+</tr>
+<tr>
+<td><code>getMilliseconds()</code></td>
+<td>Get Milliseconds</td>
+<td>ミリ秒を取得する（0-999）</td>
+</tr>
+<tr>
+<td><code>getTime()</code></td>
+<td>Get Time</td>
+<td>1970年1月1日からのミリ秒を取得する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>日付の設定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setFullYear(year)</code></td>
+<td>Set Full Year</td>
+<td>年を設定する</td>
+</tr>
+<tr>
+<td><code>setMonth(month)</code></td>
+<td>Set Month</td>
+<td>月を設定する（0-11）</td>
+</tr>
+<tr>
+<td><code>setDate(date)</code></td>
+<td>Set Date</td>
+<td>日を設定する（1-31）</td>
+</tr>
+<tr>
+<td><code>setHours(hours)</code></td>
+<td>Set Hours</td>
+<td>時を設定する（0-23）</td>
+</tr>
+<tr>
+<td><code>setMinutes(minutes)</code></td>
+<td>Set Minutes</td>
+<td>分を設定する（0-59）</td>
+</tr>
+<tr>
+<td><code>setSeconds(seconds)</code></td>
+<td>Set Seconds</td>
+<td>秒を設定する（0-59）</td>
+</tr>
+<tr>
+<td><code>setTime(milliseconds)</code></td>
+<td>Set Time</td>
+<td>1970年1月1日からのミリ秒で日時を設定</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>オブジェクト（Object）メソッド</h2>
+
+<h3><strong>オブジェクトの操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Object.keys(obj)</code></td>
+<td>Keys</td>
+<td>オブジェクトのキー（プロパティ名）の配列を取得</td>
+</tr>
+<tr>
+<td><code>Object.values(obj)</code></td>
+<td>Values</td>
+<td>オブジェクトの値の配列を取得</td>
+</tr>
+<tr>
+<td><code>Object.entries(obj)</code></td>
+<td>Entries</td>
+<td>キーと値のペアの配列を取得</td>
+</tr>
+<tr>
+<td><code>Object.assign(target, source)</code></td>
+<td>Assign</td>
+<td>オブジェクトをコピー・マージする</td>
+</tr>
+<tr>
+<td><code>Object.create(proto)</code></td>
+<td>Create</td>
+<td>指定したプロトタイプで新しいオブジェクトを作成</td>
+</tr>
+<tr>
+<td><code>Object.freeze(obj)</code></td>
+<td>Freeze</td>
+<td>オブジェクトを凍結して変更不可にする</td>
+</tr>
+<tr>
+<td><code>Object.seal(obj)</code></td>
+<td>Seal</td>
+<td>オブジェクトを封印して追加・削除を禁止</td>
+</tr>
+<tr>
+<td><code>hasOwnProperty(prop)</code></td>
+<td>Has Own Property</td>
+<td>オブジェクトが指定プロパティを持つか判定</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>DOM操作メソッド</h2>
+
+<h3><strong>要素の取得</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getElementById(id)</code></td>
+<td>Get Element By ID</td>
+<td>IDで要素を取得する。一意の要素を取得</td>
+</tr>
+<tr>
+<td><code>getElementsByClassName(className)</code></td>
+<td>Get Elements By Class Name</td>
+<td>クラス名で要素を取得する。HTMLCollectionを返す</td>
+</tr>
+<tr>
+<td><code>getElementsByTagName(tagName)</code></td>
+<td>Get Elements By Tag Name</td>
+<td>タグ名で要素を取得する</td>
+</tr>
+<tr>
+<td><code>querySelector(selector)</code></td>
+<td>Query Selector</td>
+<td>CSSセレクタで最初の要素を取得する</td>
+</tr>
+<tr>
+<td><code>querySelectorAll(selector)</code></td>
+<td>Query Selector All</td>
+<td>CSSセレクタですべての要素を取得する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>要素の操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>createElement(tagName)</code></td>
+<td>Create Element</td>
+<td>新しい要素を作成する</td>
+</tr>
+<tr>
+<td><code>appendChild(node)</code></td>
+<td>Append Child</td>
+<td>子要素を追加する。末尾に追加</td>
+</tr>
+<tr>
+<td><code>removeChild(node)</code></td>
+<td>Remove Child</td>
+<td>子要素を削除する</td>
+</tr>
+<tr>
+<td><code>replaceChild(newNode, oldNode)</code></td>
+<td>Replace Child</td>
+<td>子要素を置き換える</td>
+</tr>
+<tr>
+<td><code>insertBefore(newNode, referenceNode)</code></td>
+<td>Insert Before</td>
+<td>指定要素の前に挿入する</td>
+</tr>
+<tr>
+<td><code>innerHTML</code></td>
+<td>Inner HTML</td>
+<td>要素内のHTMLを取得・設定する</td>
+</tr>
+<tr>
+<td><code>textContent</code></td>
+<td>Text Content</td>
+<td>要素内のテキストを取得・設定する</td>
+</tr>
+<tr>
+<td><code>setAttribute(name, value)</code></td>
+<td>Set Attribute</td>
+<td>属性を設定する</td>
+</tr>
+<tr>
+<td><code>getAttribute(name)</code></td>
+<td>Get Attribute</td>
+<td>属性を取得する</td>
+</tr>
+<tr>
+<td><code>classList.add(className)</code></td>
+<td>Class List Add</td>
+<td>クラスを追加する</td>
+</tr>
+<tr>
+<td><code>classList.remove(className)</code></td>
+<td>Class List Remove</td>
+<td>クラスを削除する</td>
+</tr>
+<tr>
+<td><code>classList.toggle(className)</code></td>
+<td>Class List Toggle</td>
+<td>クラスの有無を切り替える</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>イベント関連</h2>
+
+<h3><strong>イベントリスナー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addEventListener(type, listener)</code></td>
+<td>Add Event Listener</td>
+<td>イベントリスナーを追加する。イベント発生時の処理を登録</td>
+</tr>
+<tr>
+<td><code>removeEventListener(type, listener)</code></td>
+<td>Remove Event Listener</td>
+<td>イベントリスナーを削除する</td>
+</tr>
+<tr>
+<td><code>preventDefault()</code></td>
+<td>Prevent Default</td>
+<td>デフォルトの動作を防ぐ。フォーム送信の抑制など</td>
+</tr>
+<tr>
+<td><code>stopPropagation()</code></td>
+<td>Stop Propagation</td>
+<td>イベントの伝播を停止する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>非同期処理</h2>
+
+<h3><strong>Promise・async/await</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド・キーワード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>then(onFulfilled)</code></td>
+<td>Then</td>
+<td>Promiseが成功した時の処理を登録する</td>
+</tr>
+<tr>
+<td><code>catch(onRejected)</code></td>
+<td>Catch</td>
+<td>Promiseが失敗した時の処理を登録する</td>
+</tr>
+<tr>
+<td><code>finally(onFinally)</code></td>
+<td>Finally</td>
+<td>成功・失敗に関わらず実行する処理を登録</td>
+</tr>
+<tr>
+<td><code>Promise.all(promises)</code></td>
+<td>Promise All</td>
+<td>すべてのPromiseが完了するのを待つ</td>
+</tr>
+<tr>
+<td><code>Promise.race(promises)</code></td>
+<td>Promise Race</td>
+<td>最初に完了したPromiseの結果を返す</td>
+</tr>
+<tr>
+<td><code>async</code></td>
+<td>Asynchronous</td>
+<td>非同期関数を定義する。Promiseを返す関数</td>
+</tr>
+<tr>
+<td><code>await</code></td>
+<td>Await</td>
+<td>Promiseの完了を待つ。async関数内でのみ使用</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ブラウザAPI</h2>
+
+<h3><strong>Storage・Timer</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>localStorage.setItem(key, value)</code></td>
+<td>Set Item</td>
+<td>ローカルストレージにデータを保存する</td>
+</tr>
+<tr>
+<td><code>localStorage.getItem(key)</code></td>
+<td>Get Item</td>
+<td>ローカルストレージからデータを取得する</td>
+</tr>
+<tr>
+<td><code>localStorage.removeItem(key)</code></td>
+<td>Remove Item</td>
+<td>ローカルストレージからデータを削除する</td>
+</tr>
+<tr>
+<td><code>setTimeout(function, delay)</code></td>
+<td>Set Timeout</td>
+<td>指定時間後に関数を実行する</td>
+</tr>
+<tr>
+<td><code>setInterval(function, delay)</code></td>
+<td>Set Interval</td>
+<td>指定間隔で関数を繰り返し実行する</td>
+</tr>
+<tr>
+<td><code>clearTimeout(timeoutId)</code></td>
+<td>Clear Timeout</td>
+<td>setTimeoutをキャンセルする</td>
+</tr>
+<tr>
+<td><code>clearInterval(intervalId)</code></td>
+<td>Clear Interval</td>
+<td>setIntervalをキャンセルする</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>
