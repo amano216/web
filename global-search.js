@@ -6,6 +6,8 @@ class GlobalSearch {
         this.searchModal = null;
         this.isOpen = false;
         this.searchTimeout = null;
+        this.currentPageContent = null;
+        this.searchMode = 'global'; // 'global' or 'page'
         this.init();
     }
 
@@ -20,8 +22,12 @@ class GlobalSearch {
             <div id="global-search-modal" class="global-search-modal">
                 <div class="search-modal-content">
                     <div class="search-header">
+                        <div class="search-mode-toggle">
+                            <button class="mode-btn active" data-mode="global">すべてのページ</button>
+                            <button class="mode-btn" data-mode="page">現在のページ</button>
+                        </div>
                         <input type="text" id="global-search-input" class="global-search-input" 
-                               placeholder="すべてのページから検索... (Ctrl+K または Cmd+K)">
+                               placeholder="検索... (Ctrl+K または Cmd+K)">
                         <button class="search-close-btn" id="search-close-btn">✕</button>
                     </div>
                     <div id="global-search-results" class="global-search-results"></div>
@@ -37,8 +43,42 @@ class GlobalSearch {
     }
 
     bindEvents() {
+        // グローバル検索ボタンのクリックイベント
+        const globalSearchBtns = document.querySelectorAll('.global-search-btn');
+        globalSearchBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openSearch();
+            });
+        });
+
+        // 検索モード切り替え
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('mode-btn')) {
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
+                this.searchMode = e.target.dataset.mode;
+                this.updatePlaceholder();
+                if (this.searchInput.value) {
+                    this.performSearch();
+                }
+            }
+        });
+
         // キーボードショートカット (Ctrl+K または Cmd+K)
         document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                this.toggleSearch();
+            }
+            
+            // Ctrl+F または Cmd+F でページ内検索
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                this.openSearch('page');
+            }
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 this.toggleSearch();
@@ -54,7 +94,7 @@ class GlobalSearch {
         this.searchInput.addEventListener('input', () => {
             clearTimeout(this.searchTimeout);
             this.searchTimeout = setTimeout(() => {
-                this.performGlobalSearch();
+                this.performSearch();
             }, 300);
         });
 
@@ -90,12 +130,23 @@ class GlobalSearch {
         }
     }
 
-    openSearch() {
+    openSearch(mode = 'global') {
         this.searchModal.classList.add('active');
+        this.searchMode = mode;
+        
+        // モードボタンを更新
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+        
+        this.updatePlaceholder();
         this.searchInput.focus();
         this.searchInput.select();
         this.isOpen = true;
         document.body.style.overflow = 'hidden';
+        
+        // 現在のページのコンテンツを取得
+        this.currentPageContent = this.extractCurrentPageContent();
     }
 
     closeSearch() {
@@ -106,7 +157,7 @@ class GlobalSearch {
         document.body.style.overflow = '';
     }
 
-    performGlobalSearch() {
+    performSearch() {
         const query = this.searchInput.value.trim().toLowerCase();
 
         if (!query) {
@@ -114,8 +165,13 @@ class GlobalSearch {
             return;
         }
 
-        const results = this.searchInIndex(query);
-        this.displayResults(results, query);
+        if (this.searchMode === 'global') {
+            const results = this.searchInIndex(query);
+            this.displayResults(results, query);
+        } else {
+            const results = this.searchInCurrentPage(query);
+            this.displayPageResults(results, query);
+        }
     }
 
     searchInIndex(query) {
@@ -251,6 +307,101 @@ class GlobalSearch {
 
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+}
+
+    updatePlaceholder() {
+        if (this.searchMode === 'global') {
+            this.searchInput.placeholder = 'すべてのページから検索... (Ctrl+K)';
+        } else {
+            this.searchInput.placeholder = '現在のページ内を検索... (Ctrl+F)';
+        }
+    }
+
+    extractCurrentPageContent() {
+        const tables = document.querySelectorAll('table');
+        const content = [];
+        
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td, th');
+                const rowContent = Array.from(cells).map(cell => cell.textContent.trim()).join(' ');
+                if (rowContent) {
+                    content.push({
+                        text: rowContent,
+                        element: row,
+                        index: index
+                    });
+                }
+            });
+        });
+        
+        return content;
+    }
+
+    searchInCurrentPage(query) {
+        if (!this.currentPageContent) return [];
+        
+        const results = [];
+        const queryWords = query.split(/\s+/);
+        
+        this.currentPageContent.forEach(item => {
+            const text = item.text.toLowerCase();
+            let matches = 0;
+            
+            queryWords.forEach(word => {
+                if (text.includes(word)) {
+                    matches++;
+                }
+            });
+            
+            if (matches > 0) {
+                results.push({
+                    ...item,
+                    score: matches
+                });
+            }
+        });
+        
+        return results.sort((a, b) => b.score - a.score);
+    }
+
+    displayPageResults(results, query) {
+        if (results.length === 0) {
+            this.resultsContainer.innerHTML = `
+                <div class="no-results">
+                    <p>「${this.escapeHtml(query)}」に一致する結果がこのページ内で見つかりませんでした</p>
+                </div>
+            `;
+            return;
+        }
+
+        const resultsHTML = results.map((result, index) => {
+            const highlightedText = this.highlightQuery(result.text, query);
+            return `
+                <div class="search-result-item page-result" data-index="${index}">
+                    <div class="result-text">${highlightedText}</div>
+                </div>
+            `;
+        }).join('');
+
+        this.resultsContainer.innerHTML = resultsHTML;
+        
+        // ページ内結果のクリックイベント
+        document.querySelectorAll('.page-result').forEach((elem, index) => {
+            elem.addEventListener('click', () => {
+                const result = results[index];
+                if (result.element) {
+                    this.closeSearch();
+                    result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    result.element.style.backgroundColor = 'rgba(127, 109, 242, 0.2)';
+                    setTimeout(() => {
+                        result.element.style.backgroundColor = '';
+                    }, 2000);
+                }
+            });
+        });
     }
 }
 
