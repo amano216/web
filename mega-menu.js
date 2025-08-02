@@ -194,12 +194,17 @@ class MegaMenu {
 
 // DOMContentLoadedで初期化
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Mega menu script loaded');
+    
     // メガメニューCSSを動的に読み込む
     const megaMenuCSS = document.createElement('link');
     megaMenuCSS.rel = 'stylesheet';
     megaMenuCSS.href = 'mega-menu.css';
     document.head.appendChild(megaMenuCSS);
 
-    // メガメニューを初期化
-    new MegaMenu();
+    // 少し遅延させてメガメニューを初期化（検索バーなどの要素が確実に読み込まれるように）
+    setTimeout(() => {
+        console.log('Initializing mega menu');
+        new MegaMenu();
+    }, 100);
 });

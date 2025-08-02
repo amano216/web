@@ -1,9 +1,9 @@
 /* メガメニューナビゲーションのスタイル */
 
-/* メガメニューが有効な場合のみドロップダウンを非表示 */
-body.mega-menu-enabled .nav-dropdown {
+/* メガメニューモードではドロップダウンを非表示にしない（切り替え式にする） */
+/* body.mega-menu-enabled .nav-dropdown {
     display: none;
-}
+} */
 
 /* メガメニューボタン */
 .mega-menu-button {
@@ -16,10 +16,10 @@ body.mega-menu-enabled .nav-dropdown {
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.2s;
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 0.5rem;
-    margin-left: auto;
+    margin-left: 1rem;
 }
 
 .mega-menu-button:hover {
