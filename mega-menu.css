@@ -1,7 +1,7 @@
 /* メガメニューナビゲーションのスタイル */
 
-/* 既存のドロップダウンを非表示 */
-.nav-dropdown {
+/* メガメニューが有効な場合のみドロップダウンを非表示 */
+body.mega-menu-enabled .nav-dropdown {
     display: none;
 }
 

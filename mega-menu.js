@@ -19,6 +19,9 @@ class MegaMenu {
         const navContainer = document.querySelector('.nav-container');
         if (!navContainer) return;
 
+        // bodyにメガメニュー有効クラスを追加
+        document.body.classList.add('mega-menu-enabled');
+
         // メガメニューボタンを作成
         const menuButtonHTML = `
             <button class="mega-menu-button" id="mega-menu-button">
@@ -79,10 +82,15 @@ class MegaMenu {
         // オーバーレイを作成
         const overlayHTML = `<div class="mega-menu-overlay" id="mega-menu-overlay"></div>`;
 
-        // 既存のナビゲーションメニューを非表示にする前に、メガメニューボタンを追加
-        const navMenu = navContainer.querySelector('.nav-menu');
-        if (navMenu) {
-            navMenu.insertAdjacentHTML('afterend', menuButtonHTML);
+        // 検索バーの後、またはナビゲーションメニューの後にメガメニューボタンを追加
+        const searchWrapper = navContainer.querySelector('.nav-search-wrapper');
+        if (searchWrapper) {
+            searchWrapper.insertAdjacentHTML('afterend', menuButtonHTML);
+        } else {
+            const navMenu = navContainer.querySelector('.nav-menu');
+            if (navMenu) {
+                navMenu.insertAdjacentHTML('afterend', menuButtonHTML);
+            }
         }
 
         // メガメニューコンテナとオーバーレイをbodyに追加
