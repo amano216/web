@@ -190,18 +190,36 @@
         }
     </style>
     <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="navigation.css">
 </head>
 <body>
 
 <nav class="nav-bar">
     <div class="nav-container">
         <div class="nav-title">Web開発リファレンス</div>
-        <div class="nav-links">
-            <a href="index.html">HTML</a>
-            <a href="html-cheatsheet.html" class="active">HTML記法</a>
-            <a href="css-reference.html">CSS</a>
-            <a href="css-cheatsheet.html">CSS記法</a>
-            <a href="symbols-reference.html">記号</a>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html" class="active">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
@@ -950,6 +968,7 @@
 </div>
 
 <script src="search.js"></script>
+<script src="navigation.js"></script>
 
 </body>
 </html>

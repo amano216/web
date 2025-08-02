@@ -1,0 +1,181 @@
+/* ドロップダウンナビゲーション */
+.nav-bar {
+    background-color: var(--nav-bg, #1a1a1a);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-accent);
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+    align-items: center;
+}
+
+/* ドロップダウン構造 */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > a {
+    color: var(--text-normal);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav-dropdown > a:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+.nav-dropdown > a.active {
+    background-color: var(--background-secondary);
+    color: var(--text-accent);
+}
+
+/* ドロップダウン矢印 */
+.nav-dropdown > a::after {
+    content: "▼";
+    font-size: 0.7em;
+    opacity: 0.7;
+}
+
+/* ドロップダウンメニュー */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    min-width: 160px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+    color: var(--text-normal);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+.dropdown-menu a.active {
+    color: var(--text-accent);
+    background-color: rgba(127, 109, 242, 0.1);
+}
+
+/* セパレーター */
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--background-modifier-border);
+    margin: 0.25rem 0;
+}
+
+/* モバイルメニューボタン */
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-normal);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+        margin-left: auto;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: var(--background-secondary);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    .nav-dropdown {
+        width: 100%;
+    }
+    
+    .nav-dropdown > a {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.2);
+        margin: 0;
+        display: none;
+    }
+    
+    .nav-dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .nav-dropdown > a::after {
+        content: "▶";
+        transition: transform 0.3s;
+    }
+    
+    .nav-dropdown.active > a::after {
+        transform: rotate(90deg);
+    }
+}
