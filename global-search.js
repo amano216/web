@@ -314,7 +314,6 @@ class GlobalSearch {
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
-}
 
     updatePlaceholder() {
         if (this.searchMode === 'global') {

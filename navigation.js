@@ -61,7 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // 親のドロップダウンもアクティブにする
             const parentDropdown = link.closest('.nav-dropdown');
             if (parentDropdown) {
-                parentDropdown.querySelector('> a').classList.add('active');
+                const dropdownToggle = parentDropdown.querySelector('a');
+                if (dropdownToggle) {
+                    dropdownToggle.classList.add('active');
+                }
             }
         }
     });
