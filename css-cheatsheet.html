@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* チートシート用の特別なスタイル */
+        .syntax-box {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            overflow-x: auto;
+        }
+
+        .example {
+            color: #98c379;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <div class="nav-links">
+            <a href="index.html">HTML</a>
+            <a href="css-reference.html">CSS</a>
+            <a href="symbols-reference.html">記号</a>
+            <a href="css-cheatsheet.html" class="active">CSS記法</a>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>CSS記法チートシート</h1>
+
+<p>CSSの記法を素早く参照できるクイックリファレンスです。</p>
+
+<hr>
+
+<h2>セレクタの完全ガイド</h2>
+
+<h3><strong>基本セレクタ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>セレクタ</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全称セレクタ</strong></td>
+<td><code>*</code></td>
+<td>すべての要素を選択。<div class="syntax-box">* { margin: 0; padding: 0; }</div></td>
+</tr>
+<tr>
+<td><strong>要素セレクタ</strong></td>
+<td><code>element</code></td>
+<td>指定したHTML要素を選択。<div class="syntax-box">p { color: blue; }<br>h1 { font-size: 2rem; }</div></td>
+</tr>
+<tr>
+<td><strong>クラスセレクタ</strong></td>
+<td><code>.class</code></td>
+<td>指定したクラスを持つ要素を選択。<div class="syntax-box">.container { width: 100%; }<br>.btn-primary { background: blue; }</div></td>
+</tr>
+<tr>
+<td><strong>IDセレクタ</strong></td>
+<td><code>#id</code></td>
+<td>指定したIDを持つ要素を選択。<div class="syntax-box">#header { position: fixed; }<br>#main-nav { display: flex; }</div></td>
+</tr>
+<tr>
+<td><strong>属性セレクタ</strong></td>
+<td><code>[attribute]</code></td>
+<td>属性を持つ要素を選択。<div class="syntax-box">[disabled] { opacity: 0.5; }<br>input[type="text"] { border: 1px solid #ccc; }</div></td>
+</tr>
+<tr>
+<td><strong>グループセレクタ</strong></td>
+<td><code>A, B</code></td>
+<td>複数のセレクタをカンマで区切る。<div class="syntax-box">h1, h2, h3 { margin-top: 20px; }<br>.btn, .link { cursor: pointer; }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>結合子（Combinators）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>結合子</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>子孫セレクタ</strong></td>
+<td><code>A B</code></td>
+<td>Aの中のすべてのBを選択（孫要素も含む）。<div class="syntax-box">article p { line-height: 1.6; }<br>.container .item { padding: 10px; }</div></td>
+</tr>
+<tr>
+<td><strong>子セレクタ</strong></td>
+<td><code>A > B</code></td>
+<td>Aの直接の子要素Bのみを選択。<div class="syntax-box">ul > li { list-style: none; }<br>.nav > a { display: inline-block; }</div></td>
+</tr>
+<tr>
+<td><strong>隣接兄弟セレクタ</strong></td>
+<td><code>A + B</code></td>
+<td>Aの直後にある兄弟要素Bを選択。<div class="syntax-box">h1 + p { margin-top: 0; }<br>.active + li { font-weight: bold; }</div></td>
+</tr>
+<tr>
+<td><strong>一般兄弟セレクタ</strong></td>
+<td><code>A ~ B</code></td>
+<td>Aの後にあるすべての兄弟要素Bを選択。<div class="syntax-box">h2 ~ p { margin-left: 20px; }<br>.title ~ .content { color: gray; }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>属性セレクタの詳細</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>属性セレクタ</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>存在</strong></td>
+<td><code>[attr]</code></td>
+<td>属性が存在する要素。<div class="syntax-box">[required] { border-color: red; }<br>[data-tooltip] { cursor: help; }</div></td>
+</tr>
+<tr>
+<td><strong>完全一致</strong></td>
+<td><code>[attr="value"]</code></td>
+<td>属性値が完全に一致。<div class="syntax-box">input[type="email"] { }<br>a[target="_blank"] { }</div></td>
+</tr>
+<tr>
+<td><strong>単語を含む</strong></td>
+<td><code>[attr~="value"]</code></td>
+<td>空白区切りの単語として含む。<div class="syntax-box">[class~="active"] { }<br>[rel~="nofollow"] { }</div></td>
+</tr>
+<tr>
+<td><strong>前方一致</strong></td>
+<td><code>[attr^="value"]</code></td>
+<td>属性値が指定値で始まる。<div class="syntax-box">a[href^="https"] { }<br>[class^="col-"] { }</div></td>
+</tr>
+<tr>
+<td><strong>後方一致</strong></td>
+<td><code>[attr$="value"]</code></td>
+<td>属性値が指定値で終わる。<div class="syntax-box">a[href$=".pdf"] { }<br>img[src$=".jpg"] { }</div></td>
+</tr>
+<tr>
+<td><strong>部分一致</strong></td>
+<td><code>[attr*="value"]</code></td>
+<td>属性値に指定値を含む。<div class="syntax-box">a[href*="example"] { }<br>[class*="btn"] { }</div></td>
+</tr>
+<tr>
+<td><strong>言語コード</strong></td>
+<td><code>[attr|="value"]</code></td>
+<td>値またはハイフン付きで始まる。<div class="syntax-box">[lang|="en"] { } /* en, en-US, en-GB等 */<br>[lang|="ja"] { }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>疑似クラス（状態）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>疑似クラス</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ホバー</strong></td>
+<td><code>:hover</code></td>
+<td>マウスが乗った時。<div class="syntax-box">a:hover { text-decoration: underline; }<br>.btn:hover { opacity: 0.8; }</div></td>
+</tr>
+<tr>
+<td><strong>アクティブ</strong></td>
+<td><code>:active</code></td>
+<td>クリック中。<div class="syntax-box">button:active { transform: scale(0.95); }</div></td>
+</tr>
+<tr>
+<td><strong>フォーカス</strong></td>
+<td><code>:focus</code></td>
+<td>フォーカスが当たった時。<div class="syntax-box">input:focus { outline: 2px solid blue; }</div></td>
+</tr>
+<tr>
+<td><strong>訪問済み</strong></td>
+<td><code>:visited</code></td>
+<td>訪問済みのリンク。<div class="syntax-box">a:visited { color: purple; }</div></td>
+</tr>
+<tr>
+<td><strong>チェック済み</strong></td>
+<td><code>:checked</code></td>
+<td>チェックされた状態。<div class="syntax-box">input:checked + label { font-weight: bold; }</div></td>
+</tr>
+<tr>
+<td><strong>無効</strong></td>
+<td><code>:disabled</code></td>
+<td>無効化された要素。<div class="syntax-box">button:disabled { opacity: 0.5; cursor: not-allowed; }</div></td>
+</tr>
+<tr>
+<td><strong>有効</strong></td>
+<td><code>:enabled</code></td>
+<td>有効な要素。<div class="syntax-box">input:enabled { background: white; }</div></td>
+</tr>
+<tr>
+<td><strong>空</strong></td>
+<td><code>:empty</code></td>
+<td>子要素やテキストを持たない。<div class="syntax-box">p:empty { display: none; }</div></td>
+</tr>
+<tr>
+<td><strong>ターゲット</strong></td>
+<td><code>:target</code></td>
+<td>URLのハッシュと一致するID。<div class="syntax-box">#section1:target { background: yellow; }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>疑似クラス（構造）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>疑似クラス</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>最初の子</strong></td>
+<td><code>:first-child</code></td>
+<td>親要素の最初の子要素。<div class="syntax-box">li:first-child { font-weight: bold; }</div></td>
+</tr>
+<tr>
+<td><strong>最後の子</strong></td>
+<td><code>:last-child</code></td>
+<td>親要素の最後の子要素。<div class="syntax-box">p:last-child { margin-bottom: 0; }</div></td>
+</tr>
+<tr>
+<td><strong>n番目の子</strong></td>
+<td><code>:nth-child(n)</code></td>
+<td>n番目の子要素。<div class="syntax-box">tr:nth-child(odd) { background: #f0f0f0; }<br>li:nth-child(3n) { color: red; }</div></td>
+</tr>
+<tr>
+<td><strong>後ろからn番目</strong></td>
+<td><code>:nth-last-child(n)</code></td>
+<td>後ろからn番目の子要素。<div class="syntax-box">li:nth-last-child(2) { font-style: italic; }</div></td>
+</tr>
+<tr>
+<td><strong>特定タイプの最初</strong></td>
+<td><code>:first-of-type</code></td>
+<td>同じタイプの最初の要素。<div class="syntax-box">p:first-of-type { text-indent: 2em; }</div></td>
+</tr>
+<tr>
+<td><strong>特定タイプの最後</strong></td>
+<td><code>:last-of-type</code></td>
+<td>同じタイプの最後の要素。<div class="syntax-box">h2:last-of-type { margin-bottom: 30px; }</div></td>
+</tr>
+<tr>
+<td><strong>唯一の子</strong></td>
+<td><code>:only-child</code></td>
+<td>親要素の唯一の子要素。<div class="syntax-box">p:only-child { text-align: center; }</div></td>
+</tr>
+<tr>
+<td><strong>否定</strong></td>
+<td><code>:not(selector)</code></td>
+<td>指定セレクタに一致しない要素。<div class="syntax-box">input:not([type="submit"]) { }<br>li:not(:last-child) { }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>疑似要素</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>疑似要素</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>前に挿入</strong></td>
+<td><code>::before</code></td>
+<td>要素の前に内容を挿入。<div class="syntax-box">.required::before {<br>  content: "*";<br>  color: red;<br>}</div></td>
+</tr>
+<tr>
+<td><strong>後に挿入</strong></td>
+<td><code>::after</code></td>
+<td>要素の後に内容を挿入。<div class="syntax-box">.external-link::after {<br>  content: " ↗";<br>}</div></td>
+</tr>
+<tr>
+<td><strong>最初の行</strong></td>
+<td><code>::first-line</code></td>
+<td>最初の行のスタイル。<div class="syntax-box">p::first-line {<br>  font-weight: bold;<br>}</div></td>
+</tr>
+<tr>
+<td><strong>最初の文字</strong></td>
+<td><code>::first-letter</code></td>
+<td>最初の文字のスタイル。<div class="syntax-box">p::first-letter {<br>  font-size: 2em;<br>  float: left;<br>}</div></td>
+</tr>
+<tr>
+<td><strong>選択部分</strong></td>
+<td><code>::selection</code></td>
+<td>選択されたテキスト。<div class="syntax-box">::selection {<br>  background: yellow;<br>  color: black;<br>}</div></td>
+</tr>
+<tr>
+<td><strong>プレースホルダー</strong></td>
+<td><code>::placeholder</code></td>
+<td>入力欄のプレースホルダー。<div class="syntax-box">input::placeholder {<br>  color: #999;<br>  font-style: italic;<br>}</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>値と単位</h2>
+
+<h3><strong>長さの単位</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>単位</th>
+<th>名前</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>px</code></td>
+<td>Pixels</td>
+<td>ピクセル（絶対単位）。<div class="syntax-box">width: 200px;<br>font-size: 16px;</div></td>
+</tr>
+<tr>
+<td><code>em</code></td>
+<td>Em</td>
+<td>親要素のフォントサイズに対する相対値。<div class="syntax-box">padding: 1.5em; /* 親が16pxなら24px */<br>margin: 2em;</div></td>
+</tr>
+<tr>
+<td><code>rem</code></td>
+<td>Root Em</td>
+<td>ルート要素（html）のフォントサイズに対する相対値。<div class="syntax-box">font-size: 1.5rem; /* htmlが16pxなら24px */<br>width: 20rem;</div></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Percent</td>
+<td>親要素に対する割合。<div class="syntax-box">width: 50%;<br>font-size: 120%;</div></td>
+</tr>
+<tr>
+<td><code>vw</code></td>
+<td>Viewport Width</td>
+<td>ビューポート幅の1%。<div class="syntax-box">width: 100vw; /* 画面幅いっぱい */<br>font-size: 5vw;</div></td>
+</tr>
+<tr>
+<td><code>vh</code></td>
+<td>Viewport Height</td>
+<td>ビューポート高さの1%。<div class="syntax-box">height: 100vh; /* 画面高さいっぱい */<br>min-height: 50vh;</div></td>
+</tr>
+<tr>
+<td><code>vmin</code></td>
+<td>Viewport Minimum</td>
+<td>vwとvhの小さい方。<div class="syntax-box">width: 50vmin;<br>height: 50vmin; /* 正方形になる */</div></td>
+</tr>
+<tr>
+<td><code>vmax</code></td>
+<td>Viewport Maximum</td>
+<td>vwとvhの大きい方。<div class="syntax-box">font-size: 4vmax;</div></td>
+</tr>
+<tr>
+<td><code>ch</code></td>
+<td>Character</td>
+<td>文字「0」の幅。<div class="syntax-box">width: 60ch; /* 約60文字分の幅 */</div></td>
+</tr>
+<tr>
+<td><code>ex</code></td>
+<td>Ex Height</td>
+<td>小文字「x」の高さ。<div class="syntax-box">line-height: 3ex;</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>色の指定方法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>名前付き色</strong></td>
+<td><code>colorname</code></td>
+<td>定義済みの色名。<div class="syntax-box">color: red;<br>background: skyblue;<br>border-color: transparent;</div></td>
+</tr>
+<tr>
+<td><strong>16進数（6桁）</strong></td>
+<td><code>#RRGGBB</code></td>
+<td>赤緑青を16進数で。<div class="syntax-box">color: #ff0000; /* 赤 */<br>background: #336699;</div></td>
+</tr>
+<tr>
+<td><strong>16進数（3桁）</strong></td>
+<td><code>#RGB</code></td>
+<td>短縮形（各桁が2回繰り返される）。<div class="syntax-box">color: #f00; /* #ff0000と同じ */<br>background: #369; /* #336699と同じ */</div></td>
+</tr>
+<tr>
+<td><strong>16進数（8桁）</strong></td>
+<td><code>#RRGGBBAA</code></td>
+<td>アルファチャンネル付き。<div class="syntax-box">color: #ff000080; /* 半透明の赤 */</div></td>
+</tr>
+<tr>
+<td><strong>RGB</strong></td>
+<td><code>rgb(R, G, B)</code></td>
+<td>赤緑青を0-255で指定。<div class="syntax-box">color: rgb(255, 0, 0);<br>background: rgb(51, 102, 153);</div></td>
+</tr>
+<tr>
+<td><strong>RGBA</strong></td>
+<td><code>rgba(R, G, B, A)</code></td>
+<td>アルファチャンネル付き（0-1）。<div class="syntax-box">color: rgba(255, 0, 0, 0.5);<br>background: rgba(0, 0, 0, 0.8);</div></td>
+</tr>
+<tr>
+<td><strong>HSL</strong></td>
+<td><code>hsl(H, S%, L%)</code></td>
+<td>色相・彩度・明度。<div class="syntax-box">color: hsl(0, 100%, 50%); /* 赤 */<br>background: hsl(210, 50%, 40%);</div></td>
+</tr>
+<tr>
+<td><strong>HSLA</strong></td>
+<td><code>hsla(H, S%, L%, A)</code></td>
+<td>HSLにアルファチャンネル追加。<div class="syntax-box">color: hsla(0, 100%, 50%, 0.5);</div></td>
+</tr>
+<tr>
+<td><strong>currentColor</strong></td>
+<td><code>currentColor</code></td>
+<td>現在の文字色を継承。<div class="syntax-box">border: 1px solid currentColor;</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>Flexboxクイックリファレンス</h2>
+
+<h3><strong>コンテナプロパティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>値</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display</code></td>
+<td><code>flex | inline-flex</code></td>
+<td>Flexコンテナを作成</td>
+</tr>
+<tr>
+<td><code>flex-direction</code></td>
+<td><code>row | row-reverse | column | column-reverse</code></td>
+<td>主軸の方向</td>
+</tr>
+<tr>
+<td><code>flex-wrap</code></td>
+<td><code>nowrap | wrap | wrap-reverse</code></td>
+<td>折り返しの設定</td>
+</tr>
+<tr>
+<td><code>flex-flow</code></td>
+<td><code>direction wrap</code></td>
+<td>directionとwrapの一括指定</td>
+</tr>
+<tr>
+<td><code>justify-content</code></td>
+<td><code>flex-start | flex-end | center | space-between | space-around | space-evenly</code></td>
+<td>主軸方向の配置</td>
+</tr>
+<tr>
+<td><code>align-items</code></td>
+<td><code>stretch | flex-start | flex-end | center | baseline</code></td>
+<td>交差軸方向の配置</td>
+</tr>
+<tr>
+<td><code>align-content</code></td>
+<td><code>flex-start | flex-end | center | space-between | space-around | stretch</code></td>
+<td>複数行の配置</td>
+</tr>
+<tr>
+<td><code>gap</code></td>
+<td><code>row-gap column-gap</code></td>
+<td>アイテム間の隙間</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>アイテムプロパティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>値</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>order</code></td>
+<td><code>number</code></td>
+<td>表示順序（デフォルト: 0）</td>
+</tr>
+<tr>
+<td><code>flex-grow</code></td>
+<td><code>number</code></td>
+<td>伸びる比率（デフォルト: 0）</td>
+</tr>
+<tr>
+<td><code>flex-shrink</code></td>
+<td><code>number</code></td>
+<td>縮む比率（デフォルト: 1）</td>
+</tr>
+<tr>
+<td><code>flex-basis</code></td>
+<td><code>length | auto</code></td>
+<td>基本サイズ（デフォルト: auto）</td>
+</tr>
+<tr>
+<td><code>flex</code></td>
+<td><code>grow shrink basis</code></td>
+<td>一括指定（例: flex: 1 1 auto）</td>
+</tr>
+<tr>
+<td><code>align-self</code></td>
+<td><code>auto | flex-start | flex-end | center | baseline | stretch</code></td>
+<td>個別の交差軸配置</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>CSS Gridクイックリファレンス</h2>
+
+<h3><strong>コンテナプロパティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>記法例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display</code></td>
+<td><code>grid | inline-grid</code></td>
+<td>Gridコンテナを作成</td>
+</tr>
+<tr>
+<td><code>grid-template-columns</code></td>
+<td><code>100px 200px 1fr<br>repeat(3, 1fr)<br>minmax(100px, 1fr)</code></td>
+<td>列の定義</td>
+</tr>
+<tr>
+<td><code>grid-template-rows</code></td>
+<td><code>100px auto 50px<br>repeat(4, 100px)</code></td>
+<td>行の定義</td>
+</tr>
+<tr>
+<td><code>grid-template-areas</code></td>
+<td><code>"header header header"<br>"nav main aside"<br>"footer footer footer"</code></td>
+<td>名前付きエリア</td>
+</tr>
+<tr>
+<td><code>gap</code></td>
+<td><code>10px<br>10px 20px</code></td>
+<td>行と列の隙間</td>
+</tr>
+<tr>
+<td><code>justify-items</code></td>
+<td><code>start | end | center | stretch</code></td>
+<td>セル内の水平配置</td>
+</tr>
+<tr>
+<td><code>align-items</code></td>
+<td><code>start | end | center | stretch</code></td>
+<td>セル内の垂直配置</td>
+</tr>
+<tr>
+<td><code>justify-content</code></td>
+<td><code>start | end | center | stretch | space-around | space-between | space-evenly</code></td>
+<td>グリッド全体の水平配置</td>
+</tr>
+<tr>
+<td><code>align-content</code></td>
+<td><code>start | end | center | stretch | space-around | space-between | space-evenly</code></td>
+<td>グリッド全体の垂直配置</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>アイテムプロパティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>記法例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid-column</code></td>
+<td><code>1 / 3<br>span 2<br>1 / -1</code></td>
+<td>列の開始/終了位置</td>
+</tr>
+<tr>
+<td><code>grid-row</code></td>
+<td><code>2 / 4<br>span 3</code></td>
+<td>行の開始/終了位置</td>
+</tr>
+<tr>
+<td><code>grid-area</code></td>
+<td><code>header<br>2 / 1 / 4 / 3</code></td>
+<td>名前付きエリアまたは位置指定</td>
+</tr>
+<tr>
+<td><code>justify-self</code></td>
+<td><code>start | end | center | stretch</code></td>
+<td>個別セルの水平配置</td>
+</tr>
+<tr>
+<td><code>align-self</code></td>
+<td><code>start | end | center | stretch</code></td>
+<td>個別セルの垂直配置</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ショートハンドプロパティ</h2>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>展開形</th>
+<th>記法例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>margin</code></td>
+<td>margin-top/right/bottom/left</td>
+<td><div class="syntax-box">margin: 10px; /* 全方向10px */<br>margin: 10px 20px; /* 上下10px 左右20px */<br>margin: 10px 20px 30px; /* 上10px 左右20px 下30px */<br>margin: 10px 20px 30px 40px; /* 上右下左 */</div></td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>padding-top/right/bottom/left</td>
+<td><div class="syntax-box">padding: 20px;<br>padding: 10px 15px;<br>padding: 10px 15px 20px;<br>padding: 5px 10px 15px 20px;</div></td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>border-width/style/color</td>
+<td><div class="syntax-box">border: 1px solid black;<br>border: thick dotted red;</div></td>
+</tr>
+<tr>
+<td><code>border-radius</code></td>
+<td>border-top-left-radius等</td>
+<td><div class="syntax-box">border-radius: 10px; /* 全角10px */<br>border-radius: 10px 20px; /* 左上右下10px 右上左下20px */<br>border-radius: 10px 20px 30px 40px; /* 左上から時計回り */</div></td>
+</tr>
+<tr>
+<td><code>background</code></td>
+<td>background-color/image/repeat/position/size等</td>
+<td><div class="syntax-box">background: red;<br>background: url(bg.jpg) no-repeat center/cover;<br>background: linear-gradient(to right, red, blue);</div></td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>font-style/variant/weight/size/line-height/family</td>
+<td><div class="syntax-box">font: 16px Arial;<br>font: italic bold 20px/1.5 "Times New Roman";</div></td>
+</tr>
+<tr>
+<td><code>list-style</code></td>
+<td>list-style-type/position/image</td>
+<td><div class="syntax-box">list-style: none;<br>list-style: square inside;</div></td>
+</tr>
+<tr>
+<td><code>transition</code></td>
+<td>transition-property/duration/timing-function/delay</td>
+<td><div class="syntax-box">transition: all 0.3s ease;<br>transition: width 0.5s ease-in-out 0.2s;</div></td>
+</tr>
+<tr>
+<td><code>animation</code></td>
+<td>animation-name/duration/timing-function/delay/iteration-count/direction等</td>
+<td><div class="syntax-box">animation: slide 2s ease infinite;<br>animation: bounce 1s ease-in-out 0.5s 3 alternate;</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>CSS関数</h2>
+
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calc()</code></td>
+<td><code>calc(expression)</code></td>
+<td>計算式を使用。<div class="syntax-box">width: calc(100% - 20px);<br>height: calc(100vh - 80px);<br>font-size: calc(1rem + 0.5vw);</div></td>
+</tr>
+<tr>
+<td><code>var()</code></td>
+<td><code>var(--name, fallback)</code></td>
+<td>CSS変数を使用。<div class="syntax-box">color: var(--primary-color);<br>padding: var(--spacing, 10px);</div></td>
+</tr>
+<tr>
+<td><code>min()</code></td>
+<td><code>min(value1, value2, ...)</code></td>
+<td>最小値を選択。<div class="syntax-box">width: min(100%, 800px);<br>font-size: min(2rem, 5vw);</div></td>
+</tr>
+<tr>
+<td><code>max()</code></td>
+<td><code>max(value1, value2, ...)</code></td>
+<td>最大値を選択。<div class="syntax-box">width: max(300px, 50%);<br>height: max(100px, 10vh);</div></td>
+</tr>
+<tr>
+<td><code>clamp()</code></td>
+<td><code>clamp(min, preferred, max)</code></td>
+<td>範囲内に収める。<div class="syntax-box">font-size: clamp(16px, 4vw, 24px);<br>width: clamp(200px, 50%, 800px);</div></td>
+</tr>
+<tr>
+<td><code>url()</code></td>
+<td><code>url(path)</code></td>
+<td>リソースのURL。<div class="syntax-box">background-image: url('image.jpg');<br>content: url('icon.svg');</div></td>
+</tr>
+<tr>
+<td><code>linear-gradient()</code></td>
+<td><code>linear-gradient(direction, color-stops)</code></td>
+<td>線形グラデーション。<div class="syntax-box">background: linear-gradient(to right, red, blue);<br>background: linear-gradient(45deg, #000 0%, #fff 100%);</div></td>
+</tr>
+<tr>
+<td><code>radial-gradient()</code></td>
+<td><code>radial-gradient(shape size at position, color-stops)</code></td>
+<td>円形グラデーション。<div class="syntax-box">background: radial-gradient(circle, red, yellow, green);<br>background: radial-gradient(ellipse at center, #000, #fff);</div></td>
+</tr>
+<tr>
+<td><code>conic-gradient()</code></td>
+<td><code>conic-gradient(from angle at position, color-stops)</code></td>
+<td>円錐グラデーション。<div class="syntax-box">background: conic-gradient(red, yellow, green);<br>background: conic-gradient(from 90deg, red, blue);</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>Transform関数</h2>
+
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translate()</code></td>
+<td><code>translate(x, y)</code></td>
+<td>移動。<div class="syntax-box">transform: translate(50px, 100px);<br>transform: translateX(50px);<br>transform: translateY(-20px);</div></td>
+</tr>
+<tr>
+<td><code>scale()</code></td>
+<td><code>scale(x, y)</code></td>
+<td>拡大縮小。<div class="syntax-box">transform: scale(1.5); /* 1.5倍 */<br>transform: scale(2, 0.5);<br>transform: scaleX(0.8);</div></td>
+</tr>
+<tr>
+<td><code>rotate()</code></td>
+<td><code>rotate(angle)</code></td>
+<td>回転。<div class="syntax-box">transform: rotate(45deg);<br>transform: rotate(-90deg);<br>transform: rotate(0.5turn);</div></td>
+</tr>
+<tr>
+<td><code>skew()</code></td>
+<td><code>skew(x, y)</code></td>
+<td>傾斜。<div class="syntax-box">transform: skew(30deg, 20deg);<br>transform: skewX(30deg);<br>transform: skewY(-15deg);</div></td>
+</tr>
+<tr>
+<td><code>matrix()</code></td>
+<td><code>matrix(a, b, c, d, tx, ty)</code></td>
+<td>2D変換行列。<div class="syntax-box">transform: matrix(1, 0, 0, 1, 50, 100);</div></td>
+</tr>
+<tr>
+<td><strong>3D変換</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>translate3d()</code></td>
+<td><code>translate3d(x, y, z)</code></td>
+<td>3D移動。<div class="syntax-box">transform: translate3d(50px, 100px, 20px);<br>transform: translateZ(50px);</div></td>
+</tr>
+<tr>
+<td><code>scale3d()</code></td>
+<td><code>scale3d(x, y, z)</code></td>
+<td>3D拡大縮小。<div class="syntax-box">transform: scale3d(1.5, 1.5, 2);</div></td>
+</tr>
+<tr>
+<td><code>rotate3d()</code></td>
+<td><code>rotate3d(x, y, z, angle)</code></td>
+<td>3D回転。<div class="syntax-box">transform: rotate3d(1, 0, 0, 45deg);<br>transform: rotateX(45deg);<br>transform: rotateY(30deg);<br>transform: rotateZ(60deg);</div></td>
+</tr>
+<tr>
+<td><code>perspective()</code></td>
+<td><code>perspective(length)</code></td>
+<td>遠近感。<div class="syntax-box">transform: perspective(1000px) rotateY(45deg);</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>メディアクエリ</h2>
+
+<table>
+<thead>
+<tr>
+<th>メディア特性</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>幅</strong></td>
+<td><code>width, min-width, max-width</code></td>
+<td><div class="syntax-box">@media (max-width: 768px) { /* タブレット以下 */ }<br>@media (min-width: 1024px) { /* デスクトップ以上 */ }<br>@media (width: 800px) { /* ちょうど800px */ }</div></td>
+</tr>
+<tr>
+<td><strong>高さ</strong></td>
+<td><code>height, min-height, max-height</code></td>
+<td><div class="syntax-box">@media (min-height: 600px) { }<br>@media (max-height: 480px) { }</div></td>
+</tr>
+<tr>
+<td><strong>画面の向き</strong></td>
+<td><code>orientation</code></td>
+<td><div class="syntax-box">@media (orientation: portrait) { /* 縦向き */ }<br>@media (orientation: landscape) { /* 横向き */ }</div></td>
+</tr>
+<tr>
+<td><strong>解像度</strong></td>
+<td><code>resolution</code></td>
+<td><div class="syntax-box">@media (min-resolution: 2dppx) { /* Retina */ }<br>@media (min-resolution: 300dpi) { }</div></td>
+</tr>
+<tr>
+<td><strong>アスペクト比</strong></td>
+<td><code>aspect-ratio</code></td>
+<td><div class="syntax-box">@media (aspect-ratio: 16/9) { }<br>@media (min-aspect-ratio: 4/3) { }</div></td>
+</tr>
+<tr>
+<td><strong>カラースキーム</strong></td>
+<td><code>prefers-color-scheme</code></td>
+<td><div class="syntax-box">@media (prefers-color-scheme: dark) { /* ダークモード */ }<br>@media (prefers-color-scheme: light) { /* ライトモード */ }</div></td>
+</tr>
+<tr>
+<td><strong>動き</strong></td>
+<td><code>prefers-reduced-motion</code></td>
+<td><div class="syntax-box">@media (prefers-reduced-motion: reduce) { /* アニメーション削減 */ }</div></td>
+</tr>
+<tr>
+<td><strong>ポインタ</strong></td>
+<td><code>pointer</code></td>
+<td><div class="syntax-box">@media (pointer: coarse) { /* タッチデバイス */ }<br>@media (pointer: fine) { /* マウス */ }</div></td>
+</tr>
+<tr>
+<td><strong>ホバー</strong></td>
+<td><code>hover</code></td>
+<td><div class="syntax-box">@media (hover: hover) { /* ホバー可能 */ }<br>@media (hover: none) { /* ホバー不可 */ }</div></td>
+</tr>
+<tr>
+<td><strong>論理演算子</strong></td>
+<td><code>and, or, not</code></td>
+<td><div class="syntax-box">@media (min-width: 768px) and (max-width: 1024px) { }<br>@media (max-width: 768px), (orientation: portrait) { }<br>@media not print { }</div></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>@ルール一覧</h2>
+
+<table>
+<thead>
+<tr>
+<th>@ルール</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@import</code></td>
+<td><code>@import url()</code></td>
+<td>外部CSSをインポート。<div class="syntax-box">@import url('style.css');<br>@import url('print.css') print;<br>@import 'custom.css';</div></td>
+</tr>
+<tr>
+<td><code>@media</code></td>
+<td><code>@media condition { }</code></td>
+<td>メディアクエリ。<div class="syntax-box">@media screen and (max-width: 768px) { }</div></td>
+</tr>
+<tr>
+<td><code>@keyframes</code></td>
+<td><code>@keyframes name { }</code></td>
+<td>アニメーション定義。<div class="syntax-box">@keyframes slide {<br>  from { left: 0; }<br>  to { left: 100px; }<br>}</div></td>
+</tr>
+<tr>
+<td><code>@font-face</code></td>
+<td><code>@font-face { }</code></td>
+<td>カスタムフォント定義。<div class="syntax-box">@font-face {<br>  font-family: 'MyFont';<br>  src: url('font.woff2') format('woff2');<br>}</div></td>
+</tr>
+<tr>
+<td><code>@supports</code></td>
+<td><code>@supports condition { }</code></td>
+<td>機能サポートの確認。<div class="syntax-box">@supports (display: grid) { }<br>@supports not (display: grid) { }</div></td>
+</tr>
+<tr>
+<td><code>@page</code></td>
+<td><code>@page { }</code></td>
+<td>印刷時のページ設定。<div class="syntax-box">@page {<br>  margin: 2cm;<br>  size: A4 landscape;<br>}</div></td>
+</tr>
+<tr>
+<td><code>@namespace</code></td>
+<td><code>@namespace prefix url()</code></td>
+<td>XML名前空間。<div class="syntax-box">@namespace svg url(http://www.w3.org/2000/svg);</div></td>
+</tr>
+<tr>
+<td><code>@charset</code></td>
+<td><code>@charset "encoding"</code></td>
+<td>文字エンコーディング。<div class="syntax-box">@charset "UTF-8";</div></td>
+</tr>
+<tr>
+<td><code>@counter-style</code></td>
+<td><code>@counter-style name { }</code></td>
+<td>カスタムカウンタースタイル。<div class="syntax-box">@counter-style thumbs {<br>  system: cyclic;<br>  symbols: "👍";<br>}</div></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>
