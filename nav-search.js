@@ -204,7 +204,10 @@ class NavSearch {
             item.addEventListener('click', () => {
                 const url = item.dataset.url;
                 if (url) {
-                    window.location.href = url;
+                    // 検索クエリをURLパラメータに追加
+                    const targetUrl = new URL(url, window.location.origin);
+                    targetUrl.searchParams.set('q', this.searchInput.value.trim());
+                    window.location.href = targetUrl.toString();
                 }
             });
         });
@@ -244,7 +247,10 @@ class NavSearch {
     selectSuggestion() {
         if (this.selectedIndex >= 0 && this.suggestions[this.selectedIndex]) {
             const url = this.suggestions[this.selectedIndex].page.url;
-            window.location.href = url;
+            // 検索クエリをURLパラメータに追加
+            const targetUrl = new URL(url, window.location.origin);
+            targetUrl.searchParams.set('q', this.searchInput.value.trim());
+            window.location.href = targetUrl.toString();
         } else if (this.searchInput.value.trim()) {
             // 選択がない場合は全検索を開く
             if (window.globalSearch) {

@@ -113,10 +113,13 @@ class GlobalSearch {
         // 検索結果のクリックイベント（イベント委譲）
         this.resultsContainer.addEventListener('click', (e) => {
             const resultItem = e.target.closest('.search-result-item');
-            if (resultItem) {
+            if (resultItem && !resultItem.classList.contains('page-result')) {
                 const url = resultItem.dataset.url;
                 if (url) {
-                    window.location.href = url;
+                    // 検索クエリをURLパラメータに追加
+                    const targetUrl = new URL(url, window.location.origin);
+                    targetUrl.searchParams.set('q', this.searchInput.value.trim());
+                    window.location.href = targetUrl.toString();
                 }
             }
         });
