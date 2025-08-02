@@ -6,8 +6,7 @@
 
 HTMLタグの包括的なガイドを提供する静的HTML参考資料です。プロジェクトの構成：
 
-- `index.html` - HTMLタグの実例を紹介するインタラクティブなWebページ
-- `obsidian-note.html` - Obsidianノート風にスタイリングされたHTML教育資料
+- `index.html` - HTMLタグリファレンスガイド（Obsidianノート風スタイル）
 
 ## アーキテクチャ
 
@@ -28,8 +27,7 @@ HTMLタグの包括的なガイドを提供する静的HTML参考資料です。
 
 ```
 /Users/emma/Desktop/web/
-├── index.html          # インタラクティブなHTML実例ページ
-├── obsidian-note.html  # HTMLリファレンスガイド（Obsidianスタイル）
+├── index.html          # HTMLリファレンスガイド（Obsidianスタイル）
 └── CLAUDE.md          # このファイル
 ```
 
@@ -209,6 +207,37 @@ HTMLタグの包括的なガイドを提供する静的HTML参考資料です。
 - 属性値は必ずダブルクォートで囲む
 - ブール属性は値を省略: `<input type="checkbox" checked>`
 
+### 表のフォーマット規則
+すべての表は以下の3列構成で統一する：
+1. **第1列**: タグ名または属性名
+2. **第2列**: 英語の意味 (Meaning)
+3. **第3列**: 日本語の意味・用途
+
+例：
+```html
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>Navigation</td>
+<td>ナビゲーション要素。サイト内の主要なリンクメニューを囲む。</td>
+</tr>
+</tbody>
+</table>
+```
+
+この形式により：
+- 英語学習者にも理解しやすい
+- タグの本来の意味が明確になる
+- 日本語での具体的な用途が分かる
+
 ### CSS
 - セレクタは具体的すぎず、汎用的すぎず
 - !importantの使用は最小限に
@@ -226,4 +255,4 @@ HTMLタグの包括的なガイドを提供する静的HTML参考資料です。
 - すべてのコンテンツは日本語
 - インラインCSSを使用（外部ファイル化も検討可能）
 - JavaScriptフレームワークや依存関係なし
-- 現在はバージョン管理されていない（Git導入を推奨）
+- Gitでバージョン管理中（https://github.com/amano216/web）

@@ -536,80 +536,80 @@
 <thead>
 <tr>
 <th>属性名</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong><code>src</code></strong></td>
-<td>画像ファイルのURLやパスを指定します（必須属性）。</td>
-<td><code>&lt;img src="images/photo.jpg"&gt;</code></td>
+<td>Source</td>
+<td>画像ファイルのURLやパスを指定します（必須属性）。例：<code>&lt;img src="images/photo.jpg"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>alt</code></strong></td>
-<td>画像が表示できない場合の代替テキスト。アクセシビリティのため必須。</td>
-<td><code>&lt;img src="..." alt="富士山の写真"&gt;</code></td>
+<td>Alternative Text</td>
+<td>画像が表示できない場合の代替テキスト。アクセシビリティのため必須。例：<code>&lt;img src="..." alt="富士山の写真"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>width</code></strong></td>
-<td>画像の幅をピクセル単位で指定します。</td>
-<td><code>&lt;img src="..." width="300"&gt;</code></td>
+<td>Width</td>
+<td>画像の幅をピクセル単位で指定します。例：<code>&lt;img src="..." width="300"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>height</code></strong></td>
-<td>画像の高さをピクセル単位で指定します。</td>
-<td><code>&lt;img src="..." height="200"&gt;</code></td>
+<td>Height</td>
+<td>画像の高さをピクセル単位で指定します。例：<code>&lt;img src="..." height="200"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>loading</code></strong></td>
-<td>画像の読み込みタイミングを制御。"lazy"で遅延読み込みを有効化。</td>
-<td><code>&lt;img src="..." loading="lazy"&gt;</code></td>
+<td>Loading Strategy</td>
+<td>画像の読み込みタイミングを制御。"lazy"で遅延読み込みを有効化。例：<code>&lt;img src="..." loading="lazy"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>srcset</code></strong></td>
-<td>異なる解像度の画像を複数指定し、デバイスに応じて最適な画像を選択。</td>
-<td><code>&lt;img src="..." srcset="small.jpg 300w, large.jpg 1000w"&gt;</code></td>
+<td>Source Set</td>
+<td>異なる解像度の画像を複数指定し、デバイスに応じて最適な画像を選択。例：<code>&lt;img src="..." srcset="small.jpg 300w, large.jpg 1000w"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>sizes</code></strong></td>
-<td>レスポンシブ画像で、画像の表示サイズを指定。srcsetと併用。</td>
-<td><code>&lt;img srcset="..." sizes="(max-width: 600px) 100vw, 50vw"&gt;</code></td>
+<td>Sizes</td>
+<td>レスポンシブ画像で、画像の表示サイズを指定。srcsetと併用。例：<code>&lt;img srcset="..." sizes="(max-width: 600px) 100vw, 50vw"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>title</code></strong></td>
-<td>画像にマウスを合わせた時に表示されるツールチップテキスト。</td>
-<td><code>&lt;img src="..." title="クリックで拡大"&gt;</code></td>
+<td>Title</td>
+<td>画像にマウスを合わせた時に表示されるツールチップテキスト。例：<code>&lt;img src="..." title="クリックで拡大"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>class</code></strong></td>
-<td>CSSクラスを指定してスタイルを適用。</td>
-<td><code>&lt;img src="..." class="thumbnail rounded"&gt;</code></td>
+<td>Class</td>
+<td>CSSクラスを指定してスタイルを適用。例：<code>&lt;img src="..." class="thumbnail rounded"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>id</code></strong></td>
-<td>要素に一意のIDを付与。JavaScriptやCSSでの操作に使用。</td>
-<td><code>&lt;img src="..." id="main-image"&gt;</code></td>
+<td>Identifier</td>
+<td>要素に一意のIDを付与。JavaScriptやCSSでの操作に使用。例：<code>&lt;img src="..." id="main-image"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>style</code></strong></td>
-<td>インラインCSSスタイルを直接指定。</td>
-<td><code>&lt;img src="..." style="border-radius: 10px;"&gt;</code></td>
+<td>Style</td>
+<td>インラインCSSスタイルを直接指定。例：<code>&lt;img src="..." style="border-radius: 10px;"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>decoding</code></strong></td>
-<td>画像のデコード方法を指定。"async"で非同期デコードを有効化。</td>
-<td><code>&lt;img src="..." decoding="async"&gt;</code></td>
+<td>Decoding</td>
+<td>画像のデコード方法を指定。"async"で非同期デコードを有効化。例：<code>&lt;img src="..." decoding="async"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>crossorigin</code></strong></td>
-<td>CORSの設定。"anonymous"や"use-credentials"を指定。</td>
-<td><code>&lt;img src="..." crossorigin="anonymous"&gt;</code></td>
+<td>Cross Origin</td>
+<td>CORSの設定。"anonymous"や"use-credentials"を指定。例：<code>&lt;img src="..." crossorigin="anonymous"&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>usemap</code></strong></td>
-<td>クライアントサイドイメージマップを使用する場合のmap要素への参照。</td>
-<td><code>&lt;img src="..." usemap="#map1"&gt;</code></td>
+<td>Use Map</td>
+<td>クライアントサイドイメージマップを使用する場合のmap要素への参照。例：<code>&lt;img src="..." usemap="#map1"&gt;</code></td>
 </tr>
 </tbody>
 </table>
@@ -624,45 +624,45 @@
 <thead>
 <tr>
 <th>属性名</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong><code>href</code></strong></td>
-<td>リンク先のURLを指定します。</td>
-<td><code>&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;</code></td>
+<td>Hypertext Reference</td>
+<td>リンク先のURLを指定します。例：<code>&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>target</code></strong></td>
-<td>リンク先をどのウィンドウ（タブ）で開くかを指定します。</td>
-<td><code>&lt;a href="..." target="_blank"&gt;新しいタブで開く&lt;/a&gt;</code></td>
+<td>Target</td>
+<td>リンク先をどのウィンドウ（タブ）で開くかを指定します。例：<code>&lt;a href="..." target="_blank"&gt;新しいタブで開く&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>rel</code></strong></td>
-<td>リンク先のページとの関係性を指定します（SEOやセキュリティに関連）。</td>
-<td><code>&lt;a href="..." rel="noopener noreferrer"&gt;外部サイト&lt;/a&gt;</code></td>
+<td>Relationship</td>
+<td>リンク先のページとの関係性を指定します（SEOやセキュリティに関連）。例：<code>&lt;a href="..." rel="noopener noreferrer"&gt;外部サイト&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>download</code></strong></td>
-<td>リンクをクリックすると、ファイルをダウンロードさせます。</td>
-<td><code>&lt;a href="/path/to/file.pdf" download&gt;PDFをダウンロード&lt;/a&gt;</code></td>
+<td>Download</td>
+<td>リンクをクリックすると、ファイルをダウンロードさせます。例：<code>&lt;a href="/path/to/file.pdf" download&gt;PDFをダウンロード&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>title</code></strong></td>
-<td>リンクにカーソルを合わせたときに表示されるツールチップを設定します。</td>
-<td><code>&lt;a href="..." title="詳細はこちら"&gt;詳細&lt;/a&gt;</code></td>
+<td>Title</td>
+<td>リンクにカーソルを合わせたときに表示されるツールチップを設定します。例：<code>&lt;a href="..." title="詳細はこちら"&gt;詳細&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>id</code></strong></td>
-<td>要素に一意の識別子を付与し、JavaScriptやCSSで個別に操作します。</td>
-<td><code>&lt;a href="..." id="main-link"&gt;メインリンク&lt;/a&gt;</code></td>
+<td>Identifier</td>
+<td>要素に一意の識別子を付与し、JavaScriptやCSSで個別に操作します。例：<code>&lt;a href="..." id="main-link"&gt;メインリンク&lt;/a&gt;</code></td>
 </tr>
 <tr>
 <td><strong><code>class</code></strong></td>
-<td>要素にクラス名を付与し、CSSでまとめてスタイルを適用します。</td>
-<td><code>&lt;a href="..." class="button"&gt;ボタン&lt;/a&gt;</code></td>
+<td>Class</td>
+<td>要素にクラス名を付与し、CSSでまとめてスタイルを適用します。例：<code>&lt;a href="..." class="button"&gt;ボタン&lt;/a&gt;</code></td>
 </tr>
 </tbody>
 </table>
@@ -679,30 +679,30 @@
 <thead>
 <tr>
 <th>概念</th>
-<th>説明</th>
-<th>メリット</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>意味の明確化</strong></td>
-<td>タグ自体が内容の意味を表現する</td>
-<td>コードの可読性向上、開発者間の理解促進</td>
+<td>Semantic Clarity</td>
+<td>タグ自体が内容の意味を表現する。コードの可読性向上、開発者間の理解促進。</td>
 </tr>
 <tr>
 <td><strong>アクセシビリティ</strong></td>
-<td>スクリーンリーダーなどの支援技術が内容を正確に解釈</td>
-<td>視覚障害者を含むすべてのユーザーが利用可能</td>
+<td>Accessibility</td>
+<td>スクリーンリーダーなどの支援技術が内容を正確に解釈。視覚障害者を含むすべてのユーザーが利用可能。</td>
 </tr>
 <tr>
 <td><strong>SEO効果</strong></td>
-<td>検索エンジンがページ構造を正確に理解</td>
-<td>検索順位の向上、適切なインデックス化</td>
+<td>SEO Benefits</td>
+<td>検索エンジンがページ構造を正確に理解。検索順位の向上、適切なインデックス化。</td>
 </tr>
 <tr>
 <td><strong>保守性</strong></td>
-<td>構造が明確なため、後からの修正が容易</td>
-<td>長期的なメンテナンスコストの削減</td>
+<td>Maintainability</td>
+<td>構造が明確なため、後からの修正が容易。長期的なメンテナンスコストの削減。</td>
 </tr>
 </tbody>
 </table>
@@ -713,41 +713,35 @@
 <thead>
 <tr>
 <th>用途</th>
-<th>セマンティック（推奨）</th>
-<th>非セマンティック（避ける）</th>
-<th>理由</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ナビゲーション</td>
 <td><code>&lt;nav&gt;</code></td>
-<td><code>&lt;div class="navigation"&gt;</code></td>
-<td>navタグは明確にナビゲーションであることを示す</td>
+<td>Navigation</td>
+<td>ナビゲーション。サイト内の主要なリンクメニューを囲む。divよりも明確に役割を示す。</td>
 </tr>
 <tr>
-<td>記事・投稿</td>
 <td><code>&lt;article&gt;</code></td>
-<td><code>&lt;div class="post"&gt;</code></td>
-<td>独立したコンテンツであることを明示</td>
+<td>Article</td>
+<td>記事・投稿。独立して成立する内容（ブログ記事、ニュース等）を囲む。</td>
 </tr>
 <tr>
-<td>補足情報</td>
 <td><code>&lt;aside&gt;</code></td>
-<td><code>&lt;div class="sidebar"&gt;</code></td>
-<td>主要コンテンツとの関係性を明確化</td>
+<td>Aside</td>
+<td>補足情報。主要コンテンツに関連する補助的な情報やサイドバーを表す。</td>
 </tr>
 <tr>
-<td>日付・時刻</td>
-<td><code>&lt;time datetime="2024-01-01"&gt;</code></td>
-<td><code>&lt;span&gt;2024年1月1日&lt;/span&gt;</code></td>
-<td>機械が読み取り可能な形式で時刻を表現</td>
+<td><code>&lt;time&gt;</code></td>
+<td>Time</td>
+<td>日付・時刻。機械が読み取り可能な形式で時間情報を表現。datetime属性で正確な値を指定。</td>
 </tr>
 <tr>
-<td>連絡先情報</td>
 <td><code>&lt;address&gt;</code></td>
-<td><code>&lt;div class="contact"&gt;</code></td>
-<td>連絡先情報であることを明示的に表現</td>
+<td>Address</td>
+<td>連絡先情報。著者やサイト管理者の連絡先を明示的に表現。</td>
 </tr>
 </tbody>
 </table>
@@ -762,70 +756,70 @@
 <thead>
 <tr>
 <th>タグ</th>
-<th>用途</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>&lt;main&gt;</code></td>
-<td>ページの主要コンテンツ（1ページに1つのみ）</td>
-<td><code>&lt;main&gt;メインコンテンツ&lt;/main&gt;</code></td>
+<td>Main Content</td>
+<td>ページの主要コンテンツ（1ページに1つのみ）。例：<code>&lt;main&gt;メインコンテンツ&lt;/main&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;figure&gt;</code></td>
-<td>図表や画像とそのキャプションをグループ化</td>
-<td><code>&lt;figure&gt;&lt;img src="..."&gt;&lt;figcaption&gt;図1&lt;/figcaption&gt;&lt;/figure&gt;</code></td>
+<td>Figure</td>
+<td>図表や画像とそのキャプションをグループ化。例：<code>&lt;figure&gt;&lt;img src="..."&gt;&lt;figcaption&gt;図1&lt;/figcaption&gt;&lt;/figure&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;figcaption&gt;</code></td>
-<td>figure要素のキャプション</td>
-<td>上記の例を参照</td>
+<td>Figure Caption</td>
+<td>figure要素のキャプション。上記の例を参照。</td>
 </tr>
 <tr>
 <td><code>&lt;mark&gt;</code></td>
-<td>ハイライトや強調表示したいテキスト</td>
-<td><code>検索結果：&lt;mark&gt;HTML5&lt;/mark&gt;の新機能</code></td>
+<td>Mark</td>
+<td>ハイライトや強調表示したいテキスト。例：<code>検索結果：&lt;mark&gt;HTML5&lt;/mark&gt;の新機能</code></td>
 </tr>
 <tr>
 <td><code>&lt;time&gt;</code></td>
-<td>日付や時刻を表す</td>
-<td><code>&lt;time datetime="2024-01-01T09:00"&gt;2024年1月1日 9:00&lt;/time&gt;</code></td>
+<td>Time</td>
+<td>日付や時刻を表す。例：<code>&lt;time datetime="2024-01-01T09:00"&gt;2024年1月1日 9:00&lt;/time&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;progress&gt;</code></td>
-<td>タスクの進行状況を表示</td>
-<td><code>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</code></td>
+<td>Progress</td>
+<td>タスクの進行状況を表示。例：<code>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;meter&gt;</code></td>
-<td>既知の範囲内での測定値を表示</td>
-<td><code>&lt;meter value="6" min="0" max="10"&gt;6/10&lt;/meter&gt;</code></td>
+<td>Meter</td>
+<td>既知の範囲内での測定値を表示。例：<code>&lt;meter value="6" min="0" max="10"&gt;6/10&lt;/meter&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;details&gt;</code></td>
-<td>折りたたみ可能な詳細情報</td>
-<td><code>&lt;details&gt;&lt;summary&gt;詳細&lt;/summary&gt;内容&lt;/details&gt;</code></td>
+<td>Details</td>
+<td>折りたたみ可能な詳細情報。例：<code>&lt;details&gt;&lt;summary&gt;詳細&lt;/summary&gt;内容&lt;/details&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;summary&gt;</code></td>
-<td>details要素の見出し</td>
-<td>上記の例を参照</td>
+<td>Summary</td>
+<td>details要素の見出し。上記の例を参照。</td>
 </tr>
 <tr>
 <td><code>&lt;dialog&gt;</code></td>
-<td>ダイアログボックスやモーダルウィンドウ</td>
-<td><code>&lt;dialog open&gt;ダイアログ内容&lt;/dialog&gt;</code></td>
+<td>Dialog</td>
+<td>ダイアログボックスやモーダルウィンドウ。例：<code>&lt;dialog open&gt;ダイアログ内容&lt;/dialog&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;output&gt;</code></td>
-<td>計算結果や出力値を表示</td>
-<td><code>&lt;output for="a b"&gt;結果&lt;/output&gt;</code></td>
+<td>Output</td>
+<td>計算結果や出力値を表示。例：<code>&lt;output for="a b"&gt;結果&lt;/output&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;datalist&gt;</code></td>
-<td>input要素の入力候補リスト</td>
-<td><code>&lt;input list="browsers"&gt;&lt;datalist id="browsers"&gt;...&lt;/datalist&gt;</code></td>
+<td>Data List</td>
+<td>input要素の入力候補リスト。例：<code>&lt;input list="browsers"&gt;&lt;datalist id="browsers"&gt;...&lt;/datalist&gt;</code></td>
 </tr>
 </tbody>
 </table>
@@ -840,60 +834,60 @@
 <thead>
 <tr>
 <th>属性</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>role</code></td>
-<td>要素の役割を明示的に定義</td>
-<td><code>&lt;div role="navigation"&gt;</code></td>
+<td>Role</td>
+<td>要素の役割を明示的に定義。例：<code>&lt;div role="navigation"&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-label</code></td>
-<td>要素にアクセシブルな名前を提供</td>
-<td><code>&lt;button aria-label="閉じる"&gt;×&lt;/button&gt;</code></td>
+<td>Accessible Label</td>
+<td>要素にアクセシブルな名前を提供。例：<code>&lt;button aria-label="閉じる"&gt;×&lt;/button&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-labelledby</code></td>
-<td>他の要素のIDを参照してラベルを設定</td>
-<td><code>&lt;div aria-labelledby="heading1"&gt;</code></td>
+<td>Labeled By</td>
+<td>他の要素のIDを参照してラベルを設定。例：<code>&lt;div aria-labelledby="heading1"&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-describedby</code></td>
-<td>要素の詳細な説明を提供する要素を参照</td>
-<td><code>&lt;input aria-describedby="help-text"&gt;</code></td>
+<td>Described By</td>
+<td>要素の詳細な説明を提供する要素を参照。例：<code>&lt;input aria-describedby="help-text"&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-hidden</code></td>
-<td>装飾的な要素を支援技術から隠す</td>
-<td><code>&lt;span aria-hidden="true"&gt;🎨&lt;/span&gt;</code></td>
+<td>Hidden</td>
+<td>装飾的な要素を支援技術から隠す。例：<code>&lt;span aria-hidden="true"&gt;🎨&lt;/span&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-live</code></td>
-<td>動的に変更される領域を通知</td>
-<td><code>&lt;div aria-live="polite"&gt;更新通知&lt;/div&gt;</code></td>
+<td>Live Region</td>
+<td>動的に変更される領域を通知。例：<code>&lt;div aria-live="polite"&gt;更新通知&lt;/div&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-required</code></td>
-<td>フォーム入力が必須であることを示す</td>
-<td><code>&lt;input aria-required="true"&gt;</code></td>
+<td>Required</td>
+<td>フォーム入力が必須であることを示す。例：<code>&lt;input aria-required="true"&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-invalid</code></td>
-<td>入力値が無効であることを示す</td>
-<td><code>&lt;input aria-invalid="true"&gt;</code></td>
+<td>Invalid</td>
+<td>入力値が無効であることを示す。例：<code>&lt;input aria-invalid="true"&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-expanded</code></td>
-<td>要素の展開/折りたたみ状態を示す</td>
-<td><code>&lt;button aria-expanded="false"&gt;メニュー&lt;/button&gt;</code></td>
+<td>Expanded</td>
+<td>要素の展開/折りたたみ状態を示す。例：<code>&lt;button aria-expanded="false"&gt;メニュー&lt;/button&gt;</code></td>
 </tr>
 <tr>
 <td><code>aria-current</code></td>
-<td>現在の項目を示す（ナビゲーションなど）</td>
-<td><code>&lt;a aria-current="page"&gt;ホーム&lt;/a&gt;</code></td>
+<td>Current</td>
+<td>現在の項目を示す（ナビゲーションなど）。例：<code>&lt;a aria-current="page"&gt;ホーム&lt;/a&gt;</code></td>
 </tr>
 </tbody>
 </table>
@@ -908,55 +902,55 @@
 <thead>
 <tr>
 <th>カテゴリ</th>
-<th>ベストプラクティス</th>
-<th>理由・効果</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>文書構造</strong></td>
-<td>見出しタグ（h1〜h6）を階層順に使用</td>
-<td>文書のアウトラインが明確になり、アクセシビリティが向上</td>
+<td>Document Structure</td>
+<td>見出しタグ（h1〜h6）を階層順に使用。文書のアウトラインが明確になり、アクセシビリティが向上。</td>
 </tr>
 <tr>
 <td><strong>画像</strong></td>
-<td>すべての画像にalt属性を設定</td>
-<td>画像が表示されない場合の代替テキスト、アクセシビリティ向上</td>
+<td>Images</td>
+<td>すべての画像にalt属性を設定。画像が表示されない場合の代替テキスト、アクセシビリティ向上。</td>
 </tr>
 <tr>
 <td><strong>フォーム</strong></td>
-<td>label要素を必ず使用し、for属性でinputと関連付け</td>
-<td>クリック可能領域の拡大、アクセシビリティの向上</td>
+<td>Forms</td>
+<td>label要素を必ず使用し、for属性でinputと関連付け。クリック可能領域の拡大、アクセシビリティの向上。</td>
 </tr>
 <tr>
 <td><strong>言語設定</strong></td>
-<td>html要素にlang属性を設定</td>
-<td>スクリーンリーダーの正確な読み上げ、SEO効果</td>
+<td>Language Setting</td>
+<td>html要素にlang属性を設定。スクリーンリーダーの正確な読み上げ、SEO効果。</td>
 </tr>
 <tr>
 <td><strong>文字エンコーディング</strong></td>
-<td>UTF-8を使用し、meta charsetで宣言</td>
-<td>文字化けの防止、国際化対応</td>
+<td>Character Encoding</td>
+<td>UTF-8を使用し、meta charsetで宣言。文字化けの防止、国際化対応。</td>
 </tr>
 <tr>
 <td><strong>外部リンク</strong></td>
-<td>target="_blank"使用時はrel="noopener"を追加</td>
-<td>セキュリティリスクの回避（リンク先からの操作を防ぐ）</td>
+<td>External Links</td>
+<td>target="_blank"使用時はrel="noopener"を追加。セキュリティリスクの回避（リンク先からの操作を防ぐ）。</td>
 </tr>
 <tr>
 <td><strong>パフォーマンス</strong></td>
-<td>重要でない画像にloading="lazy"を使用</td>
-<td>初期表示速度の向上、帯域幅の節約</td>
+<td>Performance</td>
+<td>重要でない画像にloading="lazy"を使用。初期表示速度の向上、帯域幅の節約。</td>
 </tr>
 <tr>
 <td><strong>レスポンシブ対応</strong></td>
-<td>viewport metaタグを設定</td>
-<td>モバイルデバイスでの適切な表示</td>
+<td>Responsive Design</td>
+<td>viewport metaタグを設定。モバイルデバイスでの適切な表示。</td>
 </tr>
 <tr>
 <td><strong>スクリプト配置</strong></td>
-<td>scriptタグは基本的にbody終了タグの直前に配置</td>
-<td>ページ表示のブロッキングを防ぐ</td>
+<td>Script Placement</td>
+<td>scriptタグは基本的にbody終了タグの直前に配置。ページ表示のブロッキングを防ぐ。</td>
 </tr>
 </tbody>
 </table>
@@ -971,50 +965,50 @@
 <thead>
 <tr>
 <th>よくある間違い</th>
-<th>正しい使い方</th>
-<th>理由</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>&lt;br&gt;&lt;br&gt;</code>で余白を作る</td>
-<td>CSSのmarginやpaddingを使用</td>
-<td>brは改行のためのタグで、レイアウト調整には不適切</td>
+<td>Spacing with Line Breaks</td>
+<td>CSSのmarginやpaddingを使用する。brは改行のためのタグで、レイアウト調整には不適切。</td>
 </tr>
 <tr>
 <td>見出しをサイズで選ぶ<br><code>&lt;h3&gt;</code>を大きさで選択</td>
-<td>階層構造に従って選択<br>サイズはCSSで調整</td>
-<td>見出しは文書の構造を表すもので、見た目のためではない</td>
+<td>Heading by Size</td>
+<td>階層構造に従って選択し、サイズはCSSで調整。見出しは文書の構造を表すもので、見た目のためではない。</td>
 </tr>
 <tr>
 <td>テーブルでレイアウト<br><code>&lt;table&gt;</code>でページ構成</td>
-<td>CSSのFlexboxやGridを使用</td>
-<td>tableは表形式のデータ専用、レイアウトには不適切</td>
+<td>Table Layout</td>
+<td>CSSのFlexboxやGridを使用。tableは表形式のデータ専用、レイアウトには不適切。</td>
 </tr>
 <tr>
 <td>空のalt属性を省略<br><code>&lt;img src="..."&gt;</code></td>
-<td>装飾画像でも空のaltを設定<br><code>&lt;img src="..." alt=""&gt;</code></td>
-<td>alt属性は必須、装飾画像は空文字列で示す</td>
+<td>Missing Alt Attribute</td>
+<td>装飾画像でも空のaltを設定：<code>&lt;img src="..." alt=""&gt;</code>。alt属性は必須、装飾画像は空文字列で示す。</td>
 </tr>
 <tr>
 <td>divの過剰使用<br><code>&lt;div&gt;&lt;div&gt;&lt;div&gt;</code></td>
-<td>適切なセマンティックタグを使用</td>
-<td>divは最終手段、まずは意味のあるタグを検討</td>
+<td>Div Overuse</td>
+<td>適切なセマンティックタグを使用。divは最終手段、まずは意味のあるタグを検討。</td>
 </tr>
 <tr>
 <td>インラインスタイルの多用<br><code>style="color:red"</code></td>
-<td>外部CSSまたはstyleタグを使用</td>
-<td>保守性の低下、再利用性の欠如</td>
+<td>Inline Styles</td>
+<td>外部CSSまたはstyleタグを使用。保守性の低下、再利用性の欠如。</td>
 </tr>
 <tr>
 <td>非推奨タグの使用<br><code>&lt;center&gt;, &lt;font&gt;</code></td>
-<td>CSSで代替<br><code>text-align: center</code></td>
-<td>HTML5で廃止、見た目はCSSの責務</td>
+<td>Deprecated Tags</td>
+<td>CSSで代替：<code>text-align: center</code>。HTML5で廃止、見た目はCSSの責務。</td>
 </tr>
 <tr>
 <td>blockquote要素でインデント<br>見た目のために使用</td>
-<td>CSSのmargin-leftを使用</td>
-<td>blockquoteは引用専用、インデントは副作用</td>
+<td>Blockquote for Indent</td>
+<td>CSSのmargin-leftを使用。blockquoteは引用専用、インデントは副作用。</td>
 </tr>
 </tbody>
 </table>
