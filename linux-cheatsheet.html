@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* 構文例のスタイル */
+        .syntax-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .syntax-example code {
+            color: #abb2bf;
+            background: transparent;
+            padding: 0;
+        }
+
+        /* コマンド */
+        .command {
+            color: #98c379;
+            font-weight: bold;
+        }
+
+        /* オプション */
+        .option {
+            color: #e06c75;
+        }
+
+        /* ファイル・ディレクトリ */
+        .file {
+            color: #61afef;
+        }
+
+        /* 文字列 */
+        .string {
+            color: #e5c07b;
+        }
+
+        /* コメント */
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* 変数 */
+        .variable {
+            color: #d19a66;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html" class="active">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>Linux記法チートシート</h1>
+
+<p>Linuxコマンドラインの基本的な記法と使い方をまとめたクイックリファレンスです。</p>
+
+<hr>
+
+<h2>基本的なコマンド構文</h2>
+
+<h3><strong>コマンドの基本構造</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>構文要素</th>
+<th>英語の意味 (Meaning)</th>
+<th>使用方法・説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>command</code></td>
+<td>Command</td>
+<td>実行するコマンド名。<code>ls</code>, <code>cd</code>, <code>cp</code>など</td>
+</tr>
+<tr>
+<td><code>-option</code></td>
+<td>Option</td>
+<td>単一文字のオプション。<code>-l</code>, <code>-a</code>など。組み合わせ可能<code>-la</code></td>
+</tr>
+<tr>
+<td><code>--long-option</code></td>
+<td>Long Option</td>
+<td>長い形式のオプション。<code>--help</code>, <code>--version</code></td>
+</tr>
+<tr>
+<td><code>argument</code></td>
+<td>Argument</td>
+<td>コマンドに渡す引数。ファイル名やパスなど</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Input Redirection</td>
+<td>ファイルから入力を受け取る</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Output Redirection</td>
+<td>出力をファイルに書き込む（上書き）</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Append</td>
+<td>出力をファイルに追記</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>Pipe</td>
+<td>コマンドの出力を次のコマンドの入力に接続</td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 基本的なコマンド構造</span>
+<span class="command">command</span> <span class="option">-options</span> <span class="file">arguments</span>
+
+<span class="comment"># 実例</span>
+<span class="command">ls</span> <span class="option">-la</span> <span class="file">/home/user</span>
+<span class="command">grep</span> <span class="option">-i</span> <span class="string">"pattern"</span> <span class="file">file.txt</span>
+<span class="command">tar</span> <span class="option">-czf</span> <span class="file">archive.tar.gz</span> <span class="file">directory/</span></code></pre>
+</div>
+
+<hr>
+
+<h2>ファイル・ディレクトリ操作</h2>
+
+<h3><strong>パスの指定方法</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 絶対パス（ルートから）</span>
+<span class="command">cd</span> <span class="file">/home/user/documents</span>
+
+<span class="comment"># 相対パス（現在位置から）</span>
+<span class="command">cd</span> <span class="file">documents</span>
+<span class="command">cd</span> <span class="file">../</span>              <span class="comment"># 親ディレクトリへ</span>
+<span class="command">cd</span> <span class="file">../../</span>           <span class="comment"># 2階層上へ</span>
+<span class="command">cd</span> <span class="file">./subfolder</span>      <span class="comment"># 現在のディレクトリのsubfolderへ</span>
+
+<span class="comment"># 特殊なパス</span>
+<span class="command">cd</span> <span class="file">~</span>                <span class="comment"># ホームディレクトリへ</span>
+<span class="command">cd</span> <span class="file">-</span>                <span class="comment"># 前のディレクトリへ戻る</span></code></pre>
+</div>
+
+<hr>
+
+<h3><strong>ファイル操作の基本パターン</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># ファイルのコピー</span>
+<span class="command">cp</span> <span class="file">source.txt</span> <span class="file">destination.txt</span>
+<span class="command">cp</span> <span class="option">-r</span> <span class="file">source_dir/</span> <span class="file">dest_dir/</span>    <span class="comment"># ディレクトリを再帰的にコピー</span>
+<span class="command">cp</span> <span class="option">-p</span> <span class="file">file.txt</span> <span class="file">backup.txt</span>    <span class="comment"># 権限を保持してコピー</span>
+
+<span class="comment"># ファイルの移動・名前変更</span>
+<span class="command">mv</span> <span class="file">old_name.txt</span> <span class="file">new_name.txt</span>
+<span class="command">mv</span> <span class="file">file.txt</span> <span class="file">/path/to/directory/</span>
+
+<span class="comment"># ファイルの削除</span>
+<span class="command">rm</span> <span class="file">file.txt</span>
+<span class="command">rm</span> <span class="option">-i</span> <span class="file">*.log</span>           <span class="comment"># 確認しながら削除</span>
+<span class="command">rm</span> <span class="option">-rf</span> <span class="file">directory/</span>     <span class="comment"># ディレクトリを強制削除（危険！）</span>
+
+<span class="comment"># ディレクトリの作成</span>
+<span class="command">mkdir</span> <span class="file">new_directory</span>
+<span class="command">mkdir</span> <span class="option">-p</span> <span class="file">parent/child/grandchild</span>  <span class="comment"># 親ディレクトリも作成</span></code></pre>
+</div>
+
+<hr>
+
+<h2>ワイルドカード（グロブパターン）</h2>
+
+<h3><strong>パターンマッチング</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>英語の意味 (Meaning)</th>
+<th>説明・使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>Asterisk</td>
+<td>0文字以上の任意の文字。<code>*.txt</code>で全てのtxtファイル</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Question Mark</td>
+<td>任意の1文字。<code>file?.txt</code>でfile1.txt等</td>
+</tr>
+<tr>
+<td><code>[abc]</code></td>
+<td>Character Class</td>
+<td>指定した文字のいずれか。<code>[0-9]</code>で数字</td>
+</tr>
+<tr>
+<td><code>[!abc]</code></td>
+<td>Negation</td>
+<td>指定以外の文字。<code>[!0-9]</code>で数字以外</td>
+</tr>
+<tr>
+<td><code>{a,b,c}</code></td>
+<td>Brace Expansion</td>
+<td>複数の選択肢。<code>{txt,log,csv}</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># ワイルドカードの使用例</span>
+<span class="command">ls</span> <span class="file">*.jpg</span>                    <span class="comment"># 全てのJPGファイル</span>
+<span class="command">ls</span> <span class="file">IMG_????.jpg</span>            <span class="comment"># IMG_0001.jpg のような4桁の番号</span>
+<span class="command">ls</span> <span class="file">[A-Z]*</span>                  <span class="comment"># 大文字で始まるファイル</span>
+<span class="command">ls</span> <span class="file">*.[ch]</span>                  <span class="comment"># .cまたは.hファイル</span>
+<span class="command">rm</span> <span class="file">temp_{1,2,3}.txt</span>        <span class="comment"># temp_1.txt, temp_2.txt, temp_3.txt</span>
+<span class="command">cp</span> <span class="file">file.{txt,bak}</span>           <span class="comment"># file.txtをfile.bakにコピー</span></code></pre>
+</div>
+
+<hr>
+
+<h2>リダイレクトとパイプ</h2>
+
+<h3><strong>入出力の制御</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 標準出力のリダイレクト</span>
+<span class="command">echo</span> <span class="string">"Hello"</span> <span class="option">&gt;</span> <span class="file">file.txt</span>      <span class="comment"># ファイルに出力（上書き）</span>
+<span class="command">echo</span> <span class="string">"World"</span> <span class="option">&gt;&gt;</span> <span class="file">file.txt</span>     <span class="comment"># ファイルに追記</span>
+
+<span class="comment"># 標準エラー出力のリダイレクト</span>
+<span class="command">command</span> <span class="option">2&gt;</span> <span class="file">error.log</span>          <span class="comment"># エラーをファイルに</span>
+<span class="command">command</span> <span class="option">&gt;</span> <span class="file">output.txt</span> <span class="option">2&gt;</span> <span class="file">error.log</span>  <span class="comment"># 出力とエラーを別々に</span>
+<span class="command">command</span> <span class="option">&gt;</span> <span class="file">all.log</span> <span class="option">2&gt;&amp;1</span>       <span class="comment"># 出力とエラーを同じファイルに</span>
+
+<span class="comment"># 標準入力のリダイレクト</span>
+<span class="command">wc</span> <span class="option">-l</span> <span class="option">&lt;</span> <span class="file">file.txt</span>             <span class="comment"># ファイルから入力を読み込む</span>
+
+<span class="comment"># パイプの使用</span>
+<span class="command">ls</span> <span class="option">-la</span> <span class="option">|</span> <span class="command">grep</span> <span class="string">"\.txt$"</span>      <span class="comment"># txtファイルのみ表示</span>
+<span class="command">cat</span> <span class="file">file.txt</span> <span class="option">|</span> <span class="command">sort</span> <span class="option">|</span> <span class="command">uniq</span>   <span class="comment"># ソートして重複削除</span>
+<span class="command">ps</span> <span class="option">aux</span> <span class="option">|</span> <span class="command">grep</span> <span class="string">"nginx"</span> <span class="option">|</span> <span class="command">wc</span> <span class="option">-l</span> <span class="comment"># nginxプロセス数をカウント</span></code></pre>
+</div>
+
+<hr>
+
+<h2>権限とパーミッション</h2>
+
+<h3><strong>権限の表記と変更</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>権限</th>
+<th>数値</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r</code></td>
+<td>4</td>
+<td>読み取り（Read）</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>2</td>
+<td>書き込み（Write）</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>1</td>
+<td>実行（Execute）</td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 権限の確認</span>
+<span class="command">ls</span> <span class="option">-l</span> <span class="file">file.txt</span>
+<span class="comment"># -rw-r--r-- 1 user group 1234 Jan 1 12:00 file.txt</span>
+
+<span class="comment"># 数値モードでの権限変更</span>
+<span class="command">chmod</span> <span class="option">755</span> <span class="file">script.sh</span>         <span class="comment"># rwxr-xr-x</span>
+<span class="command">chmod</span> <span class="option">644</span> <span class="file">document.txt</span>      <span class="comment"># rw-r--r--</span>
+<span class="command">chmod</span> <span class="option">600</span> <span class="file">private_key</span>       <span class="comment"># rw-------</span>
+
+<span class="comment"># シンボリックモードでの権限変更</span>
+<span class="command">chmod</span> <span class="option">+x</span> <span class="file">script.sh</span>          <span class="comment"># 実行権限を追加</span>
+<span class="command">chmod</span> <span class="option">u+w</span> <span class="file">file.txt</span>          <span class="comment"># 所有者に書き込み権限</span>
+<span class="command">chmod</span> <span class="option">go-w</span> <span class="file">file.txt</span>         <span class="comment"># グループと他者から書き込み権限を削除</span>
+<span class="command">chmod</span> <span class="option">a+r</span> <span class="file">public.txt</span>        <span class="comment"># 全員に読み取り権限</span>
+
+<span class="comment"># 所有者の変更</span>
+<span class="command">chown</span> <span class="file">user:group file.txt</span>
+<span class="command">chown</span> <span class="option">-R</span> <span class="file">user:group directory/</span>  <span class="comment"># 再帰的に変更</span></code></pre>
+</div>
+
+<hr>
+
+<h2>プロセス管理</h2>
+
+<h3><strong>プロセスの操作</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># プロセスの確認</span>
+<span class="command">ps</span> <span class="option">aux</span>                       <span class="comment"># 全プロセスを詳細表示</span>
+<span class="command">ps</span> <span class="option">aux</span> <span class="option">|</span> <span class="command">grep</span> <span class="string">"process_name"</span>
+<span class="command">pgrep</span> <span class="option">-l</span> <span class="string">"nginx"</span>            <span class="comment"># プロセス名で検索</span>
+
+<span class="comment"># プロセスの終了</span>
+<span class="command">kill</span> <span class="variable">1234</span>                    <span class="comment"># PID 1234のプロセスを終了</span>
+<span class="command">kill</span> <span class="option">-9</span> <span class="variable">1234</span>                 <span class="comment"># 強制終了（SIGKILL）</span>
+<span class="command">killall</span> <span class="string">"firefox"</span>           <span class="comment"># プロセス名で全て終了</span>
+<span class="command">pkill</span> <span class="option">-f</span> <span class="string">"pattern"</span>          <span class="comment"># パターンマッチで終了</span>
+
+<span class="comment"># バックグラウンド実行</span>
+<span class="command">command</span> <span class="option">&amp;</span>                    <span class="comment"># バックグラウンドで実行</span>
+<span class="command">nohup</span> <span class="command">command</span> <span class="option">&amp;</span>              <span class="comment"># ログアウト後も継続</span>
+<span class="command">jobs</span>                         <span class="comment"># バックグラウンドジョブ一覧</span>
+<span class="command">fg</span> <span class="variable">%1</span>                        <span class="comment"># ジョブ1をフォアグラウンドへ</span>
+<span class="command">bg</span> <span class="variable">%1</span>                        <span class="comment"># ジョブ1をバックグラウンドで再開</span></code></pre>
+</div>
+
+<hr>
+
+<h2>テキスト処理</h2>
+
+<h3><strong>grepによる検索</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 基本的な検索</span>
+<span class="command">grep</span> <span class="string">"pattern"</span> <span class="file">file.txt</span>
+<span class="command">grep</span> <span class="option">-i</span> <span class="string">"pattern"</span> <span class="file">file.txt</span>   <span class="comment"># 大文字小文字を無視</span>
+<span class="command">grep</span> <span class="option">-v</span> <span class="string">"pattern"</span> <span class="file">file.txt</span>   <span class="comment"># パターンに一致しない行</span>
+<span class="command">grep</span> <span class="option">-n</span> <span class="string">"pattern"</span> <span class="file">file.txt</span>   <span class="comment"># 行番号付き</span>
+<span class="command">grep</span> <span class="option">-r</span> <span class="string">"pattern"</span> <span class="file">directory/</span> <span class="comment"># ディレクトリを再帰検索</span>
+
+<span class="comment"># 正規表現の使用</span>
+<span class="command">grep</span> <span class="option">-E</span> <span class="string">"^[0-9]+"</span> <span class="file">file.txt</span>   <span class="comment"># 数字で始まる行</span>
+<span class="command">grep</span> <span class="option">-E</span> <span class="string">"error|warning"</span> <span class="file">log.txt</span>
+<span class="command">grep</span> <span class="option">-E</span> <span class="string">"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"</span> <span class="comment"># メールアドレス</span></code></pre>
+</div>
+
+<hr>
+
+<h3><strong>sedによる置換</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 基本的な置換</span>
+<span class="command">sed</span> <span class="string">'s/old/new/'</span> <span class="file">file.txt</span>      <span class="comment"># 各行の最初の一致を置換</span>
+<span class="command">sed</span> <span class="string">'s/old/new/g'</span> <span class="file">file.txt</span>     <span class="comment"># 全ての一致を置換</span>
+<span class="command">sed</span> <span class="option">-i</span> <span class="string">'s/old/new/g'</span> <span class="file">file.txt</span>  <span class="comment"># ファイルを直接編集</span>
+
+<span class="comment"># 行の削除・挿入</span>
+<span class="command">sed</span> <span class="string">'5d'</span> <span class="file">file.txt</span>              <span class="comment"># 5行目を削除</span>
+<span class="command">sed</span> <span class="string">'/pattern/d'</span> <span class="file">file.txt</span>      <span class="comment"># パターンに一致する行を削除</span>
+<span class="command">sed</span> <span class="string">'2i\New line'</span> <span class="file">file.txt</span>     <span class="comment"># 2行目の前に挿入</span>
+
+<span class="comment"># 複数の操作</span>
+<span class="command">sed</span> <span class="option">-e</span> <span class="string">'s/old1/new1/g'</span> <span class="option">-e</span> <span class="string">'s/old2/new2/g'</span> <span class="file">file.txt</span></code></pre>
+</div>
+
+<hr>
+
+<h3><strong>awkによるデータ処理</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 列の抽出</span>
+<span class="command">awk</span> <span class="string">'{print $1}'</span> <span class="file">file.txt</span>       <span class="comment"># 1列目を表示</span>
+<span class="command">awk</span> <span class="string">'{print $1, $3}'</span> <span class="file">file.txt</span>   <span class="comment"># 1列目と3列目</span>
+<span class="command">awk</span> <span class="string">'{print $NF}'</span> <span class="file">file.txt</span>      <span class="comment"># 最後の列</span>
+
+<span class="comment"># 条件付き処理</span>
+<span class="command">awk</span> <span class="string">'$3 > 100 {print $0}'</span> <span class="file">data.txt</span>  <span class="comment"># 3列目が100より大きい行</span>
+<span class="command">awk</span> <span class="string">'/pattern/ {print $2}'</span> <span class="file">file.txt</span>  <span class="comment"># パターンに一致する行の2列目</span>
+
+<span class="comment"># 計算と集計</span>
+<span class="command">awk</span> <span class="string">'{sum += $1} END {print sum}'</span> <span class="file">numbers.txt</span>
+<span class="command">awk</span> <span class="string">'{count++} END {print count}'</span> <span class="file">file.txt</span>  <span class="comment"># 行数カウント</span>
+
+<span class="comment"># フィールドセパレータの指定</span>
+<span class="command">awk</span> <span class="option">-F:</span> <span class="string">'{print $1}'</span> <span class="file">/etc/passwd</span>  <span class="comment"># :を区切り文字として使用</span></code></pre>
+</div>
+
+<hr>
+
+<h2>シェルスクリプトの基礎</h2>
+
+<h3><strong>変数と制御構造</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># シェルスクリプトの先頭行（シバン）</span>
+
+<span class="comment"># 変数の定義と使用</span>
+<span class="variable">NAME</span>=<span class="string">"John"</span>
+<span class="variable">AGE</span>=<span class="string">25</span>
+<span class="command">echo</span> <span class="string">"Name: $NAME, Age: $AGE"</span>
+<span class="command">echo</span> <span class="string">"Name: ${NAME}, Age: ${AGE}"</span>  <span class="comment"># より安全な記法</span>
+
+<span class="comment"># コマンドの実行結果を変数に格納</span>
+<span class="variable">CURRENT_DIR</span>=$(<span class="command">pwd</span>)
+<span class="variable">FILE_COUNT</span>=$(<span class="command">ls</span> <span class="option">-1</span> | <span class="command">wc</span> <span class="option">-l</span>)
+
+<span class="comment"># 条件分岐</span>
+<span class="command">if</span> [ <span class="variable">$AGE</span> <span class="option">-gt</span> <span class="string">18</span> ]; <span class="command">then</span>
+    <span class="command">echo</span> <span class="string">"Adult"</span>
+<span class="command">elif</span> [ <span class="variable">$AGE</span> <span class="option">-eq</span> <span class="string">18</span> ]; <span class="command">then</span>
+    <span class="command">echo</span> <span class="string">"Just 18"</span>
+<span class="command">else</span>
+    <span class="command">echo</span> <span class="string">"Minor"</span>
+<span class="command">fi</span>
+
+<span class="comment"># ループ処理</span>
+<span class="command">for</span> <span class="variable">file</span> <span class="command">in</span> <span class="file">*.txt</span>; <span class="command">do</span>
+    <span class="command">echo</span> <span class="string">"Processing: $file"</span>
+    <span class="command">cp</span> <span class="variable">"$file"</span> <span class="variable">"backup_$file"</span>
+<span class="command">done</span>
+
+<span class="comment"># while ループ</span>
+<span class="variable">COUNTER</span>=<span class="string">0</span>
+<span class="command">while</span> [ <span class="variable">$COUNTER</span> <span class="option">-lt</span> <span class="string">10</span> ]; <span class="command">do</span>
+    <span class="command">echo</span> <span class="variable">$COUNTER</span>
+    <span class="variable">COUNTER</span>=$((COUNTER + 1))
+<span class="command">done</span></code></pre>
+</div>
+
+<hr>
+
+<h2>環境変数とエイリアス</h2>
+
+<h3><strong>環境設定</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 環境変数の設定</span>
+<span class="command">export</span> <span class="variable">PATH</span>=<span class="string">"$PATH:/usr/local/bin"</span>
+<span class="command">export</span> <span class="variable">EDITOR</span>=<span class="string">"vim"</span>
+<span class="command">export</span> <span class="variable">LANG</span>=<span class="string">"ja_JP.UTF-8"</span>
+
+<span class="comment"># 環境変数の確認</span>
+<span class="command">echo</span> <span class="variable">$PATH</span>
+<span class="command">env</span>                          <span class="comment"># 全環境変数を表示</span>
+<span class="command">printenv</span> <span class="variable">HOME</span>               <span class="comment"># 特定の環境変数</span>
+
+<span class="comment"># エイリアスの設定</span>
+<span class="command">alias</span> <span class="variable">ll</span>=<span class="string">'ls -la'</span>
+<span class="command">alias</span> <span class="variable">gs</span>=<span class="string">'git status'</span>
+<span class="command">alias</span> <span class="variable">..='cd ..'</span>
+<span class="command">alias</span> <span class="variable">...='cd ../..'</span>
+
+<span class="comment"># 関数の定義</span>
+<span class="command">mkcd</span>() {
+    <span class="command">mkdir</span> <span class="option">-p</span> <span class="variable">"$1"</span> && <span class="command">cd</span> <span class="variable">"$1"</span>
+}
+
+<span class="comment"># .bashrcや.zshrcに追加して永続化</span>
+<span class="command">echo</span> <span class="string">"alias ll='ls -la'"</span> <span class="option">&gt;&gt;</span> <span class="file">~/.bashrc</span>
+<span class="command">source</span> <span class="file">~/.bashrc</span>            <span class="comment"># 設定を再読み込み</span></code></pre>
+</div>
+
+<hr>
+
+<h2>便利なワンライナー</h2>
+
+<h3><strong>実用的なコマンドの組み合わせ</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># ファイル検索と処理</span>
+<span class="command">find</span> <span class="file">.</span> <span class="option">-name</span> <span class="string">"*.log"</span> <span class="option">-mtime</span> <span class="string">+30</span> <span class="option">-delete</span>  <span class="comment"># 30日以上前のログを削除</span>
+<span class="command">find</span> <span class="file">.</span> <span class="option">-type</span> <span class="string">f</span> <span class="option">-size</span> <span class="string">+100M</span>             <span class="comment"># 100MB以上のファイル</span>
+<span class="command">find</span> <span class="file">.</span> <span class="option">-name</span> <span class="string">"*.sh"</span> <span class="option">-exec</span> <span class="command">chmod</span> <span class="option">+x</span> {} \;  <span class="comment"># .shファイルに実行権限</span>
+
+<span class="comment"># ディスク使用量の確認</span>
+<span class="command">du</span> <span class="option">-sh</span> <span class="file">*</span> | <span class="command">sort</span> <span class="option">-hr</span> | <span class="command">head</span> <span class="option">-10</span>        <span class="comment"># サイズ順トップ10</span>
+<span class="command">df</span> <span class="option">-h</span> | <span class="command">grep</span> <span class="option">-vE</span> <span class="string">'^Filesystem|tmpfs'</span>    <span class="comment"># 実際のディスクのみ表示</span>
+
+<span class="comment"># プロセス監視</span>
+<span class="command">ps</span> <span class="option">aux</span> | <span class="command">sort</span> <span class="option">-nrk</span> <span class="string">3,3</span> | <span class="command">head</span> <span class="option">-10</span>      <span class="comment"># CPU使用率トップ10</span>
+<span class="command">ps</span> <span class="option">aux</span> | <span class="command">sort</span> <span class="option">-nrk</span> <span class="string">4,4</span> | <span class="command">head</span> <span class="option">-10</span>      <span class="comment"># メモリ使用率トップ10</span>
+
+<span class="comment"># ログ監視</span>
+<span class="command">tail</span> <span class="option">-f</span> <span class="file">/var/log/syslog</span> | <span class="command">grep</span> <span class="option">--line-buffered</span> <span class="string">"ERROR"</span>
+<span class="command">journalctl</span> <span class="option">-f</span> <span class="option">-u</span> <span class="string">nginx</span>                   <span class="comment"># nginxのログをリアルタイム監視</span>
+
+<span class="comment"># ネットワーク確認</span>
+<span class="command">ss</span> <span class="option">-tuln</span> | <span class="command">grep</span> <span class="string">LISTEN</span>                  <span class="comment"># リスニングポート一覧</span>
+<span class="command">curl</span> <span class="option">-s</span> <span class="string">ifconfig.me</span>                      <span class="comment"># グローバルIPアドレス確認</span></code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>

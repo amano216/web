@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linuxコマンド一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* コマンド例のスタイル */
+        .command-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="linux-commands.html" class="active">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>Linuxコマンド一覧</h1>
+
+<p>Linuxシステムで使用される主要なコマンドを、カテゴリ別にまとめました。</p>
+
+<hr>
+
+<h2>ファイル・ディレクトリ操作</h2>
+
+<h3><strong>基本的なファイル操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ls</code></td>
+<td>List</td>
+<td>ディレクトリの内容を一覧表示する。<code>-la</code>で詳細表示</td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>Change Directory</td>
+<td>ディレクトリを移動する。<code>cd ~</code>でホームへ</td>
+</tr>
+<tr>
+<td><code>pwd</code></td>
+<td>Print Working Directory</td>
+<td>現在のディレクトリパスを表示する</td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>Make Directory</td>
+<td>新しいディレクトリを作成する。<code>-p</code>で親も作成</td>
+</tr>
+<tr>
+<td><code>rmdir</code></td>
+<td>Remove Directory</td>
+<td>空のディレクトリを削除する</td>
+</tr>
+<tr>
+<td><code>touch</code></td>
+<td>Touch</td>
+<td>空ファイルの作成またはタイムスタンプ更新</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>Copy</td>
+<td>ファイルやディレクトリをコピーする。<code>-r</code>で再帰的</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>Move</td>
+<td>ファイルの移動・名前変更を行う</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>Remove</td>
+<td>ファイルを削除する。<code>-rf</code>で強制的に再帰削除</td>
+</tr>
+<tr>
+<td><code>ln</code></td>
+<td>Link</td>
+<td>リンクを作成する。<code>-s</code>でシンボリックリンク</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>ファイル内容の表示・編集</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td>Concatenate</td>
+<td>ファイルの内容を表示・連結する</td>
+</tr>
+<tr>
+<td><code>less</code></td>
+<td>Less</td>
+<td>ファイルをページング表示する。<code>q</code>で終了</td>
+</tr>
+<tr>
+<td><code>more</code></td>
+<td>More</td>
+<td>ファイルをページング表示する（基本的な機能）</td>
+</tr>
+<tr>
+<td><code>head</code></td>
+<td>Head</td>
+<td>ファイルの先頭部分を表示。<code>-n 20</code>で20行</td>
+</tr>
+<tr>
+<td><code>tail</code></td>
+<td>Tail</td>
+<td>ファイルの末尾を表示。<code>-f</code>でリアルタイム追跡</td>
+</tr>
+<tr>
+<td><code>nano</code></td>
+<td>Nano</td>
+<td>シンプルなテキストエディタ</td>
+</tr>
+<tr>
+<td><code>vim</code></td>
+<td>Vi Improved</td>
+<td>高機能テキストエディタ。<code>i</code>で挿入、<code>:wq</code>で保存終了</td>
+</tr>
+<tr>
+<td><code>echo</code></td>
+<td>Echo</td>
+<td>テキストを表示する。<code>&gt;</code>でファイルに出力</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ファイル検索・情報取得</h2>
+
+<h3><strong>検索コマンド</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find</code></td>
+<td>Find</td>
+<td>ファイルを検索する。<code>find . -name "*.txt"</code></td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Global Regular Expression Print</td>
+<td>パターンマッチングで検索。<code>-r</code>で再帰、<code>-i</code>で大小文字無視</td>
+</tr>
+<tr>
+<td><code>which</code></td>
+<td>Which</td>
+<td>コマンドの実行ファイルパスを表示</td>
+</tr>
+<tr>
+<td><code>whereis</code></td>
+<td>Where Is</td>
+<td>バイナリ、ソース、マニュアルの場所を検索</td>
+</tr>
+<tr>
+<td><code>locate</code></td>
+<td>Locate</td>
+<td>データベースからファイルを高速検索</td>
+</tr>
+<tr>
+<td><code>updatedb</code></td>
+<td>Update Database</td>
+<td>locateコマンド用のデータベースを更新</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>ファイル情報・統計</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>File</td>
+<td>ファイルの種類を判定する</td>
+</tr>
+<tr>
+<td><code>stat</code></td>
+<td>Statistics</td>
+<td>ファイルの詳細情報を表示</td>
+</tr>
+<tr>
+<td><code>wc</code></td>
+<td>Word Count</td>
+<td>行数・単語数・バイト数を数える。<code>-l</code>で行数のみ</td>
+</tr>
+<tr>
+<td><code>du</code></td>
+<td>Disk Usage</td>
+<td>ディスク使用量を表示。<code>-h</code>で人間が読みやすい形式</td>
+</tr>
+<tr>
+<td><code>df</code></td>
+<td>Disk Free</td>
+<td>ディスクの空き容量を表示。<code>-h</code>で読みやすく</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>プロセス管理</h2>
+
+<h3><strong>プロセスの確認・制御</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ps</code></td>
+<td>Process Status</td>
+<td>実行中のプロセスを表示。<code>ps aux</code>で全プロセス</td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>Top</td>
+<td>プロセスをリアルタイムで監視。<code>q</code>で終了</td>
+</tr>
+<tr>
+<td><code>htop</code></td>
+<td>H Top</td>
+<td>topの改良版。より見やすいプロセス監視</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>Kill</td>
+<td>プロセスを終了する。<code>kill -9 PID</code>で強制終了</td>
+</tr>
+<tr>
+<td><code>killall</code></td>
+<td>Kill All</td>
+<td>プロセス名で全て終了する</td>
+</tr>
+<tr>
+<td><code>jobs</code></td>
+<td>Jobs</td>
+<td>バックグラウンドジョブを表示</td>
+</tr>
+<tr>
+<td><code>bg</code></td>
+<td>Background</td>
+<td>ジョブをバックグラウンドで実行</td>
+</tr>
+<tr>
+<td><code>fg</code></td>
+<td>Foreground</td>
+<td>ジョブをフォアグラウンドに移動</td>
+</tr>
+<tr>
+<td><code>nohup</code></td>
+<td>No Hang Up</td>
+<td>ログアウト後もコマンドを継続実行</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ユーザー・権限管理</h2>
+
+<h3><strong>ユーザー操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>whoami</code></td>
+<td>Who Am I</td>
+<td>現在のユーザー名を表示</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>Identity</td>
+<td>ユーザーIDとグループIDを表示</td>
+</tr>
+<tr>
+<td><code>su</code></td>
+<td>Switch User</td>
+<td>別のユーザーに切り替える。<code>su -</code>で環境も切替</td>
+</tr>
+<tr>
+<td><code>sudo</code></td>
+<td>Super User Do</td>
+<td>管理者権限でコマンドを実行</td>
+</tr>
+<tr>
+<td><code>useradd</code></td>
+<td>User Add</td>
+<td>新しいユーザーを追加する</td>
+</tr>
+<tr>
+<td><code>userdel</code></td>
+<td>User Delete</td>
+<td>ユーザーを削除する</td>
+</tr>
+<tr>
+<td><code>passwd</code></td>
+<td>Password</td>
+<td>パスワードを変更する</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>Groups</td>
+<td>ユーザーが所属するグループを表示</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>権限管理</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chmod</code></td>
+<td>Change Mode</td>
+<td>ファイルの権限を変更。<code>chmod 755 file</code></td>
+</tr>
+<tr>
+<td><code>chown</code></td>
+<td>Change Owner</td>
+<td>ファイルの所有者を変更。<code>chown user:group file</code></td>
+</tr>
+<tr>
+<td><code>chgrp</code></td>
+<td>Change Group</td>
+<td>ファイルのグループを変更</td>
+</tr>
+<tr>
+<td><code>umask</code></td>
+<td>User Mask</td>
+<td>デフォルトのファイル権限マスクを設定</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ネットワーク関連</h2>
+
+<h3><strong>ネットワーク確認・設定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ping</code></td>
+<td>Ping</td>
+<td>ネットワーク接続を確認。<code>ping google.com</code></td>
+</tr>
+<tr>
+<td><code>ifconfig</code></td>
+<td>Interface Configuration</td>
+<td>ネットワークインターフェースの設定・表示</td>
+</tr>
+<tr>
+<td><code>ip</code></td>
+<td>Internet Protocol</td>
+<td>IPアドレスやルーティングを管理。<code>ip addr show</code></td>
+</tr>
+<tr>
+<td><code>netstat</code></td>
+<td>Network Statistics</td>
+<td>ネットワーク接続状況を表示。<code>-tuln</code>でポート確認</td>
+</tr>
+<tr>
+<td><code>ss</code></td>
+<td>Socket Statistics</td>
+<td>ソケット統計情報を表示（netstatの代替）</td>
+</tr>
+<tr>
+<td><code>curl</code></td>
+<td>Client URL</td>
+<td>URLからデータを取得。<code>-O</code>でダウンロード</td>
+</tr>
+<tr>
+<td><code>wget</code></td>
+<td>Web Get</td>
+<td>ファイルをダウンロード。<code>-c</code>で再開可能</td>
+</tr>
+<tr>
+<td><code>ssh</code></td>
+<td>Secure Shell</td>
+<td>リモートサーバーに安全に接続</td>
+</tr>
+<tr>
+<td><code>scp</code></td>
+<td>Secure Copy</td>
+<td>SSH経由でファイルをコピー</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>システム情報・管理</h2>
+
+<h3><strong>システム情報</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uname</code></td>
+<td>Unix Name</td>
+<td>システム情報を表示。<code>-a</code>で全情報</td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td>Host Name</td>
+<td>ホスト名を表示・設定する</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>Date</td>
+<td>現在の日時を表示・設定</td>
+</tr>
+<tr>
+<td><code>uptime</code></td>
+<td>Up Time</td>
+<td>システムの稼働時間を表示</td>
+</tr>
+<tr>
+<td><code>free</code></td>
+<td>Free</td>
+<td>メモリ使用状況を表示。<code>-h</code>で読みやすく</td>
+</tr>
+<tr>
+<td><code>lscpu</code></td>
+<td>List CPU</td>
+<td>CPU情報を表示</td>
+</tr>
+<tr>
+<td><code>lsblk</code></td>
+<td>List Block</td>
+<td>ブロックデバイス（ディスク）の一覧</td>
+</tr>
+<tr>
+<td><code>mount</code></td>
+<td>Mount</td>
+<td>ファイルシステムをマウント・表示</td>
+</tr>
+<tr>
+<td><code>umount</code></td>
+<td>Unmount</td>
+<td>ファイルシステムをアンマウント</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>パッケージ管理（Debian/Ubuntu系）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apt</code></td>
+<td>Advanced Package Tool</td>
+<td>パッケージ管理ツール。<code>apt update</code>で更新</td>
+</tr>
+<tr>
+<td><code>apt-get</code></td>
+<td>APT Get</td>
+<td>従来のパッケージ管理コマンド</td>
+</tr>
+<tr>
+<td><code>dpkg</code></td>
+<td>Debian Package</td>
+<td>低レベルパッケージ管理。<code>-i</code>でインストール</td>
+</tr>
+<tr>
+<td><code>snap</code></td>
+<td>Snap</td>
+<td>Snapパッケージの管理</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>パッケージ管理（RedHat/CentOS系）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yum</code></td>
+<td>Yellowdog Updater Modified</td>
+<td>パッケージ管理ツール。<code>yum install</code></td>
+</tr>
+<tr>
+<td><code>dnf</code></td>
+<td>Dandified YUM</td>
+<td>yumの後継パッケージマネージャー</td>
+</tr>
+<tr>
+<td><code>rpm</code></td>
+<td>RPM Package Manager</td>
+<td>RPMパッケージの管理。<code>-ivh</code>でインストール</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>アーカイブ・圧縮</h2>
+
+<h3><strong>圧縮・展開コマンド</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tar</code></td>
+<td>Tape Archive</td>
+<td>アーカイブの作成・展開。<code>-czf</code>で圧縮作成、<code>-xzf</code>で展開</td>
+</tr>
+<tr>
+<td><code>gzip</code></td>
+<td>GNU Zip</td>
+<td>ファイルを圧縮。<code>-d</code>で展開</td>
+</tr>
+<tr>
+<td><code>gunzip</code></td>
+<td>GNU Unzip</td>
+<td>gzipファイルを展開</td>
+</tr>
+<tr>
+<td><code>zip</code></td>
+<td>Zip</td>
+<td>ZIPアーカイブを作成。<code>-r</code>で再帰的</td>
+</tr>
+<tr>
+<td><code>unzip</code></td>
+<td>Unzip</td>
+<td>ZIPアーカイブを展開</td>
+</tr>
+<tr>
+<td><code>bzip2</code></td>
+<td>Bzip2</td>
+<td>高圧縮率で圧縮。<code>-d</code>で展開</td>
+</tr>
+<tr>
+<td><code>xz</code></td>
+<td>XZ</td>
+<td>最高圧縮率で圧縮。<code>-d</code>で展開</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>テキスト処理</h2>
+
+<h3><strong>テキスト操作・フィルタ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sed</code></td>
+<td>Stream Editor</td>
+<td>ストリームエディタ。<code>s/old/new/g</code>で置換</td>
+</tr>
+<tr>
+<td><code>awk</code></td>
+<td>AWK</td>
+<td>パターン処理言語。テキスト処理に便利</td>
+</tr>
+<tr>
+<td><code>cut</code></td>
+<td>Cut</td>
+<td>行から特定の部分を切り出す。<code>-d</code>で区切り文字</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>Sort</td>
+<td>行をソートする。<code>-n</code>で数値順、<code>-r</code>で逆順</td>
+</tr>
+<tr>
+<td><code>uniq</code></td>
+<td>Unique</td>
+<td>重複行を削除。<code>-c</code>でカウント表示</td>
+</tr>
+<tr>
+<td><code>tr</code></td>
+<td>Translate</td>
+<td>文字を変換・削除。<code>tr 'a-z' 'A-Z'</code>で大文字化</td>
+</tr>
+<tr>
+<td><code>tee</code></td>
+<td>Tee</td>
+<td>標準出力とファイルに同時出力</td>
+</tr>
+<tr>
+<td><code>xargs</code></td>
+<td>Extended Arguments</td>
+<td>標準入力を引数に変換してコマンド実行</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>シェル・環境変数</h2>
+
+<h3><strong>シェル操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bash</code></td>
+<td>Bourne Again Shell</td>
+<td>Bashシェルを起動</td>
+</tr>
+<tr>
+<td><code>sh</code></td>
+<td>Shell</td>
+<td>標準シェルを起動</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>Source</td>
+<td>スクリプトを現在のシェルで実行。<code>.</code>も同じ</td>
+</tr>
+<tr>
+<td><code>export</code></td>
+<td>Export</td>
+<td>環境変数を設定・エクスポート</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>Environment</td>
+<td>環境変数を表示</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>Alias</td>
+<td>コマンドのエイリアスを作成</td>
+</tr>
+<tr>
+<td><code>history</code></td>
+<td>History</td>
+<td>コマンド履歴を表示。<code>!番号</code>で再実行</td>
+</tr>
+<tr>
+<td><code>which</code></td>
+<td>Which</td>
+<td>コマンドのパスを表示</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>Type</td>
+<td>コマンドの種類を表示</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>その他の便利なコマンド</h2>
+
+<h3><strong>ユーティリティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>man</code></td>
+<td>Manual</td>
+<td>コマンドのマニュアルを表示</td>
+</tr>
+<tr>
+<td><code>info</code></td>
+<td>Information</td>
+<td>詳細な情報ドキュメントを表示</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>Help</td>
+<td>組み込みコマンドのヘルプを表示</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Clear</td>
+<td>画面をクリアする</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>Exit</td>
+<td>シェルを終了する</td>
+</tr>
+<tr>
+<td><code>sleep</code></td>
+<td>Sleep</td>
+<td>指定秒数待機。<code>sleep 5</code>で5秒</td>
+</tr>
+<tr>
+<td><code>watch</code></td>
+<td>Watch</td>
+<td>コマンドを定期的に実行して監視</td>
+</tr>
+<tr>
+<td><code>crontab</code></td>
+<td>Cron Table</td>
+<td>定期実行タスクを管理。<code>-e</code>で編集</td>
+</tr>
+<tr>
+<td><code>at</code></td>
+<td>At</td>
+<td>指定時刻にコマンドを実行</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>
