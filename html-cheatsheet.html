@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <div class="nav-links">
+            <a href="index.html">HTML</a>
+            <a href="html-cheatsheet.html" class="active">HTML記法</a>
+            <a href="css-reference.html">CSS</a>
+            <a href="css-cheatsheet.html">CSS記法</a>
+            <a href="symbols-reference.html">記号</a>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<div class="search-container">
+    <input type="text" class="search-box" placeholder="HTML記法を検索... (例: DOCTYPE, エンティティ, meta)" id="searchInput">
+    <div class="search-info" id="searchInfo"></div>
+    <div class="search-nav" id="searchNav">
+        <button id="prevButton" onclick="navigateSearch('prev')">← 前へ</button>
+        <span id="currentMatch"></span>
+        <button id="nextButton" onclick="navigateSearch('next')">次へ →</button>
+    </div>
+</div>
+
+<h1>HTML記法チートシート</h1>
+
+<p>HTMLの基本的な記法と構文ルールのクイックリファレンスです。</p>
+
+<hr>
+
+<h2>HTML文書の基本構造</h2>
+
+<h3><strong>最小限のHTML5テンプレート</strong></h3>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;ページタイトル&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- コンテンツをここに記述 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<h3><strong>完全なHTML5テンプレート</strong></h3>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="ページの説明"&gt;
+    &lt;meta name="keywords" content="キーワード1, キーワード2"&gt;
+    &lt;meta name="author" content="作者名"&gt;
+    
+    &lt;title&gt;ページタイトル | サイト名&lt;/title&gt;
+    
+    &lt;!-- ファビコン --&gt;
+    &lt;link rel="icon" href="/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;
+    
+    &lt;!-- CSS --&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    
+    &lt;!-- Open Graph / Facebook --&gt;
+    &lt;meta property="og:type" content="website"&gt;
+    &lt;meta property="og:url" content="https://example.com/"&gt;
+    &lt;meta property="og:title" content="ページタイトル"&gt;
+    &lt;meta property="og:description" content="ページの説明"&gt;
+    &lt;meta property="og:image" content="https://example.com/image.jpg"&gt;
+    
+    &lt;!-- Twitter --&gt;
+    &lt;meta property="twitter:card" content="summary_large_image"&gt;
+    &lt;meta property="twitter:url" content="https://example.com/"&gt;
+    &lt;meta property="twitter:title" content="ページタイトル"&gt;
+    &lt;meta property="twitter:description" content="ページの説明"&gt;
+    &lt;meta property="twitter:image" content="https://example.com/image.jpg"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;!-- ナビゲーション --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;!-- メインコンテンツ --&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;!-- フッター --&gt;
+    &lt;/footer&gt;
+    
+    &lt;!-- JavaScript --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<hr>
+
+<h2>HTMLタグの記法ルール</h2>
+
+<h3><strong>タグの基本構文</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>タグの種類</th>
+<th>記法</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>開始タグと終了タグ</td>
+<td><code>&lt;tag&gt;内容&lt;/tag&gt;</code></td>
+<td>通常の要素。例：<code>&lt;p&gt;段落&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>空要素（自己完結型）</td>
+<td><code>&lt;tag&gt;</code> または <code>&lt;tag /&gt;</code></td>
+<td>内容を持たない要素。例：<code>&lt;br&gt;</code>、<code>&lt;img src="..."&gt;</code></td>
+</tr>
+<tr>
+<td>属性付きタグ</td>
+<td><code>&lt;tag attribute="value"&gt;</code></td>
+<td>属性を持つ要素。例：<code>&lt;a href="url"&gt;</code></td>
+</tr>
+<tr>
+<td>複数属性</td>
+<td><code>&lt;tag attr1="val1" attr2="val2"&gt;</code></td>
+<td>スペースで区切る。例：<code>&lt;img src="..." alt="..."&gt;</code></td>
+</tr>
+<tr>
+<td>ブール属性</td>
+<td><code>&lt;tag attribute&gt;</code></td>
+<td>値を省略可能。例：<code>&lt;input disabled&gt;</code></td>
+</tr>
+<tr>
+<td>コメント</td>
+<td><code>&lt;!-- コメント --&gt;</code></td>
+<td>ブラウザに表示されない注釈</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>属性値の記法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>説明</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ダブルクォート（推奨）</td>
+<td>属性値を囲む標準的な方法</td>
+<td><code>class="container"</code></td>
+</tr>
+<tr>
+<td>シングルクォート</td>
+<td>ダブルクォートの代替</td>
+<td><code>class='container'</code></td>
+</tr>
+<tr>
+<td>クォートなし</td>
+<td>スペースを含まない単純な値のみ</td>
+<td><code>type=text</code></td>
+</tr>
+<tr>
+<td>空の属性値</td>
+<td>空文字列を表す</td>
+<td><code>alt=""</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文字参照とエンティティ</h2>
+
+<h3><strong>よく使うHTMLエンティティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>文字</th>
+<th>名前付きエンティティ</th>
+<th>数値文字参照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;</td>
+<td><code>&amp;lt;</code></td>
+<td><code>&amp;#60;</code></td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td><code>&amp;gt;</code></td>
+<td><code>&amp;#62;</code></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td><code>&amp;amp;</code></td>
+<td><code>&amp;#38;</code></td>
+</tr>
+<tr>
+<td>"</td>
+<td><code>&amp;quot;</code></td>
+<td><code>&amp;#34;</code></td>
+</tr>
+<tr>
+<td>'</td>
+<td><code>&amp;apos;</code></td>
+<td><code>&amp;#39;</code></td>
+</tr>
+<tr>
+<td>（スペース）</td>
+<td><code>&amp;nbsp;</code></td>
+<td><code>&amp;#160;</code></td>
+</tr>
+<tr>
+<td>©</td>
+<td><code>&amp;copy;</code></td>
+<td><code>&amp;#169;</code></td>
+</tr>
+<tr>
+<td>®</td>
+<td><code>&amp;reg;</code></td>
+<td><code>&amp;#174;</code></td>
+</tr>
+<tr>
+<td>™</td>
+<td><code>&amp;trade;</code></td>
+<td><code>&amp;#8482;</code></td>
+</tr>
+<tr>
+<td>€</td>
+<td><code>&amp;euro;</code></td>
+<td><code>&amp;#8364;</code></td>
+</tr>
+<tr>
+<td>¥</td>
+<td><code>&amp;yen;</code></td>
+<td><code>&amp;#165;</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>&amp;mdash;</code></td>
+<td><code>&amp;#8212;</code></td>
+</tr>
+<tr>
+<td>–</td>
+<td><code>&amp;ndash;</code></td>
+<td><code>&amp;#8211;</code></td>
+</tr>
+<tr>
+<td>…</td>
+<td><code>&amp;hellip;</code></td>
+<td><code>&amp;#8230;</code></td>
+</tr>
+<tr>
+<td>←</td>
+<td><code>&amp;larr;</code></td>
+<td><code>&amp;#8592;</code></td>
+</tr>
+<tr>
+<td>→</td>
+<td><code>&amp;rarr;</code></td>
+<td><code>&amp;#8594;</code></td>
+</tr>
+<tr>
+<td>↑</td>
+<td><code>&amp;uarr;</code></td>
+<td><code>&amp;#8593;</code></td>
+</tr>
+<tr>
+<td>↓</td>
+<td><code>&amp;darr;</code></td>
+<td><code>&amp;#8595;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>グローバル属性</h2>
+
+<h3><strong>すべてのHTML要素で使用可能な属性</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>要素の一意な識別子</td>
+<td><code>&lt;div id="header"&gt;</code></td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>CSSクラス名（複数指定可）</td>
+<td><code>&lt;div class="container active"&gt;</code></td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>インラインCSS</td>
+<td><code>&lt;p style="color: red;"&gt;</code></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>ツールチップテキスト</td>
+<td><code>&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</code></td>
+</tr>
+<tr>
+<td><code>lang</code></td>
+<td>要素の言語</td>
+<td><code>&lt;p lang="en"&gt;Hello&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td><code>dir</code></td>
+<td>テキストの方向</td>
+<td><code>&lt;p dir="rtl"&gt;右から左&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td><code>data-*</code></td>
+<td>カスタムデータ属性</td>
+<td><code>&lt;div data-user-id="123"&gt;</code></td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td>要素を非表示にする</td>
+<td><code>&lt;div hidden&gt;</code></td>
+</tr>
+<tr>
+<td><code>tabindex</code></td>
+<td>タブ順序を指定</td>
+<td><code>&lt;button tabindex="1"&gt;</code></td>
+</tr>
+<tr>
+<td><code>contenteditable</code></td>
+<td>コンテンツを編集可能にする</td>
+<td><code>&lt;div contenteditable="true"&gt;</code></td>
+</tr>
+<tr>
+<td><code>spellcheck</code></td>
+<td>スペルチェックの有効/無効</td>
+<td><code>&lt;textarea spellcheck="false"&gt;</code></td>
+</tr>
+<tr>
+<td><code>draggable</code></td>
+<td>要素をドラッグ可能にする</td>
+<td><code>&lt;img draggable="true"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>メタタグの種類</h2>
+
+<h3><strong>主要なメタタグ一覧</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メタタグ</th>
+<th>目的</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>charset</td>
+<td>文字エンコーディング指定</td>
+<td><code>&lt;meta charset="UTF-8"&gt;</code></td>
+</tr>
+<tr>
+<td>viewport</td>
+<td>モバイル表示の制御</td>
+<td><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></td>
+</tr>
+<tr>
+<td>description</td>
+<td>ページの説明（SEO）</td>
+<td><code>&lt;meta name="description" content="ページの説明文"&gt;</code></td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>キーワード（現在は非推奨）</td>
+<td><code>&lt;meta name="keywords" content="キーワード1, キーワード2"&gt;</code></td>
+</tr>
+<tr>
+<td>author</td>
+<td>作者情報</td>
+<td><code>&lt;meta name="author" content="作者名"&gt;</code></td>
+</tr>
+<tr>
+<td>robots</td>
+<td>検索エンジンへの指示</td>
+<td><code>&lt;meta name="robots" content="index, follow"&gt;</code></td>
+</tr>
+<tr>
+<td>refresh</td>
+<td>自動リフレッシュ/リダイレクト</td>
+<td><code>&lt;meta http-equiv="refresh" content="5;url=https://example.com"&gt;</code></td>
+</tr>
+<tr>
+<td>theme-color</td>
+<td>ブラウザのテーマカラー</td>
+<td><code>&lt;meta name="theme-color" content="#7f6df2"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>リンクタイプ（rel属性）</h2>
+
+<h3><strong>&lt;link&gt;タグと&lt;a&gt;タグで使用するrel属性値</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>rel属性値</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stylesheet</code></td>
+<td>外部CSSファイル</td>
+<td><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>ファビコン</td>
+<td><code>&lt;link rel="icon" href="favicon.ico"&gt;</code></td>
+</tr>
+<tr>
+<td><code>preconnect</code></td>
+<td>外部ドメインへの事前接続</td>
+<td><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</code></td>
+</tr>
+<tr>
+<td><code>preload</code></td>
+<td>リソースの事前読み込み</td>
+<td><code>&lt;link rel="preload" href="font.woff2" as="font"&gt;</code></td>
+</tr>
+<tr>
+<td><code>prefetch</code></td>
+<td>将来使用するリソースの先読み</td>
+<td><code>&lt;link rel="prefetch" href="next-page.html"&gt;</code></td>
+</tr>
+<tr>
+<td><code>canonical</code></td>
+<td>正規URLの指定</td>
+<td><code>&lt;link rel="canonical" href="https://example.com/page"&gt;</code></td>
+</tr>
+<tr>
+<td><code>alternate</code></td>
+<td>代替バージョン</td>
+<td><code>&lt;link rel="alternate" hreflang="en" href="/en/page"&gt;</code></td>
+</tr>
+<tr>
+<td><code>nofollow</code></td>
+<td>リンクをたどらない（&lt;a&gt;タグ）</td>
+<td><code>&lt;a href="..." rel="nofollow"&gt;</code></td>
+</tr>
+<tr>
+<td><code>noopener</code></td>
+<td>新規ウィンドウのセキュリティ</td>
+<td><code>&lt;a href="..." target="_blank" rel="noopener"&gt;</code></td>
+</tr>
+<tr>
+<td><code>noreferrer</code></td>
+<td>リファラー情報を送らない</td>
+<td><code>&lt;a href="..." rel="noreferrer"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>フォーム要素のタイプ</h2>
+
+<h3><strong>input要素のtype属性値</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>type属性値</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>テキスト入力（デフォルト）</td>
+<td><code>&lt;input type="text" name="username"&gt;</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>パスワード入力</td>
+<td><code>&lt;input type="password" name="pass"&gt;</code></td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>メールアドレス入力</td>
+<td><code>&lt;input type="email" name="email"&gt;</code></td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>数値入力</td>
+<td><code>&lt;input type="number" min="0" max="100"&gt;</code></td>
+</tr>
+<tr>
+<td><code>tel</code></td>
+<td>電話番号入力</td>
+<td><code>&lt;input type="tel" name="phone"&gt;</code></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>URL入力</td>
+<td><code>&lt;input type="url" name="website"&gt;</code></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>日付選択</td>
+<td><code>&lt;input type="date" name="birthday"&gt;</code></td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>時刻選択</td>
+<td><code>&lt;input type="time" name="appointment"&gt;</code></td>
+</tr>
+<tr>
+<td><code>datetime-local</code></td>
+<td>日時選択</td>
+<td><code>&lt;input type="datetime-local" name="meeting"&gt;</code></td>
+</tr>
+<tr>
+<td><code>month</code></td>
+<td>月選択</td>
+<td><code>&lt;input type="month" name="expiry"&gt;</code></td>
+</tr>
+<tr>
+<td><code>week</code></td>
+<td>週選択</td>
+<td><code>&lt;input type="week" name="week"&gt;</code></td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>色選択</td>
+<td><code>&lt;input type="color" name="favcolor"&gt;</code></td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td>ファイル選択</td>
+<td><code>&lt;input type="file" accept="image/*"&gt;</code></td>
+</tr>
+<tr>
+<td><code>range</code></td>
+<td>スライダー</td>
+<td><code>&lt;input type="range" min="0" max="100"&gt;</code></td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td>検索フィールド</td>
+<td><code>&lt;input type="search" name="q"&gt;</code></td>
+</tr>
+<tr>
+<td><code>checkbox</code></td>
+<td>チェックボックス</td>
+<td><code>&lt;input type="checkbox" name="agree"&gt;</code></td>
+</tr>
+<tr>
+<td><code>radio</code></td>
+<td>ラジオボタン</td>
+<td><code>&lt;input type="radio" name="gender" value="male"&gt;</code></td>
+</tr>
+<tr>
+<td><code>submit</code></td>
+<td>送信ボタン</td>
+<td><code>&lt;input type="submit" value="送信"&gt;</code></td>
+</tr>
+<tr>
+<td><code>reset</code></td>
+<td>リセットボタン</td>
+<td><code>&lt;input type="reset" value="リセット"&gt;</code></td>
+</tr>
+<tr>
+<td><code>button</code></td>
+<td>汎用ボタン</td>
+<td><code>&lt;input type="button" value="クリック"&gt;</code></td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td>隠しフィールド</td>
+<td><code>&lt;input type="hidden" name="csrf" value="token"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>イベント属性</h2>
+
+<h3><strong>よく使うイベントハンドラ属性</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>イベント属性</th>
+<th>発生タイミング</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onclick</code></td>
+<td>クリック時</td>
+<td><code>&lt;button onclick="alert('クリック')"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onchange</code></td>
+<td>値が変更された時</td>
+<td><code>&lt;input onchange="handleChange()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onsubmit</code></td>
+<td>フォーム送信時</td>
+<td><code>&lt;form onsubmit="return validate()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onload</code></td>
+<td>読み込み完了時</td>
+<td><code>&lt;body onload="init()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onmouseover</code></td>
+<td>マウスが乗った時</td>
+<td><code>&lt;div onmouseover="highlight()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onmouseout</code></td>
+<td>マウスが離れた時</td>
+<td><code>&lt;div onmouseout="unhighlight()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onfocus</code></td>
+<td>フォーカスを得た時</td>
+<td><code>&lt;input onfocus="showHint()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onblur</code></td>
+<td>フォーカスを失った時</td>
+<td><code>&lt;input onblur="hideHint()"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onkeydown</code></td>
+<td>キーを押した時</td>
+<td><code>&lt;input onkeydown="checkKey(event)"&gt;</code></td>
+</tr>
+<tr>
+<td><code>onkeyup</code></td>
+<td>キーを離した時</td>
+<td><code>&lt;input onkeyup="search()"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ARIA属性</h2>
+
+<h3><strong>アクセシビリティ向上のためのARIA属性</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ARIA属性</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aria-label</code></td>
+<td>要素のラベルを提供</td>
+<td><code>&lt;button aria-label="閉じる"&gt;×&lt;/button&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-labelledby</code></td>
+<td>ラベル要素のIDを参照</td>
+<td><code>&lt;nav aria-labelledby="nav-title"&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-describedby</code></td>
+<td>説明要素のIDを参照</td>
+<td><code>&lt;input aria-describedby="email-hint"&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-hidden</code></td>
+<td>スクリーンリーダーから隠す</td>
+<td><code>&lt;span aria-hidden="true"&gt;装飾&lt;/span&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-live</code></td>
+<td>動的コンテンツの通知</td>
+<td><code>&lt;div aria-live="polite"&gt;更新内容&lt;/div&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-required</code></td>
+<td>必須フィールドを示す</td>
+<td><code>&lt;input aria-required="true"&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-invalid</code></td>
+<td>無効な入力を示す</td>
+<td><code>&lt;input aria-invalid="true"&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-expanded</code></td>
+<td>展開/折りたたみ状態</td>
+<td><code>&lt;button aria-expanded="false"&gt;</code></td>
+</tr>
+<tr>
+<td><code>aria-current</code></td>
+<td>現在のアイテムを示す</td>
+<td><code>&lt;a aria-current="page"&gt;現在のページ&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td>要素の役割を定義</td>
+<td><code>&lt;div role="navigation"&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="search.js"></script>
+
+</body>
+</html>
