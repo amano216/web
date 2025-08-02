@@ -253,30 +253,30 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git init</code></td>
-<td>新しいGitリポジトリを初期化</td>
-<td><div class="command-example">git init</div></td>
+<td>Initialize</td>
+<td>新しいGitリポジトリを初期化する。現在のディレクトリをGitリポジトリとして初期化</td>
 </tr>
 <tr>
 <td><code>git config</code></td>
-<td>Gitの設定を行う</td>
-<td><div class="command-example">git config --global user.name "名前"<br>git config --global user.email "email@example.com"</div></td>
+<td>Configure</td>
+<td>Gitの設定を行う。ユーザー名やメールアドレスなどを設定</td>
 </tr>
 <tr>
 <td><code>git config --list</code></td>
-<td>現在の設定を一覧表示</td>
-<td><div class="command-example">git config --list</div></td>
+<td>List Configuration</td>
+<td>現在のGit設定を一覧表示する。グローバル設定とローカル設定を確認</td>
 </tr>
 <tr>
 <td><code>git clone</code></td>
-<td>リモートリポジトリをクローン</td>
-<td><div class="command-example">git clone https://github.com/user/repo.git</div></td>
+<td>Clone</td>
+<td>リモートリポジトリを複製する。GitHubなどから完全なコピーを作成</td>
 </tr>
 </tbody>
 </table>
@@ -289,40 +289,40 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git status</code></td>
-<td>作業ツリーの状態を表示</td>
-<td><div class="command-example">git status</div></td>
+<td>Status</td>
+<td>作業ツリーの状態を表示する。変更されたファイルやステージング状態を確認</td>
 </tr>
 <tr>
 <td><code>git add</code></td>
-<td>ファイルをステージングエリアに追加</td>
-<td><div class="command-example">git add file.txt<br>git add .<br>git add -A</div></td>
+<td>Add</td>
+<td>ファイルをステージングエリアに追加する。コミット前の準備段階</td>
 </tr>
 <tr>
 <td><code>git commit</code></td>
-<td>変更をコミット</td>
-<td><div class="command-example">git commit -m "コミットメッセージ"<br>git commit -am "ステージングとコミット"</div></td>
+<td>Commit</td>
+<td>変更をコミットする。ステージングエリアの内容を履歴に記録</td>
 </tr>
 <tr>
 <td><code>git diff</code></td>
-<td>変更内容を表示</td>
-<td><div class="command-example">git diff<br>git diff --staged<br>git diff HEAD</div></td>
+<td>Difference</td>
+<td>変更内容の差分を表示する。作業中の変更やコミット間の違いを確認</td>
 </tr>
 <tr>
 <td><code>git rm</code></td>
-<td>ファイルを削除</td>
-<td><div class="command-example">git rm file.txt<br>git rm --cached file.txt</div></td>
+<td>Remove</td>
+<td>ファイルを削除する。Gitの管理下からファイルを除外</td>
 </tr>
 <tr>
 <td><code>git mv</code></td>
-<td>ファイルを移動/名前変更</td>
-<td><div class="command-example">git mv old.txt new.txt</div></td>
+<td>Move</td>
+<td>ファイルを移動または名前変更する。履歴を保持したままファイル名を変更</td>
 </tr>
 </tbody>
 </table>
@@ -335,30 +335,30 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git log</code></td>
-<td>コミット履歴を表示</td>
-<td><div class="command-example">git log<br>git log --oneline<br>git log --graph --all</div></td>
+<td>Log</td>
+<td>コミット履歴を表示する。過去の変更履歴を時系列で確認</td>
 </tr>
 <tr>
 <td><code>git show</code></td>
-<td>コミットの詳細を表示</td>
-<td><div class="command-example">git show<br>git show コミットID</div></td>
+<td>Show</td>
+<td>コミットの詳細を表示する。特定のコミットの変更内容を確認</td>
 </tr>
 <tr>
 <td><code>git blame</code></td>
-<td>各行の最終変更者を表示</td>
-<td><div class="command-example">git blame file.txt</div></td>
+<td>Blame</td>
+<td>各行の最終変更者を表示する。誰がいつ変更したかを行単位で確認</td>
 </tr>
 <tr>
 <td><code>git reflog</code></td>
-<td>参照ログを表示</td>
-<td><div class="command-example">git reflog</div></td>
+<td>Reference Log</td>
+<td>参照ログを表示する。HEADの移動履歴を確認して操作を復元可能</td>
 </tr>
 </tbody>
 </table>
@@ -373,35 +373,35 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git branch</code></td>
-<td>ブランチの一覧表示/作成</td>
-<td><div class="command-example">git branch<br>git branch 新しいブランチ名<br>git branch -a</div></td>
+<td>Branch</td>
+<td>ブランチの一覧表示または作成する。分岐した開発ラインを管理</td>
 </tr>
 <tr>
 <td><code>git checkout</code></td>
-<td>ブランチを切り替え</td>
-<td><div class="command-example">git checkout ブランチ名<br>git checkout -b 新しいブランチ名</div></td>
+<td>Check Out</td>
+<td>ブランチを切り替える。別のブランチやコミットに移動</td>
 </tr>
 <tr>
 <td><code>git switch</code></td>
-<td>ブランチを切り替え（新しい方法）</td>
-<td><div class="command-example">git switch ブランチ名<br>git switch -c 新しいブランチ名</div></td>
+<td>Switch</td>
+<td>ブランチを切り替える（新しい方法）。checkoutより明確なブランチ切り替え</td>
 </tr>
 <tr>
 <td><code>git merge</code></td>
-<td>ブランチをマージ</td>
-<td><div class="command-example">git merge ブランチ名<br>git merge --no-ff ブランチ名</div></td>
+<td>Merge</td>
+<td>ブランチをマージする。分岐した変更を統合</td>
 </tr>
 <tr>
 <td><code>git branch -d</code></td>
-<td>ブランチを削除</td>
-<td><div class="command-example">git branch -d ブランチ名<br>git branch -D ブランチ名（強制削除）</div></td>
+<td>Delete Branch</td>
+<td>ブランチを削除する。マージ済みブランチを安全に削除</td>
 </tr>
 </tbody>
 </table>
@@ -416,30 +416,30 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git remote</code></td>
-<td>リモートリポジトリの管理</td>
-<td><div class="command-example">git remote -v<br>git remote add origin URL<br>git remote remove origin</div></td>
+<td>Remote</td>
+<td>リモートリポジトリを管理する。GitHubなどのリモート接続設定</td>
 </tr>
 <tr>
 <td><code>git fetch</code></td>
-<td>リモートの変更を取得</td>
-<td><div class="command-example">git fetch<br>git fetch origin</div></td>
+<td>Fetch</td>
+<td>リモートの変更を取得する。ローカルにダウンロードするがマージしない</td>
 </tr>
 <tr>
 <td><code>git pull</code></td>
-<td>リモートの変更を取得してマージ</td>
-<td><div class="command-example">git pull<br>git pull origin main</div></td>
+<td>Pull</td>
+<td>リモートの変更を取得してマージする。fetchとmergeを同時実行</td>
 </tr>
 <tr>
 <td><code>git push</code></td>
-<td>変更をリモートに送信</td>
-<td><div class="command-example">git push<br>git push origin main<br>git push -u origin main</div></td>
+<td>Push</td>
+<td>変更をリモートに送信する。ローカルのコミットをリモートにアップロード</td>
 </tr>
 </tbody>
 </table>
@@ -454,30 +454,30 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git reset</code></td>
-<td>コミットを取り消し</td>
-<td><div class="command-example">git reset --soft HEAD^<br>git reset --mixed HEAD^<br>git reset --hard HEAD^</div></td>
+<td>Reset</td>
+<td>コミットを取り消す。作業内容を過去の状態に戻す</td>
 </tr>
 <tr>
 <td><code>git revert</code></td>
-<td>コミットを打ち消す新しいコミット</td>
-<td><div class="command-example">git revert コミットID</div></td>
+<td>Revert</td>
+<td>コミットを打ち消す新しいコミットを作成。履歴を保持したまま変更を元に戻す</td>
 </tr>
 <tr>
 <td><code>git restore</code></td>
-<td>作業ツリーのファイルを復元</td>
-<td><div class="command-example">git restore file.txt<br>git restore --staged file.txt</div></td>
+<td>Restore</td>
+<td>作業ツリーのファイルを復元する。変更を破棄して元の状態に戻す</td>
 </tr>
 <tr>
 <td><code>git clean</code></td>
-<td>追跡されていないファイルを削除</td>
-<td><div class="command-example">git clean -n（確認）<br>git clean -f（実行）</div></td>
+<td>Clean</td>
+<td>追跡されていないファイルを削除する。作業ディレクトリをクリーンアップ</td>
 </tr>
 </tbody>
 </table>
@@ -492,20 +492,20 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git rebase</code></td>
-<td>コミット履歴を整理</td>
-<td><div class="command-example">git rebase main<br>git rebase -i HEAD~3</div></td>
+<td>Rebase</td>
+<td>コミット履歴を整理する。ブランチの基点を変更して履歴をクリーンに保つ</td>
 </tr>
 <tr>
 <td><code>git cherry-pick</code></td>
-<td>特定のコミットを適用</td>
-<td><div class="command-example">git cherry-pick コミットID</div></td>
+<td>Cherry Pick</td>
+<td>特定のコミットを適用する。他のブランチから必要なコミットだけを取り込む</td>
 </tr>
 </tbody>
 </table>
@@ -518,20 +518,20 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git stash</code></td>
-<td>変更を一時保存</td>
-<td><div class="command-example">git stash<br>git stash pop<br>git stash list</div></td>
+<td>Stash</td>
+<td>変更を一時保存する。作業中の変更を退避して別の作業を行う</td>
 </tr>
 <tr>
 <td><code>git tag</code></td>
-<td>タグの作成・管理</td>
-<td><div class="command-example">git tag v1.0.0<br>git tag -a v1.0.0 -m "バージョン1.0.0"<br>git push origin v1.0.0</div></td>
+<td>Tag</td>
+<td>タグを作成・管理する。リリースバージョンなどの目印を付ける</td>
 </tr>
 </tbody>
 </table>
@@ -546,25 +546,25 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>gh repo create</code></td>
-<td>新しいリポジトリを作成</td>
-<td><div class="command-example">gh repo create my-project --public<br>gh repo create my-project --private</div></td>
+<td>Create Repository</td>
+<td>新しいGitHubリポジトリを作成する。コマンドラインから直接作成</td>
 </tr>
 <tr>
 <td><code>gh repo clone</code></td>
-<td>リポジトリをクローン</td>
-<td><div class="command-example">gh repo clone owner/repo</div></td>
+<td>Clone Repository</td>
+<td>GitHubリポジトリをクローンする。簡単な書式でクローン可能</td>
 </tr>
 <tr>
 <td><code>gh repo view</code></td>
-<td>リポジトリ情報を表示</td>
-<td><div class="command-example">gh repo view<br>gh repo view owner/repo --web</div></td>
+<td>View Repository</td>
+<td>リポジトリ情報を表示する。READMEやステータスを確認</td>
 </tr>
 </tbody>
 </table>
@@ -577,35 +577,35 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>gh pr create</code></td>
-<td>プルリクエストを作成</td>
-<td><div class="command-example">gh pr create --title "タイトル" --body "説明"<br>gh pr create --fill</div></td>
+<td>Create Pull Request</td>
+<td>プルリクエストを作成する。コマンドラインからPRを作成</td>
 </tr>
 <tr>
 <td><code>gh pr list</code></td>
-<td>プルリクエスト一覧</td>
-<td><div class="command-example">gh pr list<br>gh pr list --state all</div></td>
+<td>List Pull Requests</td>
+<td>プルリクエスト一覧を表示する。オープン中のPRを確認</td>
 </tr>
 <tr>
 <td><code>gh pr view</code></td>
-<td>プルリクエストの詳細</td>
-<td><div class="command-example">gh pr view<br>gh pr view 123</div></td>
+<td>View Pull Request</td>
+<td>プルリクエストの詳細を表示する。コメントやレビューを確認</td>
 </tr>
 <tr>
 <td><code>gh pr checkout</code></td>
-<td>PRをローカルにチェックアウト</td>
-<td><div class="command-example">gh pr checkout 123</div></td>
+<td>Check Out Pull Request</td>
+<td>PRをローカルにチェックアウトする。レビューやテスト用にローカルで確認</td>
 </tr>
 <tr>
 <td><code>gh pr merge</code></td>
-<td>プルリクエストをマージ</td>
-<td><div class="command-example">gh pr merge 123<br>gh pr merge --squash</div></td>
+<td>Merge Pull Request</td>
+<td>プルリクエストをマージする。コマンドラインから直接マージ</td>
 </tr>
 </tbody>
 </table>
@@ -618,30 +618,30 @@
 <thead>
 <tr>
 <th>コマンド</th>
-<th>説明</th>
-<th>使用例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・使用方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>gh issue create</code></td>
-<td>新しいIssueを作成</td>
-<td><div class="command-example">gh issue create --title "バグ報告" --body "詳細"</div></td>
+<td>Create Issue</td>
+<td>新しいIssueを作成する。バグ報告や機能要望を記録</td>
 </tr>
 <tr>
 <td><code>gh issue list</code></td>
-<td>Issue一覧を表示</td>
-<td><div class="command-example">gh issue list<br>gh issue list --label "bug"</div></td>
+<td>List Issues</td>
+<td>Issue一覧を表示する。オープン中の課題を確認</td>
 </tr>
 <tr>
 <td><code>gh issue view</code></td>
-<td>Issueの詳細を表示</td>
-<td><div class="command-example">gh issue view 123</div></td>
+<td>View Issue</td>
+<td>Issueの詳細を表示する。問題の内容やコメントを確認</td>
 </tr>
 <tr>
 <td><code>gh issue close</code></td>
-<td>Issueをクローズ</td>
-<td><div class="command-example">gh issue close 123</div></td>
+<td>Close Issue</td>
+<td>Issueをクローズする。解決済みの問題を終了</td>
 </tr>
 </tbody>
 </table>
@@ -656,40 +656,40 @@
 <thead>
 <tr>
 <th>エイリアス</th>
-<th>実際のコマンド</th>
-<th>設定方法</th>
+<th>実際のコマンド (Actual Command)</th>
+<th>設定方法・説明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>git st</code></td>
 <td><code>git status</code></td>
-<td><div class="command-example">git config --global alias.st status</div></td>
+<td>statusコマンドの省略形。頻繁に使うコマンドを短く</td>
 </tr>
 <tr>
 <td><code>git co</code></td>
 <td><code>git checkout</code></td>
-<td><div class="command-example">git config --global alias.co checkout</div></td>
+<td>checkoutコマンドの省略形。ブランチ切り替えを素早く</td>
 </tr>
 <tr>
 <td><code>git br</code></td>
 <td><code>git branch</code></td>
-<td><div class="command-example">git config --global alias.br branch</div></td>
+<td>branchコマンドの省略形。ブランチ一覧を簡単に</td>
 </tr>
 <tr>
 <td><code>git cm</code></td>
 <td><code>git commit -m</code></td>
-<td><div class="command-example">git config --global alias.cm "commit -m"</div></td>
+<td>コミットメッセージ付きコミットの省略形</td>
 </tr>
 <tr>
 <td><code>git lg</code></td>
-<td>見やすいログ表示</td>
-<td><div class="command-example">git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</div></td>
+<td>Formatted Log Display</td>
+<td>グラフ表示付きの見やすいログ。色付きで履歴を視覚化</td>
 </tr>
 <tr>
 <td><code>git undo</code></td>
-<td>直前のコミットを取り消し</td>
-<td><div class="command-example">git config --global alias.undo "reset --soft HEAD^"</div></td>
+<td>Undo Last Commit</td>
+<td>直前のコミットを取り消す。変更内容は保持</td>
 </tr>
 </tbody>
 </table>
@@ -704,35 +704,35 @@
 <thead>
 <tr>
 <th>問題</th>
-<th>解決コマンド</th>
-<th>説明</th>
+<th>解決方法 (Solution)</th>
+<th>説明・対処法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>間違ってコミットした</td>
-<td><code>git commit --amend</code></td>
-<td>直前のコミットを修正</td>
+<td>Amend Commit</td>
+<td><code>git commit --amend</code>で直前のコミットを修正。メッセージや内容を変更</td>
 </tr>
 <tr>
 <td>マージコンフリクト</td>
-<td><code>git status</code>で確認後、手動修正</td>
-<td>コンフリクトファイルを編集してから<code>git add</code></td>
+<td>Resolve Conflicts</td>
+<td><code>git status</code>で確認後、手動修正。コンフリクトマーカーを削除してadd</td>
 </tr>
 <tr>
 <td>間違ったブランチで作業</td>
-<td><code>git stash</code> → <code>git checkout 正しいブランチ</code> → <code>git stash pop</code></td>
-<td>変更を一時保存して移動</td>
+<td>Stash and Switch</td>
+<td><code>git stash</code> → <code>git checkout 正しいブランチ</code> → <code>git stash pop</code>で変更を移動</td>
 </tr>
 <tr>
 <td>リモートと同期したい</td>
-<td><code>git fetch --all</code> → <code>git reset --hard origin/main</code></td>
-<td>ローカルの変更を破棄してリモートに合わせる</td>
+<td>Force Sync with Remote</td>
+<td><code>git fetch --all</code> → <code>git reset --hard origin/main</code>でローカルをリモートに完全一致</td>
 </tr>
 <tr>
 <td>特定のファイルだけ元に戻す</td>
-<td><code>git checkout -- file.txt</code></td>
-<td>作業中の変更を破棄</td>
+<td>Discard File Changes</td>
+<td><code>git checkout -- file.txt</code>で作業中の変更を破棄。最新コミットの状態に戻す</td>
 </tr>
 </tbody>
 </table>
