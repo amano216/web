@@ -126,6 +126,36 @@ const searchIndex = [
             { heading: "変更の取り消し", keywords: ["reset", "revert", "restore", "clean"] },
             { heading: "GitHub CLI", keywords: ["gh", "pr", "issue", "repo"] }
         ]
+    },
+    {
+        title: "SQLコマンド一覧",
+        url: "sql-reference.html",
+        category: "SQL",
+        keywords: ["sql", "database", "データベース", "クエリ", "query", "select", "insert", "update", "delete"],
+        sections: [
+            { heading: "データ定義言語（DDL）", keywords: ["create", "alter", "drop", "truncate", "table", "index"] },
+            { heading: "データ操作言語（DML）", keywords: ["select", "insert", "update", "delete", "from", "where", "order by"] },
+            { heading: "結合（JOIN）操作", keywords: ["join", "inner join", "left join", "right join", "full outer join", "on"] },
+            { heading: "集計関数", keywords: ["count", "sum", "avg", "max", "min", "group by", "having"] },
+            { heading: "サブクエリと共通テーブル式", keywords: ["in", "exists", "any", "all", "with", "cte", "recursive"] },
+            { heading: "トランザクション制御", keywords: ["begin", "commit", "rollback", "transaction", "savepoint"] }
+        ]
+    },
+    {
+        title: "SQL記法チートシート",
+        url: "sql-cheatsheet.html",
+        category: "SQL",
+        keywords: ["sql", "記法", "構文", "syntax", "チートシート", "クエリ", "query"],
+        sections: [
+            { heading: "基本的なSELECT文", keywords: ["select", "from", "where", "order by", "limit", "distinct"] },
+            { heading: "テーブルの作成と管理", keywords: ["create table", "primary key", "foreign key", "not null", "default"] },
+            { heading: "データの挿入・更新・削除", keywords: ["insert into", "values", "update", "set", "delete from"] },
+            { heading: "結合（JOIN）の種類と使い方", keywords: ["inner join", "left join", "right join", "cross join", "using"] },
+            { heading: "集計とグループ化", keywords: ["group by", "having", "count", "sum", "avg", "window function"] },
+            { heading: "条件分岐（CASE文）", keywords: ["case", "when", "then", "else", "end"] },
+            { heading: "インデックスの作成と管理", keywords: ["create index", "drop index", "unique index", "explain"] },
+            { heading: "トランザクション処理", keywords: ["start transaction", "commit", "rollback", "savepoint"] }
+        ]
     }
 ];
 
@@ -138,5 +168,7 @@ const contentCache = {
     "symbols-reference.html": "記号 symbol 読み方 小なり less than 大なり greater than スラッシュ slash イコール equals ダブルクォート double quote アンパサンド ampersand",
     "git-commands.html": "Git GitHub バージョン管理 version control init 初期化 add 追加 commit コミット push プッシュ pull プル branch ブランチ merge マージ",
     "javascript-reference.html": "JavaScript JS ジャバスクリプト メソッド method プロパティ property API String 文字列 Array 配列 Number 数値 Math Date 日付 DOM Promise async await",
-    "javascript-cheatsheet.html": "JavaScript JS ジャバスクリプト 記法 syntax 構文 チートシート cheatsheet let const var function class 関数 クラス if for while"
+    "javascript-cheatsheet.html": "JavaScript JS ジャバスクリプト 記法 syntax 構文 チートシート cheatsheet let const var function class 関数 クラス if for while",
+    "sql-reference.html": "SQL データベース database クエリ query コマンド command DDL DML CREATE ALTER DROP SELECT INSERT UPDATE DELETE JOIN INNER LEFT RIGHT GROUP BY HAVING COUNT SUM AVG トランザクション",
+    "sql-cheatsheet.html": "SQL 記法 syntax 構文 チートシート cheatsheet SELECT FROM WHERE ORDER BY LIMIT CREATE TABLE INSERT UPDATE DELETE JOIN GROUP BY HAVING CASE WHEN トランザクション transaction"
 };

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLコマンド一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* SQL例のスタイル */
+        .sql-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html" class="active">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>SQLコマンド一覧</h1>
+
+<p>データベース操作に使用される主要なSQLコマンドを、カテゴリ別にまとめました。</p>
+
+<hr>
+
+<h2>データ定義言語（DDL）</h2>
+
+<h3><strong>テーブル操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE TABLE</code></td>
+<td>Create Table</td>
+<td>新しいテーブルを作成する。列名とデータ型を定義</td>
+</tr>
+<tr>
+<td><code>ALTER TABLE</code></td>
+<td>Alter Table</td>
+<td>既存のテーブル構造を変更する。列の追加・削除・変更</td>
+</tr>
+<tr>
+<td><code>DROP TABLE</code></td>
+<td>Drop Table</td>
+<td>テーブルを完全に削除する。データも含めて削除</td>
+</tr>
+<tr>
+<td><code>TRUNCATE TABLE</code></td>
+<td>Truncate Table</td>
+<td>テーブルのデータをすべて削除する。構造は保持</td>
+</tr>
+<tr>
+<td><code>RENAME TABLE</code></td>
+<td>Rename Table</td>
+<td>テーブル名を変更する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>列の定義と制約</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>制約・キーワード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PRIMARY KEY</code></td>
+<td>Primary Key</td>
+<td>主キー。レコードを一意に識別する列を指定</td>
+</tr>
+<tr>
+<td><code>FOREIGN KEY</code></td>
+<td>Foreign Key</td>
+<td>外部キー。他のテーブルとの関連を定義</td>
+</tr>
+<tr>
+<td><code>UNIQUE</code></td>
+<td>Unique</td>
+<td>一意制約。重複した値を許可しない</td>
+</tr>
+<tr>
+<td><code>NOT NULL</code></td>
+<td>Not Null</td>
+<td>NULL値を許可しない制約</td>
+</tr>
+<tr>
+<td><code>DEFAULT</code></td>
+<td>Default</td>
+<td>デフォルト値を設定する</td>
+</tr>
+<tr>
+<td><code>CHECK</code></td>
+<td>Check</td>
+<td>値の条件をチェックする制約</td>
+</tr>
+<tr>
+<td><code>AUTO_INCREMENT</code></td>
+<td>Auto Increment</td>
+<td>自動的に連番を生成する（MySQL）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>インデックス操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE INDEX</code></td>
+<td>Create Index</td>
+<td>インデックスを作成する。検索速度を向上させる</td>
+</tr>
+<tr>
+<td><code>DROP INDEX</code></td>
+<td>Drop Index</td>
+<td>インデックスを削除する</td>
+</tr>
+<tr>
+<td><code>CREATE UNIQUE INDEX</code></td>
+<td>Create Unique Index</td>
+<td>一意インデックスを作成する。重複を防ぐ</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>データ操作言語（DML）</h2>
+
+<h3><strong>データの取得</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SELECT</code></td>
+<td>Select</td>
+<td>データを取得する。最も基本的なクエリ</td>
+</tr>
+<tr>
+<td><code>FROM</code></td>
+<td>From</td>
+<td>データを取得するテーブルを指定する</td>
+</tr>
+<tr>
+<td><code>WHERE</code></td>
+<td>Where</td>
+<td>条件を指定してデータを絞り込む</td>
+</tr>
+<tr>
+<td><code>ORDER BY</code></td>
+<td>Order By</td>
+<td>結果を並び替える。昇順（ASC）・降順（DESC）</td>
+</tr>
+<tr>
+<td><code>GROUP BY</code></td>
+<td>Group By</td>
+<td>データをグループ化する。集計関数と併用</td>
+</tr>
+<tr>
+<td><code>HAVING</code></td>
+<td>Having</td>
+<td>GROUP BY後の条件を指定する</td>
+</tr>
+<tr>
+<td><code>LIMIT</code></td>
+<td>Limit</td>
+<td>取得するレコード数を制限する</td>
+</tr>
+<tr>
+<td><code>OFFSET</code></td>
+<td>Offset</td>
+<td>取得開始位置を指定する。ページング処理で使用</td>
+</tr>
+<tr>
+<td><code>DISTINCT</code></td>
+<td>Distinct</td>
+<td>重複を除いた結果を取得する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>データの追加・更新・削除</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INSERT INTO</code></td>
+<td>Insert Into</td>
+<td>新しいレコードを追加する</td>
+</tr>
+<tr>
+<td><code>VALUES</code></td>
+<td>Values</td>
+<td>追加するデータの値を指定する</td>
+</tr>
+<tr>
+<td><code>UPDATE</code></td>
+<td>Update</td>
+<td>既存のレコードを更新する</td>
+</tr>
+<tr>
+<td><code>SET</code></td>
+<td>Set</td>
+<td>更新する列と値を指定する</td>
+</tr>
+<tr>
+<td><code>DELETE FROM</code></td>
+<td>Delete From</td>
+<td>レコードを削除する。WHERE句なしは全削除</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>結合（JOIN）操作</h2>
+
+<h3><strong>テーブルの結合</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>結合タイプ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INNER JOIN</code></td>
+<td>Inner Join</td>
+<td>内部結合。両方のテーブルに存在するデータのみ取得</td>
+</tr>
+<tr>
+<td><code>LEFT JOIN</code></td>
+<td>Left Join</td>
+<td>左外部結合。左テーブルのすべてと右テーブルの一致データ</td>
+</tr>
+<tr>
+<td><code>RIGHT JOIN</code></td>
+<td>Right Join</td>
+<td>右外部結合。右テーブルのすべてと左テーブルの一致データ</td>
+</tr>
+<tr>
+<td><code>FULL OUTER JOIN</code></td>
+<td>Full Outer Join</td>
+<td>完全外部結合。両方のテーブルのすべてのデータ</td>
+</tr>
+<tr>
+<td><code>CROSS JOIN</code></td>
+<td>Cross Join</td>
+<td>クロス結合。すべての組み合わせを生成</td>
+</tr>
+<tr>
+<td><code>SELF JOIN</code></td>
+<td>Self Join</td>
+<td>自己結合。同じテーブルを結合</td>
+</tr>
+<tr>
+<td><code>ON</code></td>
+<td>On</td>
+<td>結合条件を指定する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>集計関数</h2>
+
+<h3><strong>データの集計</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNT()</code></td>
+<td>Count</td>
+<td>レコード数を数える。NULL値は除外</td>
+</tr>
+<tr>
+<td><code>SUM()</code></td>
+<td>Sum</td>
+<td>合計値を計算する</td>
+</tr>
+<tr>
+<td><code>AVG()</code></td>
+<td>Average</td>
+<td>平均値を計算する</td>
+</tr>
+<tr>
+<td><code>MAX()</code></td>
+<td>Maximum</td>
+<td>最大値を取得する</td>
+</tr>
+<tr>
+<td><code>MIN()</code></td>
+<td>Minimum</td>
+<td>最小値を取得する</td>
+</tr>
+<tr>
+<td><code>GROUP_CONCAT()</code></td>
+<td>Group Concatenate</td>
+<td>グループ内の値を連結する（MySQL）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>サブクエリと共通テーブル式</h2>
+
+<h3><strong>サブクエリ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>キーワード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IN</code></td>
+<td>In</td>
+<td>リスト内の値と一致するかチェック</td>
+</tr>
+<tr>
+<td><code>NOT IN</code></td>
+<td>Not In</td>
+<td>リスト内の値と一致しないかチェック</td>
+</tr>
+<tr>
+<td><code>EXISTS</code></td>
+<td>Exists</td>
+<td>サブクエリが結果を返すかチェック</td>
+</tr>
+<tr>
+<td><code>NOT EXISTS</code></td>
+<td>Not Exists</td>
+<td>サブクエリが結果を返さないかチェック</td>
+</tr>
+<tr>
+<td><code>ANY</code></td>
+<td>Any</td>
+<td>いずれかの値と比較</td>
+</tr>
+<tr>
+<td><code>ALL</code></td>
+<td>All</td>
+<td>すべての値と比較</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>共通テーブル式（CTE）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>キーワード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WITH</code></td>
+<td>With</td>
+<td>共通テーブル式を定義する。一時的な名前付き結果セット</td>
+</tr>
+<tr>
+<td><code>RECURSIVE</code></td>
+<td>Recursive</td>
+<td>再帰的なCTEを定義する。階層データの処理</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>条件式と演算子</h2>
+
+<h3><strong>比較演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>演算子</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>Equal</td>
+<td>等しい</td>
+</tr>
+<tr>
+<td><code>!=</code> or <code>&lt;&gt;</code></td>
+<td>Not Equal</td>
+<td>等しくない</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Greater Than</td>
+<td>より大きい</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Less Than</td>
+<td>より小さい</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Greater Than or Equal</td>
+<td>以上</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Less Than or Equal</td>
+<td>以下</td>
+</tr>
+<tr>
+<td><code>BETWEEN</code></td>
+<td>Between</td>
+<td>範囲内かチェック</td>
+</tr>
+<tr>
+<td><code>LIKE</code></td>
+<td>Like</td>
+<td>パターンマッチング。ワイルドカード使用可</td>
+</tr>
+<tr>
+<td><code>IS NULL</code></td>
+<td>Is Null</td>
+<td>NULL値かチェック</td>
+</tr>
+<tr>
+<td><code>IS NOT NULL</code></td>
+<td>Is Not Null</td>
+<td>NULL値でないかチェック</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>論理演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>演算子</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AND</code></td>
+<td>And</td>
+<td>すべての条件が真の場合に真</td>
+</tr>
+<tr>
+<td><code>OR</code></td>
+<td>Or</td>
+<td>いずれかの条件が真の場合に真</td>
+</tr>
+<tr>
+<td><code>NOT</code></td>
+<td>Not</td>
+<td>条件を否定する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文字列関数</h2>
+
+<h3><strong>文字列操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CONCAT()</code></td>
+<td>Concatenate</td>
+<td>文字列を連結する</td>
+</tr>
+<tr>
+<td><code>LENGTH()</code></td>
+<td>Length</td>
+<td>文字列の長さを取得する</td>
+</tr>
+<tr>
+<td><code>UPPER()</code></td>
+<td>Upper</td>
+<td>大文字に変換する</td>
+</tr>
+<tr>
+<td><code>LOWER()</code></td>
+<td>Lower</td>
+<td>小文字に変換する</td>
+</tr>
+<tr>
+<td><code>TRIM()</code></td>
+<td>Trim</td>
+<td>前後の空白を削除する</td>
+</tr>
+<tr>
+<td><code>SUBSTRING()</code></td>
+<td>Substring</td>
+<td>部分文字列を取得する</td>
+</tr>
+<tr>
+<td><code>REPLACE()</code></td>
+<td>Replace</td>
+<td>文字列を置換する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>日付・時刻関数</h2>
+
+<h3><strong>日付操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NOW()</code></td>
+<td>Now</td>
+<td>現在の日時を取得する</td>
+</tr>
+<tr>
+<td><code>CURRENT_DATE</code></td>
+<td>Current Date</td>
+<td>現在の日付を取得する</td>
+</tr>
+<tr>
+<td><code>CURRENT_TIME</code></td>
+<td>Current Time</td>
+<td>現在の時刻を取得する</td>
+</tr>
+<tr>
+<td><code>DATE_FORMAT()</code></td>
+<td>Date Format</td>
+<td>日付を指定形式で表示する（MySQL）</td>
+</tr>
+<tr>
+<td><code>DATE_ADD()</code></td>
+<td>Date Add</td>
+<td>日付に期間を加算する</td>
+</tr>
+<tr>
+<td><code>DATE_SUB()</code></td>
+<td>Date Subtract</td>
+<td>日付から期間を減算する</td>
+</tr>
+<tr>
+<td><code>DATEDIFF()</code></td>
+<td>Date Difference</td>
+<td>日付の差を計算する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>トランザクション制御</h2>
+
+<h3><strong>トランザクション管理</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BEGIN</code> / <code>START TRANSACTION</code></td>
+<td>Begin / Start Transaction</td>
+<td>トランザクションを開始する</td>
+</tr>
+<tr>
+<td><code>COMMIT</code></td>
+<td>Commit</td>
+<td>トランザクションを確定する。変更を保存</td>
+</tr>
+<tr>
+<td><code>ROLLBACK</code></td>
+<td>Rollback</td>
+<td>トランザクションを取り消す。変更を破棄</td>
+</tr>
+<tr>
+<td><code>SAVEPOINT</code></td>
+<td>Savepoint</td>
+<td>トランザクション内の保存ポイントを作成</td>
+</tr>
+<tr>
+<td><code>SET AUTOCOMMIT</code></td>
+<td>Set Autocommit</td>
+<td>自動コミットの有効・無効を設定</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>データベース管理</h2>
+
+<h3><strong>データベース操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE DATABASE</code></td>
+<td>Create Database</td>
+<td>新しいデータベースを作成する</td>
+</tr>
+<tr>
+<td><code>DROP DATABASE</code></td>
+<td>Drop Database</td>
+<td>データベースを削除する</td>
+</tr>
+<tr>
+<td><code>USE</code></td>
+<td>Use</td>
+<td>使用するデータベースを選択する</td>
+</tr>
+<tr>
+<td><code>SHOW DATABASES</code></td>
+<td>Show Databases</td>
+<td>データベース一覧を表示する</td>
+</tr>
+<tr>
+<td><code>SHOW TABLES</code></td>
+<td>Show Tables</td>
+<td>テーブル一覧を表示する</td>
+</tr>
+<tr>
+<td><code>DESCRIBE</code> / <code>DESC</code></td>
+<td>Describe</td>
+<td>テーブル構造を表示する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ビューとストアドプロシージャ</h2>
+
+<h3><strong>ビュー操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE VIEW</code></td>
+<td>Create View</td>
+<td>ビューを作成する。仮想的なテーブル</td>
+</tr>
+<tr>
+<td><code>DROP VIEW</code></td>
+<td>Drop View</td>
+<td>ビューを削除する</td>
+</tr>
+<tr>
+<td><code>CREATE OR REPLACE VIEW</code></td>
+<td>Create or Replace View</td>
+<td>ビューを作成または置き換える</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>ストアドプロシージャ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE PROCEDURE</code></td>
+<td>Create Procedure</td>
+<td>ストアドプロシージャを作成する</td>
+</tr>
+<tr>
+<td><code>CALL</code></td>
+<td>Call</td>
+<td>ストアドプロシージャを実行する</td>
+</tr>
+<tr>
+<td><code>DROP PROCEDURE</code></td>
+<td>Drop Procedure</td>
+<td>ストアドプロシージャを削除する</td>
+</tr>
+<tr>
+<td><code>CREATE FUNCTION</code></td>
+<td>Create Function</td>
+<td>ユーザー定義関数を作成する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>権限管理</h2>
+
+<h3><strong>ユーザーと権限</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CREATE USER</code></td>
+<td>Create User</td>
+<td>新しいユーザーを作成する</td>
+</tr>
+<tr>
+<td><code>DROP USER</code></td>
+<td>Drop User</td>
+<td>ユーザーを削除する</td>
+</tr>
+<tr>
+<td><code>GRANT</code></td>
+<td>Grant</td>
+<td>権限を付与する</td>
+</tr>
+<tr>
+<td><code>REVOKE</code></td>
+<td>Revoke</td>
+<td>権限を取り消す</td>
+</tr>
+<tr>
+<td><code>SHOW GRANTS</code></td>
+<td>Show Grants</td>
+<td>権限を表示する</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>

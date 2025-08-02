@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* 構文例のスタイル */
+        .syntax-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .syntax-example code {
+            color: #abb2bf;
+            background: transparent;
+            padding: 0;
+        }
+
+        /* SQLキーワード */
+        .keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+
+        /* 文字列 */
+        .string {
+            color: #98c379;
+        }
+
+        /* 数値 */
+        .number {
+            color: #d19a66;
+        }
+
+        /* コメント */
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* テーブル名・列名 */
+        .identifier {
+            color: #61afef;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html" class="active">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>SQL記法チートシート</h1>
+
+<p>SQLの基本的な記法と構文をまとめたクイックリファレンスです。</p>
+
+<hr>
+
+<h2>基本的なSELECT文</h2>
+
+<h3><strong>データ取得の基本構文</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>構文要素</th>
+<th>英語の意味 (Meaning)</th>
+<th>使用方法・説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SELECT</code></td>
+<td>Select</td>
+<td>取得する列を指定。<code>*</code>ですべての列を取得</td>
+</tr>
+<tr>
+<td><code>FROM</code></td>
+<td>From</td>
+<td>データを取得するテーブルを指定</td>
+</tr>
+<tr>
+<td><code>WHERE</code></td>
+<td>Where</td>
+<td>条件を指定してレコードを絞り込む</td>
+</tr>
+<tr>
+<td><code>ORDER BY</code></td>
+<td>Order By</td>
+<td>結果を並び替える。<code>ASC</code>（昇順）/<code>DESC</code>（降順）</td>
+</tr>
+<tr>
+<td><code>LIMIT</code></td>
+<td>Limit</td>
+<td>取得するレコード数を制限</td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的なSELECT文</span>
+<span class="keyword">SELECT</span> <span class="identifier">column1</span>, <span class="identifier">column2</span>
+<span class="keyword">FROM</span> <span class="identifier">table_name</span>
+<span class="keyword">WHERE</span> <span class="identifier">condition</span>
+<span class="keyword">ORDER BY</span> <span class="identifier">column1</span> <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> <span class="number">10</span>;
+
+<span class="comment">-- 具体例：従業員テーブルから給与の高い順に10人取得</span>
+<span class="keyword">SELECT</span> <span class="identifier">name</span>, <span class="identifier">department</span>, <span class="identifier">salary</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>
+<span class="keyword">WHERE</span> <span class="identifier">salary</span> > <span class="number">50000</span>
+<span class="keyword">ORDER BY</span> <span class="identifier">salary</span> <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> <span class="number">10</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>テーブルの作成と管理</h2>
+
+<h3><strong>CREATE TABLE構文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的なテーブル作成</span>
+<span class="keyword">CREATE TABLE</span> <span class="identifier">table_name</span> (
+    <span class="identifier">id</span> <span class="keyword">INT</span> <span class="keyword">PRIMARY KEY</span> <span class="keyword">AUTO_INCREMENT</span>,
+    <span class="identifier">column1</span> <span class="keyword">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">NOT NULL</span>,
+    <span class="identifier">column2</span> <span class="keyword">INT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,
+    <span class="identifier">column3</span> <span class="keyword">DATE</span>,
+    <span class="identifier">created_at</span> <span class="keyword">TIMESTAMP</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span>
+);
+
+<span class="comment">-- 外部キー付きのテーブル作成</span>
+<span class="keyword">CREATE TABLE</span> <span class="identifier">orders</span> (
+    <span class="identifier">order_id</span> <span class="keyword">INT</span> <span class="keyword">PRIMARY KEY</span> <span class="keyword">AUTO_INCREMENT</span>,
+    <span class="identifier">customer_id</span> <span class="keyword">INT</span>,
+    <span class="identifier">order_date</span> <span class="keyword">DATE</span>,
+    <span class="identifier">total_amount</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>),
+    <span class="keyword">FOREIGN KEY</span> (<span class="identifier">customer_id</span>) <span class="keyword">REFERENCES</span> <span class="identifier">customers</span>(<span class="identifier">id</span>)
+);</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>データ型の種類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>データ型</th>
+<th>英語の意味 (Meaning)</th>
+<th>説明・使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INT</code></td>
+<td>Integer</td>
+<td>整数。<code>INT(11)</code>で表示幅を指定</td>
+</tr>
+<tr>
+<td><code>VARCHAR(n)</code></td>
+<td>Variable Character</td>
+<td>可変長文字列。最大n文字</td>
+</tr>
+<tr>
+<td><code>CHAR(n)</code></td>
+<td>Character</td>
+<td>固定長文字列。常にn文字</td>
+</tr>
+<tr>
+<td><code>TEXT</code></td>
+<td>Text</td>
+<td>長い文字列。最大65,535文字</td>
+</tr>
+<tr>
+<td><code>DATE</code></td>
+<td>Date</td>
+<td>日付。'YYYY-MM-DD'形式</td>
+</tr>
+<tr>
+<td><code>DATETIME</code></td>
+<td>Date Time</td>
+<td>日付と時刻。'YYYY-MM-DD HH:MM:SS'</td>
+</tr>
+<tr>
+<td><code>DECIMAL(m,d)</code></td>
+<td>Decimal</td>
+<td>固定小数点数。m桁中d桁が小数</td>
+</tr>
+<tr>
+<td><code>BOOLEAN</code></td>
+<td>Boolean</td>
+<td>真偽値。TRUE/FALSE</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>データの挿入・更新・削除</h2>
+
+<h3><strong>INSERT文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 単一レコードの挿入</span>
+<span class="keyword">INSERT INTO</span> <span class="identifier">table_name</span> (<span class="identifier">column1</span>, <span class="identifier">column2</span>, <span class="identifier">column3</span>)
+<span class="keyword">VALUES</span> (<span class="string">'value1'</span>, <span class="string">'value2'</span>, <span class="string">'value3'</span>);
+
+<span class="comment">-- 複数レコードの挿入</span>
+<span class="keyword">INSERT INTO</span> <span class="identifier">products</span> (<span class="identifier">name</span>, <span class="identifier">price</span>, <span class="identifier">category</span>)
+<span class="keyword">VALUES</span> 
+    (<span class="string">'商品A'</span>, <span class="number">1000</span>, <span class="string">'電化製品'</span>),
+    (<span class="string">'商品B'</span>, <span class="number">2000</span>, <span class="string">'家具'</span>),
+    (<span class="string">'商品C'</span>, <span class="number">3000</span>, <span class="string">'衣類'</span>);
+
+<span class="comment">-- 他のテーブルからデータをコピー</span>
+<span class="keyword">INSERT INTO</span> <span class="identifier">new_table</span> (<span class="identifier">column1</span>, <span class="identifier">column2</span>)
+<span class="keyword">SELECT</span> <span class="identifier">column1</span>, <span class="identifier">column2</span>
+<span class="keyword">FROM</span> <span class="identifier">old_table</span>
+<span class="keyword">WHERE</span> <span class="identifier">condition</span>;</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>UPDATE文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的な更新</span>
+<span class="keyword">UPDATE</span> <span class="identifier">table_name</span>
+<span class="keyword">SET</span> <span class="identifier">column1</span> = <span class="string">'new_value'</span>,
+    <span class="identifier">column2</span> = <span class="identifier">column2</span> + <span class="number">10</span>
+<span class="keyword">WHERE</span> <span class="identifier">condition</span>;
+
+<span class="comment">-- 複数条件での更新</span>
+<span class="keyword">UPDATE</span> <span class="identifier">employees</span>
+<span class="keyword">SET</span> <span class="identifier">salary</span> = <span class="identifier">salary</span> * <span class="number">1.1</span>,
+    <span class="identifier">updated_at</span> = <span class="keyword">NOW</span>()
+<span class="keyword">WHERE</span> <span class="identifier">department</span> = <span class="string">'営業部'</span>
+  <span class="keyword">AND</span> <span class="identifier">performance_rating</span> >= <span class="number">4</span>;</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>DELETE文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 条件付き削除</span>
+<span class="keyword">DELETE FROM</span> <span class="identifier">table_name</span>
+<span class="keyword">WHERE</span> <span class="identifier">condition</span>;
+
+<span class="comment">-- 古いレコードの削除</span>
+<span class="keyword">DELETE FROM</span> <span class="identifier">logs</span>
+<span class="keyword">WHERE</span> <span class="identifier">created_at</span> < <span class="keyword">DATE_SUB</span>(<span class="keyword">NOW</span>(), <span class="keyword">INTERVAL</span> <span class="number">30</span> <span class="keyword">DAY</span>);
+
+<span class="comment">-- テーブルの全データ削除（構造は保持）</span>
+<span class="keyword">TRUNCATE TABLE</span> <span class="identifier">table_name</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>結合（JOIN）の種類と使い方</h2>
+
+<h3><strong>各種JOIN構文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- INNER JOIN（内部結合）</span>
+<span class="keyword">SELECT</span> <span class="identifier">o</span>.<span class="identifier">order_id</span>, <span class="identifier">c</span>.<span class="identifier">customer_name</span>, <span class="identifier">o</span>.<span class="identifier">order_date</span>
+<span class="keyword">FROM</span> <span class="identifier">orders</span> <span class="identifier">o</span>
+<span class="keyword">INNER JOIN</span> <span class="identifier">customers</span> <span class="identifier">c</span> <span class="keyword">ON</span> <span class="identifier">o</span>.<span class="identifier">customer_id</span> = <span class="identifier">c</span>.<span class="identifier">id</span>;
+
+<span class="comment">-- LEFT JOIN（左外部結合）</span>
+<span class="keyword">SELECT</span> <span class="identifier">c</span>.<span class="identifier">customer_name</span>, <span class="identifier">o</span>.<span class="identifier">order_id</span>
+<span class="keyword">FROM</span> <span class="identifier">customers</span> <span class="identifier">c</span>
+<span class="keyword">LEFT JOIN</span> <span class="identifier">orders</span> <span class="identifier">o</span> <span class="keyword">ON</span> <span class="identifier">c</span>.<span class="identifier">id</span> = <span class="identifier">o</span>.<span class="identifier">customer_id</span>;
+
+<span class="comment">-- 複数テーブルの結合</span>
+<span class="keyword">SELECT</span> <span class="identifier">o</span>.<span class="identifier">order_id</span>, <span class="identifier">c</span>.<span class="identifier">customer_name</span>, <span class="identifier">p</span>.<span class="identifier">product_name</span>, <span class="identifier">od</span>.<span class="identifier">quantity</span>
+<span class="keyword">FROM</span> <span class="identifier">orders</span> <span class="identifier">o</span>
+<span class="keyword">INNER JOIN</span> <span class="identifier">customers</span> <span class="identifier">c</span> <span class="keyword">ON</span> <span class="identifier">o</span>.<span class="identifier">customer_id</span> = <span class="identifier">c</span>.<span class="identifier">id</span>
+<span class="keyword">INNER JOIN</span> <span class="identifier">order_details</span> <span class="identifier">od</span> <span class="keyword">ON</span> <span class="identifier">o</span>.<span class="identifier">order_id</span> = <span class="identifier">od</span>.<span class="identifier">order_id</span>
+<span class="keyword">INNER JOIN</span> <span class="identifier">products</span> <span class="identifier">p</span> <span class="keyword">ON</span> <span class="identifier">od</span>.<span class="identifier">product_id</span> = <span class="identifier">p</span>.<span class="identifier">id</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>集計とグループ化</h2>
+
+<h3><strong>GROUP BYとHAVING</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的な集計</span>
+<span class="keyword">SELECT</span> <span class="identifier">department</span>, 
+       <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="identifier">employee_count</span>,
+       <span class="keyword">AVG</span>(<span class="identifier">salary</span>) <span class="keyword">AS</span> <span class="identifier">avg_salary</span>,
+       <span class="keyword">MAX</span>(<span class="identifier">salary</span>) <span class="keyword">AS</span> <span class="identifier">max_salary</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>
+<span class="keyword">GROUP BY</span> <span class="identifier">department</span>;
+
+<span class="comment">-- HAVINGによる集計結果の絞り込み</span>
+<span class="keyword">SELECT</span> <span class="identifier">department</span>, 
+       <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="identifier">employee_count</span>,
+       <span class="keyword">AVG</span>(<span class="identifier">salary</span>) <span class="keyword">AS</span> <span class="identifier">avg_salary</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>
+<span class="keyword">GROUP BY</span> <span class="identifier">department</span>
+<span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(*) >= <span class="number">5</span>
+   <span class="keyword">AND</span> <span class="keyword">AVG</span>(<span class="identifier">salary</span>) > <span class="number">50000</span>
+<span class="keyword">ORDER BY</span> <span class="identifier">avg_salary</span> <span class="keyword">DESC</span>;</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>ウィンドウ関数</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- ランキング関数</span>
+<span class="keyword">SELECT</span> <span class="identifier">name</span>,
+       <span class="identifier">department</span>,
+       <span class="identifier">salary</span>,
+       <span class="keyword">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION BY</span> <span class="identifier">department</span> <span class="keyword">ORDER BY</span> <span class="identifier">salary</span> <span class="keyword">DESC</span>) <span class="keyword">AS</span> <span class="identifier">rank_in_dept</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>;
+
+<span class="comment">-- 累計・移動平均</span>
+<span class="keyword">SELECT</span> <span class="identifier">order_date</span>,
+       <span class="identifier">total_amount</span>,
+       <span class="keyword">SUM</span>(<span class="identifier">total_amount</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="identifier">order_date</span>) <span class="keyword">AS</span> <span class="identifier">running_total</span>,
+       <span class="keyword">AVG</span>(<span class="identifier">total_amount</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> <span class="identifier">order_date</span> <span class="keyword">ROWS BETWEEN</span> <span class="number">6</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>) <span class="keyword">AS</span> <span class="identifier">moving_avg_7days</span>
+<span class="keyword">FROM</span> <span class="identifier">daily_sales</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>サブクエリの使い方</h2>
+
+<h3><strong>各種サブクエリパターン</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- WHERE句でのサブクエリ</span>
+<span class="keyword">SELECT</span> <span class="identifier">name</span>, <span class="identifier">salary</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>
+<span class="keyword">WHERE</span> <span class="identifier">salary</span> > (
+    <span class="keyword">SELECT</span> <span class="keyword">AVG</span>(<span class="identifier">salary</span>)
+    <span class="keyword">FROM</span> <span class="identifier">employees</span>
+);
+
+<span class="comment">-- FROM句でのサブクエリ（導出テーブル）</span>
+<span class="keyword">SELECT</span> <span class="identifier">dept_summary</span>.<span class="identifier">department</span>, 
+       <span class="identifier">dept_summary</span>.<span class="identifier">avg_salary</span>
+<span class="keyword">FROM</span> (
+    <span class="keyword">SELECT</span> <span class="identifier">department</span>, 
+           <span class="keyword">AVG</span>(<span class="identifier">salary</span>) <span class="keyword">AS</span> <span class="identifier">avg_salary</span>
+    <span class="keyword">FROM</span> <span class="identifier">employees</span>
+    <span class="keyword">GROUP BY</span> <span class="identifier">department</span>
+) <span class="keyword">AS</span> <span class="identifier">dept_summary</span>
+<span class="keyword">WHERE</span> <span class="identifier">avg_salary</span> > <span class="number">60000</span>;
+
+<span class="comment">-- EXISTS句でのサブクエリ</span>
+<span class="keyword">SELECT</span> <span class="identifier">c</span>.<span class="identifier">customer_name</span>
+<span class="keyword">FROM</span> <span class="identifier">customers</span> <span class="identifier">c</span>
+<span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (
+    <span class="keyword">SELECT</span> <span class="number">1</span>
+    <span class="keyword">FROM</span> <span class="identifier">orders</span> <span class="identifier">o</span>
+    <span class="keyword">WHERE</span> <span class="identifier">o</span>.<span class="identifier">customer_id</span> = <span class="identifier">c</span>.<span class="identifier">id</span>
+      <span class="keyword">AND</span> <span class="identifier">o</span>.<span class="identifier">order_date</span> >= <span class="keyword">DATE_SUB</span>(<span class="keyword">NOW</span>(), <span class="keyword">INTERVAL</span> <span class="number">1</span> <span class="keyword">YEAR</span>)
+);</code></pre>
+</div>
+
+<hr>
+
+<h2>共通テーブル式（CTE）</h2>
+
+<h3><strong>WITH句の使い方</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的なCTE</span>
+<span class="keyword">WITH</span> <span class="identifier">high_value_customers</span> <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> <span class="identifier">customer_id</span>, 
+           <span class="keyword">SUM</span>(<span class="identifier">total_amount</span>) <span class="keyword">AS</span> <span class="identifier">total_spent</span>
+    <span class="keyword">FROM</span> <span class="identifier">orders</span>
+    <span class="keyword">GROUP BY</span> <span class="identifier">customer_id</span>
+    <span class="keyword">HAVING</span> <span class="keyword">SUM</span>(<span class="identifier">total_amount</span>) > <span class="number">10000</span>
+)
+<span class="keyword">SELECT</span> <span class="identifier">c</span>.<span class="identifier">customer_name</span>, 
+       <span class="identifier">hvc</span>.<span class="identifier">total_spent</span>
+<span class="keyword">FROM</span> <span class="identifier">customers</span> <span class="identifier">c</span>
+<span class="keyword">INNER JOIN</span> <span class="identifier">high_value_customers</span> <span class="identifier">hvc</span> 
+    <span class="keyword">ON</span> <span class="identifier">c</span>.<span class="identifier">id</span> = <span class="identifier">hvc</span>.<span class="identifier">customer_id</span>;
+
+<span class="comment">-- 再帰的CTE（階層データの処理）</span>
+<span class="keyword">WITH RECURSIVE</span> <span class="identifier">employee_hierarchy</span> <span class="keyword">AS</span> (
+    <span class="comment">-- アンカーメンバー（開始点）</span>
+    <span class="keyword">SELECT</span> <span class="identifier">id</span>, <span class="identifier">name</span>, <span class="identifier">manager_id</span>, <span class="number">0</span> <span class="keyword">AS</span> <span class="identifier">level</span>
+    <span class="keyword">FROM</span> <span class="identifier">employees</span>
+    <span class="keyword">WHERE</span> <span class="identifier">manager_id</span> <span class="keyword">IS NULL</span>
+    
+    <span class="keyword">UNION ALL</span>
+    
+    <span class="comment">-- 再帰メンバー</span>
+    <span class="keyword">SELECT</span> <span class="identifier">e</span>.<span class="identifier">id</span>, <span class="identifier">e</span>.<span class="identifier">name</span>, <span class="identifier">e</span>.<span class="identifier">manager_id</span>, <span class="identifier">eh</span>.<span class="identifier">level</span> + <span class="number">1</span>
+    <span class="keyword">FROM</span> <span class="identifier">employees</span> <span class="identifier">e</span>
+    <span class="keyword">INNER JOIN</span> <span class="identifier">employee_hierarchy</span> <span class="identifier">eh</span> 
+        <span class="keyword">ON</span> <span class="identifier">e</span>.<span class="identifier">manager_id</span> = <span class="identifier">eh</span>.<span class="identifier">id</span>
+)
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="identifier">employee_hierarchy</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>条件分岐（CASE文）</h2>
+
+<h3><strong>CASE式の使い方</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 単純CASE式</span>
+<span class="keyword">SELECT</span> <span class="identifier">name</span>,
+       <span class="identifier">department</span>,
+       <span class="keyword">CASE</span> <span class="identifier">department</span>
+           <span class="keyword">WHEN</span> <span class="string">'営業部'</span> <span class="keyword">THEN</span> <span class="string">'Sales'</span>
+           <span class="keyword">WHEN</span> <span class="string">'開発部'</span> <span class="keyword">THEN</span> <span class="string">'Development'</span>
+           <span class="keyword">WHEN</span> <span class="string">'人事部'</span> <span class="keyword">THEN</span> <span class="string">'HR'</span>
+           <span class="keyword">ELSE</span> <span class="string">'Other'</span>
+       <span class="keyword">END</span> <span class="keyword">AS</span> <span class="identifier">dept_english</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>;
+
+<span class="comment">-- 検索CASE式</span>
+<span class="keyword">SELECT</span> <span class="identifier">name</span>,
+       <span class="identifier">salary</span>,
+       <span class="keyword">CASE</span>
+           <span class="keyword">WHEN</span> <span class="identifier">salary</span> < <span class="number">30000</span> <span class="keyword">THEN</span> <span class="string">'低'</span>
+           <span class="keyword">WHEN</span> <span class="identifier">salary</span> <span class="keyword">BETWEEN</span> <span class="number">30000</span> <span class="keyword">AND</span> <span class="number">70000</span> <span class="keyword">THEN</span> <span class="string">'中'</span>
+           <span class="keyword">WHEN</span> <span class="identifier">salary</span> > <span class="number">70000</span> <span class="keyword">THEN</span> <span class="string">'高'</span>
+       <span class="keyword">END</span> <span class="keyword">AS</span> <span class="identifier">salary_level</span>
+<span class="keyword">FROM</span> <span class="identifier">employees</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>インデックスの作成と管理</h2>
+
+<h3><strong>インデックス構文</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 単一列インデックス</span>
+<span class="keyword">CREATE INDEX</span> <span class="identifier">idx_customer_name</span> 
+<span class="keyword">ON</span> <span class="identifier">customers</span>(<span class="identifier">customer_name</span>);
+
+<span class="comment">-- 複合インデックス</span>
+<span class="keyword">CREATE INDEX</span> <span class="identifier">idx_order_customer_date</span> 
+<span class="keyword">ON</span> <span class="identifier">orders</span>(<span class="identifier">customer_id</span>, <span class="identifier">order_date</span>);
+
+<span class="comment">-- ユニークインデックス</span>
+<span class="keyword">CREATE UNIQUE INDEX</span> <span class="identifier">idx_email_unique</span> 
+<span class="keyword">ON</span> <span class="identifier">users</span>(<span class="identifier">email</span>);
+
+<span class="comment">-- インデックスの削除</span>
+<span class="keyword">DROP INDEX</span> <span class="identifier">idx_customer_name</span> <span class="keyword">ON</span> <span class="identifier">customers</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>トランザクション処理</h2>
+
+<h3><strong>トランザクション制御</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 基本的なトランザクション</span>
+<span class="keyword">START TRANSACTION</span>;
+
+<span class="keyword">UPDATE</span> <span class="identifier">accounts</span> 
+<span class="keyword">SET</span> <span class="identifier">balance</span> = <span class="identifier">balance</span> - <span class="number">1000</span>
+<span class="keyword">WHERE</span> <span class="identifier">account_id</span> = <span class="number">1</span>;
+
+<span class="keyword">UPDATE</span> <span class="identifier">accounts</span> 
+<span class="keyword">SET</span> <span class="identifier">balance</span> = <span class="identifier">balance</span> + <span class="number">1000</span>
+<span class="keyword">WHERE</span> <span class="identifier">account_id</span> = <span class="number">2</span>;
+
+<span class="keyword">COMMIT</span>;
+
+<span class="comment">-- エラー時のロールバック</span>
+<span class="keyword">START TRANSACTION</span>;
+
+<span class="keyword">INSERT INTO</span> <span class="identifier">orders</span> (<span class="identifier">customer_id</span>, <span class="identifier">total_amount</span>)
+<span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">5000</span>);
+
+<span class="comment">-- エラーが発生した場合</span>
+<span class="keyword">ROLLBACK</span>;
+
+<span class="comment">-- セーブポイントの使用</span>
+<span class="keyword">START TRANSACTION</span>;
+
+<span class="keyword">INSERT INTO</span> <span class="identifier">logs</span> (<span class="identifier">message</span>) <span class="keyword">VALUES</span> (<span class="string">'開始'</span>);
+<span class="keyword">SAVEPOINT</span> <span class="identifier">sp1</span>;
+
+<span class="keyword">INSERT INTO</span> <span class="identifier">logs</span> (<span class="identifier">message</span>) <span class="keyword">VALUES</span> (<span class="string">'処理中'</span>);
+<span class="comment">-- 問題が発生</span>
+<span class="keyword">ROLLBACK TO</span> <span class="identifier">sp1</span>;
+
+<span class="keyword">COMMIT</span>;</code></pre>
+</div>
+
+<hr>
+
+<h2>便利なSQL Tips</h2>
+
+<h3><strong>よく使うパターン</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment">-- 重複の除去</span>
+<span class="keyword">SELECT DISTINCT</span> <span class="identifier">column_name</span>
+<span class="keyword">FROM</span> <span class="identifier">table_name</span>;
+
+<span class="comment">-- NULL値の扱い</span>
+<span class="keyword">SELECT</span> <span class="keyword">COALESCE</span>(<span class="identifier">column_name</span>, <span class="string">'デフォルト値'</span>) <span class="keyword">AS</span> <span class="identifier">result</span>
+<span class="keyword">FROM</span> <span class="identifier">table_name</span>;
+
+<span class="comment">-- 文字列の結合</span>
+<span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(<span class="identifier">first_name</span>, <span class="string">' '</span>, <span class="identifier">last_name</span>) <span class="keyword">AS</span> <span class="identifier">full_name</span>
+<span class="keyword">FROM</span> <span class="identifier">users</span>;
+
+<span class="comment">-- 日付の操作</span>
+<span class="keyword">SELECT</span> <span class="identifier">order_date</span>,
+       <span class="keyword">DATE_FORMAT</span>(<span class="identifier">order_date</span>, <span class="string">'%Y年%m月%d日'</span>) <span class="keyword">AS</span> <span class="identifier">formatted_date</span>,
+       <span class="keyword">DATEDIFF</span>(<span class="keyword">NOW</span>(), <span class="identifier">order_date</span>) <span class="keyword">AS</span> <span class="identifier">days_ago</span>
+<span class="keyword">FROM</span> <span class="identifier">orders</span>;
+
+<span class="comment">-- パフォーマンス確認</span>
+<span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="identifier">large_table</span> <span class="keyword">WHERE</span> <span class="identifier">condition</span>;</code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>
