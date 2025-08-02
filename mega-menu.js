@@ -25,7 +25,7 @@ class MegaMenu {
         // メガメニューボタンを作成
         const menuButtonHTML = `
             <button class="mega-menu-button" id="mega-menu-button">
-                <span>すべてのページ</span>
+                <span>メニュー</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>

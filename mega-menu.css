@@ -1,35 +1,44 @@
 /* メガメニューナビゲーションのスタイル */
 
-/* メガメニューモードではドロップダウンを非表示にしない（切り替え式にする） */
-/* body.mega-menu-enabled .nav-dropdown {
+/* メガメニューが有効な場合、既存のドロップダウンを非表示 */
+body.mega-menu-enabled .nav-dropdown {
     display: none;
-} */
+}
+
+/* モバイルメニューボタンも調整 */
+body.mega-menu-enabled .mobile-menu-button {
+    display: none;
+}
 
 /* メガメニューボタン */
 .mega-menu-button {
-    background-color: var(--background-secondary);
-    color: var(--text-normal);
-    border: 1px solid var(--background-modifier-border);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    background-color: var(--text-accent);
+    color: var(--background-primary);
+    border: 2px solid var(--text-accent);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
     transition: all 0.2s;
     display: flex !important;
     align-items: center;
     gap: 0.5rem;
-    margin-left: 1rem;
+    margin-left: auto;
+    box-shadow: 0 2px 8px rgba(127, 109, 242, 0.2);
 }
 
 .mega-menu-button:hover {
-    background-color: var(--background-modifier-hover);
-    border-color: var(--text-accent);
+    background-color: transparent;
+    color: var(--text-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(127, 109, 242, 0.3);
 }
 
 .mega-menu-button.active {
-    background-color: var(--text-accent);
-    color: var(--background-primary);
+    background-color: transparent;
+    color: var(--text-accent);
+    transform: translateY(-1px);
 }
 
 .mega-menu-button svg {
@@ -187,6 +196,19 @@
     .mega-menu-container {
         top: 50px;
     }
+    
+    .mega-menu-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-title {
+        font-size: 1.1rem;
+    }
+    
+    body.mega-menu-enabled .nav-search-wrapper {
+        display: none;
+    }
 }
 
 /* アニメーション */
@@ -224,4 +246,20 @@
 /* 検索バーとの調整 */
 .nav-search-wrapper {
     margin-right: 1rem;
+}
+
+/* メガメニュー有効時のナビゲーションバーの調整 */
+body.mega-menu-enabled .nav-container {
+    justify-content: space-between;
+}
+
+body.mega-menu-enabled .nav-menu {
+    display: none;
+}
+
+/* タイトルと検索バーのグループ化 */
+.nav-left-group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
