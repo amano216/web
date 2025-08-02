@@ -177,6 +177,7 @@
     </style>
     <link rel="stylesheet" href="search.css">
     <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
 
@@ -184,6 +185,10 @@
     <div class="nav-container">
         <div class="nav-title">Web開発リファレンス</div>
         <button class="mobile-menu-button">☰</button>
+        <button class="global-search-btn" onclick="event.preventDefault();">
+            <span>🔍 すべてを検索</span>
+            <span class="search-shortcut">Ctrl+K</span>
+        </button>
         <div class="nav-menu">
             <div class="nav-dropdown">
                 <a href="#">HTML</a>
@@ -956,6 +961,8 @@
 
 <script src="search.js"></script>
 <script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
 
 </body>
 </html>

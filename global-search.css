@@ -1,0 +1,207 @@
+/* グローバル検索モーダル */
+.global-search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.global-search-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-modal-content {
+    position: relative;
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: var(--background-secondary);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-20px);
+    transition: transform 0.3s;
+}
+
+.global-search-modal.active .search-modal-content {
+    transform: translateY(0);
+}
+
+/* 検索ヘッダー */
+.search-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.global-search-input {
+    flex: 1;
+    padding: 0.75rem;
+    background-color: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    color: var(--text-normal);
+    font-size: 1.1rem;
+}
+
+.global-search-input:focus {
+    outline: none;
+    border-color: var(--text-accent);
+}
+
+.search-close-btn {
+    margin-left: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.search-close-btn:hover {
+    color: var(--text-normal);
+}
+
+/* 検索結果 */
+.global-search-results {
+    overflow-y: auto;
+    max-height: calc(80vh - 80px);
+    padding: 1rem;
+}
+
+.search-result-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background-color: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-result-item:hover {
+    border-color: var(--text-accent);
+    transform: translateX(4px);
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.result-category {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(127, 109, 242, 0.2);
+    color: var(--text-accent);
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.result-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-normal);
+}
+
+.result-matches {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.match-context {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.result-url {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+/* ハイライト */
+.global-search-results mark {
+    background-color: rgba(255, 235, 59, 0.4);
+    color: inherit;
+    padding: 2px 0;
+    border-radius: 2px;
+}
+
+/* 結果なし */
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+/* 検索ボタン（ナビゲーションバー用） */
+.global-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    color: var(--text-normal);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.global-search-btn:hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--text-accent);
+}
+
+.search-shortcut {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    background-color: var(--background-primary);
+    border-radius: 3px;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .search-modal-content {
+        margin: 20px;
+        max-height: calc(100vh - 40px);
+    }
+    
+    .global-search-input {
+        font-size: 1rem;
+    }
+    
+    .search-result-item {
+        padding: 0.75rem;
+    }
+    
+    .result-title {
+        font-size: 1rem;
+    }
+    
+    .global-search-btn {
+        padding: 0.5rem;
+    }
+    
+    .search-shortcut {
+        display: none;
+    }
+}
