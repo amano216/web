@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web開発で使う記号の読み方と使い方</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* 記号を大きく表示 */
+        .symbol {
+            font-size: 1.5em;
+            color: #61afef;
+            font-weight: bold;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <div class="nav-links">
+            <a href="index.html">HTML</a>
+            <a href="css-reference.html">CSS</a>
+            <a href="symbols-reference.html" class="active">記号</a>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>Web開発で使う記号の読み方と使い方</h1>
+
+<p>HTMLやCSS、JavaScriptでよく使用される記号の読み方と、それぞれの使い方をまとめました。</p>
+
+<hr>
+
+<h2>基本的な記号</h2>
+
+<h3><strong>HTMLで使う記号</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>英語の読み方</th>
+<th>日本語の読み方・使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">&lt;</span></td>
+<td>Less Than / Left Angle Bracket</td>
+<td>小なり（しょうなり）/ 左山括弧（ひだりやまかっこ）。HTMLタグの開始を示す。例：<code>&lt;div&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">&gt;</span></td>
+<td>Greater Than / Right Angle Bracket</td>
+<td>大なり（だいなり）/ 右山括弧（みぎやまかっこ）。HTMLタグの終了を示す。例：<code>&lt;/div&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">/</span></td>
+<td>Slash / Forward Slash</td>
+<td>スラッシュ。終了タグや自己完結型タグで使用。例：<code>&lt;/p&gt;</code>、<code>&lt;br /&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">=</span></td>
+<td>Equals Sign</td>
+<td>イコール / 等号（とうごう）。属性値の代入に使用。例：<code>class="container"</code></td>
+</tr>
+<tr>
+<td><span class="symbol">"</span></td>
+<td>Double Quote</td>
+<td>ダブルクォート / 二重引用符（にじゅういんようふ）。属性値を囲む。例：<code>href="index.html"</code></td>
+</tr>
+<tr>
+<td><span class="symbol">'</span></td>
+<td>Single Quote</td>
+<td>シングルクォート / 単一引用符（たんいついんようふ）。属性値を囲む（ダブルクォートの代替）。</td>
+</tr>
+<tr>
+<td><span class="symbol">&amp;</span></td>
+<td>Ampersand</td>
+<td>アンパサンド。HTMLエンティティの開始。例：<code>&amp;lt;</code>（&lt;を表示）</td>
+</tr>
+<tr>
+<td><span class="symbol">!</span></td>
+<td>Exclamation Mark</td>
+<td>エクスクラメーション / 感嘆符（かんたんふ）。DOCTYPE宣言やコメントで使用。例：<code>&lt;!DOCTYPE html&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">-</span></td>
+<td>Hyphen / Dash</td>
+<td>ハイフン。HTMLコメントで使用。例：<code>&lt;!-- コメント --&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>CSSで使う記号</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>英語の読み方</th>
+<th>日本語の読み方・使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">{</span></td>
+<td>Left Curly Brace</td>
+<td>左波括弧（ひだりなみかっこ）/ 左中括弧。CSSルールの開始。例：<code>.class { }</code></td>
+</tr>
+<tr>
+<td><span class="symbol">}</span></td>
+<td>Right Curly Brace</td>
+<td>右波括弧（みぎなみかっこ）/ 右中括弧。CSSルールの終了。</td>
+</tr>
+<tr>
+<td><span class="symbol">:</span></td>
+<td>Colon</td>
+<td>コロン。プロパティと値の区切り。例：<code>color: red;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">;</span></td>
+<td>Semicolon</td>
+<td>セミコロン。CSS宣言の終了。例：<code>margin: 10px;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">.</span></td>
+<td>Period / Dot</td>
+<td>ピリオド / ドット。クラスセレクタ。例：<code>.container</code></td>
+</tr>
+<tr>
+<td><span class="symbol">#</span></td>
+<td>Hash / Pound Sign</td>
+<td>ハッシュ / シャープ。IDセレクタや色コード。例：<code>#header</code>、<code>#ff0000</code></td>
+</tr>
+<tr>
+<td><span class="symbol">*</span></td>
+<td>Asterisk</td>
+<td>アスタリスク。全称セレクタ。例：<code>* { margin: 0; }</code></td>
+</tr>
+<tr>
+<td><span class="symbol">,</span></td>
+<td>Comma</td>
+<td>カンマ / コンマ。複数セレクタの区切り。例：<code>h1, h2, h3 { }</code></td>
+</tr>
+<tr>
+<td><span class="symbol">&gt;</span></td>
+<td>Greater Than</td>
+<td>大なり。子セレクタ。例：<code>div &gt; p</code>（直接の子要素）</td>
+</tr>
+<tr>
+<td><span class="symbol">+</span></td>
+<td>Plus Sign</td>
+<td>プラス。隣接兄弟セレクタ。例：<code>h1 + p</code>（直後の要素）</td>
+</tr>
+<tr>
+<td><span class="symbol">~</span></td>
+<td>Tilde</td>
+<td>チルダ。一般兄弟セレクタ。例：<code>h1 ~ p</code>（後続の兄弟要素）</td>
+</tr>
+<tr>
+<td><span class="symbol">@</span></td>
+<td>At Sign</td>
+<td>アットマーク。アットルール。例：<code>@media</code>、<code>@import</code></td>
+</tr>
+<tr>
+<td><span class="symbol">!</span></td>
+<td>Exclamation Mark</td>
+<td>エクスクラメーション。!importantで使用。例：<code>color: red !important;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">()</span></td>
+<td>Parentheses</td>
+<td>丸括弧（まるかっこ）。関数や値のグループ化。例：<code>rgb(255, 0, 0)</code></td>
+</tr>
+<tr>
+<td><span class="symbol">[]</span></td>
+<td>Square Brackets</td>
+<td>角括弧（かくかっこ）。属性セレクタ。例：<code>input[type="text"]</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>URLやパスで使う記号</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>英語の読み方</th>
+<th>日本語の読み方・使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">/</span></td>
+<td>Slash</td>
+<td>スラッシュ。ディレクトリの区切り。例：<code>/images/logo.png</code></td>
+</tr>
+<tr>
+<td><span class="symbol">.</span></td>
+<td>Dot / Period</td>
+<td>ドット。ファイル拡張子の前。例：<code>style.css</code></td>
+</tr>
+<tr>
+<td><span class="symbol">..</span></td>
+<td>Double Dot</td>
+<td>ダブルドット。親ディレクトリ。例：<code>../images/</code></td>
+</tr>
+<tr>
+<td><span class="symbol">?</span></td>
+<td>Question Mark</td>
+<td>クエスチョンマーク。URLパラメータの開始。例：<code>page.html?id=123</code></td>
+</tr>
+<tr>
+<td><span class="symbol">&amp;</span></td>
+<td>Ampersand</td>
+<td>アンパサンド。URLパラメータの連結。例：<code>?id=123&amp;name=test</code></td>
+</tr>
+<tr>
+<td><span class="symbol">#</span></td>
+<td>Hash</td>
+<td>ハッシュ。アンカーリンク。例：<code>page.html#section1</code></td>
+</tr>
+<tr>
+<td><span class="symbol">:</span></td>
+<td>Colon</td>
+<td>コロン。プロトコルの区切り。例：<code>https://example.com</code></td>
+</tr>
+<tr>
+<td><span class="symbol">//</span></td>
+<td>Double Slash</td>
+<td>ダブルスラッシュ。プロトコル相対URL。例：<code>//cdn.example.com</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>特殊な記号と用途</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>英語の読み方</th>
+<th>日本語の読み方・使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">_</span></td>
+<td>Underscore</td>
+<td>アンダースコア / アンダーバー。命名規則で単語を繋ぐ。例：<code>user_name</code></td>
+</tr>
+<tr>
+<td><span class="symbol">-</span></td>
+<td>Hyphen / Dash</td>
+<td>ハイフン。ケバブケースで使用。例：<code>main-content</code></td>
+</tr>
+<tr>
+<td><span class="symbol">|</span></td>
+<td>Pipe / Vertical Bar</td>
+<td>パイプ / 縦棒（たてぼう）。CSS属性セレクタで使用。例：<code>[lang|="en"]</code></td>
+</tr>
+<tr>
+<td><span class="symbol">^</span></td>
+<td>Caret</td>
+<td>キャレット。CSS属性セレクタで「〜で始まる」。例：<code>[href^="https"]</code></td>
+</tr>
+<tr>
+<td><span class="symbol">$</span></td>
+<td>Dollar Sign</td>
+<td>ドル記号。CSS属性セレクタで「〜で終わる」。例：<code>[href$=".pdf"]</code></td>
+</tr>
+<tr>
+<td><span class="symbol">%</span></td>
+<td>Percent Sign</td>
+<td>パーセント。相対的な値の単位。例：<code>width: 50%;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">\</span></td>
+<td>Backslash</td>
+<td>バックスラッシュ / 円記号。エスケープ文字。例：<code>content: "\"引用\"";</code></td>
+</tr>
+<tr>
+<td><span class="symbol">`</span></td>
+<td>Backtick / Grave Accent</td>
+<td>バッククォート。JavaScriptのテンプレートリテラル。例：<code>`Hello ${name}`</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>記号の組み合わせ</h2>
+
+<h3><strong>よく使われる記号の組み合わせ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号の組み合わせ</th>
+<th>英語の説明</th>
+<th>日本語の説明・使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">&lt;!-- --&gt;</span></td>
+<td>HTML Comment</td>
+<td>HTMLコメント。ブラウザに表示されない注釈。例：<code>&lt;!-- ナビゲーション開始 --&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">/* */</span></td>
+<td>CSS Comment</td>
+<td>CSSコメント。スタイルシート内の注釈。例：<code>/* メインカラー */</code></td>
+</tr>
+<tr>
+<td><span class="symbol">::</span></td>
+<td>Double Colon</td>
+<td>ダブルコロン。CSS疑似要素。例：<code>::before</code>、<code>::after</code></td>
+</tr>
+<tr>
+<td><span class="symbol">::</span></td>
+<td>Scope Resolution</td>
+<td>スコープ解決演算子（他の言語）。CSSでは疑似要素を示す。</td>
+</tr>
+<tr>
+<td><span class="symbol">&lt;/&gt;</span></td>
+<td>Self-closing Tag</td>
+<td>自己完結型タグ。例：<code>&lt;img /&gt;</code>、<code>&lt;br /&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">&lt;?&gt;</span></td>
+<td>Processing Instruction</td>
+<td>処理命令（PHPなど）。例：<code>&lt;?php echo "Hello"; ?&gt;</code></td>
+</tr>
+<tr>
+<td><span class="symbol">=&gt;</span></td>
+<td>Arrow Function</td>
+<td>アロー関数（JavaScript）。例：<code>() =&gt; { }</code></td>
+</tr>
+<tr>
+<td><span class="symbol">!==</span></td>
+<td>Strict Inequality</td>
+<td>厳密不等価演算子（JavaScript）。型も含めて比較。</td>
+</tr>
+<tr>
+<td><span class="symbol">===</span></td>
+<td>Strict Equality</td>
+<td>厳密等価演算子（JavaScript）。型も含めて比較。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>エスケープが必要な記号</h2>
+
+<h3><strong>HTMLで表示する際の特殊文字</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>表示したい記号</th>
+<th>HTMLエンティティ</th>
+<th>説明・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">&lt;</span></td>
+<td><code>&amp;lt;</code></td>
+<td>小なり記号を表示。HTMLタグと区別するため。</td>
+</tr>
+<tr>
+<td><span class="symbol">&gt;</span></td>
+<td><code>&amp;gt;</code></td>
+<td>大なり記号を表示。HTMLタグと区別するため。</td>
+</tr>
+<tr>
+<td><span class="symbol">&amp;</span></td>
+<td><code>&amp;amp;</code></td>
+<td>アンパサンドを表示。エンティティと区別するため。</td>
+</tr>
+<tr>
+<td><span class="symbol">"</span></td>
+<td><code>&amp;quot;</code></td>
+<td>ダブルクォートを表示。属性値内で使用時。</td>
+</tr>
+<tr>
+<td><span class="symbol">'</span></td>
+<td><code>&amp;apos;</code></td>
+<td>シングルクォートを表示。属性値内で使用時。</td>
+</tr>
+<tr>
+<td><span class="symbol">©</span></td>
+<td><code>&amp;copy;</code></td>
+<td>著作権記号。例：<code>&amp;copy; 2024</code></td>
+</tr>
+<tr>
+<td><span class="symbol">®</span></td>
+<td><code>&amp;reg;</code></td>
+<td>登録商標記号。</td>
+</tr>
+<tr>
+<td><span class="symbol">™</span></td>
+<td><code>&amp;trade;</code></td>
+<td>商標記号。</td>
+</tr>
+<tr>
+<td><span class="symbol"> </span></td>
+<td><code>&amp;nbsp;</code></td>
+<td>改行されない空白（Non-Breaking Space）。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>プログラミングでよく使う記号の読み方</h2>
+
+<h3><strong>プログラマーが使う特別な読み方</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>一般的な読み方</th>
+<th>プログラマーの読み方・俗称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="symbol">!</span></td>
+<td>エクスクラメーション</td>
+<td>「ビックリ」「バン（bang）」。例：「!important」を「バン・インポータント」</td>
+</tr>
+<tr>
+<td><span class="symbol">#</span></td>
+<td>シャープ / ハッシュ</td>
+<td>「ナンバー」「ハッシュ」。例：「#header」を「ハッシュ・ヘッダー」</td>
+</tr>
+<tr>
+<td><span class="symbol">*</span></td>
+<td>アスタリスク</td>
+<td>「スター」「ワイルドカード」。全称セレクタは「スター・セレクタ」</td>
+</tr>
+<tr>
+<td><span class="symbol">&amp;</span></td>
+<td>アンパサンド</td>
+<td>「アンド」。「&amp;&amp;」は「アンド・アンド」</td>
+</tr>
+<tr>
+<td><span class="symbol">|</span></td>
+<td>パイプ</td>
+<td>「オア」「パイプ」。「||」は「オア・オア」</td>
+</tr>
+<tr>
+<td><span class="symbol">^</span></td>
+<td>キャレット</td>
+<td>「ハット」。正規表現で行頭を表す。</td>
+</tr>
+<tr>
+<td><span class="symbol">$</span></td>
+<td>ドル</td>
+<td>「ダラー」。正規表現で行末を表す。</td>
+</tr>
+<tr>
+<td><span class="symbol">~</span></td>
+<td>チルダ</td>
+<td>「ニョロ」「チルダ」。ホームディレクトリを表すことも。</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>
