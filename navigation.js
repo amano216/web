@@ -1,5 +1,11 @@
-// モバイルメニューの制御
+// ナビゲーション機能の制御
 document.addEventListener('DOMContentLoaded', function() {
+    // メガメニュー機能を読み込む
+    const megaMenuScript = document.createElement('script');
+    megaMenuScript.src = 'mega-menu.js';
+    document.body.appendChild(megaMenuScript);
+    
+    // 従来のモバイルメニュー制御（フォールバック用）
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navMenu = document.querySelector('.nav-menu');
     

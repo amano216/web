@@ -156,6 +156,38 @@ const searchIndex = [
             { heading: "インデックスの作成と管理", keywords: ["create index", "drop index", "unique index", "explain"] },
             { heading: "トランザクション処理", keywords: ["start transaction", "commit", "rollback", "savepoint"] }
         ]
+    },
+    {
+        title: "Linuxコマンド一覧",
+        url: "linux-commands.html",
+        category: "その他",
+        keywords: ["linux", "リナックス", "コマンド", "command", "bash", "shell", "terminal"],
+        sections: [
+            { heading: "ファイル・ディレクトリ操作", keywords: ["ls", "cd", "pwd", "mkdir", "rm", "cp", "mv", "touch", "ln"] },
+            { heading: "ファイル検索・情報取得", keywords: ["find", "grep", "which", "locate", "file", "stat", "wc", "du", "df"] },
+            { heading: "プロセス管理", keywords: ["ps", "top", "htop", "kill", "killall", "jobs", "bg", "fg", "nohup"] },
+            { heading: "ユーザー・権限管理", keywords: ["whoami", "id", "su", "sudo", "useradd", "passwd", "chmod", "chown"] },
+            { heading: "ネットワーク関連", keywords: ["ping", "ifconfig", "ip", "netstat", "ss", "curl", "wget", "ssh", "scp"] },
+            { heading: "システム情報・管理", keywords: ["uname", "hostname", "date", "uptime", "free", "mount", "apt", "yum"] },
+            { heading: "アーカイブ・圧縮", keywords: ["tar", "gzip", "zip", "unzip", "bzip2", "xz"] },
+            { heading: "テキスト処理", keywords: ["sed", "awk", "cut", "sort", "uniq", "tr", "tee", "xargs"] }
+        ]
+    },
+    {
+        title: "Linux記法チートシート",
+        url: "linux-cheatsheet.html",
+        category: "その他",
+        keywords: ["linux", "記法", "構文", "syntax", "チートシート", "bash", "shell", "コマンドライン"],
+        sections: [
+            { heading: "基本的なコマンド構文", keywords: ["command", "option", "argument", "pipe", "redirect", "|", ">", ">>", "<"] },
+            { heading: "ファイル・ディレクトリ操作", keywords: ["path", "絶対パス", "相対パス", "~", "..", ".", "ワイルドカード"] },
+            { heading: "ワイルドカード（グロブパターン）", keywords: ["*", "?", "[", "]", "{}", "glob", "pattern"] },
+            { heading: "リダイレクトとパイプ", keywords: ["|", ">", ">>", "<", "2>", "2>&1", "pipe", "redirect"] },
+            { heading: "権限とパーミッション", keywords: ["rwx", "755", "644", "chmod", "chown", "permission"] },
+            { heading: "プロセス管理", keywords: ["&", "bg", "fg", "jobs", "nohup", "kill", "ps"] },
+            { heading: "シェルスクリプトの基礎", keywords: ["#!/bin/bash", "variable", "if", "for", "while", "function"] },
+            { heading: "環境変数とエイリアス", keywords: ["export", "PATH", "alias", "source", ".bashrc", ".zshrc"] }
+        ]
     }
 ];
 
@@ -170,5 +202,7 @@ const contentCache = {
     "javascript-reference.html": "JavaScript JS ジャバスクリプト メソッド method プロパティ property API String 文字列 Array 配列 Number 数値 Math Date 日付 DOM Promise async await",
     "javascript-cheatsheet.html": "JavaScript JS ジャバスクリプト 記法 syntax 構文 チートシート cheatsheet let const var function class 関数 クラス if for while",
     "sql-reference.html": "SQL データベース database クエリ query コマンド command DDL DML CREATE ALTER DROP SELECT INSERT UPDATE DELETE JOIN INNER LEFT RIGHT GROUP BY HAVING COUNT SUM AVG トランザクション",
-    "sql-cheatsheet.html": "SQL 記法 syntax 構文 チートシート cheatsheet SELECT FROM WHERE ORDER BY LIMIT CREATE TABLE INSERT UPDATE DELETE JOIN GROUP BY HAVING CASE WHEN トランザクション transaction"
+    "sql-cheatsheet.html": "SQL 記法 syntax 構文 チートシート cheatsheet SELECT FROM WHERE ORDER BY LIMIT CREATE TABLE INSERT UPDATE DELETE JOIN GROUP BY HAVING CASE WHEN トランザクション transaction",
+    "linux-commands.html": "Linux リナックス コマンド command bash shell terminal ls cd pwd mkdir rm cp mv find grep ps top kill chmod chown ssh apt yum tar",
+    "linux-cheatsheet.html": "Linux 記法 syntax 構文 チートシート bash shell コマンドライン command line pipe redirect | > >> < permission chmod 755 644 export alias"
 };
