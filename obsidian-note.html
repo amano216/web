@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMLの主要なタグ</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+</head>
+<body>
+はい、承知いたしました。HTMLの主要なタグをカテゴリ別に分類し、その意味と日本語での用途を説明した網羅的な表を作成します。
+
+<hr>
+
+<h2>HTMLタグ一覧表</h2>
+
+<p>Webページを作成するために使用される主要なHTMLタグを、機能ごとにまとめました。</p>
+
+<h3><strong>基本的な文書構造</strong></h3>
+
+<p>すべてのHTML文書の基本となる骨格を定義します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;!DOCTYPE html&gt;</code></td>
+<td>Document Type Declaration</td>
+<td>この文書がHTML5で書かれていることを宣言します。</td>
+</tr>
+<tr>
+<td><code>&lt;html&gt;</code></td>
+<td>HTML Document</td>
+<td>HTML文書全体のルート（根元）要素です。</td>
+</tr>
+<tr>
+<td><code>&lt;head&gt;</code></td>
+<td>Document Head</td>
+<td>文書のメタデータ（タイトル、文字コード、CSS、スクリプトなど）を格納します。</td>
+</tr>
+<tr>
+<td><code>&lt;body&gt;</code></td>
+<td>Document Body</td>
+<td>実際にブラウザに表示されるすべてのコンテンツ（テキスト、画像、リンクなど）を格納します。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>メタデータ</strong></h3>
+
+<p>文書に関する情報や、他のリソースとの関連を定義します。<code>&lt;head&gt;</code>タグ内に記述します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;title&gt;</code></td>
+<td>Document Title</td>
+<td>ブラウザのタブや検索結果に表示されるページのタイトルを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;meta&gt;</code></td>
+<td>Metadata</td>
+<td>文字コード、ページの概要、キーワードなど、他のメタタグで表現できない情報を指定します。</td>
+</tr>
+<tr>
+<td><code>&lt;link&gt;</code></td>
+<td>Resource Link</td>
+<td>外部のスタイルシート（CSS）やファビコンなどを文書に関連付けます。</td>
+</tr>
+<tr>
+<td><code>&lt;style&gt;</code></td>
+<td>Style Information</td>
+<td>HTML文書内に直接CSSを記述するために使用します。</td>
+</tr>
+<tr>
+<td><code>&lt;script&gt;</code></td>
+<td>Script</td>
+<td>JavaScriptのコードを埋め込んだり、外部のスクリプトファイルを読み込んだりします。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>セクショニング</strong></h3>
+
+<p>文書の構造を意味的に区切り、アウトラインを形成します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;header&gt;</code></td>
+<td>Header</td>
+<td>ページやセクションのヘッダー（導入部分）を表します。サイトのロゴやナビゲーションが含まれることが多いです。</td>
+</tr>
+<tr>
+<td><code>&lt;footer&gt;</code></td>
+<td>Footer</td>
+<td>ページやセクションのフッター（末尾部分）を表します。著作権情報や連絡先などが含まれます。</td>
+</tr>
+<tr>
+<td><code>&lt;main&gt;</code></td>
+<td>Main Content</td>
+<td>ページの主要なコンテンツを表します。このタグは文書内に一つだけ配置します。</td>
+</tr>
+<tr>
+<td><code>&lt;nav&gt;</code></td>
+<td>Navigation</td>
+<td>サイト内の主要なナビゲーションリンク（メニュー）のセクションを表します。</td>
+</tr>
+<tr>
+<td><code>&lt;article&gt;</code></td>
+<td>Article</td>
+<td>自己完結した独立したコンテンツ（ブログ投稿、ニュース記事など）を表します。</td>
+</tr>
+<tr>
+<td><code>&lt;section&gt;</code></td>
+<td>Section</td>
+<td>文書内のテーマごとのグループを表します。見出しを持つのが一般的です。</td>
+</tr>
+<tr>
+<td><code>&lt;aside&gt;</code></td>
+<td>Aside</td>
+<td>本文の補足情報や広告など、主要なコンテンツとは関連が薄いセクションを表します。</td>
+</tr>
+<tr>
+<td><code>&lt;h1&gt;</code>〜<code>&lt;h6&gt;</code></td>
+<td>Heading 1-6</td>
+<td>見出しを表します。<code>&lt;h1&gt;</code>が最上位の見出しで、<code>&lt;h6&gt;</code>が最も低いレベルの見出しです。</td>
+</tr>
+<tr>
+<td><code>&lt;div&gt;</code></td>
+<td>Division</td>
+<td>特定の意味を持たない汎用的なブロックレベルのコンテナです。CSSでのスタイリングやJSでの操作のために使われます。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>テキストコンテンツ</strong></h3>
+
+<p>段落やリスト、引用など、テキストの構造や意味を定義します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;p&gt;</code></td>
+<td>Paragraph</td>
+<td>段落を表します。</td>
+</tr>
+<tr>
+<td><code>&lt;a&gt;</code></td>
+<td>Anchor</td>
+<td>他のページやファイル、ページ内の特定箇所へのハイパーリンクを作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;span&gt;</code></td>
+<td>Span</td>
+<td>特定の意味を持たない汎用的なインラインコンテナです。テキストの一部にスタイルを適用する場合などに使います。</td>
+</tr>
+<tr>
+<td><code>&lt;strong&gt;</code></td>
+<td>Strong Importance</td>
+<td>内容の重要性が高いことを示します。通常は太字で表示されます。</td>
+</tr>
+<tr>
+<td><code>&lt;em&gt;</code></td>
+<td>Emphasis</td>
+<td>テキストを強調（emphase）することを示します。通常は斜体で表示されます。</td>
+</tr>
+<tr>
+<td><code>&lt;b&gt;</code></td>
+<td>Bring Attention To</td>
+<td>他のテキストと区別したい部分に使います。重要性や強調の意味合いはありません。通常は太字で表示されます。（例：製品名）</td>
+</tr>
+<tr>
+<td><code>&lt;i&gt;</code></td>
+<td>Idiomatic Text</td>
+<td>声や気分が違う部分に使います。専門用語や外国語など。通常は斜体で表示されます。</td>
+</tr>
+<tr>
+<td><code>&lt;br&gt;</code></td>
+<td>Line Break</td>
+<td>改行を強制します。</td>
+</tr>
+<tr>
+<td><code>&lt;hr&gt;</code></td>
+<td>Thematic Break</td>
+<td>段落レベルでのテーマの区切り（横罫線）を表します。</td>
+</tr>
+<tr>
+<td><code>&lt;blockquote&gt;</code></td>
+<td>Blockquote</td>
+<td>他のソースからの引用ブロックを表します。通常はインデントされます。</td>
+</tr>
+<tr>
+<td><code>&lt;ul&gt;</code></td>
+<td>Unordered List</td>
+<td>順序のないリストを作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;ol&gt;</code></td>
+<td>Ordered List</td>
+<td>順序のあるリスト（番号付きリスト）を作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;li&gt;</code></td>
+<td>List Item</td>
+<td>リストの各項目を表します。<code>&lt;ul&gt;</code>または<code>&lt;ol&gt;</code>の中で使います。</td>
+</tr>
+<tr>
+<td><code>&lt;code&gt;</code></td>
+<td>Code</td>
+<td>コンピュータのコードの一部を表します。</td>
+</tr>
+<tr>
+<td><code>&lt;pre&gt;</code></td>
+<td>Preformatted Text</td>
+<td>整形済みのテキストを表します。スペースや改行がそのまま表示されます。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>埋め込みコンテンツ</strong></h3>
+
+<p>画像や動画など、外部のメディアをページに埋め込みます。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;img&gt;</code></td>
+<td>Image</td>
+<td>画像を表示します。<code>src</code>属性で画像のパスを、<code>alt</code>属性で代替テキストを指定します。</td>
+</tr>
+<tr>
+<td><code>&lt;video&gt;</code></td>
+<td>Video</td>
+<td>動画を埋め込みます。</td>
+</tr>
+<tr>
+<td><code>&lt;audio&gt;</code></td>
+<td>Audio</td>
+<td>音声ファイルを埋め込みます。</td>
+</tr>
+<tr>
+<td><code>&lt;iframe&gt;</code></td>
+<td>Inline Frame</td>
+<td>他のHTMLページを現在のページに埋め込みます。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>テーブル</strong></h3>
+
+<p>表形式のデータを表現します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;table&gt;</code></td>
+<td>Table</td>
+<td>表全体を囲みます。</td>
+</tr>
+<tr>
+<td><code>&lt;thead&gt;</code></td>
+<td>Table Head</td>
+<td>表のヘッダー行のグループを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;tbody&gt;</code></td>
+<td>Table Body</td>
+<td>表の本体（データ行）のグループを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;tfoot&gt;</code></td>
+<td>Table Foot</td>
+<td>表のフッター行のグループを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;tr&gt;</code></td>
+<td>Table Row</td>
+<td>表の行を定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;th&gt;</code></td>
+<td>Table Header</td>
+<td>表の見出しセルを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;td&gt;</code></td>
+<td>Table Data</td>
+<td>表のデータセルを定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;caption&gt;</code></td>
+<td>Caption</td>
+<td>表のキャプション（タイトルや説明）を定義します。</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>フォーム</strong></h3>
+
+<p>ユーザーがデータを入力し、サーバーに送信するためのコントロールを作成します。</p>
+
+<table>
+<thead>
+<tr>
+<th>タグ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;form&gt;</code></td>
+<td>Form</td>
+<td>ユーザー入力のためのフォーム全体を定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>Input Control</td>
+<td>テキストフィールド、チェックボックス、ラジオボタン、送信ボタンなど、様々な入力欄を作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;textarea&gt;</code></td>
+<td>Text Area</td>
+<td>複数行のテキスト入力欄を作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;button&gt;</code></td>
+<td>Button</td>
+<td>クリック可能なボタンを作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;label&gt;</code></td>
+<td>Label</td>
+<td>フォームの入力コントロール (<code>&lt;input&gt;</code>など) のためのラベル（見出し）を定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>Select Box</td>
+<td>ドロップダウンリストを作成します。</td>
+</tr>
+<tr>
+<td><code>&lt;option&gt;</code></td>
+<td>Option</td>
+<td><code>&lt;select&gt;</code>タグ内で使用し、ドロップダウンリストの各項目を定義します。</td>
+</tr>
+<tr>
+<td><code>&lt;fieldset&gt;</code></td>
+<td>Field Set</td>
+<td>フォーム内の関連するコントロールをグループ化します。</td>
+</tr>
+<tr>
+<td><code>&lt;legend&gt;</code></td>
+<td>Legend</td>
+<td><code>&lt;fieldset&gt;</code>でグループ化された部分にキャプション（見出し）を付けます。</td>
+</tr>
+</tbody>
+</table>
+
+<p>承知いたしました。<code>&lt;a&gt;</code>タグの主な属性を、表形式でまとめました。</p>
+
+<hr>
+
+<h3><code>&lt;a&gt;</code>タグの主な属性一覧</h3>
+
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>説明</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>href</code></strong></td>
+<td>リンク先のURLを指定します。</td>
+<td><code>&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>target</code></strong></td>
+<td>リンク先をどのウィンドウ（タブ）で開くかを指定します。</td>
+<td><code>&lt;a href="..." target="_blank"&gt;新しいタブで開く&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>rel</code></strong></td>
+<td>リンク先のページとの関係性を指定します（SEOやセキュリティに関連）。</td>
+<td><code>&lt;a href="..." rel="noopener noreferrer"&gt;外部サイト&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>download</code></strong></td>
+<td>リンクをクリックすると、ファイルをダウンロードさせます。</td>
+<td><code>&lt;a href="/path/to/file.pdf" download&gt;PDFをダウンロード&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>title</code></strong></td>
+<td>リンクにカーソルを合わせたときに表示されるツールチップを設定します。</td>
+<td><code>&lt;a href="..." title="詳細はこちら"&gt;詳細&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>id</code></strong></td>
+<td>要素に一意の識別子を付与し、JavaScriptやCSSで個別に操作します。</td>
+<td><code>&lt;a href="..." id="main-link"&gt;メインリンク&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><strong><code>class</code></strong></td>
+<td>要素にクラス名を付与し、CSSでまとめてスタイルを適用します。</td>
+<td><code>&lt;a href="..." class="button"&gt;ボタン&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
