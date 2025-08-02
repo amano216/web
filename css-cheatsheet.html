@@ -190,6 +190,7 @@
             background: #777;
         }
     </style>
+    <link rel="stylesheet" href="search.css">
 </head>
 <body>
 
@@ -206,6 +207,16 @@
 </nav>
 
 <div class="content-wrapper">
+
+<div class="search-container">
+    <input type="text" class="search-box" placeholder="CSS記法を検索... (例: セレクタ, flexbox, grid)" id="searchInput">
+    <div class="search-info" id="searchInfo"></div>
+    <div class="search-nav" id="searchNav">
+        <button id="prevButton" onclick="navigateSearch('prev')">← 前へ</button>
+        <span id="currentMatch"></span>
+        <button id="nextButton" onclick="navigateSearch('next')">次へ →</button>
+    </div>
+</div>
 
 <h1>CSS記法チートシート</h1>
 
@@ -1158,6 +1169,8 @@
 </table>
 
 </div>
+
+<script src="search.js"></script>
 
 </body>
 </html>

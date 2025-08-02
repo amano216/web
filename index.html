@@ -172,7 +172,9 @@
             margin: 0 auto;
             padding: 40px;
         }
+
     </style>
+    <link rel="stylesheet" href="search.css">
 </head>
 <body>
 
@@ -189,6 +191,16 @@
 </nav>
 
 <div class="content-wrapper">
+
+<div class="search-container">
+    <input type="text" class="search-box" placeholder="タグや属性を検索... (例: div, img, href)" id="searchInput">
+    <div class="search-info" id="searchInfo"></div>
+    <div class="search-nav" id="searchNav">
+        <button id="prevButton" onclick="navigateSearch('prev')">← 前へ</button>
+        <span id="currentMatch"></span>
+        <button id="nextButton" onclick="navigateSearch('next')">次へ →</button>
+    </div>
+</div>
 
 <h1>HTMLタグ総合リファレンス</h1>
 
@@ -1082,6 +1094,8 @@
 </table>
 
 </div>
+
+<script src="search.js"></script>
 
 </body>
 </html>
