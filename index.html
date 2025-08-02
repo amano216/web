@@ -25,9 +25,7 @@
             color: var(--text-normal);
             line-height: 1.6;
             margin: 0;
-            padding: 40px;
-            max-width: 900px;
-            margin: 0 auto;
+            padding: 0;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -121,10 +119,78 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #777;
         }
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: #1a1a1a;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツの調整 */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
     </style>
 </head>
 <body>
-はい、承知いたしました。HTMLの主要なタグをカテゴリ別に分類し、その意味と日本語での用途を説明した網羅的な表を作成します。
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">HTML</a>
+            <a href="css-reference.html">CSS</a>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>HTMLタグ総合リファレンス</h1>
+
+<p>はい、承知いたしました。HTMLの主要なタグをカテゴリ別に分類し、その意味と日本語での用途を説明した網羅的な表を作成します。</p>
 
 <hr>
 
@@ -1012,6 +1078,8 @@
 </tr>
 </tbody>
 </table>
+
+</div>
 
 </body>
 </html>

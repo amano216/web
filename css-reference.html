@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSSの主要なプロパティ</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <div class="nav-links">
+            <a href="index.html">HTML</a>
+            <a href="css-reference.html" class="active">CSS</a>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>CSSプロパティ総合リファレンス</h1>
+
+<p>Webページのスタイリングに使用される主要なCSSプロパティを、カテゴリごとにまとめました。</p>
+
+<hr>
+
+<h2>CSSプロパティ一覧</h2>
+
+<h3><strong>テキストとフォント</strong></h3>
+
+<p>文字の見た目を制御するプロパティです。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>color</code></td>
+<td>Color</td>
+<td>文字色を指定。例：<code>color: #333;</code>、<code>color: red;</code>、<code>color: rgb(255, 0, 0);</code></td>
+</tr>
+<tr>
+<td><code>font-size</code></td>
+<td>Font Size</td>
+<td>文字の大きさを指定。例：<code>font-size: 16px;</code>、<code>font-size: 1.2rem;</code></td>
+</tr>
+<tr>
+<td><code>font-family</code></td>
+<td>Font Family</td>
+<td>フォントの種類を指定。例：<code>font-family: Arial, sans-serif;</code></td>
+</tr>
+<tr>
+<td><code>font-weight</code></td>
+<td>Font Weight</td>
+<td>文字の太さを指定。例：<code>font-weight: bold;</code>、<code>font-weight: 700;</code></td>
+</tr>
+<tr>
+<td><code>font-style</code></td>
+<td>Font Style</td>
+<td>文字のスタイル（斜体など）を指定。例：<code>font-style: italic;</code></td>
+</tr>
+<tr>
+<td><code>text-align</code></td>
+<td>Text Alignment</td>
+<td>テキストの水平方向の配置。例：<code>text-align: center;</code>、<code>text-align: right;</code></td>
+</tr>
+<tr>
+<td><code>text-decoration</code></td>
+<td>Text Decoration</td>
+<td>テキストの装飾（下線など）。例：<code>text-decoration: underline;</code>、<code>text-decoration: none;</code></td>
+</tr>
+<tr>
+<td><code>line-height</code></td>
+<td>Line Height</td>
+<td>行の高さを指定。例：<code>line-height: 1.5;</code>、<code>line-height: 24px;</code></td>
+</tr>
+<tr>
+<td><code>letter-spacing</code></td>
+<td>Letter Spacing</td>
+<td>文字間隔を調整。例：<code>letter-spacing: 0.1em;</code></td>
+</tr>
+<tr>
+<td><code>text-transform</code></td>
+<td>Text Transform</td>
+<td>大文字・小文字の変換。例：<code>text-transform: uppercase;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>ボックスモデル</strong></h3>
+
+<p>要素のサイズや余白を制御するプロパティです。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td>Width</td>
+<td>要素の幅を指定。例：<code>width: 300px;</code>、<code>width: 50%;</code>、<code>width: 100vw;</code></td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>Height</td>
+<td>要素の高さを指定。例：<code>height: 200px;</code>、<code>height: auto;</code></td>
+</tr>
+<tr>
+<td><code>margin</code></td>
+<td>Margin</td>
+<td>要素の外側の余白。例：<code>margin: 20px;</code>、<code>margin: 10px 20px;</code></td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>Padding</td>
+<td>要素の内側の余白。例：<code>padding: 15px;</code>、<code>padding: 10px 20px 30px 40px;</code></td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>Border</td>
+<td>要素の境界線。例：<code>border: 1px solid #000;</code>、<code>border-radius: 5px;</code></td>
+</tr>
+<tr>
+<td><code>box-sizing</code></td>
+<td>Box Sizing</td>
+<td>幅と高さの計算方法。例：<code>box-sizing: border-box;</code>（paddingとborderを含む）</td>
+</tr>
+<tr>
+<td><code>overflow</code></td>
+<td>Overflow</td>
+<td>要素からはみ出た内容の処理。例：<code>overflow: hidden;</code>、<code>overflow: scroll;</code></td>
+</tr>
+<tr>
+<td><code>min-width</code></td>
+<td>Minimum Width</td>
+<td>最小幅を指定。例：<code>min-width: 200px;</code></td>
+</tr>
+<tr>
+<td><code>max-width</code></td>
+<td>Maximum Width</td>
+<td>最大幅を指定。例：<code>max-width: 1200px;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>背景とカラー</strong></h3>
+
+<p>背景色や背景画像を制御するプロパティです。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>background-color</code></td>
+<td>Background Color</td>
+<td>背景色を指定。例：<code>background-color: #f0f0f0;</code></td>
+</tr>
+<tr>
+<td><code>background-image</code></td>
+<td>Background Image</td>
+<td>背景画像を指定。例：<code>background-image: url('image.jpg');</code></td>
+</tr>
+<tr>
+<td><code>background-size</code></td>
+<td>Background Size</td>
+<td>背景画像のサイズ。例：<code>background-size: cover;</code>、<code>background-size: contain;</code></td>
+</tr>
+<tr>
+<td><code>background-position</code></td>
+<td>Background Position</td>
+<td>背景画像の位置。例：<code>background-position: center center;</code></td>
+</tr>
+<tr>
+<td><code>background-repeat</code></td>
+<td>Background Repeat</td>
+<td>背景画像の繰り返し。例：<code>background-repeat: no-repeat;</code></td>
+</tr>
+<tr>
+<td><code>background</code></td>
+<td>Background Shorthand</td>
+<td>背景関連の一括指定。例：<code>background: #fff url('bg.jpg') no-repeat center;</code></td>
+</tr>
+<tr>
+<td><code>opacity</code></td>
+<td>Opacity</td>
+<td>要素の不透明度。例：<code>opacity: 0.8;</code>（0は完全透明、1は完全不透明）</td>
+</tr>
+<tr>
+<td><code>background-attachment</code></td>
+<td>Background Attachment</td>
+<td>背景画像の固定方法。例：<code>background-attachment: fixed;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>レイアウト - ポジショニング</strong></h3>
+
+<p>要素の配置方法を制御するプロパティです。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display</code></td>
+<td>Display</td>
+<td>要素の表示形式。例：<code>display: block;</code>、<code>display: inline;</code>、<code>display: none;</code></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>Position</td>
+<td>要素の配置方法。例：<code>position: relative;</code>、<code>position: absolute;</code>、<code>position: fixed;</code></td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>Top</td>
+<td>上からの位置を指定。例：<code>top: 10px;</code>（positionと併用）</td>
+</tr>
+<tr>
+<td><code>right</code></td>
+<td>Right</td>
+<td>右からの位置を指定。例：<code>right: 20px;</code></td>
+</tr>
+<tr>
+<td><code>bottom</code></td>
+<td>Bottom</td>
+<td>下からの位置を指定。例：<code>bottom: 0;</code></td>
+</tr>
+<tr>
+<td><code>left</code></td>
+<td>Left</td>
+<td>左からの位置を指定。例：<code>left: 50px;</code></td>
+</tr>
+<tr>
+<td><code>z-index</code></td>
+<td>Z-axis Index</td>
+<td>重なり順序を指定。例：<code>z-index: 10;</code>（大きい値が前面）</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Float</td>
+<td>要素を左右に浮かせる。例：<code>float: left;</code>（現在はFlexboxやGridを推奨）</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Clear</td>
+<td>floatの回り込みを解除。例：<code>clear: both;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>Flexbox（フレキシブルボックス）</strong></h3>
+
+<p>柔軟なレイアウトを作成するための最新の手法です。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display: flex</code></td>
+<td>Flex Container</td>
+<td>Flexコンテナを作成。子要素が横並びになる。</td>
+</tr>
+<tr>
+<td><code>flex-direction</code></td>
+<td>Flex Direction</td>
+<td>主軸の方向。例：<code>flex-direction: row;</code>（横）、<code>flex-direction: column;</code>（縦）</td>
+</tr>
+<tr>
+<td><code>justify-content</code></td>
+<td>Justify Content</td>
+<td>主軸方向の配置。例：<code>justify-content: center;</code>、<code>justify-content: space-between;</code></td>
+</tr>
+<tr>
+<td><code>align-items</code></td>
+<td>Align Items</td>
+<td>交差軸方向の配置。例：<code>align-items: center;</code>、<code>align-items: flex-start;</code></td>
+</tr>
+<tr>
+<td><code>flex-wrap</code></td>
+<td>Flex Wrap</td>
+<td>折り返しの設定。例：<code>flex-wrap: wrap;</code>（折り返す）、<code>flex-wrap: nowrap;</code></td>
+</tr>
+<tr>
+<td><code>gap</code></td>
+<td>Gap</td>
+<td>アイテム間の隙間。例：<code>gap: 20px;</code>、<code>gap: 10px 20px;</code></td>
+</tr>
+<tr>
+<td><code>flex</code></td>
+<td>Flex Shorthand</td>
+<td>伸縮性の一括指定。例：<code>flex: 1;</code>（均等に伸びる）、<code>flex: 0 0 200px;</code></td>
+</tr>
+<tr>
+<td><code>align-self</code></td>
+<td>Align Self</td>
+<td>個別アイテムの交差軸配置。例：<code>align-self: flex-end;</code></td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>Order</td>
+<td>表示順序を変更。例：<code>order: 2;</code>（デフォルトは0）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>CSS Grid（グリッドレイアウト）</strong></h3>
+
+<p>2次元のグリッドレイアウトを作成するための強力な手法です。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display: grid</code></td>
+<td>Grid Container</td>
+<td>グリッドコンテナを作成。</td>
+</tr>
+<tr>
+<td><code>grid-template-columns</code></td>
+<td>Grid Template Columns</td>
+<td>列の定義。例：<code>grid-template-columns: 1fr 2fr 1fr;</code>、<code>repeat(3, 1fr)</code></td>
+</tr>
+<tr>
+<td><code>grid-template-rows</code></td>
+<td>Grid Template Rows</td>
+<td>行の定義。例：<code>grid-template-rows: 100px auto 50px;</code></td>
+</tr>
+<tr>
+<td><code>grid-gap</code></td>
+<td>Grid Gap</td>
+<td>グリッドの隙間。例：<code>grid-gap: 20px;</code>（現在は<code>gap</code>を推奨）</td>
+</tr>
+<tr>
+<td><code>grid-column</code></td>
+<td>Grid Column</td>
+<td>アイテムの列位置。例：<code>grid-column: 1 / 3;</code>（1列目から3列目まで）</td>
+</tr>
+<tr>
+<td><code>grid-row</code></td>
+<td>Grid Row</td>
+<td>アイテムの行位置。例：<code>grid-row: 2 / 4;</code></td>
+</tr>
+<tr>
+<td><code>grid-area</code></td>
+<td>Grid Area</td>
+<td>名前付きエリアの指定。例：<code>grid-area: header;</code></td>
+</tr>
+<tr>
+<td><code>grid-template-areas</code></td>
+<td>Grid Template Areas</td>
+<td>エリアの名前付けレイアウト。例：<code>"header header" "main sidebar"</code></td>
+</tr>
+<tr>
+<td><code>justify-items</code></td>
+<td>Justify Items</td>
+<td>セル内の水平配置。例：<code>justify-items: center;</code></td>
+</tr>
+<tr>
+<td><code>align-items</code></td>
+<td>Align Items</td>
+<td>セル内の垂直配置。例：<code>align-items: start;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>トランジションとアニメーション</strong></h3>
+
+<p>要素の動きや変化を制御するプロパティです。</p>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transition</code></td>
+<td>Transition</td>
+<td>プロパティ変化のアニメーション。例：<code>transition: all 0.3s ease;</code></td>
+</tr>
+<tr>
+<td><code>transition-property</code></td>
+<td>Transition Property</td>
+<td>対象プロパティ。例：<code>transition-property: background-color, transform;</code></td>
+</tr>
+<tr>
+<td><code>transition-duration</code></td>
+<td>Transition Duration</td>
+<td>変化にかかる時間。例：<code>transition-duration: 0.5s;</code></td>
+</tr>
+<tr>
+<td><code>transition-timing-function</code></td>
+<td>Timing Function</td>
+<td>変化の速度曲線。例：<code>transition-timing-function: ease-in-out;</code></td>
+</tr>
+<tr>
+<td><code>transform</code></td>
+<td>Transform</td>
+<td>要素の変形。例：<code>transform: rotate(45deg);</code>、<code>transform: scale(1.2);</code></td>
+</tr>
+<tr>
+<td><code>animation</code></td>
+<td>Animation</td>
+<td>キーフレームアニメーション。例：<code>animation: slide 2s infinite;</code></td>
+</tr>
+<tr>
+<td><code>@keyframes</code></td>
+<td>Keyframes</td>
+<td>アニメーションの定義。例：<code>@keyframes slide { from { left: 0; } to { left: 100px; } }</code></td>
+</tr>
+<tr>
+<td><code>animation-duration</code></td>
+<td>Animation Duration</td>
+<td>アニメーションの長さ。例：<code>animation-duration: 3s;</code></td>
+</tr>
+<tr>
+<td><code>animation-iteration-count</code></td>
+<td>Iteration Count</td>
+<td>繰り返し回数。例：<code>animation-iteration-count: infinite;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>疑似クラスと疑似要素</strong></h3>
+
+<p>要素の特定の状態や部分をスタイリングします。</p>
+
+<table>
+<thead>
+<tr>
+<th>セレクタ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:hover</code></td>
+<td>Hover State</td>
+<td>マウスが乗った時の状態。例：<code>a:hover { color: red; }</code></td>
+</tr>
+<tr>
+<td><code>:active</code></td>
+<td>Active State</td>
+<td>クリック中の状態。例：<code>button:active { background: #ccc; }</code></td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>Focus State</td>
+<td>フォーカスが当たった状態。例：<code>input:focus { border-color: blue; }</code></td>
+</tr>
+<tr>
+<td><code>:first-child</code></td>
+<td>First Child</td>
+<td>最初の子要素。例：<code>li:first-child { font-weight: bold; }</code></td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>Last Child</td>
+<td>最後の子要素。例：<code>p:last-child { margin-bottom: 0; }</code></td>
+</tr>
+<tr>
+<td><code>:nth-child(n)</code></td>
+<td>Nth Child</td>
+<td>n番目の子要素。例：<code>tr:nth-child(even) { background: #f0f0f0; }</code></td>
+</tr>
+<tr>
+<td><code>::before</code></td>
+<td>Before Pseudo-element</td>
+<td>要素の前に内容を挿入。例：<code>h2::before { content: "▶ "; }</code></td>
+</tr>
+<tr>
+<td><code>::after</code></td>
+<td>After Pseudo-element</td>
+<td>要素の後に内容を挿入。例：<code>.required::after { content: " *"; color: red; }</code></td>
+</tr>
+<tr>
+<td><code>::first-line</code></td>
+<td>First Line</td>
+<td>最初の行のスタイル。例：<code>p::first-line { font-weight: bold; }</code></td>
+</tr>
+<tr>
+<td><code>::selection</code></td>
+<td>Selection</td>
+<td>選択されたテキスト。例：<code>::selection { background: yellow; }</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>レスポンシブデザイン</strong></h3>
+
+<p>デバイスのサイズに応じてスタイルを変更します。</p>
+
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@media</code></td>
+<td>Media Query</td>
+<td>条件に応じたスタイル適用。例：<code>@media (max-width: 768px) { ... }</code></td>
+</tr>
+<tr>
+<td><code>min-width</code></td>
+<td>Minimum Width</td>
+<td>最小幅以上の場合に適用。例：<code>@media (min-width: 1024px)</code></td>
+</tr>
+<tr>
+<td><code>max-width</code></td>
+<td>Maximum Width</td>
+<td>最大幅以下の場合に適用。例：<code>@media (max-width: 767px)</code></td>
+</tr>
+<tr>
+<td><code>orientation</code></td>
+<td>Orientation</td>
+<td>画面の向き。例：<code>@media (orientation: landscape)</code>（横向き）</td>
+</tr>
+<tr>
+<td><code>aspect-ratio</code></td>
+<td>Aspect Ratio</td>
+<td>画面の縦横比。例：<code>@media (aspect-ratio: 16/9)</code></td>
+</tr>
+<tr>
+<td><code>prefers-color-scheme</code></td>
+<td>Color Scheme Preference</td>
+<td>ダークモード対応。例：<code>@media (prefers-color-scheme: dark)</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>CSS変数（カスタムプロパティ）</strong></h3>
+
+<p>再利用可能な値を定義します。</p>
+
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--variable-name</code></td>
+<td>Custom Property Definition</td>
+<td>変数の定義。例：<code>--primary-color: #3498db;</code></td>
+</tr>
+<tr>
+<td><code>var()</code></td>
+<td>Variable Usage</td>
+<td>変数の使用。例：<code>color: var(--primary-color);</code></td>
+</tr>
+<tr>
+<td><code>:root</code></td>
+<td>Root Element</td>
+<td>グローバル変数の定義場所。例：<code>:root { --spacing: 20px; }</code></td>
+</tr>
+<tr>
+<td><code>var(--name, fallback)</code></td>
+<td>Variable with Fallback</td>
+<td>フォールバック値付き。例：<code>color: var(--text-color, #000);</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>その他の重要なプロパティ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cursor</code></td>
+<td>Cursor</td>
+<td>マウスカーソルの形状。例：<code>cursor: pointer;</code>、<code>cursor: not-allowed;</code></td>
+</tr>
+<tr>
+<td><code>visibility</code></td>
+<td>Visibility</td>
+<td>要素の表示/非表示（スペースは維持）。例：<code>visibility: hidden;</code></td>
+</tr>
+<tr>
+<td><code>box-shadow</code></td>
+<td>Box Shadow</td>
+<td>ボックスの影。例：<code>box-shadow: 0 2px 5px rgba(0,0,0,0.3);</code></td>
+</tr>
+<tr>
+<td><code>text-shadow</code></td>
+<td>Text Shadow</td>
+<td>テキストの影。例：<code>text-shadow: 2px 2px 4px rgba(0,0,0,0.5);</code></td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>Filter</td>
+<td>画像効果。例：<code>filter: blur(5px);</code>、<code>filter: grayscale(100%);</code></td>
+</tr>
+<tr>
+<td><code>pointer-events</code></td>
+<td>Pointer Events</td>
+<td>マウスイベントの制御。例：<code>pointer-events: none;</code>（クリック無効）</td>
+</tr>
+<tr>
+<td><code>user-select</code></td>
+<td>User Select</td>
+<td>テキスト選択の制御。例：<code>user-select: none;</code>（選択不可）</td>
+</tr>
+<tr>
+<td><code>white-space</code></td>
+<td>White Space</td>
+<td>空白文字の処理。例：<code>white-space: nowrap;</code>（改行しない）</td>
+</tr>
+<tr>
+<td><code>word-break</code></td>
+<td>Word Break</td>
+<td>単語の改行ルール。例：<code>word-break: break-all;</code>（どこでも改行可）</td>
+</tr>
+<tr>
+<td><code>object-fit</code></td>
+<td>Object Fit</td>
+<td>画像・動画のサイズ調整。例：<code>object-fit: cover;</code>、<code>object-fit: contain;</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>CSSのベストプラクティス</h2>
+
+<h3>効率的なCSSの書き方</h3>
+
+<table>
+<thead>
+<tr>
+<th>プラクティス</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>モバイルファースト</strong></td>
+<td>Mobile First</td>
+<td>小さい画面用のスタイルを先に書き、メディアクエリで大画面対応を追加。</td>
+</tr>
+<tr>
+<td><strong>BEM命名規則</strong></td>
+<td>Block Element Modifier</td>
+<td>クラス名の構造化。例：<code>.card__title--large</code></td>
+</tr>
+<tr>
+<td><strong>CSS変数の活用</strong></td>
+<td>CSS Variables</td>
+<td>色やサイズを変数化して管理。保守性が向上。</td>
+</tr>
+<tr>
+<td><strong>セレクタの詳細度</strong></td>
+<td>Specificity</td>
+<td>IDセレクタは避け、クラスセレクタを中心に使用。</td>
+</tr>
+<tr>
+<td><strong>プロパティの順序</strong></td>
+<td>Property Order</td>
+<td>レイアウト → ボックスモデル → 装飾の順で記述。</td>
+</tr>
+<tr>
+<td><strong>短縮プロパティ</strong></td>
+<td>Shorthand Properties</td>
+<td><code>margin: 10px 20px;</code>のように一括指定を活用。</td>
+</tr>
+<tr>
+<td><strong>リセットCSS</strong></td>
+<td>CSS Reset</td>
+<td>ブラウザのデフォルトスタイルをリセット。</td>
+</tr>
+<tr>
+<td><strong>コメントの活用</strong></td>
+<td>Comments</td>
+<td>セクションごとにコメントで区切り、可読性を向上。</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>
