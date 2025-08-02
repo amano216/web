@@ -205,9 +205,12 @@ class NavSearch {
                 const url = item.dataset.url;
                 if (url) {
                     // 検索クエリをURLパラメータに追加
-                    const targetUrl = new URL(url, window.location.origin);
-                    targetUrl.searchParams.set('q', this.searchInput.value.trim());
-                    window.location.href = targetUrl.toString();
+                    const query = this.searchInput.value.trim();
+                    if (query) {
+                        window.location.href = url + '?q=' + encodeURIComponent(query);
+                    } else {
+                        window.location.href = url;
+                    }
                 }
             });
         });
@@ -248,9 +251,12 @@ class NavSearch {
         if (this.selectedIndex >= 0 && this.suggestions[this.selectedIndex]) {
             const url = this.suggestions[this.selectedIndex].page.url;
             // 検索クエリをURLパラメータに追加
-            const targetUrl = new URL(url, window.location.origin);
-            targetUrl.searchParams.set('q', this.searchInput.value.trim());
-            window.location.href = targetUrl.toString();
+            const query = this.searchInput.value.trim();
+            if (query) {
+                window.location.href = url + '?q=' + encodeURIComponent(query);
+            } else {
+                window.location.href = url;
+            }
         } else if (this.searchInput.value.trim()) {
             // 選択がない場合は全検索を開く
             if (window.globalSearch) {

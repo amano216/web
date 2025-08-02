@@ -117,9 +117,12 @@ class GlobalSearch {
                 const url = resultItem.dataset.url;
                 if (url) {
                     // 検索クエリをURLパラメータに追加
-                    const targetUrl = new URL(url, window.location.origin);
-                    targetUrl.searchParams.set('q', this.searchInput.value.trim());
-                    window.location.href = targetUrl.toString();
+                    const query = this.searchInput.value.trim();
+                    if (query) {
+                        window.location.href = url + '?q=' + encodeURIComponent(query);
+                    } else {
+                        window.location.href = url;
+                    }
                 }
             }
         });
