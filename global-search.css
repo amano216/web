@@ -187,34 +187,6 @@
     color: var(--text-muted);
 }
 
-/* 検索ボタン（ナビゲーションバー用） */
-.global-search-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: var(--background-secondary);
-    border: 1px solid var(--background-modifier-border);
-    border-radius: 4px;
-    color: var(--text-normal);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.9rem;
-}
-
-.global-search-btn:hover {
-    background-color: var(--background-modifier-hover);
-    border-color: var(--text-accent);
-}
-
-.search-shortcut {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.4rem;
-    background-color: var(--background-primary);
-    border-radius: 3px;
-    color: var(--text-muted);
-    font-family: monospace;
-}
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {

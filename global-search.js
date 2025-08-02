@@ -407,5 +407,5 @@ class GlobalSearch {
 
 // DOMContentLoadedで初期化
 document.addEventListener('DOMContentLoaded', () => {
-    new GlobalSearch();
+    window.globalSearch = new GlobalSearch();
 });
