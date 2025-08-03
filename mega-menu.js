@@ -42,8 +42,10 @@ class MegaMenu {
                         <div class="mega-menu-links">
                             <a href="index.html">HTMLタグ一覧</a>
                             <a href="html-cheatsheet.html">HTML記法チート</a>
+                            <a href="html-history.html">HTMLの歴史</a>
                             <a href="css-reference.html">CSSプロパティ</a>
                             <a href="css-cheatsheet.html">CSS記法チート</a>
+                            <a href="css-history.html">CSSの歴史</a>
                         </div>
                     </div>
                     
@@ -53,6 +55,7 @@ class MegaMenu {
                         <div class="mega-menu-links">
                             <a href="javascript-reference.html">JSメソッド一覧</a>
                             <a href="javascript-cheatsheet.html">JS記法チート</a>
+                            <a href="javascript-history.html">JavaScriptの歴史</a>
                             <a href="sql-reference.html">SQLコマンド一覧</a>
                             <a href="sql-cheatsheet.html">SQL記法チート</a>
                             <a href="ruby-reference.html">Rubyメソッド一覧</a>
@@ -66,6 +69,7 @@ class MegaMenu {
                         <div class="mega-menu-links">
                             <a href="http-reference.html">HTTPメソッド一覧</a>
                             <a href="http-cheatsheet.html">HTTP記法チート</a>
+                            <a href="http-history.html">HTTPの歴史</a>
                         </div>
                     </div>
                     
@@ -77,6 +81,7 @@ class MegaMenu {
                             <a href="linux-cheatsheet.html">Linux記法チート</a>
                             <a href="git-commands.html">Git/GitHub</a>
                             <a href="git-cheatsheet.html">Git記法チート</a>
+                            <a href="git-history.html">Gitの歴史</a>
                         </div>
                     </div>
                     
