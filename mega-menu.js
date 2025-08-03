@@ -82,14 +82,25 @@ class MegaMenu {
         // オーバーレイを作成
         const overlayHTML = `<div class="mega-menu-overlay" id="mega-menu-overlay"></div>`;
 
-        // 検索バーの後、またはナビゲーションメニューの後にメガメニューボタンを追加
+        // メガメニューボタンを追加（複数の方法を試す）
+        console.log('Adding mega menu button...');
+        
+        // 方法1: 検索バーの後に追加
         const searchWrapper = navContainer.querySelector('.nav-search-wrapper');
         if (searchWrapper) {
+            console.log('Found search wrapper, adding button after it');
             searchWrapper.insertAdjacentHTML('afterend', menuButtonHTML);
         } else {
+            console.log('Search wrapper not found, trying nav-menu');
+            // 方法2: ナビゲーションメニューの後に追加
             const navMenu = navContainer.querySelector('.nav-menu');
             if (navMenu) {
+                console.log('Found nav menu, adding button after it');
                 navMenu.insertAdjacentHTML('afterend', menuButtonHTML);
+            } else {
+                console.log('Nav menu not found, adding to nav container directly');
+                // 方法3: ナビゲーションコンテナに直接追加
+                navContainer.insertAdjacentHTML('beforeend', menuButtonHTML);
             }
         }
 
@@ -192,19 +203,27 @@ class MegaMenu {
     }
 }
 
-// DOMContentLoadedで初期化
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Mega menu script loaded');
+// 初期化関数
+function initMegaMenu() {
+    console.log('Initializing mega menu...');
     
     // メガメニューCSSを動的に読み込む
     const megaMenuCSS = document.createElement('link');
     megaMenuCSS.rel = 'stylesheet';
     megaMenuCSS.href = 'mega-menu.css';
     document.head.appendChild(megaMenuCSS);
-
-    // 少し遅延させてメガメニューを初期化（検索バーなどの要素が確実に読み込まれるように）
-    setTimeout(() => {
-        console.log('Initializing mega menu');
+    
+    // CSSが読み込まれた後に初期化
+    megaMenuCSS.onload = () => {
+        console.log('Mega menu CSS loaded, creating menu');
         new MegaMenu();
-    }, 100);
-});
+    };
+}
+
+// DOMContentLoadedで初期化を試みる
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMegaMenu);
+} else {
+    // 既に読み込まれている場合は即座に実行
+    initMegaMenu();
+}
