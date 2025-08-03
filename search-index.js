@@ -235,6 +235,36 @@ const searchIndex = [
             { heading: "ブロック・Proc・Lambda", keywords: ["block", "proc", "lambda", "yield", "call", "->"] },
             { heading: "正規表現", keywords: ["match", "=~", "gsub", "scan", "capture", "regex"] }
         ]
+    },
+    {
+        title: "HTTPメソッド一覧",
+        url: "http-reference.html",
+        category: "HTTP",
+        keywords: ["http", "hypertext", "transfer", "protocol", "メソッド", "method", "ステータスコード", "status code"],
+        sections: [
+            { heading: "主要なHTTPメソッド", keywords: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS", "CONNECT", "TRACE"] },
+            { heading: "メソッドの特性", keywords: ["安全性", "safe", "冪等性", "idempotent", "キャッシュ可能", "cacheable"] },
+            { heading: "2xx 成功レスポンス", keywords: ["200", "OK", "201", "Created", "204", "No Content", "206", "Partial Content"] },
+            { heading: "3xx リダイレクション", keywords: ["301", "Moved Permanently", "302", "Found", "304", "Not Modified", "307", "Temporary Redirect"] },
+            { heading: "4xx クライアントエラー", keywords: ["400", "Bad Request", "401", "Unauthorized", "403", "Forbidden", "404", "Not Found", "422", "429"] },
+            { heading: "5xx サーバーエラー", keywords: ["500", "Internal Server Error", "502", "Bad Gateway", "503", "Service Unavailable", "504"] },
+            { heading: "HTTPヘッダー", keywords: ["Accept", "Authorization", "Content-Type", "Cookie", "Host", "User-Agent", "Cache-Control", "ETag"] }
+        ]
+    },
+    {
+        title: "HTTP記法チートシート",
+        url: "http-cheatsheet.html",
+        category: "HTTP",
+        keywords: ["http", "記法", "syntax", "チートシート", "cheatsheet", "api", "rest", "restful"],
+        sections: [
+            { heading: "HTTPリクエストの基本構造", keywords: ["request", "method", "url", "header", "body", "GET", "POST", "PUT", "DELETE"] },
+            { heading: "HTTPレスポンスの基本構造", keywords: ["response", "status", "200", "404", "500", "header", "body"] },
+            { heading: "RESTful API設計", keywords: ["rest", "restful", "resource", "crud", "endpoint", "url pattern"] },
+            { heading: "認証・認可パターン", keywords: ["authentication", "authorization", "bearer", "token", "basic", "api key", "jwt"] },
+            { heading: "Content-Typeとデータ形式", keywords: ["json", "form-data", "multipart", "application/json", "urlencoded"] },
+            { heading: "CORS", keywords: ["cors", "cross-origin", "preflight", "options", "access-control"] },
+            { heading: "キャッシュ制御", keywords: ["cache", "cache-control", "etag", "if-none-match", "max-age"] }
+        ]
     }
 ];
 
@@ -254,5 +284,7 @@ const contentCache = {
     "linux-commands.html": "Linux リナックス コマンド command bash shell terminal ls cd pwd mkdir rm cp mv find grep ps top kill chmod chown ssh apt yum tar",
     "linux-cheatsheet.html": "Linux 記法 syntax 構文 チートシート bash shell コマンドライン command line pipe redirect | > >> < permission chmod 755 644 export alias",
     "ruby-reference.html": "Ruby ルビー メソッド method プロパティ クラス class String Array Hash Numeric Range File Time Enumerable length upcase downcase push pop map select each",
-    "ruby-cheatsheet.html": "Ruby ルビー 記法 syntax 構文 チートシート cheatsheet 変数 variable 定数 constant if else class module def yield block proc lambda 正規表現 regex"
+    "ruby-cheatsheet.html": "Ruby ルビー 記法 syntax 構文 チートシート cheatsheet 変数 variable 定数 constant if else class module def yield block proc lambda 正規表現 regex",
+    "http-reference.html": "HTTP HyperText Transfer Protocol メソッド method ステータスコード status code GET POST PUT PATCH DELETE 200 OK 404 Not Found 500 Internal Server Error header ヘッダー",
+    "http-cheatsheet.html": "HTTP 記法 syntax チートシート cheatsheet RESTful API REST request response authentication authorization CORS cache Content-Type JSON Bearer Token"
 };

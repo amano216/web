@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTPメソッド一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* HTTPメソッドのスタイル */
+        .http-method {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* ステータスコード別の色分け */
+        .status-2xx {
+            color: #98c379;  /* 緑 - 成功 */
+        }
+        .status-3xx {
+            color: #61afef;  /* 青 - リダイレクト */
+        }
+        .status-4xx {
+            color: #d19a66;  /* オレンジ - クライアントエラー */
+        }
+        .status-5xx {
+            color: #e06c75;  /* 赤 - サーバーエラー */
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html" class="active">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>HTTPメソッド一覧</h1>
+
+<p>HTTP（HyperText Transfer Protocol）で使用される主要なメソッドとステータスコードをまとめました。</p>
+
+<hr>
+
+<h2>HTTPメソッド</h2>
+
+<h3><strong>主要なHTTPメソッド</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>Get (取得する)</td>
+<td>リソースを取得する。サーバーからデータを要求。副作用なし（安全）</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td>Post (投稿する)</td>
+<td>リソースを作成する。データをサーバーに送信。副作用あり</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td>Put (置く)</td>
+<td>リソース全体を更新・置換する。存在しない場合は作成</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td>Patch (修正する)</td>
+<td>リソースの一部を更新する。部分的な変更に使用</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>Delete (削除する)</td>
+<td>リソースを削除する。指定したリソースをサーバーから削除</td>
+</tr>
+<tr>
+<td><code>HEAD</code></td>
+<td>Head (頭部)</td>
+<td>GETと同じだがヘッダーのみ取得。ボディは返さない</td>
+</tr>
+<tr>
+<td><code>OPTIONS</code></td>
+<td>Options (選択肢)</td>
+<td>対象リソースで利用可能なメソッドを確認。CORSプリフライト</td>
+</tr>
+<tr>
+<td><code>CONNECT</code></td>
+<td>Connect (接続する)</td>
+<td>プロキシサーバーに対してトンネル接続を確立</td>
+</tr>
+<tr>
+<td><code>TRACE</code></td>
+<td>Trace (追跡する)</td>
+<td>リクエストをそのまま返す。デバッグ用（通常は無効）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>メソッドの特性</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>安全性<br>(Safe)</th>
+<th>冪等性<br>(Idempotent)</th>
+<th>キャッシュ可能<br>(Cacheable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>✓ はい</td>
+<td>✓ はい</td>
+<td>✓ はい</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td>✗ いいえ</td>
+<td>✗ いいえ</td>
+<td>△ 条件付き</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td>✗ いいえ</td>
+<td>✓ はい</td>
+<td>✗ いいえ</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td>✗ いいえ</td>
+<td>✗ いいえ</td>
+<td>✗ いいえ</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>✗ いいえ</td>
+<td>✓ はい</td>
+<td>✗ いいえ</td>
+</tr>
+<tr>
+<td><code>HEAD</code></td>
+<td>✓ はい</td>
+<td>✓ はい</td>
+<td>✓ はい</td>
+</tr>
+<tr>
+<td><code>OPTIONS</code></td>
+<td>✓ はい</td>
+<td>✓ はい</td>
+<td>✗ いいえ</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>注：</strong></p>
+<ul>
+<li><strong>安全性</strong>：サーバーの状態を変更しない</li>
+<li><strong>冪等性</strong>：同じリクエストを何度実行しても同じ結果になる</li>
+<li><strong>キャッシュ可能</strong>：レスポンスをキャッシュできる</li>
+</ul>
+
+<hr>
+
+<h2>HTTPステータスコード</h2>
+
+<h3><strong>1xx 情報レスポンス</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>100</code></td>
+<td>Continue</td>
+<td>継続。クライアントはリクエストを続行してよい</td>
+</tr>
+<tr>
+<td><code>101</code></td>
+<td>Switching Protocols</td>
+<td>プロトコル切り替え。WebSocketへの切り替えなど</td>
+</tr>
+<tr>
+<td><code>102</code></td>
+<td>Processing</td>
+<td>処理中。長時間かかる処理を実行中</td>
+</tr>
+<tr>
+<td><code>103</code></td>
+<td>Early Hints</td>
+<td>早期ヒント。最終レスポンス前のヒント情報</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>2xx 成功レスポンス</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="status-2xx"><code>200</code></td>
+<td>OK</td>
+<td>成功。リクエストが正常に処理された</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>201</code></td>
+<td>Created</td>
+<td>作成完了。新しいリソースが作成された</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>202</code></td>
+<td>Accepted</td>
+<td>受理。リクエストは受理されたが処理は未完了</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>203</code></td>
+<td>Non-Authoritative Information</td>
+<td>信頼できない情報。プロキシが改変した情報</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>204</code></td>
+<td>No Content</td>
+<td>内容なし。成功したがレスポンスボディはない</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>205</code></td>
+<td>Reset Content</td>
+<td>内容リセット。フォームをリセットすべき</td>
+</tr>
+<tr>
+<td class="status-2xx"><code>206</code></td>
+<td>Partial Content</td>
+<td>部分的内容。範囲リクエストの一部を返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>3xx リダイレクション</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="status-3xx"><code>300</code></td>
+<td>Multiple Choices</td>
+<td>複数の選択。複数のリソースから選択可能</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>301</code></td>
+<td>Moved Permanently</td>
+<td>恒久的移動。リソースのURLが永続的に変更</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>302</code></td>
+<td>Found</td>
+<td>発見。一時的な移動（元は Moved Temporarily）</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>303</code></td>
+<td>See Other</td>
+<td>他を参照。POSTの結果を別のURLで参照</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>304</code></td>
+<td>Not Modified</td>
+<td>未更新。キャッシュが有効でリソース未変更</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>307</code></td>
+<td>Temporary Redirect</td>
+<td>一時的リダイレクト。メソッドを変更せずリダイレクト</td>
+</tr>
+<tr>
+<td class="status-3xx"><code>308</code></td>
+<td>Permanent Redirect</td>
+<td>恒久的リダイレクト。301と同様だがメソッド変更なし</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>4xx クライアントエラー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="status-4xx"><code>400</code></td>
+<td>Bad Request</td>
+<td>不正なリクエスト。構文エラーなど</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>401</code></td>
+<td>Unauthorized</td>
+<td>認証が必要。ログインが必要</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>402</code></td>
+<td>Payment Required</td>
+<td>支払いが必要。将来の使用のため予約</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>403</code></td>
+<td>Forbidden</td>
+<td>禁止。アクセス権限がない</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>404</code></td>
+<td>Not Found</td>
+<td>見つからない。リソースが存在しない</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>405</code></td>
+<td>Method Not Allowed</td>
+<td>許可されていないメソッド。HTTPメソッドが無効</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>406</code></td>
+<td>Not Acceptable</td>
+<td>受理できない。要求された形式で提供不可</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>407</code></td>
+<td>Proxy Authentication Required</td>
+<td>プロキシ認証が必要</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>408</code></td>
+<td>Request Timeout</td>
+<td>リクエストタイムアウト。時間内に完了せず</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>409</code></td>
+<td>Conflict</td>
+<td>競合。リソースの状態と矛盾</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>410</code></td>
+<td>Gone</td>
+<td>消滅。リソースが永久に利用不可</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>411</code></td>
+<td>Length Required</td>
+<td>Content-Lengthが必要</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>413</code></td>
+<td>Payload Too Large</td>
+<td>ペイロードが大きすぎる</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>414</code></td>
+<td>URI Too Long</td>
+<td>URIが長すぎる</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>415</code></td>
+<td>Unsupported Media Type</td>
+<td>サポートされていないメディアタイプ</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>422</code></td>
+<td>Unprocessable Entity</td>
+<td>処理できないエンティティ。検証エラー</td>
+</tr>
+<tr>
+<td class="status-4xx"><code>429</code></td>
+<td>Too Many Requests</td>
+<td>リクエストが多すぎる。レート制限</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>5xx サーバーエラー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="status-5xx"><code>500</code></td>
+<td>Internal Server Error</td>
+<td>内部サーバーエラー。サーバー側の一般的エラー</td>
+</tr>
+<tr>
+<td class="status-5xx"><code>501</code></td>
+<td>Not Implemented</td>
+<td>未実装。サーバーが機能を実装していない</td>
+</tr>
+<tr>
+<td class="status-5xx"><code>502</code></td>
+<td>Bad Gateway</td>
+<td>不正なゲートウェイ。上流サーバーから無効な応答</td>
+</tr>
+<tr>
+<td class="status-5xx"><code>503</code></td>
+<td>Service Unavailable</td>
+<td>サービス利用不可。一時的な過負荷やメンテナンス</td>
+</tr>
+<tr>
+<td class="status-5xx"><code>504</code></td>
+<td>Gateway Timeout</td>
+<td>ゲートウェイタイムアウト。上流サーバーの応答なし</td>
+</tr>
+<tr>
+<td class="status-5xx"><code>505</code></td>
+<td>HTTP Version Not Supported</td>
+<td>HTTPバージョン非サポート</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>HTTPヘッダー</h2>
+
+<h3><strong>よく使うリクエストヘッダー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ヘッダー</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Accept</code></td>
+<td>Accept</td>
+<td>受け入れ可能なメディアタイプ。<code>application/json</code></td>
+</tr>
+<tr>
+<td><code>Accept-Language</code></td>
+<td>Accept Language</td>
+<td>優先言語。<code>ja,en;q=0.9</code></td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>Authorization</td>
+<td>認証情報。<code>Bearer token123</code></td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>Content Type</td>
+<td>送信データの形式。<code>application/json</code></td>
+</tr>
+<tr>
+<td><code>Cookie</code></td>
+<td>Cookie</td>
+<td>クッキー情報。<code>sessionid=abc123</code></td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td>Host</td>
+<td>リクエスト先のホスト名。<code>example.com</code></td>
+</tr>
+<tr>
+<td><code>Origin</code></td>
+<td>Origin</td>
+<td>リクエスト元のオリジン。CORS用</td>
+</tr>
+<tr>
+<td><code>Referer</code></td>
+<td>Referer</td>
+<td>リクエスト元のURL</td>
+</tr>
+<tr>
+<td><code>User-Agent</code></td>
+<td>User Agent</td>
+<td>クライアントの情報。ブラウザやOS</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>よく使うレスポンスヘッダー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ヘッダー</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Content-Length</code></td>
+<td>Content Length</td>
+<td>レスポンスボディのバイト数</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>Content Type</td>
+<td>レスポンスのメディアタイプ</td>
+</tr>
+<tr>
+<td><code>Set-Cookie</code></td>
+<td>Set Cookie</td>
+<td>クッキーを設定。<code>sessionid=abc123; HttpOnly</code></td>
+</tr>
+<tr>
+<td><code>Location</code></td>
+<td>Location</td>
+<td>リダイレクト先のURL</td>
+</tr>
+<tr>
+<td><code>Cache-Control</code></td>
+<td>Cache Control</td>
+<td>キャッシュ制御。<code>max-age=3600</code></td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Origin</code></td>
+<td>CORS Allow Origin</td>
+<td>CORS許可オリジン。<code>*</code>または特定のオリジン</td>
+</tr>
+<tr>
+<td><code>ETag</code></td>
+<td>Entity Tag</td>
+<td>リソースのバージョン識別子</td>
+</tr>
+<tr>
+<td><code>Last-Modified</code></td>
+<td>Last Modified</td>
+<td>最終更新日時</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

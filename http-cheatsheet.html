@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        /* コードハイライト */
+        pre {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+        }
+
+        /* インラインコード */
+        :not(pre) > code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #e06c75;
+        }
+
+        /* HTTPコードのシンタックスハイライト */
+        .http-code {
+            color: #abb2bf;
+        }
+
+        .http-method {
+            color: #c678dd;
+            font-weight: bold;
+        }
+
+        .http-url {
+            color: #98c379;
+        }
+
+        .http-version {
+            color: #56b6c2;
+        }
+
+        .http-header {
+            color: #61afef;
+        }
+
+        .http-status {
+            color: #d19a66;
+        }
+
+        .http-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* ポイントボックス */
+        .tip-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* テーブル */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html" class="active">HTTP記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>HTTP記法チートシート</h1>
+
+<p>HTTPプロトコルの基本的な記法と実践的な使用例をまとめたチートシートです。</p>
+
+<hr>
+
+<h2>HTTPリクエストの基本構造</h2>
+
+<h3><strong>リクエストライン</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">METHOD</span> <span class="http-url">/path/to/resource</span> <span class="http-version">HTTP/1.1</span>
+
+<span class="http-comment"># 例：</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users/123</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-method">POST</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-method">PUT</span> <span class="http-url">/api/users/123</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-method">DELETE</span> <span class="http-url">/api/users/123</span> <span class="http-version">HTTP/1.1</span></code></pre>
+
+<h3><strong>完全なHTTPリクエスト例</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># GETリクエスト</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users?page=1&limit=10</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Host:</span> api.example.com
+<span class="http-header">Accept:</span> application/json
+<span class="http-header">Authorization:</span> Bearer eyJhbGciOiJIUzI1NiIs...
+<span class="http-header">User-Agent:</span> Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+
+<span class="http-comment"># POSTリクエスト</span>
+<span class="http-method">POST</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Host:</span> api.example.com
+<span class="http-header">Content-Type:</span> application/json
+<span class="http-header">Content-Length:</span> 85
+<span class="http-header">Authorization:</span> Bearer eyJhbGciOiJIUzI1NiIs...
+
+{
+  "name": "山田太郎",
+  "email": "yamada@example.com",
+  "age": 30
+}</code></pre>
+
+<hr>
+
+<h2>HTTPレスポンスの基本構造</h2>
+
+<h3><strong>ステータスライン</strong></h3>
+
+<pre><code class="http-code"><span class="http-version">HTTP/1.1</span> <span class="http-status">STATUS_CODE STATUS_MESSAGE</span>
+
+<span class="http-comment"># 例：</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">200 OK</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">201 Created</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">404 Not Found</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">500 Internal Server Error</span></code></pre>
+
+<h3><strong>完全なHTTPレスポンス例</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># 成功レスポンス</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">200 OK</span>
+<span class="http-header">Content-Type:</span> application/json; charset=utf-8
+<span class="http-header">Content-Length:</span> 123
+<span class="http-header">Cache-Control:</span> max-age=3600
+<span class="http-header">ETag:</span> "33a64df551425fcc55e4d42a148795d9f25f89d4"
+
+{
+  "id": 123,
+  "name": "山田太郎",
+  "email": "yamada@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+
+<span class="http-comment"># エラーレスポンス</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">404 Not Found</span>
+<span class="http-header">Content-Type:</span> application/json
+<span class="http-header">Content-Length:</span> 58
+
+{
+  "error": "Resource not found",
+  "code": "USER_NOT_FOUND"
+}</code></pre>
+
+<hr>
+
+<h2>よく使うHTTPパターン</h2>
+
+<h3><strong>RESTful API設計</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>HTTPメソッド</th>
+<th>URLパターン</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一覧取得</td>
+<td><code>GET</code></td>
+<td><code>/api/users</code></td>
+<td>全ユーザーのリストを取得</td>
+</tr>
+<tr>
+<td>詳細取得</td>
+<td><code>GET</code></td>
+<td><code>/api/users/{id}</code></td>
+<td>特定のユーザー情報を取得</td>
+</tr>
+<tr>
+<td>作成</td>
+<td><code>POST</code></td>
+<td><code>/api/users</code></td>
+<td>新規ユーザーを作成</td>
+</tr>
+<tr>
+<td>全体更新</td>
+<td><code>PUT</code></td>
+<td><code>/api/users/{id}</code></td>
+<td>ユーザー情報を完全に更新</td>
+</tr>
+<tr>
+<td>部分更新</td>
+<td><code>PATCH</code></td>
+<td><code>/api/users/{id}</code></td>
+<td>ユーザー情報の一部を更新</td>
+</tr>
+<tr>
+<td>削除</td>
+<td><code>DELETE</code></td>
+<td><code>/api/users/{id}</code></td>
+<td>ユーザーを削除</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>認証・認可パターン</h2>
+
+<h3><strong>基本認証（Basic Authentication）</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">GET</span> <span class="http-url">/api/private</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Authorization:</span> Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+
+<span class="http-comment"># Base64エンコード: username:password</span></code></pre>
+
+<h3><strong>ベアラートークン（Bearer Token）</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">GET</span> <span class="http-url">/api/private</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Authorization:</span> Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+
+<h3><strong>APIキー認証</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># ヘッダーで送信</span>
+<span class="http-method">GET</span> <span class="http-url">/api/data</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">X-API-Key:</span> abcdef123456789
+
+<span class="http-comment"># クエリパラメータで送信</span>
+<span class="http-method">GET</span> <span class="http-url">/api/data?api_key=abcdef123456789</span> <span class="http-version">HTTP/1.1</span></code></pre>
+
+<hr>
+
+<h2>Content-Typeとデータ形式</h2>
+
+<h3><strong>JSON形式</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">POST</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Content-Type:</span> application/json
+
+{
+  "name": "田中花子",
+  "email": "tanaka@example.com"
+}</code></pre>
+
+<h3><strong>フォームデータ（URL-encoded）</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">POST</span> <span class="http-url">/api/login</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Content-Type:</span> application/x-www-form-urlencoded
+
+username=tanaka&password=secret123&remember=true</code></pre>
+
+<h3><strong>マルチパートフォーム（ファイルアップロード）</strong></h3>
+
+<pre><code class="http-code"><span class="http-method">POST</span> <span class="http-url">/api/upload</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Content-Type:</span> multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+<span class="http-comment">[バイナリデータ]</span>
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+プロフィール写真
+------WebKitFormBoundary7MA4YWxkTrZu0gW--</code></pre>
+
+<hr>
+
+<h2>CORS（Cross-Origin Resource Sharing）</h2>
+
+<h3><strong>プリフライトリクエスト</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># ブラウザが自動的に送信するOPTIONSリクエスト</span>
+<span class="http-method">OPTIONS</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Origin:</span> https://example.com
+<span class="http-header">Access-Control-Request-Method:</span> POST
+<span class="http-header">Access-Control-Request-Headers:</span> Content-Type, Authorization</code></pre>
+
+<h3><strong>CORSレスポンスヘッダー</strong></h3>
+
+<pre><code class="http-code"><span class="http-version">HTTP/1.1</span> <span class="http-status">200 OK</span>
+<span class="http-header">Access-Control-Allow-Origin:</span> https://example.com
+<span class="http-header">Access-Control-Allow-Methods:</span> GET, POST, PUT, DELETE, OPTIONS
+<span class="http-header">Access-Control-Allow-Headers:</span> Content-Type, Authorization
+<span class="http-header">Access-Control-Max-Age:</span> 86400</code></pre>
+
+<div class="tip-box">
+<strong>💡 ポイント:</strong> CORSは、異なるオリジン（ドメイン、プロトコル、ポート）間でのリソース共有を制御するセキュリティ機能です。APIを公開する際は適切なCORS設定が必要です。
+</div>
+
+<hr>
+
+<h2>キャッシュ制御</h2>
+
+<h3><strong>キャッシュヘッダー</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># キャッシュを1時間有効に</span>
+<span class="http-header">Cache-Control:</span> public, max-age=3600
+
+<span class="http-comment"># キャッシュを無効に</span>
+<span class="http-header">Cache-Control:</span> no-cache, no-store, must-revalidate
+
+<span class="http-comment"># プライベートキャッシュ（ブラウザのみ）</span>
+<span class="http-header">Cache-Control:</span> private, max-age=600
+
+<span class="http-comment"># 条件付きリクエスト（ETag使用）</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users/123</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">If-None-Match:</span> "33a64df551425fcc55e4d42a148795d9f25f89d4"
+
+<span class="http-comment"># 条件付きリクエスト（Last-Modified使用）</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users/123</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">If-Modified-Since:</span> Wed, 21 Oct 2024 07:28:00 GMT</code></pre>
+
+<hr>
+
+<h2>よく使うステータスコードの使い分け</h2>
+
+<h3><strong>成功系レスポンス</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ステータスコード</th>
+<th>使用場面</th>
+<th>レスポンス例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200 OK</code></td>
+<td>GET, PUT, PATCH成功時</td>
+<td>リソースデータを返す</td>
+</tr>
+<tr>
+<td><code>201 Created</code></td>
+<td>POST成功時（作成）</td>
+<td>作成されたリソースを返す</td>
+</tr>
+<tr>
+<td><code>204 No Content</code></td>
+<td>DELETE成功時</td>
+<td>ボディなし</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>エラー系レスポンス</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ステータスコード</th>
+<th>使用場面</th>
+<th>レスポンス例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400 Bad Request</code></td>
+<td>リクエスト形式エラー</td>
+<td>エラーの詳細を返す</td>
+</tr>
+<tr>
+<td><code>401 Unauthorized</code></td>
+<td>認証が必要</td>
+<td>認証方法を示す</td>
+</tr>
+<tr>
+<td><code>403 Forbidden</code></td>
+<td>アクセス権限なし</td>
+<td>権限エラーメッセージ</td>
+</tr>
+<tr>
+<td><code>404 Not Found</code></td>
+<td>リソースが存在しない</td>
+<td>エラーメッセージ</td>
+</tr>
+<tr>
+<td><code>422 Unprocessable Entity</code></td>
+<td>バリデーションエラー</td>
+<td>エラーの詳細を返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>実践的なAPI呼び出し例</h2>
+
+<h3><strong>ページネーション</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># クエリパラメータでページ指定</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users?page=2&per_page=20</span> <span class="http-version">HTTP/1.1</span>
+
+<span class="http-comment"># レスポンスヘッダーでページ情報</span>
+<span class="http-version">HTTP/1.1</span> <span class="http-status">200 OK</span>
+<span class="http-header">X-Total-Count:</span> 150
+<span class="http-header">X-Page:</span> 2
+<span class="http-header">X-Per-Page:</span> 20
+<span class="http-header">Link:</span> &lt;/api/users?page=3&gt;; rel="next", &lt;/api/users?page=1&gt;; rel="prev"</code></pre>
+
+<h3><strong>フィルタリングとソート</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># 複数条件でフィルタリング</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users?status=active&role=admin&sort=-created_at</span> <span class="http-version">HTTP/1.1</span>
+
+<span class="http-comment"># 範囲指定</span>
+<span class="http-method">GET</span> <span class="http-url">/api/orders?created_at_from=2024-01-01&created_at_to=2024-12-31</span> <span class="http-version">HTTP/1.1</span>
+
+<span class="http-comment"># 部分一致検索</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users?q=tanaka&fields=name,email</span> <span class="http-version">HTTP/1.1</span></code></pre>
+
+<h3><strong>バージョニング</strong></h3>
+
+<pre><code class="http-code"><span class="http-comment"># URLパスでバージョン指定</span>
+<span class="http-method">GET</span> <span class="http-url">/api/v2/users</span> <span class="http-version">HTTP/1.1</span>
+
+<span class="http-comment"># ヘッダーでバージョン指定</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">API-Version:</span> 2.0
+
+<span class="http-comment"># Accept ヘッダーでバージョン指定</span>
+<span class="http-method">GET</span> <span class="http-url">/api/users</span> <span class="http-version">HTTP/1.1</span>
+<span class="http-header">Accept:</span> application/vnd.myapi.v2+json</code></pre>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

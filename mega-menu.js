@@ -61,6 +61,15 @@ class MegaMenu {
                     </div>
                     
                     <div class="mega-menu-section">
+                        <h3>Web技術</h3>
+                        <p class="category-description">HTTPプロトコル・API設計</p>
+                        <div class="mega-menu-links">
+                            <a href="http-reference.html">HTTPメソッド一覧</a>
+                            <a href="http-cheatsheet.html">HTTP記法チート</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mega-menu-section">
                         <h3>システム・ツール</h3>
                         <p class="category-description">Linux・Git・開発ツールのコマンド</p>
                         <div class="mega-menu-links">
