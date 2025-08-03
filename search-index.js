@@ -128,6 +128,21 @@ const searchIndex = [
         ]
     },
     {
+        title: "Git記法チートシート",
+        url: "git-cheatsheet.html",
+        category: "その他",
+        keywords: ["git", "github", "記法", "チートシート", "ワークフロー", "markdown"],
+        sections: [
+            { heading: "Gitの基本ワークフロー", keywords: ["init", "clone", "config", "add", "commit", "diff"] },
+            { heading: "ブランチ操作", keywords: ["branch", "checkout", "switch", "merge", "rebase"] },
+            { heading: "リモートリポジトリとの連携", keywords: ["remote", "fetch", "pull", "push", "origin"] },
+            { heading: "履歴の確認", keywords: ["log", "blame", "show", "--oneline", "--graph"] },
+            { heading: "変更の取り消し", keywords: ["reset", "revert", "restore", "stash"] },
+            { heading: "GitHub特有の記法", keywords: ["markdown", "#", "@", "mention", "issue", "pr"] },
+            { heading: ".gitignoreの記法", keywords: ["gitignore", "ignore", "exclude", "wildcard"] }
+        ]
+    },
+    {
         title: "SQLコマンド一覧",
         url: "sql-reference.html",
         category: "SQL",
@@ -199,6 +214,7 @@ const contentCache = {
     "css-cheatsheet.html": "セレクタ selector 要素 element クラス class ID 属性 attribute 擬似クラス pseudo-class 擬似要素 pseudo-element hover active focus before after",
     "symbols-reference.html": "記号 symbol 読み方 小なり less than 大なり greater than スラッシュ slash イコール equals ダブルクォート double quote アンパサンド ampersand",
     "git-commands.html": "Git GitHub バージョン管理 version control init 初期化 add 追加 commit コミット push プッシュ pull プル branch ブランチ merge マージ",
+    "git-cheatsheet.html": "Git GitHub 記法 チートシート cheatsheet ワークフロー workflow markdown マークダウン gitignore stash rebase reset revert",
     "javascript-reference.html": "JavaScript JS ジャバスクリプト メソッド method プロパティ property API String 文字列 Array 配列 Number 数値 Math Date 日付 DOM Promise async await",
     "javascript-cheatsheet.html": "JavaScript JS ジャバスクリプト 記法 syntax 構文 チートシート cheatsheet let const var function class 関数 クラス if for while",
     "sql-reference.html": "SQL データベース database クエリ query コマンド command DDL DML CREATE ALTER DROP SELECT INSERT UPDATE DELETE JOIN INNER LEFT RIGHT GROUP BY HAVING COUNT SUM AVG トランザクション",

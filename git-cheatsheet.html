@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git/GitHub記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* 構文例のスタイル */
+        .syntax-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .syntax-example code {
+            color: #abb2bf;
+            background: transparent;
+            padding: 0;
+        }
+
+        /* コマンド */
+        .command {
+            color: #98c379;
+            font-weight: bold;
+        }
+
+        /* オプション */
+        .option {
+            color: #e06c75;
+        }
+
+        /* ブランチ名・ファイル名 */
+        .branch {
+            color: #61afef;
+        }
+
+        /* コメント */
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* 文字列 */
+        .string {
+            color: #e5c07b;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html" class="active">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>Git/GitHub記法チートシート</h1>
+
+<p>Gitの基本的なワークフローと、GitHubでよく使う記法をまとめたクイックリファレンスです。</p>
+
+<hr>
+
+<h2>Gitの基本ワークフロー</h2>
+
+<h3><strong>リポジトリの初期化と設定</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 新規リポジトリの作成</span>
+<span class="command">git init</span>
+
+<span class="comment"># リモートリポジトリのクローン</span>
+<span class="command">git clone</span> <span class="string">https://github.com/user/repo.git</span>
+<span class="command">git clone</span> <span class="string">git@github.com:user/repo.git</span>  <span class="comment"># SSH使用</span>
+
+<span class="comment"># ユーザー情報の設定</span>
+<span class="command">git config</span> <span class="option">--global</span> user.name <span class="string">"Your Name"</span>
+<span class="command">git config</span> <span class="option">--global</span> user.email <span class="string">"your.email@example.com"</span>
+
+<span class="comment"># 設定の確認</span>
+<span class="command">git config</span> <span class="option">--list</span>
+<span class="command">git config</span> user.name</code></pre>
+</div>
+
+<hr>
+
+<h3><strong>基本的な変更の流れ</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 状態の確認</span>
+<span class="command">git status</span>
+<span class="command">git status</span> <span class="option">-s</span>  <span class="comment"># 短縮表示</span>
+
+<span class="comment"># ファイルをステージングエリアに追加</span>
+<span class="command">git add</span> <span class="branch">file.txt</span>
+<span class="command">git add</span> <span class="branch">*.js</span>           <span class="comment"># ワイルドカード使用</span>
+<span class="command">git add</span> <span class="branch">.</span>             <span class="comment"># すべての変更を追加</span>
+<span class="command">git add</span> <span class="option">-p</span>            <span class="comment"># 対話的に部分追加</span>
+
+<span class="comment"># コミット</span>
+<span class="command">git commit</span> <span class="option">-m</span> <span class="string">"コミットメッセージ"</span>
+<span class="command">git commit</span> <span class="option">-am</span> <span class="string">"追加とコミットを同時に"</span>  <span class="comment"># 追跡済みファイルのみ</span>
+<span class="command">git commit</span> <span class="option">--amend</span>    <span class="comment"># 直前のコミットを修正</span>
+
+<span class="comment"># 変更内容の確認</span>
+<span class="command">git diff</span>               <span class="comment"># ワーキングツリーの変更</span>
+<span class="command">git diff</span> <span class="option">--staged</span>     <span class="comment"># ステージングエリアの変更</span>
+<span class="command">git diff</span> <span class="branch">HEAD</span>         <span class="comment"># 最新コミットとの差分</span></code></pre>
+</div>
+
+<hr>
+
+<h2>ブランチ操作</h2>
+
+<h3><strong>ブランチの作成と切り替え</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># ブランチ一覧</span>
+<span class="command">git branch</span>             <span class="comment"># ローカルブランチ</span>
+<span class="command">git branch</span> <span class="option">-r</span>          <span class="comment"># リモートブランチ</span>
+<span class="command">git branch</span> <span class="option">-a</span>          <span class="comment"># すべてのブランチ</span>
+
+<span class="comment"># ブランチの作成</span>
+<span class="command">git branch</span> <span class="branch">feature/new-feature</span>
+
+<span class="comment"># ブランチの切り替え</span>
+<span class="command">git checkout</span> <span class="branch">feature/new-feature</span>
+<span class="command">git switch</span> <span class="branch">feature/new-feature</span>  <span class="comment"># 新しい方法</span>
+
+<span class="comment"># ブランチ作成と切り替えを同時に</span>
+<span class="command">git checkout</span> <span class="option">-b</span> <span class="branch">feature/new-feature</span>
+<span class="command">git switch</span> <span class="option">-c</span> <span class="branch">feature/new-feature</span>
+
+<span class="comment"># ブランチの削除</span>
+<span class="command">git branch</span> <span class="option">-d</span> <span class="branch">feature/old-feature</span>  <span class="comment"># マージ済み</span>
+<span class="command">git branch</span> <span class="option">-D</span> <span class="branch">feature/old-feature</span>  <span class="comment"># 強制削除</span></code></pre>
+</div>
+
+<hr>
+
+<h3><strong>マージとリベース</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># マージ（マージコミットあり）</span>
+<span class="command">git checkout</span> <span class="branch">main</span>
+<span class="command">git merge</span> <span class="branch">feature/new-feature</span>
+
+<span class="comment"># ファストフォワードマージ</span>
+<span class="command">git merge</span> <span class="option">--ff-only</span> <span class="branch">feature/new-feature</span>
+
+<span class="comment"># マージの中止</span>
+<span class="command">git merge</span> <span class="option">--abort</span>
+
+<span class="comment"># リベース</span>
+<span class="command">git checkout</span> <span class="branch">feature/new-feature</span>
+<span class="command">git rebase</span> <span class="branch">main</span>
+
+<span class="comment"># インタラクティブリベース（コミット履歴の整理）</span>
+<span class="command">git rebase</span> <span class="option">-i</span> <span class="branch">HEAD~3</span>  <span class="comment"># 直近3コミットを編集</span></code></pre>
+</div>
+
+<hr>
+
+<h2>リモートリポジトリとの連携</h2>
+
+<h3><strong>リモート操作</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># リモートリポジトリの確認</span>
+<span class="command">git remote</span> <span class="option">-v</span>
+
+<span class="comment"># リモートリポジトリの追加</span>
+<span class="command">git remote add</span> <span class="branch">origin</span> <span class="string">https://github.com/user/repo.git</span>
+
+<span class="comment"># リモートの変更を取得（マージなし）</span>
+<span class="command">git fetch</span>
+<span class="command">git fetch</span> <span class="branch">origin</span>
+
+<span class="comment"># プル（fetch + merge）</span>
+<span class="command">git pull</span>
+<span class="command">git pull</span> <span class="branch">origin main</span>
+<span class="command">git pull</span> <span class="option">--rebase</span>  <span class="comment"># リベースでプル</span>
+
+<span class="comment"># プッシュ</span>
+<span class="command">git push</span>
+<span class="command">git push</span> <span class="branch">origin main</span>
+<span class="command">git push</span> <span class="option">-u</span> <span class="branch">origin feature/new-feature</span>  <span class="comment"># 上流ブランチを設定</span>
+<span class="command">git push</span> <span class="option">--force</span>  <span class="comment"># 強制プッシュ（危険！）</span></code></pre>
+</div>
+
+<hr>
+
+<h2>履歴の確認</h2>
+
+<h3><strong>ログの表示</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># 基本的なログ表示</span>
+<span class="command">git log</span>
+<span class="command">git log</span> <span class="option">--oneline</span>      <span class="comment"># 1行表示</span>
+<span class="command">git log</span> <span class="option">--graph</span>        <span class="comment"># グラフ表示</span>
+<span class="command">git log</span> <span class="option">--oneline --graph --all</span>  <span class="comment"># 全ブランチをグラフで</span>
+
+<span class="comment"># フィルタリング</span>
+<span class="command">git log</span> <span class="option">-n 5</span>          <span class="comment"># 直近5件</span>
+<span class="command">git log</span> <span class="option">--since=</span><span class="string">"2 weeks ago"</span>
+<span class="command">git log</span> <span class="option">--author=</span><span class="string">"John"</span>
+<span class="command">git log</span> <span class="option">--grep=</span><span class="string">"bug fix"</span>
+
+<span class="comment"># ファイル単位の履歴</span>
+<span class="command">git log</span> <span class="option">--follow</span> <span class="branch">file.txt</span>
+<span class="command">git blame</span> <span class="branch">file.txt</span>   <span class="comment"># 行ごとの最終変更者</span></code></pre>
+</div>
+
+<hr>
+
+<h2>変更の取り消し</h2>
+
+<h3><strong>様々な取り消し方法</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># ステージングの取り消し</span>
+<span class="command">git reset</span> <span class="branch">file.txt</span>
+<span class="command">git restore</span> <span class="option">--staged</span> <span class="branch">file.txt</span>  <span class="comment"># 新しい方法</span>
+
+<span class="comment"># ワーキングツリーの変更を取り消し</span>
+<span class="command">git checkout</span> <span class="option">--</span> <span class="branch">file.txt</span>
+<span class="command">git restore</span> <span class="branch">file.txt</span>  <span class="comment"># 新しい方法</span>
+
+<span class="comment"># コミットの取り消し（履歴は残る）</span>
+<span class="command">git revert</span> <span class="branch">HEAD</span>      <span class="comment"># 直前のコミットを打ち消す</span>
+<span class="command">git revert</span> <span class="branch">abc123</span>    <span class="comment"># 特定のコミットを打ち消す</span>
+
+<span class="comment"># コミットのリセット（履歴から削除）</span>
+<span class="command">git reset</span> <span class="option">--soft</span> <span class="branch">HEAD~1</span>   <span class="comment"># コミットのみ取り消し</span>
+<span class="command">git reset</span> <span class="option">--mixed</span> <span class="branch">HEAD~1</span>  <span class="comment"># コミットとステージング取り消し</span>
+<span class="command">git reset</span> <span class="option">--hard</span> <span class="branch">HEAD~1</span>   <span class="comment"># すべて取り消し（危険！）</span></code></pre>
+</div>
+
+<hr>
+
+<h2>スタッシュ（一時保存）</h2>
+
+<h3><strong>作業内容の一時保存</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># スタッシュに保存</span>
+<span class="command">git stash</span>
+<span class="command">git stash save</span> <span class="string">"作業中の機能"</span>
+<span class="command">git stash</span> <span class="option">-u</span>           <span class="comment"># 未追跡ファイルも含む</span>
+
+<span class="comment"># スタッシュ一覧</span>
+<span class="command">git stash list</span>
+
+<span class="comment"># スタッシュの適用</span>
+<span class="command">git stash pop</span>          <span class="comment"># 適用して削除</span>
+<span class="command">git stash apply</span>        <span class="comment"># 適用のみ（削除しない）</span>
+<span class="command">git stash apply</span> <span class="branch">stash@{1}</span>  <span class="comment"># 特定のスタッシュ</span>
+
+<span class="comment"># スタッシュの削除</span>
+<span class="command">git stash drop</span>
+<span class="command">git stash clear</span>        <span class="comment"># すべて削除</span></code></pre>
+</div>
+
+<hr>
+
+<h2>タグ管理</h2>
+
+<h3><strong>バージョンタグの作成</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># タグ一覧</span>
+<span class="command">git tag</span>
+<span class="command">git tag</span> <span class="option">-l</span> <span class="string">"v1.*"</span>     <span class="comment"># パターンマッチ</span>
+
+<span class="comment"># 軽量タグ</span>
+<span class="command">git tag</span> <span class="branch">v1.0.0</span>
+
+<span class="comment"># 注釈付きタグ（推奨）</span>
+<span class="command">git tag</span> <span class="option">-a</span> <span class="branch">v1.0.0</span> <span class="option">-m</span> <span class="string">"バージョン1.0.0リリース"</span>
+
+<span class="comment"># 過去のコミットにタグ付け</span>
+<span class="command">git tag</span> <span class="option">-a</span> <span class="branch">v0.9.0</span> <span class="branch">abc123</span>
+
+<span class="comment"># タグをリモートにプッシュ</span>
+<span class="command">git push</span> <span class="branch">origin v1.0.0</span>
+<span class="command">git push</span> <span class="branch">origin</span> <span class="option">--tags</span>  <span class="comment"># すべてのタグ</span>
+
+<span class="comment"># タグの削除</span>
+<span class="command">git tag</span> <span class="option">-d</span> <span class="branch">v1.0.0</span>
+<span class="command">git push</span> <span class="branch">origin</span> <span class="option">--delete</span> <span class="branch">v1.0.0</span></code></pre>
+</div>
+
+<hr>
+
+<h2>GitHub特有の記法</h2>
+
+<h3><strong>Markdown記法（README.md、Issue、PR）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の意味 (Meaning)</th>
+<th>表示結果・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code># 見出し1</code></td>
+<td>Heading 1</td>
+<td>最大の見出し</td>
+</tr>
+<tr>
+<td><code>## 見出し2</code></td>
+<td>Heading 2</td>
+<td>セクション見出し</td>
+</tr>
+<tr>
+<td><code>**太字**</code></td>
+<td>Bold</td>
+<td><strong>太字</strong>テキスト</td>
+</tr>
+<tr>
+<td><code>*斜体*</code></td>
+<td>Italic</td>
+<td><em>斜体</em>テキスト</td>
+</tr>
+<tr>
+<td><code>~~取り消し線~~</code></td>
+<td>Strikethrough</td>
+<td><del>取り消し線</del></td>
+</tr>
+<tr>
+<td><code>`コード`</code></td>
+<td>Inline Code</td>
+<td><code>インラインコード</code></td>
+</tr>
+<tr>
+<td><code>```言語名</code></td>
+<td>Code Block</td>
+<td>コードブロック（シンタックスハイライト付き）</td>
+</tr>
+<tr>
+<td><code>[リンク](URL)</code></td>
+<td>Link</td>
+<td>ハイパーリンク</td>
+</tr>
+<tr>
+<td><code>![代替テキスト](画像URL)</code></td>
+<td>Image</td>
+<td>画像の埋め込み</td>
+</tr>
+<tr>
+<td><code>- [ ] タスク</code></td>
+<td>Task List</td>
+<td>チェックボックス付きタスクリスト</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>GitHub特有の参照記法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の意味 (Meaning)</th>
+<th>用途・説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#123</code></td>
+<td>Issue Reference</td>
+<td>Issue番号123を参照</td>
+</tr>
+<tr>
+<td><code>@username</code></td>
+<td>Mention</td>
+<td>ユーザーにメンション（通知される）</td>
+</tr>
+<tr>
+<td><code>user/repo#123</code></td>
+<td>Cross-repo Reference</td>
+<td>他のリポジトリのIssueを参照</td>
+</tr>
+<tr>
+<td><code>abc123</code></td>
+<td>Commit SHA</td>
+<td>コミットへのリンク（7文字以上）</td>
+</tr>
+<tr>
+<td><code>:emoji:</code></td>
+<td>Emoji</td>
+<td>絵文字（:smile:、:+1:など）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>PRやIssueで使うキーワード</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># PRでIssueを自動的にクローズ</span>
+<span class="string">Fixes #123</span>
+<span class="string">Closes #123</span>
+<span class="string">Resolves #123</span>
+
+<span class="comment"># 複数のIssueをクローズ</span>
+<span class="string">Fixes #123, fixes #124</span>
+
+<span class="comment"># コードの引用（PRやIssueのコメント）</span>
+```javascript
+// ここにコードを貼り付け
+const example = "シンタックスハイライト付き";
+```
+
+<span class="comment"># 画像のドラッグ&ドロップ</span>
+<span class="comment"># GitHubのテキストエリアに直接画像をドロップできる</span></code></pre>
+</div>
+
+<hr>
+
+<h2>.gitignoreの記法</h2>
+
+<h3><strong>ファイル無視パターン</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># コメント</span>
+
+<span class="comment"># 特定のファイル</span>
+<span class="branch">secret.txt</span>
+
+<span class="comment"># ワイルドカード</span>
+<span class="branch">*.log</span>          <span class="comment"># すべての.logファイル</span>
+<span class="branch">*.tmp</span>          <span class="comment"># すべての.tmpファイル</span>
+
+<span class="comment"># ディレクトリ</span>
+<span class="branch">node_modules/</span>  <span class="comment"># node_modulesディレクトリ全体</span>
+<span class="branch">dist/</span>          <span class="comment"># distディレクトリ全体</span>
+
+<span class="comment"># 特定の場所のファイル</span>
+<span class="branch">/config.json</span>   <span class="comment"># ルートのconfig.jsonのみ</span>
+<span class="branch">src/*.test.js</span>  <span class="comment"># srcディレクトリ直下のテストファイル</span>
+
+<span class="comment"># 除外の例外</span>
+<span class="branch">*.log</span>
+<span class="branch">!important.log</span> <span class="comment"># important.logは追跡する</span>
+
+<span class="comment"># 再帰的なパターン</span>
+<span class="branch">**/*.bak</span>       <span class="comment"># すべてのディレクトリの.bakファイル</span></code></pre>
+</div>
+
+<hr>
+
+<h2>便利なGitエイリアス</h2>
+
+<h3><strong>よく使うエイリアスの設定</strong></h3>
+
+<div class="syntax-example">
+<pre><code><span class="comment"># エイリアスの設定</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.co <span class="string">'checkout'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.br <span class="string">'branch'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.ci <span class="string">'commit'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.st <span class="string">'status'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.unstage <span class="string">'reset HEAD --'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.last <span class="string">'log -1 HEAD'</span>
+<span class="command">git config</span> <span class="option">--global</span> alias.lg <span class="string">'log --oneline --graph --all'</span>
+
+<span class="comment"># 使用例</span>
+<span class="command">git</span> <span class="branch">co main</span>
+<span class="command">git</span> <span class="branch">st</span>
+<span class="command">git</span> <span class="branch">lg</span></code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>
