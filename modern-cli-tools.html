@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>現代のコマンドラインツール一覧</title>
+  <style>
+    :root {
+      --background-primary: #202020;
+      --background-secondary: #262626;
+      --background-modifier-border: #333;
+      --text-normal: #dcddde;
+      --text-muted: #999;
+      --text-accent: #7f6df2;
+      --interactive-accent: #7f6df2;
+      --interactive-accent-rgb: 127, 109, 242;
+      --background-modifier-hover: rgba(255, 255, 255, 0.05);
+      --table-header-bg: #2d2d2d;
+      --code-background: #2f3136;
+      --nav-bg: #1a1a1a;
+      --bg-tertiary: #353535;
+      --accent: #7f6df2;
+      --accent-hover: #9b8fff;
+      --border: #404040;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --error: #f44336;
+      --info: #2196f3;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background-color: var(--background-primary);
+      color: var(--text-normal);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ナビゲーションバー */
+    .nav-bar {
+      background-color: var(--nav-bg);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--background-modifier-border);
+    }
+
+    .nav-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      color: var(--text-normal);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--background-modifier-hover);
+    }
+
+    .nav-links a.active {
+      background-color: var(--background-secondary);
+      color: var(--text-accent);
+    }
+
+    /* メインコンテンツ */
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1em;
+      margin-bottom: 2rem;
+    }
+
+    .section {
+      background-color: var(--background-secondary);
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid var(--background-modifier-border);
+    }
+
+    h2 {
+      font-size: 1.875rem;
+      margin-bottom: 20px;
+      color: var(--text-accent);
+      font-weight: 600;
+      border-bottom: 1px solid var(--background-modifier-border);
+      padding-bottom: 0.3rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      margin-top: 25px;
+      color: var(--text-normal);
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: var(--bg-tertiary);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--background-modifier-border);
+    }
+
+    th {
+      background-color: var(--background-primary);
+      font-weight: 600;
+      color: var(--text-accent);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    tr:hover {
+      background-color: rgba(74, 158, 255, 0.1);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    code {
+      background-color: var(--code-background);
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+      font-size: 0.875em;
+      color: #e06c75;
+    }
+
+    .command-example {
+      background-color: #1a1a1a;
+      border: 1px solid var(--background-modifier-border);
+      border-radius: 4px;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+      font-size: 0.9em;
+      overflow-x: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .badge-new {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .badge-replacement {
+      background-color: var(--info);
+      color: white;
+    }
+
+    .badge-enhanced {
+      background-color: var(--warning);
+      color: white;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      margin-bottom: 8px;
+      padding-left: 20px;
+    }
+
+    .feature-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--text-accent);
+    }
+
+    .comparison-table td:first-child {
+      font-weight: 600;
+      color: var(--text-accent);
+    }
+
+    .nav-menu {
+      background-color: var(--bg-tertiary);
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .nav-menu a {
+      color: var(--text-accent);
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .install-command {
+      background-color: #1a1a1a;
+      padding: 10px 15px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+      border-left: 4px solid var(--text-accent);
+      border-top: 1px solid var(--background-modifier-border);
+      border-right: 1px solid var(--background-modifier-border);
+      border-bottom: 1px solid var(--background-modifier-border);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 0.9em;
+      }
+
+      th, td {
+        padding: 8px 10px;
+      }
+    }
+    /* Obsidian風のリンクスタイル */
+    a {
+      color: var(--text-accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--text-accent);
+      text-decoration: underline;
+    }
+
+    /* スクロールバー */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #777;
+    }
+  </style>
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="global-search.css">
+  <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="nav-container">
+    <div class="nav-title">Web開発リファレンス</div>
+    <button class="mobile-menu-button">☰</button>
+    <div class="nav-menu">
+      <div class="nav-dropdown">
+        <a href="#">HTML</a>
+        <div class="dropdown-menu">
+          <a href="index.html">HTMLタグ一覧</a>
+          <a href="html-cheatsheet.html">HTML記法チート</a>
+          <a href="html-history.html">HTMLの歴史</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">CSS</a>
+        <div class="dropdown-menu">
+          <a href="css-reference.html">CSSプロパティ</a>
+          <a href="css-cheatsheet.html">CSS記法チート</a>
+          <a href="css-history.html">CSSの歴史</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">JavaScript</a>
+        <div class="dropdown-menu">
+          <a href="javascript-reference.html">JSメソッド一覧</a>
+          <a href="javascript-cheatsheet.html">JS記法チート</a>
+          <a href="javascript-history.html">JavaScriptの歴史</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">SQL</a>
+        <div class="dropdown-menu">
+          <a href="sql-reference.html">SQLコマンド一覧</a>
+          <a href="sql-cheatsheet.html">SQL記法チート</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">Ruby</a>
+        <div class="dropdown-menu">
+          <a href="ruby-reference.html">Rubyメソッド一覧</a>
+          <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">HTTP</a>
+        <div class="dropdown-menu">
+          <a href="http-reference.html">HTTPメソッド一覧</a>
+          <a href="http-cheatsheet.html">HTTP記法チート</a>
+          <a href="http-history.html">HTTPの歴史</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">その他</a>
+        <div class="dropdown-menu">
+          <a href="symbols-reference.html">記号の読み方</a>
+          <a href="git-commands.html">Git/GitHub</a>
+          <a href="git-cheatsheet.html">Git記法チート</a>
+          <a href="git-history.html">Gitの歴史</a>
+          <a href="linux-commands.html">Linuxコマンド</a>
+          <a href="linux-cheatsheet.html">Linux記法チート</a>
+          <a href="modern-cli-tools.html">モダンCLIツール</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="content-wrapper">
+  <h1>現代のコマンドラインツール一覧</h1>
+  <p class="subtitle">モダンなCLIツールとUNIX系コマンドの比較・使い方ガイド</p>
+
+  <hr>
+  <nav class="nav-menu">
+    <a href="#comparison">UNIX系コマンドとの比較</a>
+    <a href="#file-ops">ファイル操作</a>
+    <a href="#text-processing">テキスト処理</a>
+    <a href="#system-info">システム情報</a>
+    <a href="#network">ネットワーク</a>
+    <a href="#development">開発ツール</a>
+  </nav>
+
+    <section id="comparison" class="section">
+      <h2>モダンCLIツール vs UNIX系コマンド比較表</h2>
+      <p style="margin-bottom: 20px; color: var(--text-secondary);">
+        伝統的なUNIX系コマンドと、それらを改良・拡張した現代的なツールの比較です。
+      </p>
+      
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>カテゴリ</th>
+            <th>UNIX系コマンド</th>
+            <th>モダンツール</th>
+            <th>主な改良点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ファイル検索</td>
+            <td><code>find</code></td>
+            <td><code>fd</code> <span class="badge badge-replacement">代替</span></td>
+            <td>高速、シンプルな構文、デフォルトで.gitignore対応</td>
+          </tr>
+          <tr>
+            <td>テキスト検索</td>
+            <td><code>grep</code></td>
+            <td><code>ripgrep (rg)</code> <span class="badge badge-replacement">代替</span></td>
+            <td>超高速、デフォルトで再帰検索、.gitignore対応</td>
+          </tr>
+          <tr>
+            <td>ファイル一覧</td>
+            <td><code>ls</code></td>
+            <td><code>exa</code> / <code>lsd</code> <span class="badge badge-enhanced">拡張</span></td>
+            <td>カラフル、アイコン表示、Git統合、ツリー表示</td>
+          </tr>
+          <tr>
+            <td>ディレクトリ移動</td>
+            <td><code>cd</code></td>
+            <td><code>z</code> / <code>zoxide</code> <span class="badge badge-enhanced">拡張</span></td>
+            <td>頻度ベースのジャンプ、ファジー検索</td>
+          </tr>
+          <tr>
+            <td>ファイル内容表示</td>
+            <td><code>cat</code></td>
+            <td><code>bat</code> <span class="badge badge-enhanced">拡張</span></td>
+            <td>シンタックスハイライト、行番号、Git差分統合</td>
+          </tr>
+          <tr>
+            <td>プロセス監視</td>
+            <td><code>top</code> / <code>ps</code></td>
+            <td><code>htop</code> / <code>btop</code> <span class="badge badge-replacement">代替</span></td>
+            <td>インタラクティブUI、グラフ表示、マウス対応</td>
+          </tr>
+          <tr>
+            <td>ディスク使用量</td>
+            <td><code>du</code></td>
+            <td><code>dust</code> / <code>duf</code> <span class="badge badge-replacement">代替</span></td>
+            <td>視覚的な表示、高速、カラー出力</td>
+          </tr>
+          <tr>
+            <td>ファイル差分</td>
+            <td><code>diff</code></td>
+            <td><code>delta</code> <span class="badge badge-enhanced">拡張</span></td>
+            <td>シンタックスハイライト、サイドバイサイド表示</td>
+          </tr>
+          <tr>
+            <td>JSONパース</td>
+            <td><code>sed</code> / <code>awk</code></td>
+            <td><code>jq</code> <span class="badge badge-new">新規</span></td>
+            <td>JSON専用、強力なクエリ言語</td>
+          </tr>
+          <tr>
+            <td>HTTPクライアント</td>
+            <td><code>curl</code></td>
+            <td><code>httpie</code> <span class="badge badge-enhanced">拡張</span></td>
+            <td>直感的な構文、JSON対応、カラー出力</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="file-ops" class="section">
+      <h2>ファイル操作ツール</h2>
+
+      <h3>fd - 高速ファイル検索</h3>
+      <p>findコマンドの現代的な代替。シンプルで高速、デフォルトで.gitignore対応。</p>
+      <div class="install-command">
+        # macOS: brew install fd<br>
+        # Ubuntu/Debian: sudo apt install fd-find<br>
+        # Cargo: cargo install fd-find
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+fd pattern                    # カレントディレクトリ以下でpatternを検索
+fd -e rs                      # .rs拡張子のファイルを検索
+fd -H pattern                 # 隠しファイルも含めて検索
+fd -E '*.log' pattern         # *.logを除外して検索
+fd -t f pattern               # ファイルのみ検索（ディレクトリを除外）
+fd -t d pattern               # ディレクトリのみ検索
+      </div>
+
+      <h3>ripgrep (rg) - 超高速テキスト検索</h3>
+      <p>grepの高速な代替。コード検索に最適化されており、デフォルトで.gitignoreを尊重。</p>
+      <div class="install-command">
+        # macOS: brew install ripgrep<br>
+        # Ubuntu/Debian: sudo apt install ripgrep<br>
+        # Cargo: cargo install ripgrep
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+rg pattern                    # カレントディレクトリ以下でpatternを検索
+rg -i pattern                 # 大文字小文字を無視
+rg -w pattern                 # 単語単位で検索
+rg -C 3 pattern               # マッチの前後3行を表示
+rg -t py pattern              # Pythonファイルのみ検索
+rg -g '*.js' pattern          # globパターンでファイルを指定
+rg --stats pattern            # 検索統計を表示
+      </div>
+
+      <h3>exa / lsd - モダンなlsコマンド</h3>
+      <p>lsコマンドの拡張版。カラー表示、アイコン、Git統合などの機能を提供。</p>
+      <div class="install-command">
+        # exa - macOS: brew install exa<br>
+        # lsd - macOS: brew install lsd<br>
+        # Ubuntu/Debian: sudo apt install exa または lsd
+      </div>
+      <div class="command-example">
+# exa の使い方
+exa -la                       # 詳細表示（隠しファイル含む）
+exa -T                        # ツリー表示
+exa -la --git                 # Git情報も表示
+exa -la --icons               # アイコン付き表示
+exa -la --header              # ヘッダー付き表示
+exa -la --time-style=long-iso # ISO形式の時刻表示
+      </div>
+
+      <h3>bat - シンタックスハイライト付きcat</h3>
+      <p>catコマンドの拡張版。シンタックスハイライト、行番号、Git差分統合を提供。</p>
+      <div class="install-command">
+        # macOS: brew install bat<br>
+        # Ubuntu/Debian: sudo apt install bat<br>
+        # Cargo: cargo install bat
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+bat file.rs                   # シンタックスハイライト付きで表示
+bat -n file.rs                # 行番号付き
+bat -A file.rs                # 非表示文字も表示
+bat --style=numbers file.rs   # 行番号のみ表示
+bat --diff file.rs            # Git差分を強調表示
+bat *.rs                      # 複数ファイルを連続表示
+      </div>
+    </section>
+
+    <section id="text-processing" class="section">
+      <h2>テキスト処理ツール</h2>
+
+      <h3>jq - JSONプロセッサ</h3>
+      <p>コマンドラインでJSONデータを処理・変換するための強力なツール。</p>
+      <div class="install-command">
+        # macOS: brew install jq<br>
+        # Ubuntu/Debian: sudo apt install jq<br>
+        # バイナリダウンロード: https://stedolan.github.io/jq/
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+cat data.json | jq '.'                    # 整形して表示
+cat data.json | jq '.items[]'             # items配列の各要素を表示
+cat data.json | jq '.items[0].name'       # 特定の値を取得
+cat data.json | jq '.items | length'      # 配列の長さを取得
+cat data.json | jq '.items[] | select(.price > 100)' # フィルタリング
+cat data.json | jq '.items[] | {name, price}' # 特定のフィールドのみ抽出
+      </div>
+
+      <h3>yq - YAMLプロセッサ</h3>
+      <p>jqのYAML版。YAMLファイルの処理・変換に特化。</p>
+      <div class="install-command">
+        # macOS: brew install yq<br>
+        # Go: go install github.com/mikefarah/yq/v4@latest<br>
+        # バイナリダウンロード: https://github.com/mikefarah/yq
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+yq eval '.version' config.yaml             # 特定の値を取得
+yq eval '.services.*.port' docker-compose.yaml # ワイルドカード使用
+yq eval '.version = "2.0"' -i config.yaml  # ファイルを直接編集
+yq eval '. | to_json' config.yaml          # JSONに変換
+yq eval-all 'select(.kind == "Service")' k8s.yaml # 複数ドキュメントから選択
+      </div>
+
+      <h3>sd - 直感的なsed代替</h3>
+      <p>sedの現代的な代替。より直感的な構文で文字列置換を実行。</p>
+      <div class="install-command">
+        # macOS: brew install sd<br>
+        # Cargo: cargo install sd<br>
+        # バイナリダウンロード: https://github.com/chmln/sd
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+sd 'old' 'new' file.txt                   # 文字列置換
+sd -i 'old' 'new' file.txt                # ファイルを直接編集
+sd '\s+' ' ' file.txt                     # 正規表現で置換
+sd -s 'OLD' 'new' file.txt                # 大文字小文字を区別
+echo "hello" | sd 'l+' 'L'                # パイプでの使用
+      </div>
+    </section>
+
+    <section id="system-info" class="section">
+      <h2>システム情報・監視ツール</h2>
+
+      <h3>htop / btop - インタラクティブプロセスビューア</h3>
+      <p>topコマンドの高機能版。カラフルなUI、マウス操作、詳細な情報表示。</p>
+      <div class="install-command">
+        # htop - macOS: brew install htop<br>
+        # btop - macOS: brew install btop<br>
+        # Ubuntu/Debian: sudo apt install htop または btop
+      </div>
+      <ul class="feature-list">
+        <li>CPU、メモリ、ネットワークの使用状況をグラフ表示</li>
+        <li>プロセスツリー表示</li>
+        <li>マウスでの操作サポート</li>
+        <li>プロセスのフィルタリング・検索</li>
+        <li>カスタマイズ可能なレイアウト</li>
+      </ul>
+
+      <h3>dust - 視覚的なディスク使用量表示</h3>
+      <p>duコマンドの現代的な代替。ディスク使用量を視覚的に表示。</p>
+      <div class="install-command">
+        # macOS: brew install dust<br>
+        # Cargo: cargo install du-dust<br>
+        # バイナリダウンロード: https://github.com/bootandy/dust
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+dust                          # カレントディレクトリの使用量表示
+dust -n 10                    # 上位10項目のみ表示
+dust -d 3                     # 深さ3まで表示
+dust -r                       # 逆順（小さい順）で表示
+dust -b                       # バイト単位で表示
+dust ~/Documents              # 特定のディレクトリを分析
+      </div>
+
+      <h3>duf - モダンなdfユーティリティ</h3>
+      <p>dfコマンドの改良版。ディスク使用状況を見やすく表示。</p>
+      <div class="install-command">
+        # macOS: brew install duf<br>
+        # Ubuntu/Debian: sudo apt install duf<br>
+        # Go: go install github.com/muesli/duf@latest
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+duf                           # すべてのマウントポイントを表示
+duf /home                     # 特定のパスの情報を表示
+duf --only local              # ローカルファイルシステムのみ
+duf --sort size               # サイズでソート
+duf --json                    # JSON形式で出力
+      </div>
+    </section>
+
+    <section id="network" class="section">
+      <h2>ネットワークツール</h2>
+
+      <h3>httpie - 人間のためのHTTPクライアント</h3>
+      <p>curlの使いやすい代替。直感的な構文でHTTPリクエストを送信。</p>
+      <div class="install-command">
+        # macOS: brew install httpie<br>
+        # Ubuntu/Debian: sudo apt install httpie<br>
+        # pip: pip install httpie
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+http GET httpbin.org/get                  # GETリクエスト
+http POST httpbin.org/post name=John age=30 # POSTリクエスト（JSON）
+http -f POST httpbin.org/post name=John   # フォームデータとして送信
+http PUT httpbin.org/put < data.json      # ファイルからデータを送信
+http --download example.com/file.zip       # ファイルをダウンロード
+http --auth user:pass example.com         # 基本認証
+      </div>
+
+      <h3>mtr - ネットワーク診断ツール</h3>
+      <p>pingとtracerouteを組み合わせた高機能ネットワーク診断ツール。</p>
+      <div class="install-command">
+        # macOS: brew install mtr<br>
+        # Ubuntu/Debian: sudo apt install mtr<br>
+        # 注: 一部のシステムではroot権限が必要
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+mtr google.com                # インタラクティブモード
+mtr -r -c 10 google.com       # レポートモード（10回のping）
+mtr -n google.com             # IPアドレスのみ表示（DNS解決しない）
+mtr -b google.com             # ホスト名とIPアドレス両方表示
+mtr -4 google.com             # IPv4のみ使用
+      </div>
+
+      <h3>bandwhich - 帯域幅モニター</h3>
+      <p>どのプロセスがネットワーク帯域を使用しているかをリアルタイムで表示。</p>
+      <div class="install-command">
+        # macOS: brew install bandwhich<br>
+        # Cargo: cargo install bandwhich<br>
+        # 注: root権限が必要
+      </div>
+      <ul class="feature-list">
+        <li>プロセスごとの帯域使用量表示</li>
+        <li>接続先のIPアドレス・ホスト名表示</li>
+        <li>プロトコル別の統計</li>
+        <li>リアルタイム更新</li>
+      </ul>
+    </section>
+
+    <section id="development" class="section">
+      <h2>開発ツール</h2>
+
+      <h3>delta - Git差分の美しい表示</h3>
+      <p>Git diffの出力を見やすく表示。シンタックスハイライトとサイドバイサイド表示。</p>
+      <div class="install-command">
+        # macOS: brew install git-delta<br>
+        # Cargo: cargo install git-delta<br>
+        # Gitの設定: git config --global core.pager delta
+      </div>
+      <div class="command-example">
+# Git設定（.gitconfig）
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Dracula
+      </div>
+
+      <h3>lazygit - ターミナルGit UI</h3>
+      <p>Gitの操作をターミナル上のGUIで実行。高速で直感的。</p>
+      <div class="install-command">
+        # macOS: brew install lazygit<br>
+        # Ubuntu/Debian: sudo add-apt-repository ppa:lazygit-team/release && sudo apt install lazygit<br>
+        # Go: go install github.com/jesseduffield/lazygit@latest
+      </div>
+      <ul class="feature-list">
+        <li>ステージング・コミットの視覚的操作</li>
+        <li>ブランチ管理・マージ</li>
+        <li>対話的なリベース</li>
+        <li>stashの管理</li>
+        <li>差分の部分的なステージング</li>
+      </ul>
+
+      <h3>gh - GitHub CLI</h3>
+      <p>GitHubの操作をコマンドラインから実行。PR、Issue、Actionsなどを管理。</p>
+      <div class="install-command">
+        # macOS: brew install gh<br>
+        # Ubuntu/Debian: https://github.com/cli/cli/blob/trunk/docs/install_linux.md<br>
+        # 認証: gh auth login
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+gh repo create my-project --public         # リポジトリ作成
+gh pr create --title "Fix bug" --body "..." # PR作成
+gh pr list                                 # PR一覧
+gh issue create --title "Bug report"       # Issue作成
+gh workflow run tests.yml                  # GitHub Actions実行
+gh repo clone owner/repo                   # リポジトリをクローン
+      </div>
+
+      <h3>fzf - ファジーファインダー</h3>
+      <p>あらゆるリストから対話的に項目を選択。シェル統合で作業効率が大幅向上。</p>
+      <div class="install-command">
+        # macOS: brew install fzf<br>
+        # Ubuntu/Debian: sudo apt install fzf<br>
+        # インストール後: $(brew --prefix)/opt/fzf/install
+      </div>
+      <div class="command-example">
+# 基本的な使い方
+find . | fzf                  # ファイル選択
+history | fzf                 # コマンド履歴から選択
+git branch | fzf              # ブランチ選択
+
+# シェル統合（.bashrc/.zshrcに追加）
+# Ctrl-R: コマンド履歴検索
+# Ctrl-T: ファイル検索
+# Alt-C: ディレクトリ移動
+      </div>
+
+      <h3>z / zoxide - スマートディレクトリジャンプ</h3>
+      <p>頻繁に使用するディレクトリに素早く移動。使用頻度を学習して賢くなる。</p>
+      <div class="install-command">
+        # zoxide (推奨) - macOS: brew install zoxide<br>
+        # Ubuntu/Debian: curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash<br>
+        # シェル設定: eval "$(zoxide init bash)" # または zsh
+      </div>
+      <div class="command-example">
+# 基本的な使い方（zoxide）
+z proj                        # "proj"を含むディレクトリへ移動
+z foo bar                     # "foo"と"bar"を含むディレクトリへ
+zi                            # インタラクティブ選択
+z -                           # 前のディレクトリへ
+z ..                          # 親ディレクトリへ
+
+# 学習させる
+cd ~/projects/my-app          # 通常のcdでディレクトリ移動
+z my-app                      # 次回から簡単にジャンプ可能
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>その他の便利なツール</h2>
+
+      <h3>tldr - 実用的なmanページ</h3>
+      <p>コマンドの使用例を簡潔に表示。manページより実用的。</p>
+      <div class="install-command">
+        # macOS: brew install tldr<br>
+        # npm: npm install -g tldr<br>
+        # pip: pip install tldr
+      </div>
+      <div class="command-example">
+tldr tar                      # tarコマンドの使用例
+tldr git commit               # git commitの使用例
+tldr --update                 # ページキャッシュを更新
+      </div>
+
+      <h3>direnv - 環境変数の自動管理</h3>
+      <p>ディレクトリごとに環境変数を自動的に設定・解除。</p>
+      <div class="install-command">
+        # macOS: brew install direnv<br>
+        # Ubuntu/Debian: sudo apt install direnv<br>
+        # シェル設定が必要: https://direnv.net/docs/hook.html
+      </div>
+      <div class="command-example">
+# .envrcファイルを作成
+echo 'export API_KEY="secret"' > .envrc
+direnv allow                  # 信頼する
+cd ..                         # 環境変数が自動的に解除される
+cd -                          # 環境変数が自動的に設定される
+      </div>
+
+      <h3>asdf - 複数言語バージョン管理</h3>
+      <p>Node.js、Python、Ruby等の複数言語のバージョンを統一的に管理。</p>
+      <div class="install-command">
+        # macOS: brew install asdf<br>
+        # Git: git clone https://github.com/asdf-vm/asdf.git ~/.asdf<br>
+        # シェル設定が必要
+      </div>
+      <div class="command-example">
+# プラグインインストール
+asdf plugin add nodejs
+asdf plugin add python
+
+# バージョンインストール・設定
+asdf install nodejs 18.17.0
+asdf global nodejs 18.17.0
+asdf local python 3.11.4      # プロジェクトごとの設定
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>導入のヒント</h2>
+      <ul class="feature-list">
+        <li>まずは1-2個のツールから始めて、徐々に増やしていく</li>
+        <li>エイリアスを設定して従来のコマンドを置き換える（例: <code>alias ls='exa'</code>）</li>
+        <li>各ツールの設定ファイルをdotfilesリポジトリで管理する</li>
+        <li>チームで使う場合は、READMEに必要なツールのインストール方法を記載</li>
+        <li>パフォーマンスが重要な場面では従来のコマンドも検討する</li>
+      </ul>
+    </section>
+</div>
+
+<script src="mega-menu.js"></script>
+<script src="nav-search.js"></script>
+<script src="global-search.js"></script>
+<script src="mega-menu-init.js"></script>
+</body>
+</html>

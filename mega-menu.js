@@ -79,6 +79,7 @@ class MegaMenu {
                         <div class="mega-menu-links">
                             <a href="linux-commands.html">Linuxコマンド</a>
                             <a href="linux-cheatsheet.html">Linux記法チート</a>
+                            <a href="modern-cli-tools.html">モダンCLIツール</a>
                             <a href="git-commands.html">Git/GitHub</a>
                             <a href="git-cheatsheet.html">Git記法チート</a>
                             <a href="git-history.html">Gitの歴史</a>
