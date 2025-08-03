@@ -88,9 +88,10 @@ class MegaMenu {
                     
                     <div class="mega-menu-section">
                         <h3>その他のリソース</h3>
-                        <p class="category-description">記号の読み方など補助的な情報</p>
+                        <p class="category-description">記号の読み方・ショートカットなど補助的な情報</p>
                         <div class="mega-menu-links">
                             <a href="symbols-reference.html">記号の読み方</a>
+                            <a href="shortcuts.html">ショートカット一覧</a>
                         </div>
                     </div>
                 </div>
