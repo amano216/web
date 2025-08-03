@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMLの歴史</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* タイムライン風のスタイル */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--background-modifier-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--interactive-accent);
+            border: 2px solid var(--background-primary);
+        }
+
+        .timeline-year {
+            color: var(--interactive-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html" class="active">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>HTMLの歴史</h1>
+
+<p>HTMLの誕生から現在までの進化の過程を、時代背景とともに振り返ります。</p>
+
+<hr>
+
+<h2>HTMLの誕生と初期の発展</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1989年</div>
+        <h3>World Wide Webの提案</h3>
+        <p>CERNの物理学者Tim Berners-Lee（ティム・バーナーズ＝リー）が、研究者間での情報共有を目的として「World Wide Web」を提案。ハイパーテキストの概念を実装するためのシステムを構想。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1991年</div>
+        <h3>HTMLの誕生</h3>
+        <p>最初のHTMLが誕生。わずか18個のタグで構成され、主に文書構造の記述に特化。<code>&lt;a&gt;</code>タグによるハイパーリンクが革新的な機能として導入される。</p>
+        <table>
+            <tr>
+                <th>初期のHTMLタグ例</th>
+                <th>用途</th>
+            </tr>
+            <tr>
+                <td><code>&lt;a&gt;</code></td>
+                <td>ハイパーリンク</td>
+            </tr>
+            <tr>
+                <td><code>&lt;p&gt;</code></td>
+                <td>段落</td>
+            </tr>
+            <tr>
+                <td><code>&lt;h1&gt;〜&lt;h6&gt;</code></td>
+                <td>見出し</td>
+            </tr>
+            <tr>
+                <td><code>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</code></td>
+                <td>リスト</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1993年</div>
+        <h3>HTML 1.0</h3>
+        <p>IETFがHTML 1.0の仕様を公開。画像を表示する<code>&lt;img&gt;</code>タグが追加され、テキストだけでなくビジュアルコンテンツも扱えるように。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>ブラウザ戦争とHTMLの混乱期</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1995年</div>
+        <h3>HTML 2.0</h3>
+        <p>初の公式標準として策定。フォーム機能（<code>&lt;form&gt;</code>）が追加され、インタラクティブなWebページが可能に。同年、Netscape NavigatorとInternet Explorerのブラウザ戦争が始まる。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1996-1997年</div>
+        <h3>HTML 3.2とブラウザ独自拡張</h3>
+        <p>W3Cが標準化を進める一方、NetscapeとMicrosoftが独自タグを競って実装。<code>&lt;font&gt;</code>、<code>&lt;center&gt;</code>などの見た目重視のタグが乱立し、「構造と表現の分離」という理念が崩れる。</p>
+        <div class="highlight-box">
+            <strong>ブラウザ戦争の影響：</strong>
+            <ul>
+                <li><code>&lt;blink&gt;</code>（Netscape）vs <code>&lt;marquee&gt;</code>（IE）</li>
+                <li>同じページが異なるブラウザで違って見える問題</li>
+                <li>「This site is best viewed in...」の時代</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1997-1999年</div>
+        <h3>HTML 4.0 / 4.01</h3>
+        <p>構造と表現の分離を目指し、CSSとの連携を前提とした仕様に。非推奨要素の概念を導入し、見た目に関するタグの使用を抑制。3つのDTD（Strict、Transitional、Frameset）を提供。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>XHTML時代と標準化の試み</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2000年</div>
+        <h3>XHTML 1.0</h3>
+        <p>XMLベースの厳格なHTML。すべてのタグを閉じる、小文字で記述するなど、厳密な文法規則を導入。Web標準化運動の象徴的存在に。</p>
+        <table>
+            <tr>
+                <th>HTML 4.01</th>
+                <th>XHTML 1.0</th>
+            </tr>
+            <tr>
+                <td><code>&lt;br&gt;</code></td>
+                <td><code>&lt;br /&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;IMG SRC="..."&gt;</code></td>
+                <td><code>&lt;img src="..." /&gt;</code></td>
+            </tr>
+            <tr>
+                <td>属性値の引用符は省略可</td>
+                <td>属性値は必ず引用符で囲む</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2001-2009年</div>
+        <h3>XHTML 2.0の挫折</h3>
+        <p>W3CがXHTML 2.0の策定を進めるが、後方互換性を無視した理想主義的な仕様に業界が反発。一方で、ブラウザベンダーは実用的な機能拡張を求めてWHATWGを結成（2004年）。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTML5革命と現代のHTML</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2008-2014年</div>
+        <h3>HTML5の登場</h3>
+        <p>実用性重視のHTML5が登場。セマンティックな要素、マルチメディア対応、フォーム拡張、Canvas、Web Storage、Geolocationなど、Webアプリケーション時代に対応した豊富な機能を搭載。</p>
+        <div class="highlight-box">
+            <strong>HTML5の主な新機能：</strong>
+            <ul>
+                <li>セマンティック要素：<code>&lt;header&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;article&gt;</code>、<code>&lt;section&gt;</code></li>
+                <li>マルチメディア：<code>&lt;video&gt;</code>、<code>&lt;audio&gt;</code>、<code>&lt;canvas&gt;</code></li>
+                <li>フォーム拡張：<code>type="email"</code>、<code>type="date"</code>、<code>placeholder</code></li>
+                <li>新しいAPI：localStorage、Geolocation、Web Workers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2014年〜現在</div>
+        <h3>Living Standardへ</h3>
+        <p>HTML5の正式勧告後、W3CとWHATWGが別々の道を歩み始める。2019年、両者が合意してWHATWGの「HTML Living Standard」が唯一の標準に。バージョン番号を廃止し、継続的に進化する仕様として管理される。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2020年代</div>
+        <h3>現代のHTML</h3>
+        <p>Web Components、Progressive Web Apps、アクセシビリティ重視の流れ。<code>&lt;dialog&gt;</code>、<code>&lt;details&gt;</code>、<code>&lt;picture&gt;</code>などの新要素が追加され、より豊かな表現力と機能性を獲得。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTMLの進化から学ぶこと</h2>
+
+<div class="highlight-box">
+    <strong>歴史が教える重要な教訓：</strong>
+    <ol>
+        <li><strong>実用性と理想のバランス</strong> - XHTML 2.0の失敗は、技術的な理想だけでは普及しないことを示した</li>
+        <li><strong>後方互換性の重要性</strong> - 既存のWebサイトを壊さないことが、Web技術の発展には不可欠</li>
+        <li><strong>標準化の価値</strong> - ブラウザ戦争の混乱を経て、標準仕様の重要性が認識された</li>
+        <li><strong>進化し続ける技術</strong> - Living Standardという考え方は、Webの継続的な進化を可能にした</li>
+    </ol>
+</div>
+
+<h3>HTMLの設計理念の変遷</h3>
+
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>主な理念</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1991-1995年</td>
+<td>文書の構造化</td>
+<td>学術文書の共有が目的</td>
+</tr>
+<tr>
+<td>1995-2000年</td>
+<td>見た目の表現</td>
+<td>ビジュアル重視、構造と表現の混在</td>
+</tr>
+<tr>
+<td>2000-2008年</td>
+<td>厳格な文法</td>
+<td>XMLベース、Web標準の推進</td>
+</tr>
+<tr>
+<td>2008年以降</td>
+<td>実用性とセマンティクス</td>
+<td>アプリケーション対応、意味的マークアップ</td>
+</tr>
+</tbody>
+</table>
+
+<p>HTMLの歴史は、インターネットそのものの進化の歴史でもあります。単純な文書共有から始まり、今や複雑なWebアプリケーションを支える基盤技術となったHTMLは、常に時代のニーズに応えながら進化を続けています。</p>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

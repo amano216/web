@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSSの歴史</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* タイムライン風のスタイル */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--background-modifier-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--interactive-accent);
+            border: 2px solid var(--background-primary);
+        }
+
+        .timeline-year {
+            color: var(--interactive-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* CSSコード例 */
+        .css-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html" class="active">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>CSSの歴史</h1>
+
+<p>Webページのスタイリングを革新したCSS（Cascading Style Sheets）の進化の道のりを辿ります。</p>
+
+<hr>
+
+<h2>CSSの誕生背景</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1994年</div>
+        <h3>CSSの提案</h3>
+        <p>Håkon Wium Lie（ホーコン・ウィウム・リー）がCSSを提案。当時のHTMLは構造と見た目が混在しており、<code>&lt;font&gt;</code>タグや<code>&lt;center&gt;</code>タグなどが乱用されていた。「構造と表現の分離」という革新的な概念を提唱。</p>
+        <div class="css-example">
+/* 最初のCSS提案の例 */
+h1.font.size = 24pt 100%
+h2.font.size = 20pt 40%</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1996年12月</div>
+        <h3>CSS1の勧告</h3>
+        <p>W3CがCSS Level 1を正式勧告。フォント、色、背景、マージン、ボーダー、パディングなど基本的なスタイリング機能を提供。しかし、ブラウザのサポートは不完全で実用には課題が多かった。</p>
+        <table>
+            <tr>
+                <th>CSS1の主な機能</th>
+                <th>プロパティ例</th>
+            </tr>
+            <tr>
+                <td>フォント制御</td>
+                <td><code>font-family</code>, <code>font-size</code>, <code>font-weight</code></td>
+            </tr>
+            <tr>
+                <td>色と背景</td>
+                <td><code>color</code>, <code>background-color</code>, <code>background-image</code></td>
+            </tr>
+            <tr>
+                <td>ボックスモデル</td>
+                <td><code>margin</code>, <code>padding</code>, <code>border</code></td>
+            </tr>
+            <tr>
+                <td>テキスト</td>
+                <td><code>text-align</code>, <code>text-decoration</code>, <code>text-indent</code></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<h2>CSS2とブラウザ実装の苦闘</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1998年5月</div>
+        <h3>CSS2の勧告</h3>
+        <p>CSS2で位置指定（positioning）、z-index、メディアタイプ、@importなどが追加。しかし、仕様が複雑すぎて完全実装するブラウザは存在せず、各ブラウザが部分的・独自解釈で実装する混乱期に。</p>
+        <div class="highlight-box">
+            <strong>CSS2の野心的な新機能：</strong>
+            <ul>
+                <li><code>position: absolute/relative/fixed</code> - 要素の配置制御</li>
+                <li><code>display: table</code> - テーブルレイアウトの模倣</li>
+                <li><code>:before/:after</code> 擬似要素 - コンテンツの生成</li>
+                <li>@media print - 印刷用スタイル</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2000年代前半</div>
+        <h3>ブラウザ戦争とCSSハック</h3>
+        <p>Internet Explorer 6の独自実装とボックスモデルの解釈の違いが深刻な問題に。開発者は各ブラウザ向けに「CSSハック」を駆使して対応。「Web標準」運動が活発化。</p>
+        <div class="css-example">
+/* IE6向けのCSSハック例 */
+* html .box { /* IE6のみ適用 */
+    width: 300px;
+}
+
+.box {
+    width: 300px;
+    voice-family: "\"}\"";  /* ボックスモデルハック */
+    voice-family: inherit;
+    width: 260px;
+}</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2004年</div>
+        <h3>CSS2.1の策定開始</h3>
+        <p>CSS2の実装困難な部分を削除し、実際にブラウザで動作する機能に絞った現実的な仕様として策定開始。2011年に正式勧告されるまで7年を要した。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>CSS3とモジュール化の時代</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2005年〜</div>
+        <h3>CSS3のモジュール化アプローチ</h3>
+        <p>CSS3は単一の仕様ではなく、機能ごとにモジュール化して個別に策定。これにより、ブラウザは実装可能な部分から段階的に対応できるように。ベンダープレフィックスの時代が始まる。</p>
+        <div class="css-example">
+/* ベンダープレフィックスの例 */
+.box {
+    -webkit-border-radius: 10px;  /* Chrome, Safari */
+    -moz-border-radius: 10px;     /* Firefox */
+    -ms-border-radius: 10px;      /* IE */
+    -o-border-radius: 10px;       /* Opera */
+    border-radius: 10px;          /* 標準 */
+}</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2009-2012年</div>
+        <h3>CSS3の革新的機能</h3>
+        <p>角丸、影、グラデーション、トランジション、アニメーション、Webフォントなど、デザイナーが長年望んでいた機能が次々と実装される。「CSS3でここまでできる」という認識が広まる。</p>
+        <table>
+            <tr>
+                <th>モジュール</th>
+                <th>主な機能</th>
+                <th>影響</th>
+            </tr>
+            <tr>
+                <td>Borders & Backgrounds</td>
+                <td><code>border-radius</code>, <code>box-shadow</code></td>
+                <td>画像なしで角丸・影を実現</td>
+            </tr>
+            <tr>
+                <td>Transforms</td>
+                <td><code>transform</code>, <code>rotate</code>, <code>scale</code></td>
+                <td>要素の変形が可能に</td>
+            </tr>
+            <tr>
+                <td>Transitions</td>
+                <td><code>transition</code></td>
+                <td>スムーズなアニメーション</td>
+            </tr>
+            <tr>
+                <td>Animations</td>
+                <td><code>@keyframes</code>, <code>animation</code></td>
+                <td>複雑なアニメーション</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<h2>レスポンシブデザインとモダンCSS</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2010年</div>
+        <h3>レスポンシブWebデザインの提唱</h3>
+        <p>Ethan Marcotteが「Responsive Web Design」を提唱。メディアクエリ、流体グリッド、柔軟な画像を組み合わせて、あらゆるデバイスに対応するデザイン手法が確立。</p>
+        <div class="css-example">
+/* レスポンシブデザインの基本 */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .container {
+        width: 750px;
+        margin: 0 auto;
+    }
+}</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2012-2017年</div>
+        <h3>Flexboxの実用化</h3>
+        <p>長年の策定を経て、Flexboxが主要ブラウザでサポートされ実用段階に。複雑だったレイアウトが直感的に実装可能になり、フロートハックから解放される。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2017年〜</div>
+        <h3>CSS Gridの登場</h3>
+        <p>二次元レイアウトを実現するCSS Gridが主要ブラウザで一斉にサポート開始。これまでのレイアウト手法を根本から変える革命的な機能として受け入れられる。</p>
+        <div class="css-example">
+/* CSS Gridの例 */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}</div>
+    </div>
+</div>
+
+<hr>
+
+<h2>現代のCSSと未来</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2020年代</div>
+        <h3>モダンCSSの成熟</h3>
+        <p>カスタムプロパティ（CSS変数）、論理プロパティ、コンテナクエリ、サブグリッド、:has()セレクタなど、より柔軟で強力な機能が続々と実装。CSSだけで複雑なインタラクションも可能に。</p>
+        <div class="highlight-box">
+            <strong>最新のCSS機能：</strong>
+            <ul>
+                <li><strong>カスタムプロパティ</strong> - <code>--primary-color: #7f6df2;</code></li>
+                <li><strong>論理プロパティ</strong> - <code>margin-inline-start</code>（国際化対応）</li>
+                <li><strong>コンテナクエリ</strong> - 親要素のサイズに応じたスタイリング</li>
+                <li><strong>:has()セレクタ</strong> - 親要素の選択が可能に</li>
+                <li><strong>@layer</strong> - カスケードレイヤーによる優先順位制御</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">未来へ</div>
+        <h3>CSSの進化は続く</h3>
+        <p>Houdini（CSSの低レベルAPI）、ネスティング、スコープ付きスタイルなど、JavaScriptとの境界を曖昧にする機能も検討中。CSSは単なるスタイリング言語から、強力なデザインシステム構築ツールへと進化し続けている。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>CSSの歴史から学ぶこと</h2>
+
+<div class="highlight-box">
+    <strong>CSSの進化が教える重要な教訓：</strong>
+    <ol>
+        <li><strong>段階的な進化の重要性</strong> - CSS3のモジュール化により、実装可能な部分から採用できるようになった</li>
+        <li><strong>後方互換性とプログレッシブエンハンスメント</strong> - 新機能を使いながら古いブラウザにも対応する手法が発展</li>
+        <li><strong>開発者の声を聞く</strong> - Flexbox、Grid、:has()など、長年の要望が実現されてきた</li>
+        <li><strong>パフォーマンスの重要性</strong> - レンダリング性能を考慮した仕様設計が進化</li>
+    </ol>
+</div>
+
+<h3>CSSのパラダイムシフト</h3>
+
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>主なパラダイム</th>
+<th>代表的な手法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1996-2005年</td>
+<td>基本的なスタイリング</td>
+<td>色、フォント、簡単なレイアウト</td>
+</tr>
+<tr>
+<td>2005-2010年</td>
+<td>ハックとワークアラウンド</td>
+<td>フロート、クリアフィックス、CSSハック</td>
+</tr>
+<tr>
+<td>2010-2017年</td>
+<td>レスポンシブデザイン</td>
+<td>メディアクエリ、Flexbox</td>
+</tr>
+<tr>
+<td>2017年以降</td>
+<td>モダンレイアウト</td>
+<td>Grid、カスタムプロパティ、論理プロパティ</td>
+</tr>
+</tbody>
+</table>
+
+<p>CSSは「単なる装飾」から「設計言語」へと進化を遂げました。構造と表現の分離という初期の理念を守りながら、現代のWebアプリケーションに必要な高度な表現力を獲得し、今なお進化を続けています。</p>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの歴史</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* タイムライン風のスタイル */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--background-modifier-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--interactive-accent);
+            border: 2px solid var(--background-primary);
+        }
+
+        .timeline-year {
+            color: var(--interactive-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* JSコード例 */
+        .js-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html" class="active">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>JavaScriptの歴史</h1>
+
+<p>10日間で作られた言語が、世界で最も使われるプログラミング言語になるまでの波乱万丈な道のりを振り返ります。</p>
+
+<hr>
+
+<h2>JavaScriptの誕生</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1995年5月</div>
+        <h3>たった10日間での開発</h3>
+        <p>Netscape社のBrendan Eich（ブレンダン・アイク）が、わずか10日間でJavaScriptの最初のプロトタイプ「Mocha」を開発。当初は「簡単なスクリプト言語」として、プロのプログラマーではなく、デザイナーやアマチュア向けに設計された。</p>
+        <div class="js-example">
+// 最初期のJavaScriptコード例
+function greet(name) {
+    alert("Hello, " + name + "!");
+}
+greet("World");</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1995年9月</div>
+        <h3>LiveScriptとして登場</h3>
+        <p>Netscape Navigator 2.0ベータ版に「LiveScript」として搭載。しかし、当時人気だったJavaの波に乗るため、12月にはマーケティング上の理由で「JavaScript」に改名。この名前が後に多くの混乱を生むことに。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1996年</div>
+        <h3>JScriptの登場</h3>
+        <p>MicrosoftがInternet Explorer 3.0に独自実装の「JScript」を搭載。NetscapeのJavaScriptとの互換性問題が発生し、「同じコードが異なるブラウザで異なる動作」という悪夢の始まり。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>標準化への道のり</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1997年6月</div>
+        <h3>ECMAScript誕生</h3>
+        <p>ECMA InternationalがECMA-262として標準化。「ECMAScript」という名前は妥協の産物（JavaはSun Microsystemsの商標だったため）。この標準化により、異なる実装間の互換性向上を目指す。</p>
+        <table>
+            <tr>
+                <th>バージョン</th>
+                <th>リリース年</th>
+                <th>主な特徴</th>
+            </tr>
+            <tr>
+                <td>ECMAScript 1</td>
+                <td>1997年</td>
+                <td>最初の標準仕様</td>
+            </tr>
+            <tr>
+                <td>ECMAScript 2</td>
+                <td>1998年</td>
+                <td>ISO/IEC 16262との整合</td>
+            </tr>
+            <tr>
+                <td>ECMAScript 3</td>
+                <td>1999年</td>
+                <td>正規表現、try/catch、より良い文字列処理</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1999-2009年</div>
+        <h3>失われた10年</h3>
+        <p>ECMAScript 4の策定が政治的対立により頓挫。Adobe、Mozilla、Opera vs Microsoft、Yahooの対立構造。野心的すぎる仕様（クラス、型システム、名前空間など）に合意できず、10年間新しい標準が出ない暗黒時代に。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Ajax革命とWeb 2.0</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2005年</div>
+        <h3>Ajaxの登場</h3>
+        <p>Jesse James GarrettがAjax（Asynchronous JavaScript and XML）という用語を提唱。Google MapsやGmailが、JavaScriptで「デスクトップアプリのような」体験を提供し、JavaScriptの可能性を世界に示す。</p>
+        <div class="js-example">
+// XMLHttpRequestを使ったAjaxの例
+var xhr = new XMLHttpRequest();
+xhr.open('GET', '/api/data', true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+        updateUI(data);
+    }
+};
+xhr.send();</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2006年</div>
+        <h3>jQuery登場</h3>
+        <p>John ResigがjQueryをリリース。「write less, do more」のスローガンで、ブラウザ間の差異を吸収し、DOM操作を劇的に簡単に。JavaScriptの民主化に大きく貢献。</p>
+        <div class="js-example">
+// jQuery以前
+document.getElementById('button').addEventListener('click', function() {
+    document.getElementById('content').innerHTML = 'Clicked!';
+});
+
+// jQuery以後
+$('#button').click(function() {
+    $('#content').html('Clicked!');
+});</div>
+    </div>
+</div>
+
+<hr>
+
+<h2>モダンJavaScriptの夜明け</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2008年</div>
+        <h3>V8エンジンとChrome</h3>
+        <p>GoogleがV8 JavaScriptエンジンとGoogle Chromeをリリース。Just-In-Time（JIT）コンパイルにより、JavaScriptの実行速度が劇的に向上。これがNode.jsなど、ブラウザ外でのJavaScript利用への道を開く。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2009年</div>
+        <h3>Node.jsの誕生</h3>
+        <p>Ryan DahlがNode.jsを発表。V8エンジンを使い、JavaScriptをサーバーサイドで実行可能に。「JavaScriptだけでフルスタック開発」という新しいパラダイムが生まれる。</p>
+        <div class="highlight-box">
+            <strong>Node.jsがもたらした革命：</strong>
+            <ul>
+                <li>フロントエンドとバックエンドを同じ言語で開発</li>
+                <li>npm（Node Package Manager）によるエコシステムの爆発的成長</li>
+                <li>非同期I/Oによる高パフォーマンス</li>
+                <li>JavaScriptの適用範囲がWebブラウザを超えて拡大</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2009年12月</div>
+        <h3>ES5の標準化</h3>
+        <p>10年ぶりの大型アップデート。strict mode、JSONサポート、配列メソッド（map、filter、reduce）などを追加。現実的な改善に焦点を当て、ようやく停滞から脱出。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>ES6/ES2015革命</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2015年6月</div>
+        <h3>ES6（ES2015）リリース</h3>
+        <p>JavaScriptの歴史上最大のアップデート。クラス、アロー関数、let/const、テンプレートリテラル、Promise、モジュールなど、モダンな機能が一気に追加。以降、毎年新バージョンをリリースする体制に。</p>
+        <div class="js-example">
+// ES5
+var self = this;
+users.map(function(user) {
+    return user.name;
+}).filter(function(name) {
+    return name.length > 5;
+});
+
+// ES6
+users
+    .map(user => user.name)
+    .filter(name => name.length > 5);
+
+// クラス構文
+class User {
+    constructor(name) {
+        this.name = name;
+    }
+    
+    greet() {
+        return `Hello, ${this.name}!`;
+    }
+}</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2015-2020年</div>
+        <h3>フレームワーク戦争</h3>
+        <p>React（2013）、Angular（2010/2016）、Vue.js（2014）などのフレームワークが登場し、SPAの時代へ。「どのフレームワークを選ぶか」が開発者の最大の関心事に。同時にWebpackなどのビルドツールも進化。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>現代のJavaScript</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2017-2023年</div>
+        <h3>継続的な進化</h3>
+        <p>async/await（ES2017）、オプショナルチェイニング（ES2020）、プライベートフィールド（ES2022）など、毎年着実に新機能を追加。TypeScriptの普及により、型安全なJavaScript開発も主流に。</p>
+        <table>
+            <tr>
+                <th>年</th>
+                <th>主な新機能</th>
+            </tr>
+            <tr>
+                <td>ES2017</td>
+                <td>async/await、Object.values/entries</td>
+            </tr>
+            <tr>
+                <td>ES2018</td>
+                <td>Rest/Spread for objects、非同期イテレーション</td>
+            </tr>
+            <tr>
+                <td>ES2019</td>
+                <td>flat/flatMap、Optional catch binding</td>
+            </tr>
+            <tr>
+                <td>ES2020</td>
+                <td>Optional chaining（?.）、Nullish coalescing（??）</td>
+            </tr>
+            <tr>
+                <td>ES2021</td>
+                <td>Logical assignment（||=, &&=）、replaceAll</td>
+            </tr>
+            <tr>
+                <td>ES2022</td>
+                <td>Class fields、Top-level await、at()</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2020年代</div>
+        <h3>JavaScriptエコシステムの成熟</h3>
+        <p>Deno、Bunなど新しいランタイムが登場。WebAssemblyとの協調、エッジコンピューティング、サーバーレスアーキテクチャなど、JavaScriptの活躍の場はさらに拡大。</p>
+        <div class="highlight-box">
+            <strong>現代のJavaScriptの特徴：</strong>
+            <ul>
+                <li><strong>どこでも動く</strong> - ブラウザ、サーバー、モバイル、IoT、デスクトップ</li>
+                <li><strong>豊富なエコシステム</strong> - npmには200万以上のパッケージ</li>
+                <li><strong>高速な実行</strong> - JITコンパイラの進化で、ネイティブに迫る性能</li>
+                <li><strong>開発体験の向上</strong> - TypeScript、ESLint、Prettierなどのツール</li>
+                <li><strong>標準化の加速</strong> - TC39プロセスによる着実な進化</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h2>JavaScriptの歴史から学ぶこと</h2>
+
+<div class="highlight-box">
+    <strong>JavaScriptの進化が教える教訓：</strong>
+    <ol>
+        <li><strong>完璧でなくても始める</strong> - 10日間で作られた言語が世界を変えた</li>
+        <li><strong>後方互換性の呪縛と祝福</strong> - 「JavaScriptを壊さない」という原則が普及の鍵</li>
+        <li><strong>コミュニティの力</strong> - オープンソースエコシステムが言語を成長させた</li>
+        <li><strong>実用主義の勝利</strong> - 理論的純粋性より、実際に動くことが重要</li>
+        <li><strong>進化し続けることの重要性</strong> - 年次リリースにより、着実に改善を続ける</li>
+    </ol>
+</div>
+
+<h3>JavaScriptのパラダイムシフト</h3>
+
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>主な用途</th>
+<th>代表的な技術</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1995-2005年</td>
+<td>簡単な動的効果</td>
+<td>alert()、フォーム検証、画像ロールオーバー</td>
+</tr>
+<tr>
+<td>2005-2010年</td>
+<td>Ajax、動的UI</td>
+<td>jQuery、Prototype、MooTools</td>
+</tr>
+<tr>
+<td>2010-2015年</td>
+<td>SPA、フルスタック</td>
+<td>Angular、Backbone、Node.js</td>
+</tr>
+<tr>
+<td>2015年以降</td>
+<td>あらゆる場所で実行</td>
+<td>React、Vue、TypeScript、Electron</td>
+</tr>
+</tbody>
+</table>
+
+<p>「Webページに動きをつける簡単なスクリプト」として生まれたJavaScriptは、今や世界で最も広く使われるプログラミング言語となりました。その成功の秘訣は、実用性を重視し、開発者のニーズに応え続けたことにあります。JavaScriptの歴史は、技術の民主化と、コミュニティの力が生み出す可能性を示す、最高の例と言えるでしょう。</p>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

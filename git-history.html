@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gitの歴史</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* タイムライン風のスタイル */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--background-modifier-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--interactive-accent);
+            border: 2px solid var(--background-primary);
+        }
+
+        .timeline-year {
+            color: var(--interactive-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* Gitコマンド例 */
+        .git-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html" class="active">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>Gitの歴史</h1>
+
+<p>Linuxカーネル開発の危機から生まれ、世界のソフトウェア開発を変革した分散型バージョン管理システムGitの誕生と進化の物語。</p>
+
+<hr>
+
+<h2>Git誕生前夜 - バージョン管理の歴史</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1972年</div>
+        <h3>SCCS（Source Code Control System）</h3>
+        <p>Bell研究所で開発された最初期のバージョン管理システム。ファイルの変更履歴を保存できたが、1つのファイルを1人しか編集できないロック方式。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1982年</div>
+        <h3>RCS（Revision Control System）</h3>
+        <p>SCCSの改良版。より効率的な差分保存方式を採用。しかし依然として単一ファイル管理で、チーム開発には不向き。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1990年</div>
+        <h3>CVS（Concurrent Versions System）</h3>
+        <p>複数人での同時編集を可能にした革新的システム。ネットワーク経由でのアクセスも実現。しかし、ファイル移動や名前変更の追跡ができないなど、多くの制限があった。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2000年</div>
+        <h3>Subversion（SVN）</h3>
+        <p>「CVSの正統な後継者」を目指して開発。ディレクトリのバージョン管理、アトミックなコミット、効率的なブランチングなどを実現。しかし中央集権型の限界は残る。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Gitの誕生 - Linuxカーネル開発の危機</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2002-2005年</div>
+        <h3>BitKeeperの採用と決裂</h3>
+        <p>Linuxカーネル開発では、商用の分散型VCS「BitKeeper」を使用していた。しかし2005年、リバースエンジニアリング問題により、BitKeeper社が無償利用を打ち切り。Linus Torvaldsは新しいVCSが必要に。</p>
+        <div class="highlight-box">
+            <strong>Linusが求めた要件：</strong>
+            <ul>
+                <li>分散型であること（SVNのような中央サーバー不要）</li>
+                <li>高速であること（特にブランチ作成）</li>
+                <li>シンプルな設計</li>
+                <li>大規模プロジェクトに対応</li>
+                <li>データの完全性を保証</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2005年4月3日</div>
+        <h3>Gitの開発開始</h3>
+        <p>Linus Torvaldsが既存のVCSに失望し、自らGitの開発を開始。「愚かなコンテンツトラッカー」（stupid content tracker）と自虐的に命名。わずか4日後には自己ホスティングを開始。</p>
+        <div class="git-example">
+# 最初のGitコミット（2005年4月7日）
+commit e83c5163316f89bfbde7d9ab23ca2e25604af290
+Author: Linus Torvalds &lt;torvalds@ppc970.osdl.org&gt;
+Date:   Thu Apr 7 15:13:13 2005 -0700
+
+    Initial revision of "git", the information manager from hell</div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2005年6月</div>
+        <h3>Gitでのカーネル開発開始</h3>
+        <p>わずか2ヶ月でLinuxカーネル開発に使用できるレベルに到達。7月にはJunio C Hamano（濱野純）がメンテナーを引き継ぎ、Linusはカーネル開発に専念。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Gitの設計哲学</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2005年</div>
+        <h3>革新的な設計思想</h3>
+        <p>Gitは従来のVCSとは根本的に異なる設計を採用。ファイルの「差分」ではなく「スナップショット」を保存し、すべてのオブジェクトをSHA-1ハッシュで管理。</p>
+        <table>
+            <tr>
+                <th>従来のVCS</th>
+                <th>Git</th>
+            </tr>
+            <tr>
+                <td>差分（デルタ）を保存</td>
+                <td>スナップショットを保存</td>
+            </tr>
+            <tr>
+                <td>中央サーバー必須</td>
+                <td>完全分散型</td>
+            </tr>
+            <tr>
+                <td>ブランチはディレクトリのコピー</td>
+                <td>ブランチは単なるポインタ</td>
+            </tr>
+            <tr>
+                <td>履歴の改変が可能</td>
+                <td>暗号学的に履歴を保護</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2005-2008年</div>
+        <h3>基本機能の確立</h3>
+        <p>rebase、cherry-pick、bisectなど、現在も使われる重要な機能が次々と実装される。特にrebaseは、きれいな履歴を保つための革新的機能として注目される。</p>
+        <div class="git-example">
+# 初期のGitコマンド例
+git init
+git add .
+git commit -m "Initial commit"
+git branch experimental
+git checkout experimental
+git merge master
+
+# 革新的だったrebase
+git rebase master</div>
+    </div>
+</div>
+
+<hr>
+
+<h2>GitHubとGitエコシステムの爆発</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2008年4月</div>
+        <h3>GitHub登場</h3>
+        <p>Tom Preston-Werner、Chris Wanstrath、PJ HyettがGitHubを立ち上げ。「Social Coding」のコンセプトで、プルリクエスト、Issues、Wikiなどの機能を統合。Gitの普及に決定的な役割を果たす。</p>
+        <div class="highlight-box">
+            <strong>GitHubがもたらした革新：</strong>
+            <ul>
+                <li><strong>プルリクエスト</strong> - コードレビューの文化を確立</li>
+                <li><strong>フォーク</strong> - オープンソース貢献の敷居を下げる</li>
+                <li><strong>ソーシャル機能</strong> - 開発者のポートフォリオとして機能</li>
+                <li><strong>GitHub Pages</strong> - 静的サイトホスティング</li>
+                <li><strong>統合サービス</strong> - CI/CDとの連携</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2010年代前半</div>
+        <h3>Git採用の加速</h3>
+        <p>Google（2011年）、Microsoft（2017年）など、大手企業が次々とGitを採用。分散型の利点、高速性、柔軟なワークフローが評価される。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2018年6月</div>
+        <h3>MicrosoftがGitHubを買収</h3>
+        <p>75億ドルでMicrosoftがGitHubを買収。オープンソースに対する姿勢の変化を象徴する出来事。GitHubは独立性を保ちながら、さらなる成長を遂げる。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Gitの進化と現代</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2010年代後半</div>
+        <h3>パフォーマンスの改善</h3>
+        <p>大規模リポジトリ対応のため、様々な最適化が実施される。Microsoftは「VFS for Git」を開発し、300GBを超えるWindows開発でもGitを使用可能に。</p>
+        <table>
+            <tr>
+                <th>改善項目</th>
+                <th>内容</th>
+            </tr>
+            <tr>
+                <td>部分クローン</td>
+                <td>必要なオブジェクトのみダウンロード</td>
+            </tr>
+            <tr>
+                <td>プロトコルv2</td>
+                <td>より効率的な通信</td>
+            </tr>
+            <tr>
+                <td>コミットグラフ</td>
+                <td>履歴探索の高速化</td>
+            </tr>
+            <tr>
+                <td>マルチパックインデックス</td>
+                <td>大規模リポジトリの最適化</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2020年代</div>
+        <h3>SHA-256への移行準備</h3>
+        <p>SHA-1の脆弱性に対応するため、SHA-256への移行が進行中。後方互換性を保ちながら、より安全なハッシュアルゴリズムへの移行を計画。</p>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">現在</div>
+        <h3>Gitの普遍化</h3>
+        <p>Stack Overflow調査では90%以上の開発者がGitを使用。GitLab、Bitbucket、Giteaなど多様なプラットフォームが登場し、エコシステムはさらに拡大。</p>
+        <div class="highlight-box">
+            <strong>現代のGitの特徴：</strong>
+            <ul>
+                <li><strong>デファクトスタンダード</strong> - バージョン管理の事実上の標準</li>
+                <li><strong>多様なワークフロー</strong> - Git Flow、GitHub Flow、GitLab Flowなど</li>
+                <li><strong>統合開発環境</strong> - IDE、エディタに組み込まれたGit機能</li>
+                <li><strong>自動化</strong> - CI/CD、bot、自動マージなど</li>
+                <li><strong>教育</strong> - 大学のCS教育でも標準的に教えられる</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h2>Gitの歴史から学ぶこと</h2>
+
+<div class="highlight-box">
+    <strong>Gitの成功が教える教訓：</strong>
+    <ol>
+        <li><strong>必要は発明の母</strong> - 実際の問題を解決するために生まれたツールは強い</li>
+        <li><strong>シンプルで強力な設計</strong> - 複雑な操作も基本的な概念の組み合わせで実現</li>
+        <li><strong>分散型の思想</strong> - 中央集権から分散へ、これは技術トレンドの先取り</li>
+        <li><strong>エコシステムの重要性</strong> - GitHubなどのプラットフォームが普及を加速</li>
+        <li><strong>オープンソースの力</strong> - コミュニティによる継続的な改善</li>
+    </ol>
+</div>
+
+<h3>バージョン管理システムの進化</h3>
+
+<table>
+<thead>
+<tr>
+<th>世代</th>
+<th>代表例</th>
+<th>特徴</th>
+<th>限界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1世代</td>
+<td>SCCS, RCS</td>
+<td>ローカル、単一ファイル</td>
+<td>チーム開発困難</td>
+</tr>
+<tr>
+<td>第2世代</td>
+<td>CVS, SVN</td>
+<td>中央サーバー、同時編集</td>
+<td>オフライン作業不可</td>
+</tr>
+<tr>
+<td>第3世代</td>
+<td>Git, Mercurial</td>
+<td>分散型、高速ブランチ</td>
+<td>学習曲線が急</td>
+</tr>
+</tbody>
+</table>
+
+<p>「2週間で作る」と言って始まったGitは、今や世界中の開発者にとって欠かせないツールとなりました。Linuxカーネルという巨大プロジェクトの実践的なニーズから生まれ、シンプルながら強力な設計により、あらゆる規模のプロジェクトに対応できるシステムへと成長しました。Gitの歴史は、優れた設計とコミュニティの力が組み合わさったとき、いかに革新的な変化を起こせるかを示す最良の例です。</p>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>

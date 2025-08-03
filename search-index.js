@@ -265,6 +265,72 @@ const searchIndex = [
             { heading: "CORS", keywords: ["cors", "cross-origin", "preflight", "options", "access-control"] },
             { heading: "キャッシュ制御", keywords: ["cache", "cache-control", "etag", "if-none-match", "max-age"] }
         ]
+    },
+    {
+        title: "HTMLの歴史",
+        url: "html-history.html",
+        category: "HTML",
+        keywords: ["html", "歴史", "history", "tim berners-lee", "www", "web", "進化", "evolution"],
+        sections: [
+            { heading: "HTMLの誕生", keywords: ["1989", "1991", "cern", "hypertext", "sgml", "www"] },
+            { heading: "ブラウザ戦争", keywords: ["netscape", "internet explorer", "ie", "ブラウザ戦争", "browser wars"] },
+            { heading: "標準化への道", keywords: ["w3c", "xhtml", "xml", "strict", "標準化"] },
+            { heading: "HTML5革命", keywords: ["html5", "whatwg", "canvas", "video", "audio", "semantic"] },
+            { heading: "Living Standard", keywords: ["living standard", "継続的進化", "whatwg", "w3c"] }
+        ]
+    },
+    {
+        title: "CSSの歴史",
+        url: "css-history.html",
+        category: "CSS",
+        keywords: ["css", "歴史", "history", "håkon wium lie", "スタイルシート", "進化"],
+        sections: [
+            { heading: "CSSの誕生", keywords: ["1994", "1996", "håkon", "構造と表現の分離"] },
+            { heading: "CSS2とブラウザ実装", keywords: ["css2", "positioning", "z-index", "ブラウザハック"] },
+            { heading: "CSS3とモジュール化", keywords: ["css3", "モジュール", "ベンダープレフィックス", "webkit", "moz"] },
+            { heading: "レスポンシブデザイン", keywords: ["responsive", "media query", "mobile first", "flexbox", "grid"] },
+            { heading: "モダンCSS", keywords: ["custom properties", "css variables", "has", "container query", "houdini"] }
+        ]
+    },
+    {
+        title: "JavaScriptの歴史",
+        url: "javascript-history.html",
+        category: "JavaScript",
+        keywords: ["javascript", "js", "歴史", "history", "brendan eich", "ecmascript", "進化"],
+        sections: [
+            { heading: "JavaScriptの誕生", keywords: ["1995", "netscape", "brendan eich", "10日間", "mocha", "livescript"] },
+            { heading: "標準化への道", keywords: ["ecmascript", "es", "ecma-262", "jscript", "標準化"] },
+            { heading: "Ajax革命", keywords: ["ajax", "2005", "gmail", "google maps", "jquery", "web 2.0"] },
+            { heading: "Node.jsの登場", keywords: ["nodejs", "node", "v8", "ryan dahl", "サーバーサイド"] },
+            { heading: "ES6革命", keywords: ["es6", "es2015", "arrow function", "class", "promise", "module"] },
+            { heading: "現代のJavaScript", keywords: ["typescript", "react", "vue", "angular", "webpack", "npm"] }
+        ]
+    },
+    {
+        title: "HTTPの歴史",
+        url: "http-history.html",
+        category: "HTTP",
+        keywords: ["http", "歴史", "history", "protocol", "プロトコル", "進化", "web"],
+        sections: [
+            { heading: "HTTP/0.9", keywords: ["http/0.9", "1991", "one line protocol", "get only"] },
+            { heading: "HTTP/1.0", keywords: ["http/1.0", "1996", "header", "status code", "post"] },
+            { heading: "HTTP/1.1", keywords: ["http/1.1", "1997", "persistent connection", "host header", "cache"] },
+            { heading: "HTTP/2", keywords: ["http/2", "2015", "spdy", "binary", "multiplexing", "server push"] },
+            { heading: "HTTP/3とQUIC", keywords: ["http/3", "quic", "udp", "2022", "0-rtt", "connection migration"] }
+        ]
+    },
+    {
+        title: "Gitの歴史",
+        url: "git-history.html",
+        category: "その他",
+        keywords: ["git", "歴史", "history", "linus torvalds", "バージョン管理", "vcs", "進化"],
+        sections: [
+            { heading: "バージョン管理の歴史", keywords: ["sccs", "rcs", "cvs", "svn", "subversion", "centralized"] },
+            { heading: "Gitの誕生", keywords: ["2005", "linus torvalds", "bitkeeper", "linux kernel", "distributed"] },
+            { heading: "GitHubの登場", keywords: ["github", "2008", "social coding", "pull request", "fork"] },
+            { heading: "Gitの普及", keywords: ["microsoft", "google", "enterprise", "adoption", "デファクトスタンダード"] },
+            { heading: "現代のGit", keywords: ["gitlab", "bitbucket", "gitea", "sha-256", "partial clone", "vfs"] }
+        ]
     }
 ];
 
@@ -286,5 +352,10 @@ const contentCache = {
     "ruby-reference.html": "Ruby ルビー メソッド method プロパティ クラス class String Array Hash Numeric Range File Time Enumerable length upcase downcase push pop map select each",
     "ruby-cheatsheet.html": "Ruby ルビー 記法 syntax 構文 チートシート cheatsheet 変数 variable 定数 constant if else class module def yield block proc lambda 正規表現 regex",
     "http-reference.html": "HTTP HyperText Transfer Protocol メソッド method ステータスコード status code GET POST PUT PATCH DELETE 200 OK 404 Not Found 500 Internal Server Error header ヘッダー",
-    "http-cheatsheet.html": "HTTP 記法 syntax チートシート cheatsheet RESTful API REST request response authentication authorization CORS cache Content-Type JSON Bearer Token"
+    "http-cheatsheet.html": "HTTP 記法 syntax チートシート cheatsheet RESTful API REST request response authentication authorization CORS cache Content-Type JSON Bearer Token",
+    "html-history.html": "HTML 歴史 history Tim Berners-Lee ティム・バーナーズ＝リー WWW World Wide Web CERN 1991 ブラウザ戦争 XHTML HTML5 Living Standard WHATWG W3C",
+    "css-history.html": "CSS 歴史 history Håkon Wium Lie ホーコン・ウィウム・リー 構造と表現の分離 CSS1 CSS2 CSS3 Flexbox Grid レスポンシブデザイン ベンダープレフィックス",
+    "javascript-history.html": "JavaScript JS 歴史 history Brendan Eich ブレンダン・アイク 10日間 Netscape ECMAScript Ajax jQuery Node.js ES6 ES2015 React Vue Angular TypeScript",
+    "http-history.html": "HTTP 歴史 history プロトコル protocol HTTP/0.9 HTTP/1.0 HTTP/1.1 HTTP/2 HTTP/3 SPDY QUIC Tim Berners-Lee 進化 evolution",
+    "git-history.html": "Git 歴史 history Linus Torvalds リーナス・トーバルズ バージョン管理 VCS BitKeeper 2005 分散型 distributed GitHub social coding pull request"
 };

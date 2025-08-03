@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTPの歴史</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* タイムライン風のスタイル */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--background-modifier-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--interactive-accent);
+            border: 2px solid var(--background-primary);
+        }
+
+        .timeline-year {
+            color: var(--interactive-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* HTTPコード例 */
+        .http-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html" class="active">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>HTTPの歴史</h1>
+
+<p>インターネットの基盤プロトコルであるHTTPが、シンプルな文書転送から現代のWebアプリケーションを支える高度なプロトコルへと進化した軌跡を辿ります。</p>
+
+<hr>
+
+<h2>HTTPの誕生</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1989-1991年</div>
+        <h3>HTTP/0.9 - ワンラインプロトコル</h3>
+        <p>Tim Berners-LeeがWorld Wide Webの一部として設計した最初のHTTP。極めてシンプルで、GETメソッドのみ、ヘッダーなし、HTMLのみ返すという仕様。リクエストは文字通り1行だけだった。</p>
+        <div class="http-example">
+GET /index.html
+
+（レスポンスはHTMLのみ、ステータスコードもヘッダーもなし）
+&lt;html&gt;
+A very simple HTML page
+&lt;/html&gt;</div>
+        <p>接続は1リクエストごとに切断される設計で、現在から見ると信じられないほどシンプル。しかし、この単純さが初期のWeb普及に貢献した。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTTPの標準化</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">1996年5月</div>
+        <h3>HTTP/1.0 - 拡張性の追加</h3>
+        <p>RFC 1945として正式に文書化。ヘッダー、ステータスコード、POST・HEADメソッド、Content-Typeによる多様なコンテンツのサポートなど、現在のHTTPの基礎となる機能が追加される。</p>
+        <div class="http-example">
+GET /index.html HTTP/1.0
+Host: www.example.com
+User-Agent: Mozilla/1.0
+
+HTTP/1.0 200 OK
+Content-Type: text/html
+Content-Length: 1234
+
+&lt;html&gt;...&lt;/html&gt;</div>
+        <table>
+            <tr>
+                <th>HTTP/1.0の新機能</th>
+                <th>意義</th>
+            </tr>
+            <tr>
+                <td>HTTPヘッダー</td>
+                <td>メタデータの送信が可能に</td>
+            </tr>
+            <tr>
+                <td>ステータスコード</td>
+                <td>エラー処理の標準化</td>
+            </tr>
+            <tr>
+                <td>Content-Type</td>
+                <td>HTML以外のコンテンツも扱える</td>
+            </tr>
+            <tr>
+                <td>POST/HEADメソッド</td>
+                <td>データ送信と効率的な確認</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">1997年1月</div>
+        <h3>HTTP/1.1 - 現代HTTPの基盤</h3>
+        <p>RFC 2068（後にRFC 2616）として標準化。持続的接続、チャンク転送、ホストヘッダー必須化、キャッシュ制御の改善など、インターネットの爆発的成長に対応する機能を搭載。</p>
+        <div class="highlight-box">
+            <strong>HTTP/1.1の革新的機能：</strong>
+            <ul>
+                <li><strong>持続的接続（Keep-Alive）</strong> - 1つのTCP接続で複数のリクエスト/レスポンス</li>
+                <li><strong>パイプライニング</strong> - レスポンスを待たずに次のリクエストを送信</li>
+                <li><strong>チャンク転送エンコーディング</strong> - コンテンツ長が不明でも送信開始可能</li>
+                <li><strong>Hostヘッダー必須</strong> - 1つのIPアドレスで複数のドメインをホスト</li>
+                <li><strong>より洗練されたキャッシュ制御</strong> - Cache-Control、ETag</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h2>Web 2.0時代の課題</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2000年代</div>
+        <h3>HTTP/1.1の限界</h3>
+        <p>Ajax、リッチなWebアプリケーション、ソーシャルメディアの時代。1つのページで数十〜数百のリソースを読み込むようになり、HTTP/1.1の設計限界が露呈。</p>
+        <div class="highlight-box">
+            <strong>顕在化した問題：</strong>
+            <ul>
+                <li><strong>HOLブロッキング</strong> - 1つの遅いリソースが全体を遅延させる</li>
+                <li><strong>同時接続数制限</strong> - ブラウザは同一ドメインに6接続程度まで</li>
+                <li><strong>冗長なヘッダー</strong> - 同じヘッダーを何度も送信</li>
+                <li><strong>ドメインシャーディング</strong> - 接続数制限を回避する苦肉の策</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2009年</div>
+        <h3>SPDYの実験</h3>
+        <p>GoogleがHTTP/1.1の問題を解決するため、独自プロトコル「SPDY」を開発。多重化、ヘッダー圧縮、サーバープッシュなどの実験的機能を実装。後のHTTP/2の基礎となる。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTTP/2の革命</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2015年5月</div>
+        <h3>HTTP/2 - バイナリプロトコルへ</h3>
+        <p>RFC 7540として標準化。SPDYをベースに、パフォーマンスの大幅改善を実現。後方互換性を保ちながら、プロトコルレベルで革新的な変更を導入。</p>
+        <div class="http-example">
+// HTTP/2はバイナリプロトコルのため、実際の通信は以下のような概念
+
+[HEADERS frame]
+:method = GET
+:path = /index.html
+:scheme = https
+:authority = www.example.com
+user-agent = Mozilla/5.0
+
+[DATA frame]
+（バイナリデータ）
+
+// 同時に複数のストリームが多重化される</div>
+        <table>
+            <tr>
+                <th>HTTP/2の特徴</th>
+                <th>解決した問題</th>
+            </tr>
+            <tr>
+                <td>バイナリフレーミング</td>
+                <td>パース効率の向上、エラー削減</td>
+            </tr>
+            <tr>
+                <td>ストリーム多重化</td>
+                <td>HOLブロッキングの解消</td>
+            </tr>
+            <tr>
+                <td>ヘッダー圧縮（HPACK）</td>
+                <td>帯域幅の節約</td>
+            </tr>
+            <tr>
+                <td>サーバープッシュ</td>
+                <td>レイテンシの削減</td>
+            </tr>
+            <tr>
+                <td>ストリーム優先順位</td>
+                <td>重要なリソースを優先</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2015-2020年</div>
+        <h3>HTTP/2の普及</h3>
+        <p>主要ブラウザとサーバーが迅速に対応。HTTPS必須という実質的な要件により、同時にWebの暗号化も促進。2020年には主要サイトの半数以上がHTTP/2を採用。</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTTP/3とQUICの時代</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2013-2018年</div>
+        <h3>QUICの開発</h3>
+        <p>GoogleがTCPの限界を克服するため、UDP上に新しいトランスポートプロトコル「QUIC」を開発。0-RTTハンドシェイク、コネクションマイグレーション、改善された輻輳制御などを実現。</p>
+        <div class="highlight-box">
+            <strong>QUICが解決する問題：</strong>
+            <ul>
+                <li><strong>TCPのHOLブロッキング</strong> - パケットロスが全ストリームに影響</li>
+                <li><strong>ハンドシェイクの遅延</strong> - TCP + TLSで複数往復が必要</li>
+                <li><strong>接続の継続性</strong> - IPアドレスが変わると接続断</li>
+                <li><strong>ミドルボックスの干渉</strong> - TCPの拡張が困難</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-year">2022年6月</div>
+        <h3>HTTP/3の標準化</h3>
+        <p>RFC 9114として正式に標準化。QUIC上で動作し、さらなるパフォーマンス向上と信頼性を実現。モバイルネットワークなど、不安定な環境でも高速な通信を維持。</p>
+        <table>
+            <tr>
+                <th>HTTP/3の利点</th>
+                <th>実現する機能</th>
+            </tr>
+            <tr>
+                <td>0-RTTハンドシェイク</td>
+                <td>再接続時の即座の通信開始</td>
+            </tr>
+            <tr>
+                <td>独立したストリーム</td>
+                <td>1つのパケットロスが他に影響しない</td>
+            </tr>
+            <tr>
+                <td>コネクションマイグレーション</td>
+                <td>ネットワーク切り替え時も接続維持</td>
+            </tr>
+            <tr>
+                <td>改善された輻輳制御</td>
+                <td>ネットワーク状況により適応的</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTTPの未来</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-year">2020年代〜</div>
+        <h3>次世代Webの要求</h3>
+        <p>WebAssembly、WebRTC、IoT、エッジコンピューティングなど、新しい使用例がHTTPに新たな要求を突きつける。プロトコルは常に進化を続ける。</p>
+        <div class="highlight-box">
+            <strong>将来の課題と方向性：</strong>
+            <ul>
+                <li><strong>超低遅延通信</strong> - リアルタイムアプリケーションの要求</li>
+                <li><strong>大規模IoT対応</strong> - 軽量で効率的なプロトコル</li>
+                <li><strong>プライバシー保護</strong> - ECH（Encrypted Client Hello）など</li>
+                <li><strong>新しいトランスポート</strong> - 衛星通信、5G/6Gへの最適化</li>
+                <li><strong>セマンティックWeb</strong> - より意味的な通信へ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h2>HTTPの歴史から学ぶこと</h2>
+
+<div class="highlight-box">
+    <strong>HTTPの進化が教える教訓：</strong>
+    <ol>
+        <li><strong>シンプルさの力</strong> - HTTP/0.9の単純さが初期のWeb普及を促進</li>
+        <li><strong>後方互換性の重要性</strong> - 新バージョンも既存のWebを壊さない設計</li>
+        <li><strong>実装先行の価値</strong> - SPDY、QUICなど、実験的実装が標準化を牽引</li>
+        <li><strong>レイヤー違反の勇気</strong> - HTTP/3はトランスポート層まで再設計</li>
+        <li><strong>継続的な改善</strong> - 完璧を求めず、段階的に問題を解決</li>
+    </ol>
+</div>
+
+<h3>HTTPバージョンの比較</h3>
+
+<table>
+<thead>
+<tr>
+<th>バージョン</th>
+<th>リリース年</th>
+<th>主な特徴</th>
+<th>解決した問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP/0.9</td>
+<td>1991年</td>
+<td>GETのみ、HTMLのみ</td>
+<td>文書の共有を実現</td>
+</tr>
+<tr>
+<td>HTTP/1.0</td>
+<td>1996年</td>
+<td>ヘッダー、メソッド追加</td>
+<td>多様なコンテンツ対応</td>
+</tr>
+<tr>
+<td>HTTP/1.1</td>
+<td>1997年</td>
+<td>持続的接続、Host必須</td>
+<td>効率性、仮想ホスト</td>
+</tr>
+<tr>
+<td>HTTP/2</td>
+<td>2015年</td>
+<td>バイナリ、多重化</td>
+<td>HOLブロッキング、効率</td>
+</tr>
+<tr>
+<td>HTTP/3</td>
+<td>2022年</td>
+<td>QUIC、0-RTT</td>
+<td>TCPの限界、モバイル対応</td>
+</tr>
+</tbody>
+</table>
+
+<p>HTTPは単純な文書転送プロトコルから始まり、現代のインターネットを支える高度なプロトコルへと進化しました。その成功の鍵は、時代のニーズに応じて大胆に進化しながらも、既存のWebとの互換性を保ち続けたことにあります。HTTPの歴史は、技術の進化が段階的かつ実用的であることの重要性を示す、素晴らしい例です。</p>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>
