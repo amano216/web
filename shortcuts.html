@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プログラミング記法 & ショートカットキー チートシート</title>
+<style>
+:root {
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #262626;
+  --bg-hover: #2d2d2d;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --accent: #7c3aed;
+  --border: #404040;
+  --code-bg: #2d2d2d;
+  --key-bg: #404040;
+  --key-border: #606060;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.section {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid var(--border);
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+  background-color: var(--bg-primary);
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover {
+  background-color: var(--bg-hover);
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.875rem;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  background-color: var(--key-bg);
+  border: 1px solid var(--key-border);
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+  margin: 0 2px;
+}
+
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.plus {
+  color: var(--text-secondary);
+  font-weight: bold;
+  margin: 0 4px;
+}
+
+.note {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--accent);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.note-title {
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  table {
+    font-size: 0.9rem;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+}
+
+code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  background-color: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.syntax-highlight {
+  color: #61dafb;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>プログラミング記法 & ショートカットキー チートシート</h1>
+<p class="subtitle">JavaScript基本記法と作業効率を劇的に向上させる必須ショートカット集</p>
+
+<div class="section">
+<h2>JavaScript 基本記法</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>console.log()</code></td>
+<td>console log (コンソール ログ)</td>
+<td>コンソールログ。デバッグ用の値出力。開発者ツールのコンソールに表示</td>
+</tr>
+<tr>
+<td><code>let</code></td>
+<td>let (レット)</td>
+<td>レット。再代入可能な変数を宣言。ブロックスコープ</td>
+</tr>
+<tr>
+<td><code>const</code></td>
+<td>constant (コンスタント)</td>
+<td>コンスト。再代入不可能な定数を宣言。ブロックスコープ</td>
+</tr>
+<tr>
+<td><code>var</code></td>
+<td>variable (ヴァリアブル)</td>
+<td>ヴァー。古い変数宣言。関数スコープ（非推奨）</td>
+</tr>
+<tr>
+<td><code>function</code></td>
+<td>function (ファンクション)</td>
+<td>ファンクション。関数を定義。処理をまとめて再利用可能にする</td>
+</tr>
+<tr>
+<td><code>=></code></td>
+<td>arrow function (アロー ファンクション)</td>
+<td>アロー関数。簡潔な関数記法。thisの挙動が通常の関数と異なる</td>
+</tr>
+<tr>
+<td><code>if</code></td>
+<td>if (イフ)</td>
+<td>イフ。条件分岐。条件が真の場合に処理を実行</td>
+</tr>
+<tr>
+<td><code>else</code></td>
+<td>else (エルス)</td>
+<td>エルス。ifの条件が偽の場合に実行する処理</td>
+</tr>
+<tr>
+<td><code>for</code></td>
+<td>for (フォー)</td>
+<td>フォー。繰り返し処理。指定回数または条件でループ</td>
+</tr>
+<tr>
+<td><code>while</code></td>
+<td>while (ホワイル)</td>
+<td>ホワイル。条件が真の間、繰り返し処理</td>
+</tr>
+<tr>
+<td><code>return</code></td>
+<td>return (リターン)</td>
+<td>リターン。関数から値を返す。関数の実行を終了</td>
+</tr>
+<tr>
+<td><code>import</code></td>
+<td>import (インポート)</td>
+<td>インポート。他のモジュールから機能を読み込む</td>
+</tr>
+<tr>
+<td><code>export</code></td>
+<td>export (エクスポート)</td>
+<td>エクスポート。モジュールから機能を外部に公開</td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>class (クラス)</td>
+<td>クラス。オブジェクト指向のクラスを定義</td>
+</tr>
+<tr>
+<td><code>new</code></td>
+<td>new (ニュー)</td>
+<td>ニュー。クラスからインスタンスを生成</td>
+</tr>
+<tr>
+<td><code>this</code></td>
+<td>this (ディス)</td>
+<td>ディス。現在のコンテキストのオブジェクトを参照</td>
+</tr>
+<tr>
+<td><code>try...catch</code></td>
+<td>try catch (トライ キャッチ)</td>
+<td>トライキャッチ。エラー処理。例外をキャッチして処理</td>
+</tr>
+<tr>
+<td><code>async</code></td>
+<td>asynchronous (エイシンク)</td>
+<td>エイシンク。非同期関数を定義。Promiseを返す</td>
+</tr>
+<tr>
+<td><code>await</code></td>
+<td>await (アウェイト)</td>
+<td>アウェイト。非同期処理の完了を待つ。async関数内でのみ使用</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>null (ヌル)</td>
+<td>ヌル。値が存在しないことを明示的に示す</td>
+</tr>
+<tr>
+<td><code>undefined</code></td>
+<td>undefined (アンディファインド)</td>
+<td>アンディファインド。値が未定義の状態</td>
+</tr>
+<tr>
+<td><code>true / false</code></td>
+<td>true false (トゥルー フォルス)</td>
+<td>トゥルー/フォルス。真偽値。条件判定に使用</td>
+</tr>
+<tr>
+<td><code>===</code></td>
+<td>strict equality (ストリクト イコーリティ)</td>
+<td>厳密等価演算子。型と値が両方一致する場合にtrue</td>
+</tr>
+<tr>
+<td><code>!==</code></td>
+<td>strict inequality (ストリクト インイコーリティ)</td>
+<td>厳密不等価演算子。型または値が異なる場合にtrue</td>
+</tr>
+<tr>
+<td><code>&&</code></td>
+<td>logical AND (ロジカル アンド)</td>
+<td>論理積。両方の条件が真の場合にtrue</td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>logical OR (ロジカル オア)</td>
+<td>論理和。どちらかの条件が真の場合にtrue</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>logical NOT (ロジカル ノット)</td>
+<td>論理否定。真偽値を反転</td>
+</tr>
+<tr>
+<td><code>...</code></td>
+<td>spread operator (スプレッド オペレーター)</td>
+<td>スプレッド演算子。配列やオブジェクトを展開</td>
+</tr>
+<tr>
+<td><code>?:</code></td>
+<td>ternary operator (ターナリー オペレーター)</td>
+<td>三項演算子。条件式 ? 真の場合 : 偽の場合</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>macOS 基本ショートカット</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>C</kbd>
+</div>
+</td>
+<td>Copy (コピー)</td>
+<td>コピー。選択したテキストやファイルをクリップボードに複製</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>V</kbd>
+</div>
+</td>
+<td>Paste (ペースト)</td>
+<td>ペースト。クリップボードの内容を貼り付け</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>X</kbd>
+</div>
+</td>
+<td>Cut (カット)</td>
+<td>カット。選択した内容を切り取ってクリップボードへ</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Z</kbd>
+</div>
+</td>
+<td>Undo (アンドゥ)</td>
+<td>アンドゥ。直前の操作を取り消して元に戻す</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>Z</kbd>
+</div>
+</td>
+<td>Redo (リドゥ)</td>
+<td>リドゥ。取り消した操作をやり直す</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>A</kbd>
+</div>
+</td>
+<td>Select All (セレクト オール)</td>
+<td>セレクトオール。すべてのテキストやアイテムを選択</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>F</kbd>
+</div>
+</td>
+<td>Find (ファインド)</td>
+<td>ファインド。検索ウィンドウを開いてテキストを検索</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Space</kbd>
+</div>
+</td>
+<td>Spotlight Search (スポットライト サーチ)</td>
+<td>スポットライトサーチ。Mac全体を高速検索</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Tab</kbd>
+</div>
+</td>
+<td>App Switcher (アップ スイッチャー)</td>
+<td>アップスイッチャー。起動中のアプリを切り替え</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Q</kbd>
+</div>
+</td>
+<td>Quit (クイット)</td>
+<td>クイット。アプリケーションを完全に終了</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>W</kbd>
+</div>
+</td>
+<td>Close Window (クローズ ウィンドウ)</td>
+<td>クローズウィンドウ。現在のウィンドウを閉じる</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>3</kbd>
+</div>
+</td>
+<td>Screenshot (スクリーンショット)</td>
+<td>スクリーンショット。画面全体を画像として保存</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>4</kbd>
+</div>
+</td>
+<td>Screenshot Selection (スクリーンショット セレクション)</td>
+<td>スクリーンショットセレクション。選択範囲を画像として保存</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>ブラウザ共通ショートカット</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>T</kbd>
+</div>
+</td>
+<td>New Tab (ニュー タブ)</td>
+<td>ニュータブ。新しいタブを開いてブラウジング</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>W</kbd>
+</div>
+</td>
+<td>Close Tab (クローズ タブ)</td>
+<td>クローズタブ。現在のタブを閉じる</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>T</kbd>
+</div>
+</td>
+<td>Reopen Closed Tab (リオープン クローズド タブ)</td>
+<td>リオープンクローズドタブ。閉じたタブを復元</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>L</kbd>
+</div>
+</td>
+<td>Address Bar (アドレス バー)</td>
+<td>アドレスバー。URL入力欄にフォーカスを移動</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>D</kbd>
+</div>
+</td>
+<td>Bookmark (ブックマーク)</td>
+<td>ブックマーク。現在のページをお気に入りに追加</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>R</kbd>
+</div>
+</td>
+<td>Reload (リロード)</td>
+<td>リロード。ページを再読み込みして最新の状態に</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>R</kbd>
+</div>
+</td>
+<td>Hard Reload (ハード リロード)</td>
+<td>ハードリロード。キャッシュを無視して完全に再読み込み</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>+</kbd>
+</div>
+</td>
+<td>Zoom In (ズーム イン)</td>
+<td>ズームイン。ページを拡大表示</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>-</kbd>
+</div>
+</td>
+<td>Zoom Out (ズーム アウト)</td>
+<td>ズームアウト。ページを縮小表示</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>0</kbd>
+</div>
+</td>
+<td>Reset Zoom (リセット ズーム)</td>
+<td>リセットズーム。ページを標準サイズに戻す</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Alt/⌥</kbd><span class="plus">+</span><kbd>←</kbd>
+</div>
+</td>
+<td>Back (バック)</td>
+<td>バック。前に表示していたページに戻る</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Alt/⌥</kbd><span class="plus">+</span><kbd>→</kbd>
+</div>
+</td>
+<td>Forward (フォワード)</td>
+<td>フォワード。戻るで戻ったページに進む</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>F12</kbd>
+</div>
+</td>
+<td>Developer Tools (デベロッパー ツールズ)</td>
+<td>デベロッパーツールズ。開発者ツールを開く</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>テキストエディタ共通ショートカット</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>S</kbd>
+</div>
+</td>
+<td>Save (セーブ)</td>
+<td>セーブ。ファイルを保存して変更を確定</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>S</kbd>
+</div>
+</td>
+<td>Save As (セーブ アズ)</td>
+<td>セーブアズ。名前を付けて別ファイルとして保存</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>N</kbd>
+</div>
+</td>
+<td>New File (ニュー ファイル)</td>
+<td>ニューファイル。新規ファイルを作成</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>O</kbd>
+</div>
+</td>
+<td>Open File (オープン ファイル)</td>
+<td>オープンファイル。既存のファイルを開く</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>/</kbd>
+</div>
+</td>
+<td>Toggle Comment (トグル コメント)</td>
+<td>トグルコメント。コメントのオン/オフを切り替え</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>D</kbd>
+</div>
+</td>
+<td>Duplicate Line (デュプリケート ライン)</td>
+<td>デュプリケートライン。現在の行を複製</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>K</kbd>
+</div>
+</td>
+<td>Delete Line (デリート ライン)</td>
+<td>デリートライン。現在の行を削除</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Alt/⌥</kbd><span class="plus">+</span><kbd>↑</kbd>
+</div>
+</td>
+<td>Move Line Up (ムーブ ライン アップ)</td>
+<td>ムーブラインアップ。行を上に移動</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Alt/⌥</kbd><span class="plus">+</span><kbd>↓</kbd>
+</div>
+</td>
+<td>Move Line Down (ムーブ ライン ダウン)</td>
+<td>ムーブラインダウン。行を下に移動</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>F</kbd>
+</div>
+</td>
+<td>Find in Files (ファインド イン ファイルズ)</td>
+<td>ファインドインファイルズ。複数ファイル内を検索</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>G</kbd>
+</div>
+</td>
+<td>Go to Line (ゴー トゥ ライン)</td>
+<td>ゴートゥライン。指定行番号へジャンプ</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>]</kbd>
+</div>
+</td>
+<td>Indent (インデント)</td>
+<td>インデント。字下げを増やす</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>[</kbd>
+</div>
+</td>
+<td>Outdent (アウトデント)</td>
+<td>アウトデント。字下げを減らす</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>VS Code 専用ショートカット</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>P</kbd>
+</div>
+</td>
+<td>Quick Open (クイック オープン)</td>
+<td>クイックオープン。ファイルを素早く検索して開く</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>P</kbd>
+</div>
+</td>
+<td>Command Palette (コマンド パレット)</td>
+<td>コマンドパレット。すべてのコマンドにアクセス</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>B</kbd>
+</div>
+</td>
+<td>Toggle Sidebar (トグル サイドバー)</td>
+<td>トグルサイドバー。サイドバーの表示/非表示を切り替え</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>`</kbd>
+</div>
+</td>
+<td>Toggle Terminal (トグル ターミナル)</td>
+<td>トグルターミナル。統合ターミナルの表示/非表示</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>F2</kbd>
+</div>
+</td>
+<td>Rename Symbol (リネーム シンボル)</td>
+<td>リネームシンボル。変数名や関数名を一括変更</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>F12</kbd>
+</div>
+</td>
+<td>Go to Definition (ゴー トゥ デフィニション)</td>
+<td>ゴートゥデフィニション。変数や関数の定義元へジャンプ</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Alt/⌥</kbd><span class="plus">+</span><kbd>Click</kbd>
+</div>
+</td>
+<td>Multi Cursor (マルチ カーソル)</td>
+<td>マルチカーソル。複数箇所を同時に編集</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl/⌘</kbd><span class="plus">+</span><kbd>Shift</kbd><span class="plus">+</span><kbd>L</kbd>
+</div>
+</td>
+<td>Select All Occurrences (セレクト オール オカレンセス)</td>
+<td>セレクトオールオカレンセス。同じ文字列をすべて選択</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>ターミナル・コマンドライン</h2>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>英語の読み方</th>
+<th>日本語の読み方と使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>C</kbd>
+</div>
+</td>
+<td>Cancel/Interrupt (キャンセル/インタラプト)</td>
+<td>キャンセル/インタラプト。実行中のコマンドを強制終了</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>D</kbd>
+</div>
+</td>
+<td>Exit/EOF (イグジット/エンドオブファイル)</td>
+<td>イグジット/EOF。ターミナルを終了</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>L</kbd>
+</div>
+</td>
+<td>Clear Screen (クリア スクリーン)</td>
+<td>クリアスクリーン。ターミナル画面をクリア</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>A</kbd>
+</div>
+</td>
+<td>Beginning of Line (ビギニング オブ ライン)</td>
+<td>ビギニングオブライン。カーソルを行頭へ移動</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>E</kbd>
+</div>
+</td>
+<td>End of Line (エンド オブ ライン)</td>
+<td>エンドオブライン。カーソルを行末へ移動</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>K</kbd>
+</div>
+</td>
+<td>Kill to End (キル トゥ エンド)</td>
+<td>キルトゥエンド。カーソル位置から行末まで削除</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>U</kbd>
+</div>
+</td>
+<td>Kill to Beginning (キル トゥ ビギニング)</td>
+<td>キルトゥビギニング。カーソル位置から行頭まで削除</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Ctrl</kbd><span class="plus">+</span><kbd>R</kbd>
+</div>
+</td>
+<td>Reverse Search (リバース サーチ)</td>
+<td>リバースサーチ。コマンド履歴を逆方向検索</td>
+</tr>
+<tr>
+<td>
+<div class="shortcut-keys">
+<kbd>Tab</kbd>
+</div>
+</td>
+<td>Auto Complete (オート コンプリート)</td>
+<td>オートコンプリート。コマンドやファイル名を自動補完</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<div class="note-title">💡 効率化のヒント</div>
+<ul style="margin-left: 20px; color: var(--text-secondary);">
+<li>毎日1つずつ新しいショートカットを覚えて習慣化しましょう</li>
+<li>よく使う操作から優先的に覚えると効果的です</li>
+<li>マウスを使いたくなったら、そのショートカットを調べる習慣をつけましょう</li>
+<li>エディタやツールの設定でカスタムショートカットを作成することも可能です</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>
