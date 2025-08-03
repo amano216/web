@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubyメソッド一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Rubyコード例のスタイル */
+        .ruby-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html" class="active">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+
+<h1>Rubyメソッド一覧</h1>
+
+<p>Rubyの主要なクラスとメソッドを、カテゴリ別にまとめました。</p>
+
+<hr>
+
+<h2>文字列（String）メソッド</h2>
+
+<h3><strong>文字列の操作と変換</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length</code> / <code>size</code></td>
+<td>Length / Size</td>
+<td>文字列の長さを返す</td>
+</tr>
+<tr>
+<td><code>upcase</code></td>
+<td>Uppercase</td>
+<td>すべて大文字に変換。<code>"hello".upcase #=> "HELLO"</code></td>
+</tr>
+<tr>
+<td><code>downcase</code></td>
+<td>Downcase</td>
+<td>すべて小文字に変換。<code>"HELLO".downcase #=> "hello"</code></td>
+</tr>
+<tr>
+<td><code>capitalize</code></td>
+<td>Capitalize</td>
+<td>最初の文字を大文字に。<code>"hello".capitalize #=> "Hello"</code></td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td>Reverse</td>
+<td>文字列を逆順にする。<code>"hello".reverse #=> "olleh"</code></td>
+</tr>
+<tr>
+<td><code>strip</code></td>
+<td>Strip</td>
+<td>前後の空白を削除。<code>"  hello  ".strip #=> "hello"</code></td>
+</tr>
+<tr>
+<td><code>chomp</code></td>
+<td>Chomp</td>
+<td>末尾の改行を削除。<code>"hello\n".chomp #=> "hello"</code></td>
+</tr>
+<tr>
+<td><code>chop</code></td>
+<td>Chop</td>
+<td>末尾の1文字を削除。<code>"hello".chop #=> "hell"</code></td>
+</tr>
+<tr>
+<td><code>gsub(pattern, replacement)</code></td>
+<td>Global Substitute</td>
+<td>パターンにマッチする部分をすべて置換</td>
+</tr>
+<tr>
+<td><code>sub(pattern, replacement)</code></td>
+<td>Substitute</td>
+<td>最初にマッチした部分を置換</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>文字列の検索と判定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>include?(substring)</code></td>
+<td>Include</td>
+<td>指定の文字列を含むか。<code>"hello".include?("ell") #=> true</code></td>
+</tr>
+<tr>
+<td><code>start_with?(prefix)</code></td>
+<td>Start With</td>
+<td>指定の文字列で始まるか。<code>"hello".start_with?("he") #=> true</code></td>
+</tr>
+<tr>
+<td><code>end_with?(suffix)</code></td>
+<td>End With</td>
+<td>指定の文字列で終わるか。<code>"hello".end_with?("lo") #=> true</code></td>
+</tr>
+<tr>
+<td><code>empty?</code></td>
+<td>Empty</td>
+<td>空文字列か。<code>"".empty? #=> true</code></td>
+</tr>
+<tr>
+<td><code>match(pattern)</code></td>
+<td>Match</td>
+<td>正規表現にマッチするか確認</td>
+</tr>
+<tr>
+<td><code>index(substring)</code></td>
+<td>Index</td>
+<td>部分文字列の位置を返す。見つからなければnil</td>
+</tr>
+<tr>
+<td><code>scan(pattern)</code></td>
+<td>Scan</td>
+<td>パターンにマッチする部分をすべて配列で返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>文字列の分割と結合</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>split(delimiter)</code></td>
+<td>Split</td>
+<td>区切り文字で分割。<code>"a,b,c".split(",") #=> ["a", "b", "c"]</code></td>
+</tr>
+<tr>
+<td><code>join(separator)</code></td>
+<td>Join</td>
+<td>配列を文字列に結合（配列のメソッド）</td>
+</tr>
+<tr>
+<td><code>concat(string)</code></td>
+<td>Concatenate</td>
+<td>文字列を連結（破壊的）</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>Plus</td>
+<td>文字列を連結（非破壊的）。<code>"hello" + " world"</code></td>
+</tr>
+<tr>
+<td><code><<</code></td>
+<td>Append</td>
+<td>文字列を追加（破壊的）。<code>str << " world"</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiply</td>
+<td>文字列を繰り返す。<code>"ha" * 3 #=> "hahaha"</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>配列（Array）メソッド</h2>
+
+<h3><strong>要素の追加と削除</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>push(item)</code> / <code><<</code></td>
+<td>Push</td>
+<td>末尾に要素を追加。<code>arr << 5</code></td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td>Pop</td>
+<td>末尾の要素を削除して返す</td>
+</tr>
+<tr>
+<td><code>unshift(item)</code></td>
+<td>Unshift</td>
+<td>先頭に要素を追加</td>
+</tr>
+<tr>
+<td><code>shift</code></td>
+<td>Shift</td>
+<td>先頭の要素を削除して返す</td>
+</tr>
+<tr>
+<td><code>insert(index, item)</code></td>
+<td>Insert</td>
+<td>指定位置に要素を挿入</td>
+</tr>
+<tr>
+<td><code>delete(item)</code></td>
+<td>Delete</td>
+<td>指定の値と一致する要素をすべて削除</td>
+</tr>
+<tr>
+<td><code>delete_at(index)</code></td>
+<td>Delete At</td>
+<td>指定位置の要素を削除</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Clear</td>
+<td>すべての要素を削除</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>配列の検索と選択</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>first</code> / <code>first(n)</code></td>
+<td>First</td>
+<td>最初の要素（またはn個）を返す</td>
+</tr>
+<tr>
+<td><code>last</code> / <code>last(n)</code></td>
+<td>Last</td>
+<td>最後の要素（またはn個）を返す</td>
+</tr>
+<tr>
+<td><code>include?(item)</code></td>
+<td>Include</td>
+<td>指定の要素を含むか。<code>[1,2,3].include?(2) #=> true</code></td>
+</tr>
+<tr>
+<td><code>find</code> / <code>detect</code></td>
+<td>Find / Detect</td>
+<td>条件に一致する最初の要素を返す</td>
+</tr>
+<tr>
+<td><code>select</code> / <code>filter</code></td>
+<td>Select / Filter</td>
+<td>条件に一致する要素をすべて返す</td>
+</tr>
+<tr>
+<td><code>reject</code></td>
+<td>Reject</td>
+<td>条件に一致しない要素を返す</td>
+</tr>
+<tr>
+<td><code>grep(pattern)</code></td>
+<td>Grep</td>
+<td>パターンにマッチする要素を返す</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>配列の変換と操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>map</code> / <code>collect</code></td>
+<td>Map / Collect</td>
+<td>各要素を変換した新しい配列を作成</td>
+</tr>
+<tr>
+<td><code>each</code></td>
+<td>Each</td>
+<td>各要素に対して処理を実行</td>
+</tr>
+<tr>
+<td><code>each_with_index</code></td>
+<td>Each With Index</td>
+<td>インデックス付きで各要素を処理</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>Sort</td>
+<td>要素をソート。<code>[3,1,2].sort #=> [1,2,3]</code></td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td>Reverse</td>
+<td>要素を逆順にする。<code>[1,2,3].reverse #=> [3,2,1]</code></td>
+</tr>
+<tr>
+<td><code>shuffle</code></td>
+<td>Shuffle</td>
+<td>要素をランダムに並び替える</td>
+</tr>
+<tr>
+<td><code>uniq</code></td>
+<td>Unique</td>
+<td>重複を削除。<code>[1,2,2,3].uniq #=> [1,2,3]</code></td>
+</tr>
+<tr>
+<td><code>flatten</code></td>
+<td>Flatten</td>
+<td>多次元配列を1次元に。<code>[[1,2],[3,4]].flatten #=> [1,2,3,4]</code></td>
+</tr>
+<tr>
+<td><code>compact</code></td>
+<td>Compact</td>
+<td>nilを削除。<code>[1,nil,2,nil,3].compact #=> [1,2,3]</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ハッシュ（Hash）メソッド</h2>
+
+<h3><strong>要素の取得と設定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[key]</code></td>
+<td>Get</td>
+<td>キーに対応する値を取得</td>
+</tr>
+<tr>
+<td><code>[key] = value</code></td>
+<td>Set</td>
+<td>キーに値を設定</td>
+</tr>
+<tr>
+<td><code>fetch(key)</code></td>
+<td>Fetch</td>
+<td>キーの値を取得（存在しなければエラー）</td>
+</tr>
+<tr>
+<td><code>keys</code></td>
+<td>Keys</td>
+<td>すべてのキーを配列で返す</td>
+</tr>
+<tr>
+<td><code>values</code></td>
+<td>Values</td>
+<td>すべての値を配列で返す</td>
+</tr>
+<tr>
+<td><code>has_key?</code> / <code>key?</code></td>
+<td>Has Key</td>
+<td>指定のキーが存在するか</td>
+</tr>
+<tr>
+<td><code>has_value?</code> / <code>value?</code></td>
+<td>Has Value</td>
+<td>指定の値が存在するか</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3><strong>ハッシュの操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>merge(other_hash)</code></td>
+<td>Merge</td>
+<td>別のハッシュと結合（非破壊的）</td>
+</tr>
+<tr>
+<td><code>merge!(other_hash)</code></td>
+<td>Merge!</td>
+<td>別のハッシュと結合（破壊的）</td>
+</tr>
+<tr>
+<td><code>delete(key)</code></td>
+<td>Delete</td>
+<td>指定のキーと値を削除</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Clear</td>
+<td>すべての要素を削除</td>
+</tr>
+<tr>
+<td><code>each</code></td>
+<td>Each</td>
+<td>各キーと値のペアに対して処理</td>
+</tr>
+<tr>
+<td><code>select</code></td>
+<td>Select</td>
+<td>条件に一致するペアを選択</td>
+</tr>
+<tr>
+<td><code>reject</code></td>
+<td>Reject</td>
+<td>条件に一致しないペアを選択</td>
+</tr>
+<tr>
+<td><code>invert</code></td>
+<td>Invert</td>
+<td>キーと値を入れ替える</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>数値（Numeric）メソッド</h2>
+
+<h3><strong>数値の操作と判定</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abs</code></td>
+<td>Absolute</td>
+<td>絶対値を返す。<code>-5.abs #=> 5</code></td>
+</tr>
+<tr>
+<td><code>round</code></td>
+<td>Round</td>
+<td>四捨五入。<code>3.14.round #=> 3</code></td>
+</tr>
+<tr>
+<td><code>ceil</code></td>
+<td>Ceiling</td>
+<td>切り上げ。<code>3.14.ceil #=> 4</code></td>
+</tr>
+<tr>
+<td><code>floor</code></td>
+<td>Floor</td>
+<td>切り捨て。<code>3.14.floor #=> 3</code></td>
+</tr>
+<tr>
+<td><code>even?</code></td>
+<td>Even</td>
+<td>偶数か。<code>4.even? #=> true</code></td>
+</tr>
+<tr>
+<td><code>odd?</code></td>
+<td>Odd</td>
+<td>奇数か。<code>3.odd? #=> true</code></td>
+</tr>
+<tr>
+<td><code>zero?</code></td>
+<td>Zero</td>
+<td>ゼロか。<code>0.zero? #=> true</code></td>
+</tr>
+<tr>
+<td><code>positive?</code></td>
+<td>Positive</td>
+<td>正の数か。<code>5.positive? #=> true</code></td>
+</tr>
+<tr>
+<td><code>negative?</code></td>
+<td>Negative</td>
+<td>負の数か。<code>-5.negative? #=> true</code></td>
+</tr>
+<tr>
+<td><code>times</code></td>
+<td>Times</td>
+<td>指定回数繰り返す。<code>3.times { puts "hello" }</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>範囲（Range）メソッド</h2>
+
+<h3><strong>範囲の操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>to_a</code></td>
+<td>To Array</td>
+<td>配列に変換。<code>(1..5).to_a #=> [1,2,3,4,5]</code></td>
+</tr>
+<tr>
+<td><code>include?</code> / <code>cover?</code></td>
+<td>Include / Cover</td>
+<td>値が範囲内か。<code>(1..10).include?(5) #=> true</code></td>
+</tr>
+<tr>
+<td><code>each</code></td>
+<td>Each</td>
+<td>範囲内の各値に対して処理</td>
+</tr>
+<tr>
+<td><code>step(n)</code></td>
+<td>Step</td>
+<td>n個おきに処理。<code>(0..10).step(2) { |i| puts i }</code></td>
+</tr>
+<tr>
+<td><code>first</code> / <code>begin</code></td>
+<td>First / Begin</td>
+<td>範囲の最初の値</td>
+</tr>
+<tr>
+<td><code>last</code> / <code>end</code></td>
+<td>Last / End</td>
+<td>範囲の最後の値</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ファイル（File）クラス</h2>
+
+<h3><strong>ファイル操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>File.open(path, mode)</code></td>
+<td>Open</td>
+<td>ファイルを開く。modeは"r", "w", "a"など</td>
+</tr>
+<tr>
+<td><code>File.read(path)</code></td>
+<td>Read</td>
+<td>ファイル全体を読み込む</td>
+</tr>
+<tr>
+<td><code>File.write(path, content)</code></td>
+<td>Write</td>
+<td>ファイルに書き込む</td>
+</tr>
+<tr>
+<td><code>File.exist?(path)</code></td>
+<td>Exist</td>
+<td>ファイルが存在するか</td>
+</tr>
+<tr>
+<td><code>File.size(path)</code></td>
+<td>Size</td>
+<td>ファイルサイズを取得</td>
+</tr>
+<tr>
+<td><code>File.delete(path)</code></td>
+<td>Delete</td>
+<td>ファイルを削除</td>
+</tr>
+<tr>
+<td><code>File.rename(old, new)</code></td>
+<td>Rename</td>
+<td>ファイル名を変更</td>
+</tr>
+<tr>
+<td><code>File.directory?(path)</code></td>
+<td>Directory</td>
+<td>ディレクトリか判定</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>時刻（Time）クラス</h2>
+
+<h3><strong>時刻の操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Time.now</code></td>
+<td>Now</td>
+<td>現在時刻を取得</td>
+</tr>
+<tr>
+<td><code>Time.new(year, month, day)</code></td>
+<td>New</td>
+<td>指定日時のTimeオブジェクトを作成</td>
+</tr>
+<tr>
+<td><code>strftime(format)</code></td>
+<td>String Format Time</td>
+<td>指定形式で文字列化。<code>time.strftime("%Y-%m-%d")</code></td>
+</tr>
+<tr>
+<td><code>year</code> / <code>month</code> / <code>day</code></td>
+<td>Year / Month / Day</td>
+<td>年/月/日を取得</td>
+</tr>
+<tr>
+<td><code>hour</code> / <code>min</code> / <code>sec</code></td>
+<td>Hour / Minute / Second</td>
+<td>時/分/秒を取得</td>
+</tr>
+<tr>
+<td><code>wday</code></td>
+<td>Weekday</td>
+<td>曜日を数値で取得（0:日曜〜6:土曜）</td>
+</tr>
+<tr>
+<td><code>+</code> / <code>-</code></td>
+<td>Plus / Minus</td>
+<td>秒数を加算/減算。<code>time + 3600</code>（1時間後）</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>Enumerable（列挙可能）モジュール</h2>
+
+<h3><strong>集約と変換</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reduce</code> / <code>inject</code></td>
+<td>Reduce / Inject</td>
+<td>要素を集約。<code>[1,2,3].reduce(:+) #=> 6</code></td>
+</tr>
+<tr>
+<td><code>all?</code></td>
+<td>All</td>
+<td>すべて条件を満たすか。<code>[2,4,6].all?(&:even?) #=> true</code></td>
+</tr>
+<tr>
+<td><code>any?</code></td>
+<td>Any</td>
+<td>いずれか条件を満たすか。<code>[1,2,3].any?(&:even?) #=> true</code></td>
+</tr>
+<tr>
+<td><code>none?</code></td>
+<td>None</td>
+<td>どれも条件を満たさないか</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>Count</td>
+<td>要素数または条件に一致する数を返す</td>
+</tr>
+<tr>
+<td><code>max</code> / <code>min</code></td>
+<td>Maximum / Minimum</td>
+<td>最大値/最小値を返す</td>
+</tr>
+<tr>
+<td><code>max_by</code> / <code>min_by</code></td>
+<td>Max By / Min By</td>
+<td>ブロックの結果が最大/最小の要素を返す</td>
+</tr>
+<tr>
+<td><code>group_by</code></td>
+<td>Group By</td>
+<td>ブロックの結果でグループ化</td>
+</tr>
+<tr>
+<td><code>partition</code></td>
+<td>Partition</td>
+<td>条件で真と偽の2つの配列に分割</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+</body>
+</html>

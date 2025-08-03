@@ -203,6 +203,38 @@ const searchIndex = [
             { heading: "シェルスクリプトの基礎", keywords: ["#!/bin/bash", "variable", "if", "for", "while", "function"] },
             { heading: "環境変数とエイリアス", keywords: ["export", "PATH", "alias", "source", ".bashrc", ".zshrc"] }
         ]
+    },
+    {
+        title: "Rubyメソッド一覧",
+        url: "ruby-reference.html",
+        category: "Ruby",
+        keywords: ["ruby", "ルビー", "メソッド", "method", "クラス", "class", "string", "array", "hash"],
+        sections: [
+            { heading: "文字列（String）メソッド", keywords: ["length", "upcase", "downcase", "capitalize", "reverse", "strip", "gsub", "split"] },
+            { heading: "配列（Array）メソッド", keywords: ["push", "pop", "shift", "unshift", "each", "map", "select", "sort", "uniq"] },
+            { heading: "ハッシュ（Hash）メソッド", keywords: ["keys", "values", "has_key?", "merge", "delete", "each", "select"] },
+            { heading: "数値（Numeric）メソッド", keywords: ["abs", "round", "ceil", "floor", "even?", "odd?", "times"] },
+            { heading: "範囲（Range）メソッド", keywords: ["to_a", "include?", "each", "step", "first", "last"] },
+            { heading: "ファイル（File）クラス", keywords: ["open", "read", "write", "exist?", "size", "delete"] },
+            { heading: "時刻（Time）クラス", keywords: ["now", "strftime", "year", "month", "day", "hour"] },
+            { heading: "Enumerable（列挙可能）モジュール", keywords: ["reduce", "inject", "all?", "any?", "count", "max", "min"] }
+        ]
+    },
+    {
+        title: "Ruby記法チートシート",
+        url: "ruby-cheatsheet.html",
+        category: "Ruby",
+        keywords: ["ruby", "ルビー", "記法", "構文", "syntax", "チートシート", "cheatsheet"],
+        sections: [
+            { heading: "変数と定数", keywords: ["local", "instance", "@", "class", "@@", "global", "$", "constant"] },
+            { heading: "データ型", keywords: ["string", "array", "hash", "symbol", "range", "nil", "boolean"] },
+            { heading: "制御構文", keywords: ["if", "elsif", "else", "unless", "case", "when", "while", "until", "for", "each"] },
+            { heading: "メソッド（関数）", keywords: ["def", "return", "yield", "block", "argument", "default", "keyword"] },
+            { heading: "クラスとモジュール", keywords: ["class", "module", "initialize", "attr_accessor", "include", "extend", "inheritance"] },
+            { heading: "エラー処理", keywords: ["begin", "rescue", "ensure", "raise", "retry", "exception"] },
+            { heading: "ブロック・Proc・Lambda", keywords: ["block", "proc", "lambda", "yield", "call", "->"] },
+            { heading: "正規表現", keywords: ["match", "=~", "gsub", "scan", "capture", "regex"] }
+        ]
     }
 ];
 
@@ -220,5 +252,7 @@ const contentCache = {
     "sql-reference.html": "SQL データベース database クエリ query コマンド command DDL DML CREATE ALTER DROP SELECT INSERT UPDATE DELETE JOIN INNER LEFT RIGHT GROUP BY HAVING COUNT SUM AVG トランザクション",
     "sql-cheatsheet.html": "SQL 記法 syntax 構文 チートシート cheatsheet SELECT FROM WHERE ORDER BY LIMIT CREATE TABLE INSERT UPDATE DELETE JOIN GROUP BY HAVING CASE WHEN トランザクション transaction",
     "linux-commands.html": "Linux リナックス コマンド command bash shell terminal ls cd pwd mkdir rm cp mv find grep ps top kill chmod chown ssh apt yum tar",
-    "linux-cheatsheet.html": "Linux 記法 syntax 構文 チートシート bash shell コマンドライン command line pipe redirect | > >> < permission chmod 755 644 export alias"
+    "linux-cheatsheet.html": "Linux 記法 syntax 構文 チートシート bash shell コマンドライン command line pipe redirect | > >> < permission chmod 755 644 export alias",
+    "ruby-reference.html": "Ruby ルビー メソッド method プロパティ クラス class String Array Hash Numeric Range File Time Enumerable length upcase downcase push pop map select each",
+    "ruby-cheatsheet.html": "Ruby ルビー 記法 syntax 構文 チートシート cheatsheet 変数 variable 定数 constant if else class module def yield block proc lambda 正規表現 regex"
 };

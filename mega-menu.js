@@ -49,12 +49,14 @@ class MegaMenu {
                     
                     <div class="mega-menu-section">
                         <h3>プログラミング</h3>
-                        <p class="category-description">JavaScript・SQLなどのプログラミング言語</p>
+                        <p class="category-description">JavaScript・SQL・Rubyなどのプログラミング言語</p>
                         <div class="mega-menu-links">
                             <a href="javascript-reference.html">JSメソッド一覧</a>
                             <a href="javascript-cheatsheet.html">JS記法チート</a>
                             <a href="sql-reference.html">SQLコマンド一覧</a>
                             <a href="sql-cheatsheet.html">SQL記法チート</a>
+                            <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                            <a href="ruby-cheatsheet.html">Ruby記法チート</a>
                         </div>
                     </div>
                     

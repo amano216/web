@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruby記法チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        /* コードハイライト */
+        pre {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+        }
+
+        /* インラインコード */
+        :not(pre) > code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #e06c75;
+        }
+
+        /* Rubyコードのシンタックスハイライト */
+        .ruby-code {
+            color: #abb2bf;
+        }
+
+        .ruby-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .ruby-keyword {
+            color: #c678dd;
+        }
+
+        .ruby-string {
+            color: #98c379;
+        }
+
+        .ruby-number {
+            color: #d19a66;
+        }
+
+        .ruby-method {
+            color: #61afef;
+        }
+
+        .ruby-class {
+            color: #e5c07b;
+        }
+
+        .ruby-symbol {
+            color: #56b6c2;
+        }
+
+        /* ポイントボックス */
+        .tip-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--interactive-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tip-box strong {
+            color: var(--interactive-accent);
+        }
+
+        /* テーブル */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html" class="active">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>Ruby記法チートシート</h1>
+
+<p>Rubyプログラミングでよく使う構文と記法を素早く確認できるチートシートです。</p>
+
+<hr>
+
+<h2>Rubyの基本構文</h2>
+
+<h3><strong>変数と定数</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># ローカル変数（小文字またはアンダースコアで開始）</span>
+name = <span class="ruby-string">"Ruby"</span>
+age = <span class="ruby-number">30</span>
+_temp = <span class="ruby-number">100</span>
+
+<span class="ruby-comment"># インスタンス変数（@で開始）</span>
+@name = <span class="ruby-string">"インスタンス変数"</span>
+
+<span class="ruby-comment"># クラス変数（@@で開始）</span>
+@@count = <span class="ruby-number">0</span>
+
+<span class="ruby-comment"># グローバル変数（$で開始）</span>
+$global_var = <span class="ruby-string">"グローバル"</span>
+
+<span class="ruby-comment"># 定数（大文字で開始）</span>
+<span class="ruby-class">PI</span> = <span class="ruby-number">3.14159</span>
+<span class="ruby-class">MAX_SIZE</span> = <span class="ruby-number">100</span></code></pre>
+
+<h3><strong>データ型</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 数値</span>
+integer = <span class="ruby-number">42</span>
+float = <span class="ruby-number">3.14</span>
+big_num = <span class="ruby-number">1_000_000</span>  <span class="ruby-comment"># アンダースコアで区切り可能</span>
+
+<span class="ruby-comment"># 文字列</span>
+single_quote = <span class="ruby-string">'シングルクォート'</span>
+double_quote = <span class="ruby-string">"ダブルクォート: #{integer}"</span>  <span class="ruby-comment"># 式展開可能</span>
+multiline = <span class="ruby-string"><<~TEXT
+  複数行の
+  文字列
+TEXT</span>
+
+<span class="ruby-comment"># シンボル</span>
+symbol = <span class="ruby-symbol">:ruby</span>
+another_symbol = <span class="ruby-symbol">:"space included"</span>
+
+<span class="ruby-comment"># 配列</span>
+array = [<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>]
+mixed = [<span class="ruby-number">1</span>, <span class="ruby-string">"two"</span>, <span class="ruby-symbol">:three</span>]
+words = <span class="ruby-string">%w[apple banana cherry]</span>  <span class="ruby-comment"># ["apple", "banana", "cherry"]</span>
+
+<span class="ruby-comment"># ハッシュ</span>
+hash = { <span class="ruby-symbol">:name</span> => <span class="ruby-string">"Ruby"</span>, <span class="ruby-symbol">:version</span> => <span class="ruby-number">3.0</span> }
+modern_hash = { <span class="ruby-symbol">name:</span> <span class="ruby-string">"Ruby"</span>, <span class="ruby-symbol">version:</span> <span class="ruby-number">3.0</span> }  <span class="ruby-comment"># シンボルキーの省略記法</span>
+
+<span class="ruby-comment"># 範囲</span>
+inclusive = <span class="ruby-number">1</span>..<span class="ruby-number">10</span>   <span class="ruby-comment"># 1から10まで（10を含む）</span>
+exclusive = <span class="ruby-number">1</span>...<span class="ruby-number">10</span>  <span class="ruby-comment"># 1から9まで（10を含まない）</span>
+
+<span class="ruby-comment"># nil（空値）</span>
+nothing = <span class="ruby-keyword">nil</span>
+
+<span class="ruby-comment"># ブール値</span>
+is_true = <span class="ruby-keyword">true</span>
+is_false = <span class="ruby-keyword">false</span></code></pre>
+
+<hr>
+
+<h2>制御構文</h2>
+
+<h3><strong>条件分岐</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># if文</span>
+<span class="ruby-keyword">if</span> age >= <span class="ruby-number">18</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"成人"</span>
+<span class="ruby-keyword">elsif</span> age >= <span class="ruby-number">13</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"ティーンエイジャー"</span>
+<span class="ruby-keyword">else</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"子供"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 一行if文（後置if）</span>
+<span class="ruby-method">puts</span> <span class="ruby-string">"成人"</span> <span class="ruby-keyword">if</span> age >= <span class="ruby-number">18</span>
+
+<span class="ruby-comment"># unless文（ifの否定）</span>
+<span class="ruby-keyword">unless</span> name.empty?
+  <span class="ruby-method">puts</span> <span class="ruby-string">"名前: #{name}"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 三項演算子</span>
+status = age >= <span class="ruby-number">18</span> ? <span class="ruby-string">"成人"</span> : <span class="ruby-string">"未成年"</span>
+
+<span class="ruby-comment"># case文</span>
+<span class="ruby-keyword">case</span> grade
+<span class="ruby-keyword">when</span> <span class="ruby-string">'A'</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"優秀"</span>
+<span class="ruby-keyword">when</span> <span class="ruby-string">'B'</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"良好"</span>
+<span class="ruby-keyword">when</span> <span class="ruby-string">'C'</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"合格"</span>
+<span class="ruby-keyword">else</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"要努力"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># case文での範囲マッチング</span>
+<span class="ruby-keyword">case</span> score
+<span class="ruby-keyword">when</span> <span class="ruby-number">90</span>..<span class="ruby-number">100</span>
+  <span class="ruby-string">"A"</span>
+<span class="ruby-keyword">when</span> <span class="ruby-number">80</span>...<span class="ruby-number">90</span>
+  <span class="ruby-string">"B"</span>
+<span class="ruby-keyword">when</span> <span class="ruby-number">70</span>...<span class="ruby-number">80</span>
+  <span class="ruby-string">"C"</span>
+<span class="ruby-keyword">else</span>
+  <span class="ruby-string">"F"</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<h3><strong>繰り返し処理</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># while文</span>
+i = <span class="ruby-number">0</span>
+<span class="ruby-keyword">while</span> i < <span class="ruby-number">5</span>
+  <span class="ruby-method">puts</span> i
+  i += <span class="ruby-number">1</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># until文（whileの否定）</span>
+i = <span class="ruby-number">0</span>
+<span class="ruby-keyword">until</span> i == <span class="ruby-number">5</span>
+  <span class="ruby-method">puts</span> i
+  i += <span class="ruby-number">1</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># for文</span>
+<span class="ruby-keyword">for</span> i <span class="ruby-keyword">in</span> <span class="ruby-number">1</span>..<span class="ruby-number">5</span>
+  <span class="ruby-method">puts</span> i
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># each（推奨）</span>
+[<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>].each <span class="ruby-keyword">do</span> |num|
+  <span class="ruby-method">puts</span> num
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># eachの一行記法</span>
+[<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>].each { |num| <span class="ruby-method">puts</span> num }
+
+<span class="ruby-comment"># times</span>
+<span class="ruby-number">5</span>.times <span class="ruby-keyword">do</span> |i|
+  <span class="ruby-method">puts</span> <span class="ruby-string">"繰り返し #{i}"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># loop（無限ループ）</span>
+<span class="ruby-keyword">loop</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"無限ループ"</span>
+  <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> condition  <span class="ruby-comment"># breakで脱出</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># break、next、redo</span>
+[<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>, <span class="ruby-number">4</span>, <span class="ruby-number">5</span>].each <span class="ruby-keyword">do</span> |num|
+  <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> num == <span class="ruby-number">3</span>     <span class="ruby-comment"># 3をスキップ</span>
+  <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> num == <span class="ruby-number">4</span>    <span class="ruby-comment"># 4で終了</span>
+  <span class="ruby-method">puts</span> num
+<span class="ruby-keyword">end</span></code></pre>
+
+<hr>
+
+<h2>メソッド（関数）</h2>
+
+<h3><strong>メソッドの定義</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 基本的なメソッド</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">greet</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"こんにちは"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 引数付きメソッド</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">greet</span>(name)
+  <span class="ruby-method">puts</span> <span class="ruby-string">"こんにちは、#{name}さん"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># デフォルト引数</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">greet</span>(name = <span class="ruby-string">"ゲスト"</span>)
+  <span class="ruby-method">puts</span> <span class="ruby-string">"こんにちは、#{name}さん"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># キーワード引数</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">create_user</span>(<span class="ruby-symbol">name:</span>, <span class="ruby-symbol">age:</span>, <span class="ruby-symbol">email:</span> <span class="ruby-keyword">nil</span>)
+  { <span class="ruby-symbol">name:</span> name, <span class="ruby-symbol">age:</span> age, <span class="ruby-symbol">email:</span> email }
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-method">create_user</span>(<span class="ruby-symbol">name:</span> <span class="ruby-string">"太郎"</span>, <span class="ruby-symbol">age:</span> <span class="ruby-number">25</span>)
+
+<span class="ruby-comment"># 可変長引数</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">sum</span>(*numbers)
+  numbers.<span class="ruby-method">reduce</span>(<span class="ruby-number">0</span>, <span class="ruby-symbol">:+</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-method">sum</span>(<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>, <span class="ruby-number">4</span>)  <span class="ruby-comment"># => 10</span>
+
+<span class="ruby-comment"># ブロック付きメソッド</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">with_timing</span>
+  start = <span class="ruby-class">Time</span>.now
+  <span class="ruby-keyword">yield</span>
+  <span class="ruby-class">Time</span>.now - start
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-method">with_timing</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-method">sleep</span> <span class="ruby-number">1</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 戻り値（最後の式が自動的に返される）</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">add</span>(a, b)
+  a + b  <span class="ruby-comment"># returnは省略可能</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 明示的なreturn</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">check_age</span>(age)
+  <span class="ruby-keyword">return</span> <span class="ruby-string">"エラー: 無効な年齢"</span> <span class="ruby-keyword">if</span> age < <span class="ruby-number">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">"未成年"</span> <span class="ruby-keyword">if</span> age < <span class="ruby-number">18</span>
+  <span class="ruby-string">"成人"</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<hr>
+
+<h2>クラスとモジュール</h2>
+
+<h3><strong>クラス定義</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 基本的なクラス</span>
+<span class="ruby-keyword">class</span> <span class="ruby-class">Person</span>
+  <span class="ruby-comment"># コンストラクタ</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-method">initialize</span>(name, age)
+    @name = name
+    @age = age
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># ゲッター</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-method">name</span>
+    @name
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># セッター</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-method">name=</span>(value)
+    @name = value
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># インスタンスメソッド</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-method">introduce</span>
+    <span class="ruby-string">"私は#{@name}、#{@age}歳です。"</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># クラスメソッド</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-method">species</span>
+    <span class="ruby-string">"Homo sapiens"</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># attr_accessorを使った簡潔な記法</span>
+<span class="ruby-keyword">class</span> <span class="ruby-class">Person</span>
+  <span class="ruby-method">attr_accessor</span> <span class="ruby-symbol">:name</span>, <span class="ruby-symbol">:age</span>  <span class="ruby-comment"># ゲッターとセッターを自動生成</span>
+  <span class="ruby-method">attr_reader</span> <span class="ruby-symbol">:id</span>          <span class="ruby-comment"># ゲッターのみ</span>
+  <span class="ruby-method">attr_writer</span> <span class="ruby-symbol">:password</span>    <span class="ruby-comment"># セッターのみ</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-method">initialize</span>(name, age)
+    @name = name
+    @age = age
+    @id = <span class="ruby-class">SecureRandom</span>.uuid
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 継承</span>
+<span class="ruby-keyword">class</span> <span class="ruby-class">Student</span> < <span class="ruby-class">Person</span>
+  <span class="ruby-method">attr_accessor</span> <span class="ruby-symbol">:school</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-method">initialize</span>(name, age, school)
+    <span class="ruby-keyword">super</span>(name, age)  <span class="ruby-comment"># 親クラスのinitializeを呼び出す</span>
+    @school = school
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-method">introduce</span>
+    <span class="ruby-keyword">super</span> + <span class="ruby-string">" #{@school}の学生です。"</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<h3><strong>モジュール</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># モジュール定義</span>
+<span class="ruby-keyword">module</span> <span class="ruby-class">Greeting</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-method">say_hello</span>
+    <span class="ruby-string">"こんにちは"</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-method">say_goodbye</span>
+    <span class="ruby-string">"さようなら"</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># ミックスイン</span>
+<span class="ruby-keyword">class</span> <span class="ruby-class">Person</span>
+  <span class="ruby-keyword">include</span> <span class="ruby-class">Greeting</span>  <span class="ruby-comment"># インスタンスメソッドとして追加</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 名前空間としてのモジュール</span>
+<span class="ruby-keyword">module</span> <span class="ruby-class">MyApp</span>
+  <span class="ruby-keyword">class</span> <span class="ruby-class">User</span>
+    <span class="ruby-comment"># ...</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">class</span> <span class="ruby-class">Admin</span> < <span class="ruby-class">User</span>
+    <span class="ruby-comment"># ...</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+user = <span class="ruby-class">MyApp</span>::<span class="ruby-class">User</span>.new</code></pre>
+
+<hr>
+
+<h2>エラー処理</h2>
+
+<h3><strong>例外処理</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 基本的な例外処理</span>
+<span class="ruby-keyword">begin</span>
+  <span class="ruby-comment"># 危険な処理</span>
+  result = <span class="ruby-number">10</span> / <span class="ruby-number">0</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-class">ZeroDivisionError</span> => e
+  <span class="ruby-method">puts</span> <span class="ruby-string">"ゼロ除算エラー: #{e.message}"</span>
+<span class="ruby-keyword">rescue</span> => e
+  <span class="ruby-method">puts</span> <span class="ruby-string">"その他のエラー: #{e.message}"</span>
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"必ず実行される"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 例外を発生させる</span>
+<span class="ruby-keyword">raise</span> <span class="ruby-string">"エラーメッセージ"</span>
+<span class="ruby-keyword">raise</span> <span class="ruby-class">ArgumentError</span>, <span class="ruby-string">"引数が無効です"</span>
+
+<span class="ruby-comment"># カスタム例外</span>
+<span class="ruby-keyword">class</span> <span class="ruby-class">MyError</span> < <span class="ruby-class">StandardError</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-method">risky_method</span>
+  <span class="ruby-keyword">raise</span> <span class="ruby-class">MyError</span>, <span class="ruby-string">"何か問題が発生しました"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># retry（再試行）</span>
+retries = <span class="ruby-number">0</span>
+<span class="ruby-keyword">begin</span>
+  <span class="ruby-comment"># ネットワーク接続など</span>
+<span class="ruby-keyword">rescue</span>
+  retries += <span class="ruby-number">1</span>
+  <span class="ruby-keyword">retry</span> <span class="ruby-keyword">if</span> retries < <span class="ruby-number">3</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<hr>
+
+<h2>ブロック・Proc・Lambda</h2>
+
+<h3><strong>ブロック</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># ブロックの基本</span>
+[<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>].each <span class="ruby-keyword">do</span> |num|
+  <span class="ruby-method">puts</span> num * <span class="ruby-number">2</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 一行ブロック</span>
+[<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>].each { |num| <span class="ruby-method">puts</span> num * <span class="ruby-number">2</span> }
+
+<span class="ruby-comment"># ブロック付きメソッドの定義</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">my_method</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"開始"</span>
+  <span class="ruby-keyword">yield</span>(<span class="ruby-number">10</span>) <span class="ruby-keyword">if</span> <span class="ruby-method">block_given?</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"終了"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-method">my_method</span> <span class="ruby-keyword">do</span> |value|
+  <span class="ruby-method">puts</span> <span class="ruby-string">"値は #{value}"</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<h3><strong>ProcとLambda</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># Proc</span>
+my_proc = <span class="ruby-class">Proc</span>.new { |x| x * <span class="ruby-number">2</span> }
+my_proc = proc { |x| x * <span class="ruby-number">2</span> }  <span class="ruby-comment"># 省略形</span>
+
+<span class="ruby-method">puts</span> my_proc.call(<span class="ruby-number">5</span>)    <span class="ruby-comment"># => 10</span>
+<span class="ruby-method">puts</span> my_proc[<span class="ruby-number">5</span>]         <span class="ruby-comment"># => 10</span>
+<span class="ruby-method">puts</span> my_proc.(<span class="ruby-number">5</span>)        <span class="ruby-comment"># => 10</span>
+
+<span class="ruby-comment"># Lambda</span>
+my_lambda = lambda { |x| x * <span class="ruby-number">2</span> }
+my_lambda = ->(x) { x * <span class="ruby-number">2</span> }  <span class="ruby-comment"># 省略形（stabby lambda）</span>
+
+<span class="ruby-comment"># ProcとLambdaの違い</span>
+<span class="ruby-comment"># 1. 引数のチェック</span>
+my_proc = proc { |a, b| a + b }
+my_lambda = lambda { |a, b| a + b }
+
+my_proc.call(<span class="ruby-number">1</span>)      <span class="ruby-comment"># => エラーにならない（bはnil）</span>
+<span class="ruby-comment"># my_lambda.call(1)  # => ArgumentError</span>
+
+<span class="ruby-comment"># 2. returnの挙動</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">test_proc</span>
+  my_proc = proc { <span class="ruby-keyword">return</span> <span class="ruby-string">"Procから"</span> }
+  my_proc.call
+  <span class="ruby-string">"メソッドの最後"</span>  <span class="ruby-comment"># 実行されない</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-method">test_lambda</span>
+  my_lambda = lambda { <span class="ruby-keyword">return</span> <span class="ruby-string">"Lambdaから"</span> }
+  my_lambda.call
+  <span class="ruby-string">"メソッドの最後"</span>  <span class="ruby-comment"># 実行される</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<hr>
+
+<h2>よく使うイディオム</h2>
+
+<h3><strong>便利な記法</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 安全なナビゲーション演算子（&.）</span>
+user&.name&.upcase  <span class="ruby-comment"># userやnameがnilでもエラーにならない</span>
+
+<span class="ruby-comment"># ||= （or equals）</span>
+@cache ||= expensive_operation()  <span class="ruby-comment"># @cacheがnilまたはfalseの時だけ実行</span>
+
+<span class="ruby-comment"># tap（オブジェクトを返しながら処理）</span>
+user = <span class="ruby-class">User</span>.new.tap <span class="ruby-keyword">do</span> |u|
+  u.name = <span class="ruby-string">"太郎"</span>
+  u.age = <span class="ruby-number">30</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># 配列の分解代入</span>
+a, b, c = [<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>]
+first, *rest = [<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>, <span class="ruby-number">4</span>]  <span class="ruby-comment"># first = 1, rest = [2, 3, 4]</span>
+
+<span class="ruby-comment"># 複数の値を返す</span>
+<span class="ruby-keyword">def</span> <span class="ruby-method">min_max</span>(array)
+  [array.min, array.max]
+<span class="ruby-keyword">end</span>
+
+min, max = <span class="ruby-method">min_max</span>([<span class="ruby-number">3</span>, <span class="ruby-number">1</span>, <span class="ruby-number">4</span>, <span class="ruby-number">1</span>, <span class="ruby-number">5</span>])
+
+<span class="ruby-comment"># メソッドチェーン</span>
+result = [<span class="ruby-number">1</span>, <span class="ruby-number">2</span>, <span class="ruby-number">3</span>, <span class="ruby-number">4</span>, <span class="ruby-number">5</span>]
+  .select { |n| n.even? }
+  .map { |n| n * <span class="ruby-number">2</span> }
+  .reduce(<span class="ruby-symbol">:+</span>)
+
+<span class="ruby-comment"># シンボルto_proc</span>
+[<span class="ruby-string">"ruby"</span>, <span class="ruby-string">"python"</span>, <span class="ruby-string">"java"</span>].map(&<span class="ruby-symbol">:upcase</span>)
+<span class="ruby-comment"># 同じ意味: .map { |s| s.upcase }</span>
+
+<span class="ruby-comment"># ヒアドキュメント</span>
+sql = <span class="ruby-string"><<~SQL
+  SELECT *
+  FROM users
+  WHERE age >= 18
+  ORDER BY created_at DESC
+SQL</span>
+
+<span class="ruby-comment"># 正規表現マッチング</span>
+<span class="ruby-keyword">if</span> email =~ <span class="ruby-string">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span>
+  <span class="ruby-method">puts</span> <span class="ruby-string">"有効なメールアドレス"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># case文での正規表現</span>
+<span class="ruby-keyword">case</span> string
+<span class="ruby-keyword">when</span> <span class="ruby-string">/\A\d+\z/</span>
+  <span class="ruby-string">"数値のみ"</span>
+<span class="ruby-keyword">when</span> <span class="ruby-string">/\A[a-zA-Z]+\z/</span>
+  <span class="ruby-string">"アルファベットのみ"</span>
+<span class="ruby-keyword">else</span>
+  <span class="ruby-string">"混在"</span>
+<span class="ruby-keyword">end</span></code></pre>
+
+<div class="tip-box">
+<strong>💡 ポイント:</strong> Rubyは「プログラマの幸せのために」設計された言語で、同じことを実現する方法が複数あることが多いです。コードの読みやすさと保守性を考慮して、チームで一貫したスタイルを選択することが重要です。
+</div>
+
+<hr>
+
+<h2>ファイル操作</h2>
+
+<h3><strong>ファイルの読み書き</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># ファイルを読む</span>
+content = <span class="ruby-class">File</span>.read(<span class="ruby-string">"file.txt"</span>)
+
+<span class="ruby-comment"># 行ごとに読む</span>
+<span class="ruby-class">File</span>.foreach(<span class="ruby-string">"file.txt"</span>) <span class="ruby-keyword">do</span> |line|
+  <span class="ruby-method">puts</span> line
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># ファイルに書き込む</span>
+<span class="ruby-class">File</span>.write(<span class="ruby-string">"output.txt"</span>, <span class="ruby-string">"Hello, Ruby!"</span>)
+
+<span class="ruby-comment"># ファイルを開いて操作</span>
+<span class="ruby-class">File</span>.open(<span class="ruby-string">"file.txt"</span>, <span class="ruby-string">"r"</span>) <span class="ruby-keyword">do</span> |file|
+  file.each_line <span class="ruby-keyword">do</span> |line|
+    <span class="ruby-method">puts</span> line.chomp
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># モード: "r"（読み込み）、"w"（書き込み）、"a"（追記）</span>
+<span class="ruby-class">File</span>.open(<span class="ruby-string">"log.txt"</span>, <span class="ruby-string">"a"</span>) <span class="ruby-keyword">do</span> |file|
+  file.puts <span class="ruby-string">"#{Time.now}: ログエントリ"</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># ファイルの存在確認</span>
+<span class="ruby-keyword">if</span> <span class="ruby-class">File</span>.exist?(<span class="ruby-string">"config.yml"</span>)
+  config = <span class="ruby-class">YAML</span>.load_file(<span class="ruby-string">"config.yml"</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># ディレクトリ操作</span>
+<span class="ruby-class">Dir</span>.mkdir(<span class="ruby-string">"new_folder"</span>) <span class="ruby-keyword">unless</span> <span class="ruby-class">Dir</span>.exist?(<span class="ruby-string">"new_folder"</span>)
+<span class="ruby-class">Dir</span>.glob(<span class="ruby-string">"*.rb"</span>).each <span class="ruby-keyword">do</span> |file|
+  <span class="ruby-method">puts</span> file
+<span class="ruby-keyword">end</span></code></pre>
+
+<hr>
+
+<h2>正規表現</h2>
+
+<h3><strong>基本的なパターン</strong></h3>
+
+<pre><code class="ruby-code"><span class="ruby-comment"># 基本的なマッチング</span>
+<span class="ruby-string">"hello ruby"</span> =~ <span class="ruby-string">/ruby/</span>    <span class="ruby-comment"># => 6（マッチした位置）</span>
+<span class="ruby-string">"hello ruby"</span>.match(<span class="ruby-string">/ruby/</span>) <span class="ruby-comment"># => #<MatchData "ruby"></span>
+
+<span class="ruby-comment"># よく使うパターン</span>
+<span class="ruby-string">/\d+/</span>        <span class="ruby-comment"># 1つ以上の数字</span>
+<span class="ruby-string">/\w+/</span>        <span class="ruby-comment"># 1つ以上の単語文字</span>
+<span class="ruby-string">/\s+/</span>        <span class="ruby-comment"># 1つ以上の空白文字</span>
+<span class="ruby-string">/^Ruby/</span>      <span class="ruby-comment"># 行頭のRuby</span>
+<span class="ruby-string">/end$/</span>       <span class="ruby-comment"># 行末のend</span>
+<span class="ruby-string">/ru.y/</span>       <span class="ruby-comment"># ruとyの間に任意の1文字</span>
+<span class="ruby-string">/colou?r/</span>    <span class="ruby-comment"># colorまたはcolour</span>
+<span class="ruby-string">/\d{3}-\d{4}/</span> <span class="ruby-comment"># 123-4567のような形式</span>
+
+<span class="ruby-comment"># キャプチャグループ</span>
+match = <span class="ruby-string">"2024-03-15"</span>.match(<span class="ruby-string">/(\d{4})-(\d{2})-(\d{2})/</span>)
+year, month, day = match[<span class="ruby-number">1</span>], match[<span class="ruby-number">2</span>], match[<span class="ruby-number">3</span>]
+
+<span class="ruby-comment"># 名前付きキャプチャ</span>
+match = <span class="ruby-string">"太郎 25歳"</span>.match(<span class="ruby-string">/(?<name>\w+)\s+(?<age>\d+)歳/</span>)
+<span class="ruby-method">puts</span> match[<span class="ruby-symbol">:name</span>]  <span class="ruby-comment"># => "太郎"</span>
+<span class="ruby-method">puts</span> match[<span class="ruby-symbol">:age</span>]   <span class="ruby-comment"># => "25"</span>
+
+<span class="ruby-comment"># 置換</span>
+<span class="ruby-string">"hello world"</span>.gsub(<span class="ruby-string">/world/</span>, <span class="ruby-string">"Ruby"</span>)
+<span class="ruby-string">"123-456-789"</span>.gsub(<span class="ruby-string">/-/</span>, <span class="ruby-string">""</span>)
+
+<span class="ruby-comment"># スキャン（すべてのマッチを配列で返す）</span>
+<span class="ruby-string">"apple banana cherry"</span>.scan(<span class="ruby-string">/\w+/</span>)  <span class="ruby-comment"># => ["apple", "banana", "cherry"]</span></code></pre>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+<script src="mega-menu.js"></script>
+
+</body>
+</html>
