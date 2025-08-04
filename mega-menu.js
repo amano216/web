@@ -92,6 +92,8 @@ class MegaMenu {
                         <div class="mega-menu-links">
                             <a href="symbols-reference.html">記号の読み方</a>
                             <a href="shortcuts.html">ショートカット一覧</a>
+                            <a href="naming-conventions.html">命名規則</a>
+                            <a href="naming-examples.html">命名例一覧</a>
                         </div>
                     </div>
                 </div>
