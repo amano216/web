@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンピューター原理原則チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .concept-box {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-code {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background-color: rgba(127, 109, 242, 0.2);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>コンピューター原理原則チートシート</h1>
+
+<p>プログラミングとコンピューターサイエンスの基本的な原理原則をまとめたリファレンスです。プログラムの基本構造から、データ構造、アルゴリズム、設計原則まで、コンピューターの動作を理解するために必要な概念を網羅しています。</p>
+
+<hr>
+
+<h2>プログラムの基本構造</h2>
+
+<h3><strong>制御構造の3つの基本パターン</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>構造</th>
+<th>英語名 (English)</th>
+<th>説明・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>順次構造</strong></td>
+<td>Sequential Structure</td>
+<td>命令を上から順番に実行する最も基本的な構造。<br>プログラムは記述された順序通りに処理される。</td>
+</tr>
+<tr>
+<td><strong>分岐構造</strong></td>
+<td>Selection/Conditional Structure</td>
+<td>条件によって実行する処理を選択する構造。<br>if文、switch文、三項演算子などで実現。</td>
+</tr>
+<tr>
+<td><strong>反復構造</strong></td>
+<td>Iteration/Loop Structure</td>
+<td>特定の処理を繰り返し実行する構造。<br>for文、while文、do-while文などで実現。</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-code">
+<pre><code>// 順次構造の例
+let x = 10;
+let y = 20;
+let sum = x + y;
+console.log(sum);  // 30
+
+// 分岐構造の例
+if (sum > 25) {
+    console.log("合計は25より大きい");
+} else {
+    console.log("合計は25以下");
+}
+
+// 反復構造の例
+for (let i = 0; i < 5; i++) {
+    console.log(i);  // 0, 1, 2, 3, 4
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>データ構造の基本</h2>
+
+<h3><strong>主要なデータ構造</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>データ構造</th>
+<th>英語名 (English)</th>
+<th>特徴・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>配列</strong></td>
+<td>Array</td>
+<td>同じ型のデータを連続的に格納。<br>インデックス（0から始まる数値）でアクセス。<br>サイズが固定の場合が多い。</td>
+</tr>
+<tr>
+<td><strong>リスト</strong></td>
+<td>List</td>
+<td>順序付きのデータコレクション。<br>動的にサイズ変更可能。<br>要素の追加・削除が容易。</td>
+</tr>
+<tr>
+<td><strong>スタック</strong></td>
+<td>Stack</td>
+<td>LIFO（Last In First Out：後入れ先出し）。<br>最後に追加した要素から取り出す。<br>関数呼び出しの管理などに使用。</td>
+</tr>
+<tr>
+<td><strong>キュー</strong></td>
+<td>Queue</td>
+<td>FIFO（First In First Out：先入れ先出し）。<br>最初に追加した要素から取り出す。<br>タスク管理やメッセージ処理に使用。</td>
+</tr>
+<tr>
+<td><strong>ハッシュテーブル</strong></td>
+<td>Hash Table</td>
+<td>キーと値のペアで管理。<br>高速な検索・挿入・削除が可能。<br>辞書やマップとも呼ばれる。</td>
+</tr>
+<tr>
+<td><strong>ツリー</strong></td>
+<td>Tree</td>
+<td>階層構造を持つデータ構造。<br>ルートから枝分かれする構造。<br>ファイルシステムやDOMで使用。</td>
+</tr>
+<tr>
+<td><strong>グラフ</strong></td>
+<td>Graph</td>
+<td>ノード（頂点）とエッジ（辺）で構成。<br>ネットワークや関係性の表現に使用。<br>SNSの友人関係など。</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-code">
+<pre><code>// 配列の例
+const animals = ["dog", "cat", "sheep"];
+console.log(animals[0]);  // "dog"
+console.log(animals[2]);  // "sheep"
+
+// スタックの操作例（配列で実装）
+const stack = [];
+stack.push("A");  // push: 追加
+stack.push("B");
+stack.push("C");
+console.log(stack.pop());  // "C" (LIFO)
+
+// キューの操作例（配列で実装）
+const queue = [];
+queue.push("First");  // enqueue: 追加
+queue.push("Second");
+queue.push("Third");
+console.log(queue.shift());  // "First" (FIFO)</code></pre>
+</div>
+
+<hr>
+
+<h2>アルゴリズムの基本</h2>
+
+<h3><strong>時間計算量（Big O記法）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>計算量</th>
+<th>名称</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>O(1)</strong></td>
+<td>定数時間</td>
+<td>データ量に関わらず一定時間。<br>配列の要素へのアクセス。</td>
+</tr>
+<tr>
+<td><strong>O(log n)</strong></td>
+<td>対数時間</td>
+<td>データ量が倍になっても実行時間はわずかに増加。<br>二分探索。</td>
+</tr>
+<tr>
+<td><strong>O(n)</strong></td>
+<td>線形時間</td>
+<td>データ量に比例して実行時間が増加。<br>配列の全要素走査。</td>
+</tr>
+<tr>
+<td><strong>O(n log n)</strong></td>
+<td>線形対数時間</td>
+<td>効率的なソートアルゴリズム。<br>マージソート、ヒープソート。</td>
+</tr>
+<tr>
+<td><strong>O(n²)</strong></td>
+<td>二次時間</td>
+<td>データ量の二乗に比例。<br>二重ループ、バブルソート。</td>
+</tr>
+<tr>
+<td><strong>O(2ⁿ)</strong></td>
+<td>指数時間</td>
+<td>データ量が増えると爆発的に増加。<br>総当たり探索。</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>基本的なアルゴリズム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>アルゴリズム</th>
+<th>種類</th>
+<th>計算量・特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>線形探索</strong></td>
+<td>探索</td>
+<td>O(n) - 先頭から順に探す</td>
+</tr>
+<tr>
+<td><strong>二分探索</strong></td>
+<td>探索</td>
+<td>O(log n) - ソート済み配列で使用</td>
+</tr>
+<tr>
+<td><strong>バブルソート</strong></td>
+<td>ソート</td>
+<td>O(n²) - 隣接要素を比較交換</td>
+</tr>
+<tr>
+<td><strong>クイックソート</strong></td>
+<td>ソート</td>
+<td>平均O(n log n) - 分割統治法</td>
+</tr>
+<tr>
+<td><strong>マージソート</strong></td>
+<td>ソート</td>
+<td>O(n log n) - 安定ソート</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>プログラミングパラダイム</h2>
+
+<h3><strong>主要なプログラミングパラダイム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パラダイム</th>
+<th>英語名</th>
+<th>特徴・概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>手続き型</strong></td>
+<td>Procedural Programming</td>
+<td>処理を順番に記述。<br>関数で処理をまとめる。<br>C言語、Pascal。</td>
+</tr>
+<tr>
+<td><strong>オブジェクト指向</strong></td>
+<td>Object-Oriented Programming (OOP)</td>
+<td>データと処理をオブジェクトにまとめる。<br>カプセル化、継承、多態性。<br>Java、C++、Python。</td>
+</tr>
+<tr>
+<td><strong>関数型</strong></td>
+<td>Functional Programming</td>
+<td>関数を組み合わせて処理。<br>副作用を避ける、不変性。<br>Haskell、Lisp、JavaScript（一部）。</td>
+</tr>
+<tr>
+<td><strong>宣言型</strong></td>
+<td>Declarative Programming</td>
+<td>「何を」したいかを記述。<br>「どのように」は記述しない。<br>SQL、HTML、CSS。</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>オブジェクト指向の原則（OOP）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>カプセル化</strong></td>
+<td>Encapsulation</td>
+<td>データと処理を1つの単位にまとめ、外部から隠蔽する</td>
+</tr>
+<tr>
+<td><strong>継承</strong></td>
+<td>Inheritance</td>
+<td>既存のクラスから新しいクラスを作成し、機能を受け継ぐ</td>
+</tr>
+<tr>
+<td><strong>多態性</strong></td>
+<td>Polymorphism</td>
+<td>同じインターフェースで異なる実装を提供する</td>
+</tr>
+<tr>
+<td><strong>抽象化</strong></td>
+<td>Abstraction</td>
+<td>複雑な実装の詳細を隠し、必要な部分だけを公開する</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>設計原則</h2>
+
+<h3><strong>SOLID原則</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>正式名称</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S</strong></td>
+<td>Single Responsibility Principle<br>（単一責任の原則）</td>
+<td>クラスは1つの責任だけを持つべき</td>
+</tr>
+<tr>
+<td><strong>O</strong></td>
+<td>Open/Closed Principle<br>（開放閉鎖の原則）</td>
+<td>拡張に対して開いており、修正に対して閉じている</td>
+</tr>
+<tr>
+<td><strong>L</strong></td>
+<td>Liskov Substitution Principle<br>（リスコフの置換原則）</td>
+<td>派生クラスは基底クラスと置換可能であるべき</td>
+</tr>
+<tr>
+<td><strong>I</strong></td>
+<td>Interface Segregation Principle<br>（インターフェース分離の原則）</td>
+<td>クライアントは使用しないメソッドに依存すべきではない</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>Dependency Inversion Principle<br>（依存性逆転の原則）</td>
+<td>上位モジュールは下位モジュールに依存すべきではない</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>その他の重要な原則</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DRY</strong></td>
+<td>Don't Repeat Yourself - 同じコードを繰り返さない</td>
+</tr>
+<tr>
+<td><strong>KISS</strong></td>
+<td>Keep It Simple, Stupid - シンプルに保つ</td>
+</tr>
+<tr>
+<td><strong>YAGNI</strong></td>
+<td>You Aren't Gonna Need It - 必要になるまで実装しない</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>メモリ管理</h2>
+
+<h3><strong>メモリ領域の種類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>領域</th>
+<th>英語名</th>
+<th>特徴・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>スタック</strong></td>
+<td>Stack</td>
+<td>ローカル変数、関数の引数を格納。<br>高速アクセス、自動的に解放。<br>サイズが限定的。</td>
+</tr>
+<tr>
+<td><strong>ヒープ</strong></td>
+<td>Heap</td>
+<td>動的に確保されるメモリ領域。<br>大きなデータ、オブジェクトを格納。<br>手動またはGCで解放。</td>
+</tr>
+<tr>
+<td><strong>静的領域</strong></td>
+<td>Static/Data Segment</td>
+<td>グローバル変数、静的変数を格納。<br>プログラム実行中は常に存在。</td>
+</tr>
+<tr>
+<td><strong>コード領域</strong></td>
+<td>Code/Text Segment</td>
+<td>実行可能なプログラムコードを格納。<br>読み取り専用。</td>
+</tr>
+</tbody>
+</table>
+
+<div class="concept-box">
+<h4>ガベージコレクション（GC）</h4>
+<p>不要になったメモリを自動的に解放する仕組み。JavaScriptやJava、Pythonなどの言語で採用。プログラマーが明示的にメモリを解放する必要がない。</p>
+</div>
+
+<hr>
+
+<h2>並行処理と並列処理</h2>
+
+<h3><strong>並行処理の概念</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>プロセス</strong></td>
+<td>Process</td>
+<td>独立したメモリ空間を持つ実行単位。<br>他のプロセスから隔離されている。</td>
+</tr>
+<tr>
+<td><strong>スレッド</strong></td>
+<td>Thread</td>
+<td>プロセス内の実行単位。<br>メモリを共有する軽量な処理単位。</td>
+</tr>
+<tr>
+<td><strong>同期処理</strong></td>
+<td>Synchronous</td>
+<td>処理が順番に実行される。<br>前の処理が完了するまで待機。</td>
+</tr>
+<tr>
+<td><strong>非同期処理</strong></td>
+<td>Asynchronous</td>
+<td>処理の完了を待たずに次の処理を実行。<br>コールバック、Promise、async/await。</td>
+</tr>
+<tr>
+<td><strong>デッドロック</strong></td>
+<td>Deadlock</td>
+<td>複数のプロセスが互いのリソースを待ち続ける状態。<br>プログラムが停止する。</td>
+</tr>
+<tr>
+<td><strong>競合状態</strong></td>
+<td>Race Condition</td>
+<td>複数のスレッドが同時に共有データにアクセス。<br>予期しない結果を生む。</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-code">
+<pre><code>// 非同期処理の例（JavaScript）
+// Promise
+fetch('/api/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+
+// async/await
+async function getData() {
+    try {
+        const response = await fetch('/api/data');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>エラー処理</h2>
+
+<h3><strong>エラーの種類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エラー種類</th>
+<th>英語名</th>
+<th>説明・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>構文エラー</strong></td>
+<td>Syntax Error</td>
+<td>プログラムの文法が間違っている。<br>括弧の不一致、セミコロンの欠落など。</td>
+</tr>
+<tr>
+<td><strong>実行時エラー</strong></td>
+<td>Runtime Error</td>
+<td>プログラム実行中に発生。<br>ゼロ除算、null参照など。</td>
+</tr>
+<tr>
+<td><strong>論理エラー</strong></td>
+<td>Logic Error</td>
+<td>プログラムは動作するが結果が間違っている。<br>アルゴリズムの誤りなど。</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>例外処理</strong></h3>
+
+<div class="example-code">
+<pre><code>// try-catch-finally の例
+try {
+    // エラーが発生する可能性のあるコード
+    const result = riskyOperation();
+    console.log(result);
+} catch (error) {
+    // エラーが発生した場合の処理
+    console.error('エラーが発生しました:', error.message);
+} finally {
+    // 必ず実行される処理
+    cleanup();
+}</code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

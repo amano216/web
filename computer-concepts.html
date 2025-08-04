@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンピューター概念一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .concept-box {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .binary-example {
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            background-color: #1a1a1a;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0.25rem 0;
+        }
+
+        .info-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>コンピューター概念一覧</h1>
+
+<p>コンピューターサイエンスの重要な概念と用語をまとめたリファレンスです。基本的なデータ表現から、アーキテクチャ、ネットワーク、セキュリティまで、コンピューターを理解するために必要な概念を網羅しています。</p>
+
+<hr>
+
+<h2>データ表現の基本</h2>
+
+<h3><strong>ビットとバイト</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>単位</th>
+<th>英語名 (English)</th>
+<th>説明・定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ビット</strong></td>
+<td>Bit (Binary Digit)</td>
+<td>コンピューターの最小単位。0または1の値を持つ。<br>電気信号のON/OFFで表現される。</td>
+</tr>
+<tr>
+<td><strong>バイト</strong></td>
+<td>Byte</td>
+<td>8ビットで構成される単位。<br>1文字を表現できる基本単位（ASCII）。</td>
+</tr>
+<tr>
+<td><strong>キロバイト (KB)</strong></td>
+<td>Kilobyte</td>
+<td>1,024バイト（2¹⁰バイト）<br>※SI単位系では1,000バイト</td>
+</tr>
+<tr>
+<td><strong>メガバイト (MB)</strong></td>
+<td>Megabyte</td>
+<td>1,024キロバイト（2²⁰バイト）<br>※SI単位系では1,000,000バイト</td>
+</tr>
+<tr>
+<td><strong>ギガバイト (GB)</strong></td>
+<td>Gigabyte</td>
+<td>1,024メガバイト（2³⁰バイト）<br>※SI単位系では1,000,000,000バイト</td>
+</tr>
+<tr>
+<td><strong>テラバイト (TB)</strong></td>
+<td>Terabyte</td>
+<td>1,024ギガバイト（2⁴⁰バイト）</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>数値表現システム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>進数</th>
+<th>英語名</th>
+<th>基数・表記例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2進数</strong></td>
+<td>Binary</td>
+<td>基数2（0, 1）<br><span class="binary-example">1010₂ = 10₁₀</span></td>
+</tr>
+<tr>
+<td><strong>8進数</strong></td>
+<td>Octal</td>
+<td>基数8（0-7）<br><span class="binary-example">12₈ = 10₁₀</span></td>
+</tr>
+<tr>
+<td><strong>10進数</strong></td>
+<td>Decimal</td>
+<td>基数10（0-9）<br>日常的に使用する数値表現</td>
+</tr>
+<tr>
+<td><strong>16進数</strong></td>
+<td>Hexadecimal</td>
+<td>基数16（0-9, A-F）<br><span class="binary-example">0xFF = 255₁₀</span><br>色コードやメモリアドレスで使用</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>文字エンコーディング</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンコーディング</th>
+<th>説明</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ASCII</strong></td>
+<td>American Standard Code for Information Interchange</td>
+<td>7ビット（128文字）<br>英数字と基本記号のみ</td>
+</tr>
+<tr>
+<td><strong>Unicode</strong></td>
+<td>Universal Character Set</td>
+<td>世界中の文字を統一的に扱う<br>100万以上の文字を定義</td>
+</tr>
+<tr>
+<td><strong>UTF-8</strong></td>
+<td>8-bit Unicode Transformation Format</td>
+<td>可変長エンコーディング（1-4バイト）<br>ASCIIと互換性あり<br>Webの標準</td>
+</tr>
+<tr>
+<td><strong>UTF-16</strong></td>
+<td>16-bit Unicode Transformation Format</td>
+<td>2または4バイトで文字を表現<br>JavaやWindowsで使用</td>
+</tr>
+<tr>
+<td><strong>Shift_JIS</strong></td>
+<td>Shift Japanese Industrial Standards</td>
+<td>日本語文字エンコーディング<br>レガシーシステムで使用</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>コンピューターアーキテクチャ</h2>
+
+<h3><strong>主要なコンポーネント</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>英語名</th>
+<th>役割・機能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td>Central Processing Unit</td>
+<td>中央処理装置。命令の実行と計算を行う。<br>制御装置と演算装置から構成。</td>
+</tr>
+<tr>
+<td><strong>メモリ (RAM)</strong></td>
+<td>Random Access Memory</td>
+<td>揮発性の主記憶装置。<br>プログラムとデータを一時的に格納。</td>
+</tr>
+<tr>
+<td><strong>ストレージ</strong></td>
+<td>Storage (HDD/SSD)</td>
+<td>永続的なデータ保存装置。<br>HDD（磁気）、SSD（フラッシュメモリ）。</td>
+</tr>
+<tr>
+<td><strong>マザーボード</strong></td>
+<td>Motherboard</td>
+<td>各コンポーネントを接続する基板。<br>バス、スロット、コネクタを提供。</td>
+</tr>
+<tr>
+<td><strong>GPU</strong></td>
+<td>Graphics Processing Unit</td>
+<td>画像処理専用プロセッサ。<br>並列処理に特化、AI/MLでも活用。</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>メモリ階層</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>階層</th>
+<th>種類</th>
+<th>速度・容量・特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>レジスタ</strong></td>
+<td>CPU Register</td>
+<td>最高速・最小容量<br>CPUに内蔵、即座にアクセス可能</td>
+</tr>
+<tr>
+<td><strong>L1キャッシュ</strong></td>
+<td>Level 1 Cache</td>
+<td>超高速・小容量（32-64KB）<br>CPU内蔵、命令とデータ分離</td>
+</tr>
+<tr>
+<td><strong>L2キャッシュ</strong></td>
+<td>Level 2 Cache</td>
+<td>高速・中容量（256KB-1MB）<br>CPU内蔵またはコア共有</td>
+</tr>
+<tr>
+<td><strong>L3キャッシュ</strong></td>
+<td>Level 3 Cache</td>
+<td>中速・大容量（8-32MB）<br>複数コアで共有</td>
+</tr>
+<tr>
+<td><strong>主記憶</strong></td>
+<td>Main Memory (RAM)</td>
+<td>中速・大容量（8-64GB）<br>プログラム実行時のデータ格納</td>
+</tr>
+<tr>
+<td><strong>補助記憶</strong></td>
+<td>Secondary Storage</td>
+<td>低速・超大容量（TB単位）<br>永続的なデータ保存</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>フォン・ノイマン型アーキテクチャ</strong><br>
+現代のコンピューターの基本設計。プログラムとデータを同じメモリに格納し、CPUが順次実行する方式。「プログラム内蔵方式」とも呼ばれる。
+</div>
+
+<hr>
+
+<h2>オペレーティングシステム</h2>
+
+<h3><strong>OSの主要機能</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>プロセス管理</strong></td>
+<td>Process Management</td>
+<td>プログラムの実行単位を管理。<br>CPU時間の割り当て、スケジューリング。</td>
+</tr>
+<tr>
+<td><strong>メモリ管理</strong></td>
+<td>Memory Management</td>
+<td>仮想メモリ、ページング、セグメンテーション。<br>メモリの割り当てと解放。</td>
+</tr>
+<tr>
+<td><strong>ファイルシステム</strong></td>
+<td>File System</td>
+<td>データの永続的な保存と管理。<br>ディレクトリ構造、アクセス権限。</td>
+</tr>
+<tr>
+<td><strong>デバイス管理</strong></td>
+<td>Device Management</td>
+<td>ハードウェアデバイスの制御。<br>デバイスドライバ、I/O管理。</td>
+</tr>
+<tr>
+<td><strong>ユーザーインターフェース</strong></td>
+<td>User Interface</td>
+<td>CLI（コマンドライン）またはGUI。<br>ユーザーとシステムの対話。</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>重要な概念</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>カーネル</strong></td>
+<td>Kernel</td>
+<td>OSの中核部分。ハードウェアとソフトウェアの橋渡し</td>
+</tr>
+<tr>
+<td><strong>シェル</strong></td>
+<td>Shell</td>
+<td>ユーザーとカーネルの仲介。コマンドの解釈と実行</td>
+</tr>
+<tr>
+<td><strong>システムコール</strong></td>
+<td>System Call</td>
+<td>アプリケーションがOSの機能を利用するためのAPI</td>
+</tr>
+<tr>
+<td><strong>割り込み</strong></td>
+<td>Interrupt</td>
+<td>ハードウェアやソフトウェアからのイベント通知</td>
+</tr>
+<tr>
+<td><strong>仮想化</strong></td>
+<td>Virtualization</td>
+<td>物理リソースを論理的に分割・統合する技術</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ネットワーク</h2>
+
+<h3><strong>OSI参照モデル</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>名称</th>
+<th>機能・プロトコル例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>第7層</strong></td>
+<td>アプリケーション層<br>(Application Layer)</td>
+<td>ユーザーアプリケーション<br>HTTP、FTP、SMTP、DNS</td>
+</tr>
+<tr>
+<td><strong>第6層</strong></td>
+<td>プレゼンテーション層<br>(Presentation Layer)</td>
+<td>データ形式の変換、暗号化<br>SSL/TLS、JPEG、GIF</td>
+</tr>
+<tr>
+<td><strong>第5層</strong></td>
+<td>セッション層<br>(Session Layer)</td>
+<td>通信の開始・終了管理<br>SQL、RPC</td>
+</tr>
+<tr>
+<td><strong>第4層</strong></td>
+<td>トランスポート層<br>(Transport Layer)</td>
+<td>信頼性のあるデータ転送<br>TCP、UDP</td>
+</tr>
+<tr>
+<td><strong>第3層</strong></td>
+<td>ネットワーク層<br>(Network Layer)</td>
+<td>経路選択、論理アドレス<br>IP、ICMP、ルーティング</td>
+</tr>
+<tr>
+<td><strong>第2層</strong></td>
+<td>データリンク層<br>(Data Link Layer)</td>
+<td>隣接ノード間の通信<br>Ethernet、Wi-Fi、PPP</td>
+</tr>
+<tr>
+<td><strong>第1層</strong></td>
+<td>物理層<br>(Physical Layer)</td>
+<td>ビット列の伝送<br>電気信号、光信号、無線</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>TCP/IPプロトコルスイート</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>プロトコル</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>アプリケーション層</strong></td>
+<td>HTTP/HTTPS</td>
+<td>Webページの転送</td>
+</tr>
+<tr>
+<td></td>
+<td>FTP</td>
+<td>ファイル転送</td>
+</tr>
+<tr>
+<td></td>
+<td>SMTP/POP3/IMAP</td>
+<td>電子メール</td>
+</tr>
+<tr>
+<td></td>
+<td>DNS</td>
+<td>ドメイン名解決</td>
+</tr>
+<tr>
+<td><strong>トランスポート層</strong></td>
+<td>TCP</td>
+<td>信頼性のある通信</td>
+</tr>
+<tr>
+<td></td>
+<td>UDP</td>
+<td>高速だが信頼性のない通信</td>
+</tr>
+<tr>
+<td><strong>インターネット層</strong></td>
+<td>IP (IPv4/IPv6)</td>
+<td>パケットの配送</td>
+</tr>
+<tr>
+<td></td>
+<td>ICMP</td>
+<td>エラー通知、診断</td>
+</tr>
+<tr>
+<td><strong>リンク層</strong></td>
+<td>Ethernet</td>
+<td>有線LAN</td>
+</tr>
+<tr>
+<td></td>
+<td>Wi-Fi (802.11)</td>
+<td>無線LAN</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>セキュリティ</h2>
+
+<h3><strong>暗号化技術</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>英語名</th>
+<th>特徴・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>対称鍵暗号</strong></td>
+<td>Symmetric Encryption</td>
+<td>同じ鍵で暗号化・復号化<br>高速、大量データ向き<br>AES、DES、3DES</td>
+</tr>
+<tr>
+<td><strong>非対称鍵暗号</strong></td>
+<td>Asymmetric Encryption</td>
+<td>公開鍵と秘密鍵のペア<br>鍵配送問題を解決<br>RSA、楕円曲線暗号</td>
+</tr>
+<tr>
+<td><strong>ハッシュ関数</strong></td>
+<td>Hash Function</td>
+<td>一方向性関数<br>データの完全性確認<br>SHA-256、MD5（非推奨）</td>
+</tr>
+<tr>
+<td><strong>デジタル署名</strong></td>
+<td>Digital Signature</td>
+<td>送信者の認証と改ざん検出<br>秘密鍵で署名、公開鍵で検証</td>
+</tr>
+<tr>
+<td><strong>SSL/TLS</strong></td>
+<td>Secure Sockets Layer/Transport Layer Security</td>
+<td>Webの暗号化通信<br>HTTPS実現の基盤技術</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>セキュリティの基本概念</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>機密性</strong></td>
+<td>Confidentiality</td>
+<td>許可されたユーザーのみがアクセス可能</td>
+</tr>
+<tr>
+<td><strong>完全性</strong></td>
+<td>Integrity</td>
+<td>データが改ざんされていないことを保証</td>
+</tr>
+<tr>
+<td><strong>可用性</strong></td>
+<td>Availability</td>
+<td>必要な時にシステムが利用可能</td>
+</tr>
+<tr>
+<td><strong>認証</strong></td>
+<td>Authentication</td>
+<td>ユーザーやシステムの身元確認</td>
+</tr>
+<tr>
+<td><strong>認可</strong></td>
+<td>Authorization</td>
+<td>リソースへのアクセス権限の付与</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>一般的な攻撃手法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>攻撃手法</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SQLインジェクション</strong></td>
+<td>SQL Injection</td>
+<td>データベースへの不正なSQL文の注入</td>
+</tr>
+<tr>
+<td><strong>XSS</strong></td>
+<td>Cross-Site Scripting</td>
+<td>Webページに悪意のあるスクリプトを埋め込む</td>
+</tr>
+<tr>
+<td><strong>CSRF</strong></td>
+<td>Cross-Site Request Forgery</td>
+<td>ユーザーの意図しないリクエストを強制実行</td>
+</tr>
+<tr>
+<td><strong>DDoS</strong></td>
+<td>Distributed Denial of Service</td>
+<td>大量のリクエストでサービスを停止させる</td>
+</tr>
+<tr>
+<td><strong>中間者攻撃</strong></td>
+<td>Man-in-the-Middle Attack</td>
+<td>通信経路に割り込んで情報を盗聴・改ざん</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>データベース</h2>
+
+<h3><strong>データベースの種類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>英語名</th>
+<th>特徴・例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>リレーショナルDB</strong></td>
+<td>Relational Database (RDBMS)</td>
+<td>テーブル形式、SQL使用<br>MySQL、PostgreSQL、Oracle</td>
+</tr>
+<tr>
+<td><strong>NoSQL DB</strong></td>
+<td>Not Only SQL Database</td>
+<td>非構造化データ対応<br>MongoDB、Redis、Cassandra</td>
+</tr>
+<tr>
+<td><strong>グラフDB</strong></td>
+<td>Graph Database</td>
+<td>ノードとエッジで関係性を表現<br>Neo4j、Amazon Neptune</td>
+</tr>
+<tr>
+<td><strong>時系列DB</strong></td>
+<td>Time Series Database</td>
+<td>時間軸データに特化<br>InfluxDB、TimescaleDB</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>データベースの基本概念</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ACID特性</strong></td>
+<td>ACID Properties</td>
+<td>原子性、一貫性、独立性、永続性</td>
+</tr>
+<tr>
+<td><strong>正規化</strong></td>
+<td>Normalization</td>
+<td>データの重複を排除し、整合性を保つ</td>
+</tr>
+<tr>
+<td><strong>インデックス</strong></td>
+<td>Index</td>
+<td>検索を高速化するデータ構造</td>
+</tr>
+<tr>
+<td><strong>トランザクション</strong></td>
+<td>Transaction</td>
+<td>一連の処理をまとめた作業単位</td>
+</tr>
+<tr>
+<td><strong>レプリケーション</strong></td>
+<td>Replication</td>
+<td>データの複製を作成し可用性を向上</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>人工知能・機械学習</h2>
+
+<h3><strong>AI/MLの基本概念</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>人工知能</strong></td>
+<td>Artificial Intelligence (AI)</td>
+<td>人間の知的活動を模倣するシステム</td>
+</tr>
+<tr>
+<td><strong>機械学習</strong></td>
+<td>Machine Learning (ML)</td>
+<td>データから自動的にパターンを学習</td>
+</tr>
+<tr>
+<td><strong>深層学習</strong></td>
+<td>Deep Learning (DL)</td>
+<td>多層ニューラルネットワークによる学習</td>
+</tr>
+<tr>
+<td><strong>教師あり学習</strong></td>
+<td>Supervised Learning</td>
+<td>正解ラベル付きデータで学習</td>
+</tr>
+<tr>
+<td><strong>教師なし学習</strong></td>
+<td>Unsupervised Learning</td>
+<td>ラベルなしデータからパターンを発見</td>
+</tr>
+<tr>
+<td><strong>強化学習</strong></td>
+<td>Reinforcement Learning</td>
+<td>試行錯誤により最適な行動を学習</td>
+</tr>
+</tbody>
+</table>
+
+<div class="concept-box">
+<h4>重要な用語</h4>
+<ul>
+<li><strong>ニューラルネットワーク</strong>：脳の神経回路を模倣した計算モデル</li>
+<li><strong>CNN（畳み込みニューラルネットワーク）</strong>：画像認識に特化</li>
+<li><strong>RNN（再帰型ニューラルネットワーク）</strong>：時系列データ処理に特化</li>
+<li><strong>Transformer</strong>：自然言語処理の革新的モデル（GPT、BERT）</li>
+</ul>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

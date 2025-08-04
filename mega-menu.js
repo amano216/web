@@ -87,6 +87,16 @@ class MegaMenu {
                     </div>
                     
                     <div class="mega-menu-section">
+                        <h3>コンピューター基礎</h3>
+                        <p class="category-description">プログラミングとコンピューターサイエンスの原理</p>
+                        <div class="mega-menu-links">
+                            <a href="computer-principles.html">原理原則</a>
+                            <a href="computer-concepts.html">概念一覧</a>
+                            <a href="operators-comparison.html">演算子比較</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mega-menu-section">
                         <h3>その他のリソース</h3>
                         <p class="category-description">記号の読み方・ショートカットなど補助的な情報</p>
                         <div class="mega-menu-links">

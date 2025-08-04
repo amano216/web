@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング言語演算子比較表</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+            --js-color: #f7df1e;
+            --python-color: #3776ab;
+            --ruby-color: #cc342d;
+            --sql-color: #336791;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        /* 言語別カラー */
+        .lang-js {
+            background-color: rgba(247, 223, 30, 0.1);
+            border-left: 3px solid var(--js-color);
+        }
+
+        .lang-python {
+            background-color: rgba(55, 118, 171, 0.1);
+            border-left: 3px solid var(--python-color);
+        }
+
+        .lang-ruby {
+            background-color: rgba(204, 52, 45, 0.1);
+            border-left: 3px solid var(--ruby-color);
+        }
+
+        .lang-sql {
+            background-color: rgba(51, 103, 145, 0.1);
+            border-left: 3px solid var(--sql-color);
+        }
+
+        .lang-header {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table th:first-child {
+            width: 20%;
+        }
+
+        .comparison-table th {
+            text-align: center;
+        }
+
+        .comparison-table td {
+            text-align: center;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+        }
+
+        .note-box {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .not-available {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .special-note {
+            color: #61afef;
+            font-size: 0.9em;
+        }
+
+        .warning {
+            color: #e06c75;
+        }
+
+        .info {
+            color: #98c379;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>プログラミング言語演算子比較表</h1>
+
+<p>JavaScript、Python、Ruby、SQLにおける演算子の違いを一覧で比較できるリファレンスです。各言語での記法の違いや特有の演算子を理解することで、複数の言語を効率的に学習できます。</p>
+
+<hr>
+
+<h2>比較演算子</h2>
+
+<h3><strong>基本的な比較演算子</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>等しい</strong></td>
+<td><code>==</code> / <code>===</code></td>
+<td><code>==</code></td>
+<td><code>==</code></td>
+<td><code>=</code></td>
+</tr>
+<tr>
+<td><strong>等しくない</strong></td>
+<td><code>!=</code> / <code>!==</code></td>
+<td><code>!=</code></td>
+<td><code>!=</code></td>
+<td><code>&lt;&gt;</code> / <code>!=</code></td>
+</tr>
+<tr>
+<td><strong>より大きい</strong></td>
+<td><code>&gt;</code></td>
+<td><code>&gt;</code></td>
+<td><code>&gt;</code></td>
+<td><code>&gt;</code></td>
+</tr>
+<tr>
+<td><strong>より小さい</strong></td>
+<td><code>&lt;</code></td>
+<td><code>&lt;</code></td>
+<td><code>&lt;</code></td>
+<td><code>&lt;</code></td>
+</tr>
+<tr>
+<td><strong>以上</strong></td>
+<td><code>&gt;=</code></td>
+<td><code>&gt;=</code></td>
+<td><code>&gt;=</code></td>
+<td><code>&gt;=</code></td>
+</tr>
+<tr>
+<td><strong>以下</strong></td>
+<td><code>&lt;=</code></td>
+<td><code>&lt;=</code></td>
+<td><code>&lt;=</code></td>
+<td><code>&lt;=</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-box">
+<h4>言語別の特徴</h4>
+<p><strong>JavaScript:</strong> <code>==</code> は型変換を行う等価演算子、<code>===</code> は型変換を行わない厳密等価演算子</p>
+<p><strong>Python:</strong> <code>is</code> 演算子でオブジェクトの同一性を確認可能</p>
+<p><strong>Ruby:</strong> <code>eql?</code> と <code>equal?</code> メソッドで異なるレベルの等価性を確認</p>
+<p><strong>SQL:</strong> 標準では <code>&lt;&gt;</code> を使用、多くのDBMSで <code>!=</code> もサポート</p>
+</div>
+
+<h3><strong>特殊な比較演算子</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>型も含めて等しい</strong></td>
+<td><code>===</code></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>オブジェクトの同一性</strong></td>
+<td><code>Object.is()</code></td>
+<td><code>is</code></td>
+<td><code>equal?</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>パターンマッチ</strong></td>
+<td class="not-available">N/A</td>
+<td><code>match</code> <span class="special-note">(3.10+)</span></td>
+<td><code>===</code> / <code>=~</code></td>
+<td><code>LIKE</code> / <code>REGEXP</code></td>
+</tr>
+<tr>
+<td><strong>範囲内チェック</strong></td>
+<td class="not-available">N/A</td>
+<td><code>in</code></td>
+<td><code>include?</code> / <code>cover?</code></td>
+<td><code>BETWEEN</code></td>
+</tr>
+<tr>
+<td><strong>NULL/nil/undefined</strong></td>
+<td><code>== null</code> / <code>== undefined</code></td>
+<td><code>is None</code></td>
+<td><code>nil?</code></td>
+<td><code>IS NULL</code></td>
+</tr>
+<tr>
+<td><strong>宇宙船演算子</strong></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td><code>&lt;=&gt;</code></td>
+<td class="not-available">N/A</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>論理演算子</h2>
+
+<h3><strong>基本的な論理演算子</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AND（かつ）</strong></td>
+<td><code>&amp;&amp;</code></td>
+<td><code>and</code></td>
+<td><code>&amp;&amp;</code> / <code>and</code></td>
+<td><code>AND</code></td>
+</tr>
+<tr>
+<td><strong>OR（または）</strong></td>
+<td><code>||</code></td>
+<td><code>or</code></td>
+<td><code>||</code> / <code>or</code></td>
+<td><code>OR</code></td>
+</tr>
+<tr>
+<td><strong>NOT（否定）</strong></td>
+<td><code>!</code></td>
+<td><code>not</code></td>
+<td><code>!</code> / <code>not</code></td>
+<td><code>NOT</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-box">
+<h4>短絡評価（Short-circuit evaluation）</h4>
+<p>すべての言語で論理演算子は短絡評価を行います：</p>
+<ul>
+<li><strong>AND:</strong> 左辺が偽の場合、右辺は評価されない</li>
+<li><strong>OR:</strong> 左辺が真の場合、右辺は評価されない</li>
+</ul>
+</div>
+
+<h3><strong>特殊な論理演算子</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Null合体演算子</strong></td>
+<td><code>??</code></td>
+<td><code>or</code> <span class="special-note">(慣用的)</span></td>
+<td><code>||</code></td>
+<td><code>COALESCE</code></td>
+</tr>
+<tr>
+<td><strong>XOR（排他的論理和）</strong></td>
+<td><code>^</code> <span class="special-note">(ビット演算)</span></td>
+<td><code>^</code> <span class="special-note">(bool用)</span></td>
+<td><code>^</code></td>
+<td><code>XOR</code></td>
+</tr>
+<tr>
+<td><strong>条件演算子</strong></td>
+<td><code>? :</code></td>
+<td><code>if else</code> <span class="special-note">(式)</span></td>
+<td><code>? :</code></td>
+<td><code>CASE WHEN</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>算術演算子</h2>
+
+<h3><strong>基本的な算術演算子</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>加算</strong></td>
+<td><code>+</code></td>
+<td><code>+</code></td>
+<td><code>+</code></td>
+<td><code>+</code></td>
+</tr>
+<tr>
+<td><strong>減算</strong></td>
+<td><code>-</code></td>
+<td><code>-</code></td>
+<td><code>-</code></td>
+<td><code>-</code></td>
+</tr>
+<tr>
+<td><strong>乗算</strong></td>
+<td><code>*</code></td>
+<td><code>*</code></td>
+<td><code>*</code></td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td><strong>除算</strong></td>
+<td><code>/</code></td>
+<td><code>/</code></td>
+<td><code>/</code></td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td><strong>剰余（余り）</strong></td>
+<td><code>%</code></td>
+<td><code>%</code></td>
+<td><code>%</code></td>
+<td><code>%</code> / <code>MOD</code></td>
+</tr>
+<tr>
+<td><strong>累乗</strong></td>
+<td><code>**</code></td>
+<td><code>**</code></td>
+<td><code>**</code></td>
+<td><code>POWER()</code></td>
+</tr>
+<tr>
+<td><strong>整数除算</strong></td>
+<td><code>Math.floor(a/b)</code></td>
+<td><code>//</code></td>
+<td><code>a.div(b)</code></td>
+<td><code>DIV</code> <span class="special-note">(MySQL)</span></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>インクリメント・デクリメント</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>前置インクリメント</strong></td>
+<td><code>++i</code></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>後置インクリメント</strong></td>
+<td><code>i++</code></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>加算代入</strong></td>
+<td><code>+=</code></td>
+<td><code>+=</code></td>
+<td><code>+=</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>減算代入</strong></td>
+<td><code>-=</code></td>
+<td><code>-=</code></td>
+<td><code>-=</code></td>
+<td class="not-available">N/A</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>ビット演算子</h2>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AND</strong></td>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><strong>OR</strong></td>
+<td><code>|</code></td>
+<td><code>|</code></td>
+<td><code>|</code></td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td><strong>XOR</strong></td>
+<td><code>^</code></td>
+<td><code>^</code></td>
+<td><code>^</code></td>
+<td><code>^</code></td>
+</tr>
+<tr>
+<td><strong>NOT</strong></td>
+<td><code>~</code></td>
+<td><code>~</code></td>
+<td><code>~</code></td>
+<td><code>~</code></td>
+</tr>
+<tr>
+<td><strong>左シフト</strong></td>
+<td><code>&lt;&lt;</code></td>
+<td><code>&lt;&lt;</code></td>
+<td><code>&lt;&lt;</code></td>
+<td><code>&lt;&lt;</code></td>
+</tr>
+<tr>
+<td><strong>右シフト</strong></td>
+<td><code>&gt;&gt;</code></td>
+<td><code>&gt;&gt;</code></td>
+<td><code>&gt;&gt;</code></td>
+<td><code>&gt;&gt;</code></td>
+</tr>
+<tr>
+<td><strong>ゼロ埋め右シフト</strong></td>
+<td><code>&gt;&gt;&gt;</code></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文字列演算子</h2>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>結合</strong></td>
+<td><code>+</code> / <code>concat()</code></td>
+<td><code>+</code></td>
+<td><code>+</code> / <code>&lt;&lt;</code></td>
+<td><code>||</code> / <code>CONCAT()</code></td>
+</tr>
+<tr>
+<td><strong>繰り返し</strong></td>
+<td><code>repeat()</code></td>
+<td><code>*</code></td>
+<td><code>*</code></td>
+<td><code>REPEAT()</code></td>
+</tr>
+<tr>
+<td><strong>フォーマット</strong></td>
+<td><code>`${}`</code> <span class="special-note">(テンプレート)</span></td>
+<td><code>f""</code> / <code>format()</code></td>
+<td><code>"#{}"</code> / <code>%</code></td>
+<td><code>CONCAT()</code></td>
+</tr>
+<tr>
+<td><strong>含まれるか</strong></td>
+<td><code>includes()</code></td>
+<td><code>in</code></td>
+<td><code>include?</code></td>
+<td><code>LIKE</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>その他の演算子</h2>
+
+<h3><strong>メンバーシップ・存在確認</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>含まれる</strong></td>
+<td><code>in</code></td>
+<td><code>in</code></td>
+<td><code>include?</code></td>
+<td><code>IN</code></td>
+</tr>
+<tr>
+<td><strong>含まれない</strong></td>
+<td><code>!(x in obj)</code></td>
+<td><code>not in</code></td>
+<td><code>!include?</code></td>
+<td><code>NOT IN</code></td>
+</tr>
+<tr>
+<td><strong>型確認</strong></td>
+<td><code>instanceof</code> / <code>typeof</code></td>
+<td><code>isinstance()</code> / <code>type()</code></td>
+<td><code>is_a?</code> / <code>kind_of?</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>存在確認</strong></td>
+<td><code>!= undefined</code></td>
+<td><code>is not None</code></td>
+<td><code>!nil?</code></td>
+<td><code>IS NOT NULL</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>代入演算子の拡張</strong></h3>
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>演算</th>
+<th class="lang-header lang-js">JavaScript</th>
+<th class="lang-header lang-python">Python</th>
+<th class="lang-header lang-ruby">Ruby</th>
+<th class="lang-header lang-sql">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分割代入</strong></td>
+<td><code>[a, b] = [1, 2]</code></td>
+<td><code>a, b = 1, 2</code></td>
+<td><code>a, b = [1, 2]</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>論理積代入</strong></td>
+<td><code>&amp;&amp;=</code></td>
+<td class="not-available">N/A</td>
+<td><code>&amp;&amp;=</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>論理和代入</strong></td>
+<td><code>||=</code></td>
+<td class="not-available">N/A</td>
+<td><code>||=</code></td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>Null合体代入</strong></td>
+<td><code>??=</code></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+<tr>
+<td><strong>セイウチ演算子</strong></td>
+<td class="not-available">N/A</td>
+<td><code>:=</code> <span class="special-note">(3.8+)</span></td>
+<td class="not-available">N/A</td>
+<td class="not-available">N/A</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-box">
+<h4>重要な注意事項</h4>
+<ul>
+<li class="warning"><strong>JavaScript:</strong> <code>==</code> と <code>===</code> の違いに注意。通常は <code>===</code> を推奨</li>
+<li class="info"><strong>Python:</strong> インクリメント演算子 <code>++</code> は存在しない。<code>i += 1</code> を使用</li>
+<li class="info"><strong>Ruby:</strong> <code>and</code>/<code>or</code> と <code>&amp;&amp;</code>/<code>||</code> は優先順位が異なる</li>
+<li class="warning"><strong>SQL:</strong> NULL の比較には <code>IS NULL</code>/<code>IS NOT NULL</code> を使用（<code>= NULL</code> は機能しない）</li>
+</ul>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>
