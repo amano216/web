@@ -480,6 +480,65 @@
 </tbody>
 </table>
 
+<h3><strong>複合代入演算子</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>長い書き方</th>
+<th>省略形（短い書き方）</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x = x + y;</code></td>
+<td><code>x += y;</code></td>
+<td>xにyを足す</td>
+</tr>
+<tr>
+<td><code>x = x - y;</code></td>
+<td><code>x -= y;</code></td>
+<td>xからyを引く</td>
+</tr>
+<tr>
+<td><code>x = x * y;</code></td>
+<td><code>x *= y;</code></td>
+<td>xにyをかける</td>
+</tr>
+<tr>
+<td><code>x = x / y;</code></td>
+<td><code>x /= y;</code></td>
+<td>xをyで割る</td>
+</tr>
+<tr>
+<td><code>x = x % y;</code></td>
+<td><code>x %= y;</code></td>
+<td>xをyで割った余り</td>
+</tr>
+<tr>
+<td><code>x = x ** y;</code></td>
+<td><code>x **= y;</code></td>
+<td>xのy乗</td>
+</tr>
+<tr>
+<td><code>x = x && y;</code></td>
+<td><code>x &&= y;</code></td>
+<td>xがtruthyならyを代入</td>
+</tr>
+<tr>
+<td><code>x = x || y;</code></td>
+<td><code>x ||= y;</code></td>
+<td>xがfalsyならyを代入</td>
+</tr>
+<tr>
+<td><code>x = x ?? y;</code></td>
+<td><code>x ??= y;</code></td>
+<td>xがnull/undefinedならyを代入</td>
+</tr>
+</tbody>
+</table>
+
 <hr>
 
 <h3><strong>比較演算子</strong></h3>
@@ -579,6 +638,137 @@
 
 <span class="comment">// Null合体演算子（ES2020）</span>
 <span class="keyword">const</span> name = user.name ?? <span class="string">"ゲスト"</span>;  <span class="comment">// nullまたはundefinedの場合のみデフォルト値</span></code></pre>
+</div>
+
+<hr>
+
+<h2>型変換</h2>
+
+<h3><strong>型変換の方法</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>変換方法</th>
+<th>説明 (Description)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String()</code></td>
+<td>文字列に変換</td>
+<td><code>String(123)</code> → "123"</td>
+</tr>
+<tr>
+<td><code>Number()</code></td>
+<td>数値に変換</td>
+<td><code>Number("123")</code> → 123</td>
+</tr>
+<tr>
+<td><code>Boolean()</code></td>
+<td>真偽値に変換</td>
+<td><code>Boolean(1)</code> → true</td>
+</tr>
+<tr>
+<td><code>parseInt()</code></td>
+<td>整数に変換</td>
+<td><code>parseInt("123.45")</code> → 123</td>
+</tr>
+<tr>
+<td><code>parseFloat()</code></td>
+<td>浮動小数点数に変換</td>
+<td><code>parseFloat("123.45")</code> → 123.45</td>
+</tr>
+<tr>
+<td><code>toString()</code></td>
+<td>文字列に変換（メソッド）</td>
+<td><code>(123).toString()</code> → "123"</td>
+</tr>
+<tr>
+<td><code>+</code> 演算子</td>
+<td>数値に変換（単項プラス）</td>
+<td><code>+"123"</code> → 123</td>
+</tr>
+<tr>
+<td><code>!!</code> 演算子</td>
+<td>真偽値に変換（二重否定）</td>
+<td><code>!!"hello"</code> → true</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>falsyな値</strong></h3>
+
+<p>JavaScriptでfalseと評価される値：</p>
+
+<table>
+<thead>
+<tr>
+<th>値</th>
+<th>説明 (Description)</th>
+<th>Boolean変換結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>false</code></td>
+<td>偽の真偽値</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>ゼロ</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>-0</code></td>
+<td>マイナスゼロ</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>0n</code></td>
+<td>BigIntのゼロ</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>""</code></td>
+<td>空文字列</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>null値</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>undefined</code></td>
+<td>未定義</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>NaN</code></td>
+<td>Not a Number</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+
+<div class="syntax-example">
+<pre><code><span class="comment">// 暗黙的な型変換の例</span>
+<span class="string">"5"</span> + <span class="number">3</span>        <span class="comment">// "53" (文字列連結)</span>
+<span class="string">"5"</span> - <span class="number">3</span>        <span class="comment">// 2 (数値計算)</span>
+<span class="string">"5"</span> * <span class="string">"3"</span>      <span class="comment">// 15 (数値計算)</span>
+
+<span class="comment">// 明示的な型変換</span>
+<span class="keyword">const</span> num = Number(prompt(<span class="string">"数値を入力:"</span>));
+<span class="keyword">const</span> str = String(<span class="number">123</span>);
+<span class="keyword">const</span> bool = Boolean(userInput);
+
+<span class="comment">// 数値判定</span>
+<span class="keyword">if</span> (isNaN(value)) {
+    console.log(<span class="string">"数値ではありません"</span>);
+}</code></pre>
 </div>
 
 <hr>
@@ -746,6 +936,273 @@ arr1.shift();              <span class="comment">// 先頭から削除</span>
 <span class="keyword">const</span> combined = [...arr1, ...arr2];
 <span class="keyword">const</span> copy = [...arr1];</code></pre>
 </div>
+
+<h3><strong>配列メソッド一覧</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>説明 (Description)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>push()</code></td>
+<td>末尾に要素を追加</td>
+<td><code>arr.push(4)</code> → 追加後の長さを返す</td>
+</tr>
+<tr>
+<td><code>pop()</code></td>
+<td>末尾の要素を削除</td>
+<td><code>arr.pop()</code> → 削除した要素を返す</td>
+</tr>
+<tr>
+<td><code>unshift()</code></td>
+<td>先頭に要素を追加</td>
+<td><code>arr.unshift(0)</code> → 追加後の長さを返す</td>
+</tr>
+<tr>
+<td><code>shift()</code></td>
+<td>先頭の要素を削除</td>
+<td><code>arr.shift()</code> → 削除した要素を返す</td>
+</tr>
+<tr>
+<td><code>slice()</code></td>
+<td>部分配列を抽出（元配列は変更しない）</td>
+<td><code>arr.slice(1, 3)</code> → インデックス1〜2の要素</td>
+</tr>
+<tr>
+<td><code>splice()</code></td>
+<td>要素の削除・追加（元配列を変更）</td>
+<td><code>arr.splice(1, 2, "a", "b")</code></td>
+</tr>
+<tr>
+<td><code>concat()</code></td>
+<td>配列を結合</td>
+<td><code>arr1.concat(arr2)</code> → 新しい配列を返す</td>
+</tr>
+<tr>
+<td><code>join()</code></td>
+<td>配列を文字列に変換</td>
+<td><code>arr.join(", ")</code> → "1, 2, 3"</td>
+</tr>
+<tr>
+<td><code>reverse()</code></td>
+<td>配列を逆順にする（元配列を変更）</td>
+<td><code>arr.reverse()</code></td>
+</tr>
+<tr>
+<td><code>sort()</code></td>
+<td>配列をソート（元配列を変更）</td>
+<td><code>arr.sort((a, b) => a - b)</code> → 昇順</td>
+</tr>
+<tr>
+<td><code>indexOf()</code></td>
+<td>要素のインデックスを検索</td>
+<td><code>arr.indexOf(3)</code> → 見つからない場合は-1</td>
+</tr>
+<tr>
+<td><code>includes()</code></td>
+<td>要素が含まれているか確認</td>
+<td><code>arr.includes(3)</code> → true/false</td>
+</tr>
+<tr>
+<td><code>find()</code></td>
+<td>条件に合う最初の要素を返す</td>
+<td><code>arr.find(x => x > 2)</code> → 3</td>
+</tr>
+<tr>
+<td><code>findIndex()</code></td>
+<td>条件に合う最初の要素のインデックス</td>
+<td><code>arr.findIndex(x => x > 2)</code> → 2</td>
+</tr>
+<tr>
+<td><code>filter()</code></td>
+<td>条件に合う要素の配列を返す</td>
+<td><code>arr.filter(x => x > 2)</code> → [3, 4, 5]</td>
+</tr>
+<tr>
+<td><code>map()</code></td>
+<td>各要素を変換した新しい配列を返す</td>
+<td><code>arr.map(x => x * 2)</code> → [2, 4, 6]</td>
+</tr>
+<tr>
+<td><code>forEach()</code></td>
+<td>各要素に対して処理を実行</td>
+<td><code>arr.forEach(x => console.log(x))</code></td>
+</tr>
+<tr>
+<td><code>reduce()</code></td>
+<td>配列を単一の値に集約</td>
+<td><code>arr.reduce((sum, x) => sum + x, 0)</code></td>
+</tr>
+<tr>
+<td><code>every()</code></td>
+<td>すべての要素が条件を満たすか</td>
+<td><code>arr.every(x => x > 0)</code> → true/false</td>
+</tr>
+<tr>
+<td><code>some()</code></td>
+<td>いずれかの要素が条件を満たすか</td>
+<td><code>arr.some(x => x > 3)</code> → true/false</td>
+</tr>
+<tr>
+<td><code>flat()</code></td>
+<td>ネストした配列を平坦化</td>
+<td><code>[[1], [2, 3]].flat()</code> → [1, 2, 3]</td>
+</tr>
+<tr>
+<td><code>flatMap()</code></td>
+<td>mapとflatを組み合わせた処理</td>
+<td><code>arr.flatMap(x => [x, x * 2])</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文字列操作</h2>
+
+<h3><strong>文字列メソッド一覧</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>メソッド</th>
+<th>説明 (Description)</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length</code></td>
+<td>文字列の長さ（プロパティ）</td>
+<td><code>"Hello".length</code> → 5</td>
+</tr>
+<tr>
+<td><code>charAt()</code></td>
+<td>指定位置の文字を取得</td>
+<td><code>"Hello".charAt(1)</code> → "e"</td>
+</tr>
+<tr>
+<td><code>charCodeAt()</code></td>
+<td>指定位置の文字コードを取得</td>
+<td><code>"A".charCodeAt(0)</code> → 65</td>
+</tr>
+<tr>
+<td><code>concat()</code></td>
+<td>文字列を結合</td>
+<td><code>"Hello".concat(" ", "World")</code> → "Hello World"</td>
+</tr>
+<tr>
+<td><code>indexOf()</code></td>
+<td>文字列を前から検索</td>
+<td><code>"Hello".indexOf("l")</code> → 2</td>
+</tr>
+<tr>
+<td><code>lastIndexOf()</code></td>
+<td>文字列を後ろから検索</td>
+<td><code>"Hello".lastIndexOf("l")</code> → 3</td>
+</tr>
+<tr>
+<td><code>includes()</code></td>
+<td>文字列が含まれているか確認</td>
+<td><code>"Hello".includes("ell")</code> → true</td>
+</tr>
+<tr>
+<td><code>startsWith()</code></td>
+<td>指定文字列で始まるか確認</td>
+<td><code>"Hello".startsWith("He")</code> → true</td>
+</tr>
+<tr>
+<td><code>endsWith()</code></td>
+<td>指定文字列で終わるか確認</td>
+<td><code>"Hello".endsWith("lo")</code> → true</td>
+</tr>
+<tr>
+<td><code>slice()</code></td>
+<td>部分文字列を抽出</td>
+<td><code>"Hello".slice(1, 4)</code> → "ell"</td>
+</tr>
+<tr>
+<td><code>substring()</code></td>
+<td>部分文字列を抽出（引数の順序自動調整）</td>
+<td><code>"Hello".substring(1, 4)</code> → "ell"</td>
+</tr>
+<tr>
+<td><code>substr()</code></td>
+<td>指定位置から指定長さの文字列を抽出</td>
+<td><code>"Hello".substr(1, 3)</code> → "ell"</td>
+</tr>
+<tr>
+<td><code>toLowerCase()</code></td>
+<td>小文字に変換</td>
+<td><code>"Hello".toLowerCase()</code> → "hello"</td>
+</tr>
+<tr>
+<td><code>toUpperCase()</code></td>
+<td>大文字に変換</td>
+<td><code>"Hello".toUpperCase()</code> → "HELLO"</td>
+</tr>
+<tr>
+<td><code>trim()</code></td>
+<td>前後の空白を削除</td>
+<td><code>"  Hello  ".trim()</code> → "Hello"</td>
+</tr>
+<tr>
+<td><code>trimStart()</code></td>
+<td>先頭の空白を削除</td>
+<td><code>"  Hello".trimStart()</code> → "Hello"</td>
+</tr>
+<tr>
+<td><code>trimEnd()</code></td>
+<td>末尾の空白を削除</td>
+<td><code>"Hello  ".trimEnd()</code> → "Hello"</td>
+</tr>
+<tr>
+<td><code>replace()</code></td>
+<td>文字列を置換（最初の1つ）</td>
+<td><code>"Hello".replace("l", "L")</code> → "HeLlo"</td>
+</tr>
+<tr>
+<td><code>replaceAll()</code></td>
+<td>文字列をすべて置換</td>
+<td><code>"Hello".replaceAll("l", "L")</code> → "HeLLo"</td>
+</tr>
+<tr>
+<td><code>split()</code></td>
+<td>文字列を分割して配列に</td>
+<td><code>"a,b,c".split(",")</code> → ["a", "b", "c"]</td>
+</tr>
+<tr>
+<td><code>repeat()</code></td>
+<td>文字列を繰り返す</td>
+<td><code>"Ha".repeat(3)</code> → "HaHaHa"</td>
+</tr>
+<tr>
+<td><code>padStart()</code></td>
+<td>先頭に文字を追加して指定長に</td>
+<td><code>"5".padStart(3, "0")</code> → "005"</td>
+</tr>
+<tr>
+<td><code>padEnd()</code></td>
+<td>末尾に文字を追加して指定長に</td>
+<td><code>"5".padEnd(3, "0")</code> → "500"</td>
+</tr>
+<tr>
+<td><code>match()</code></td>
+<td>正規表現でマッチング</td>
+<td><code>"abc123".match(/\d+/)</code> → ["123"]</td>
+</tr>
+<tr>
+<td><code>search()</code></td>
+<td>正規表現で検索（インデックスを返す）</td>
+<td><code>"abc123".search(/\d/)</code> → 3</td>
+</tr>
+</tbody>
+</table>
 
 <hr>
 
