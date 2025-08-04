@@ -331,6 +331,40 @@ const searchIndex = [
             { heading: "Gitの普及", keywords: ["microsoft", "google", "enterprise", "adoption", "デファクトスタンダード"] },
             { heading: "現代のGit", keywords: ["gitlab", "bitbucket", "gitea", "sha-256", "partial clone", "vfs"] }
         ]
+    },
+    {
+        title: "プログラミング命名規則",
+        url: "naming-conventions.html",
+        category: "その他",
+        keywords: ["命名規則", "naming", "convention", "camelCase", "PascalCase", "snake_case", "kebab-case", "コーディング規約"],
+        sections: [
+            { heading: "命名規則の種類", keywords: ["camelCase", "キャメルケース", "PascalCase", "パスカルケース", "snake_case", "スネークケース", "kebab-case", "ケバブケース", "UPPER_SNAKE_CASE", "アッパースネークケース"] },
+            { heading: "JavaScript / TypeScript", keywords: ["javascript", "typescript", "変数", "関数", "クラス", "定数", "react", "コンポーネント"] },
+            { heading: "Python", keywords: ["python", "pep8", "変数", "関数", "クラス", "定数", "プライベート", "__init__"] },
+            { heading: "Java", keywords: ["java", "変数", "メソッド", "クラス", "定数", "パッケージ", "interface"] },
+            { heading: "C# (.NET)", keywords: ["csharp", "c#", ".net", "パブリック", "プライベート", "メソッド", "インターフェース", "IPascalCase"] },
+            { heading: "Web開発", keywords: ["url", "css", "html", "data属性", "rest", "api", "エンドポイント"] },
+            { heading: "データベース", keywords: ["database", "テーブル", "カラム", "インデックス", "外部キー", "fk", "idx"] },
+            { heading: "ベストプラクティス", keywords: ["意味のある名前", "検索しやすい", "発音しやすい", "一貫性", "適切な長さ", "ブール値", "is", "has", "can", "should"] }
+        ]
+    },
+    {
+        title: "命名規則の具体例一覧",
+        url: "naming-examples.html",
+        category: "その他",
+        keywords: ["命名例", "naming examples", "変数名", "関数名", "クラス名", "定数名", "具体例"],
+        sections: [
+            { heading: "基本的な変数名", keywords: ["userName", "userId", "emailAddress", "productName", "totalAmount", "user_name", "product_price"] },
+            { heading: "ブール値（真偽値）変数", keywords: ["isActive", "isValid", "isLoggedIn", "hasPermission", "canEdit", "shouldUpdate", "is_active", "can_edit"] },
+            { heading: "関数・メソッド名", keywords: ["getUser", "getAllUsers", "createUser", "updateUser", "deleteUser", "calculateTotal", "validateInput", "fetchData"] },
+            { heading: "クラス名", keywords: ["User", "UserAccount", "Product", "Order", "UserService", "ProductController", "DatabaseConnection"] },
+            { heading: "定数名", keywords: ["MAX_RETRY_COUNT", "DEFAULT_PORT", "API_BASE_URL", "TIMEOUT_DURATION", "STATUS_SUCCESS", "ERROR_UNAUTHORIZED"] },
+            { heading: "ファイル・ディレクトリ名", keywords: ["app-config.json", "user-model.js", "user-service.test.js", "main-styles.css", "user-profile.jsx"] },
+            { heading: "データベース関連", keywords: ["users", "orders", "order_items", "user_id", "created_at", "updated_at", "is_deleted"] },
+            { heading: "Web開発特有の命名", keywords: ["/user-profile", "/password-reset", ".nav-bar", "#main-content", ".btn-primary", ".error-message"] },
+            { heading: "イベントハンドラー", keywords: ["handleClick", "handleSubmit", "onButtonClick", "onFormSubmit", "onDataLoad"] },
+            { heading: "環境変数", keywords: ["DATABASE_URL", "API_KEY", "SECRET_KEY", "PORT", "NODE_ENV", "LOG_LEVEL"] }
+        ]
     }
 ];
 
@@ -357,5 +391,7 @@ const contentCache = {
     "css-history.html": "CSS 歴史 history Håkon Wium Lie ホーコン・ウィウム・リー 構造と表現の分離 CSS1 CSS2 CSS3 Flexbox Grid レスポンシブデザイン ベンダープレフィックス",
     "javascript-history.html": "JavaScript JS 歴史 history Brendan Eich ブレンダン・アイク 10日間 Netscape ECMAScript Ajax jQuery Node.js ES6 ES2015 React Vue Angular TypeScript",
     "http-history.html": "HTTP 歴史 history プロトコル protocol HTTP/0.9 HTTP/1.0 HTTP/1.1 HTTP/2 HTTP/3 SPDY QUIC Tim Berners-Lee 進化 evolution",
-    "git-history.html": "Git 歴史 history Linus Torvalds リーナス・トーバルズ バージョン管理 VCS BitKeeper 2005 分散型 distributed GitHub social coding pull request"
+    "git-history.html": "Git 歴史 history Linus Torvalds リーナス・トーバルズ バージョン管理 VCS BitKeeper 2005 分散型 distributed GitHub social coding pull request",
+    "naming-conventions.html": "命名規則 naming convention コーディング規約 camelCase キャメルケース PascalCase パスカルケース snake_case スネークケース kebab-case ケバブケース UPPER_SNAKE_CASE アッパースネークケース JavaScript TypeScript Python Java C# 変数 関数 クラス 定数 メソッド Web開発 データベース ベストプラクティス",
+    "naming-examples.html": "命名例 naming examples 変数名 関数名 クラス名 定数名 具体例 userName userId emailAddress productName isActive isValid hasPermission getUser createUser updateUser User UserAccount UserService MAX_RETRY_COUNT API_BASE_URL DATABASE_URL 比較表"
 };

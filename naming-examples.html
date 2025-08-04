@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命名規則の具体例一覧</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        /* 比較表のスタイル */
+        .comparison-table {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .comparison-table table {
+            min-width: 100%;
+        }
+
+        .comparison-table th:first-child {
+            position: sticky;
+            left: 0;
+            background-color: var(--table-header-bg);
+            z-index: 1;
+        }
+
+        .comparison-table td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: var(--background-secondary);
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        /* 各命名規則の列を色分け */
+        .camel-case {
+            background-color: rgba(127, 109, 242, 0.1);
+        }
+
+        .pascal-case {
+            background-color: rgba(98, 195, 121, 0.1);
+        }
+
+        .snake-case {
+            background-color: rgba(224, 108, 117, 0.1);
+        }
+
+        .kebab-case {
+            background-color: rgba(229, 192, 123, 0.1);
+        }
+
+        .upper-snake-case {
+            background-color: rgba(97, 175, 239, 0.1);
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>命名規則の具体例一覧</h1>
+
+<p>各命名規則パターンに従った変数、関数、クラス、定数などの具体的な命名例を網羅的にまとめました。実際のプログラミングで使用される一般的な命名対象を系統的に分類しています。</p>
+
+<hr>
+
+<h2>基本的な変数名</h2>
+
+<h3><strong>ユーザー関連</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザー名</td>
+<td><code>userName</code></td>
+<td><code>UserName</code></td>
+<td><code>user_name</code></td>
+<td><code>user-name</code></td>
+<td><code>USER_NAME</code></td>
+</tr>
+<tr>
+<td>ユーザーID</td>
+<td><code>userId</code></td>
+<td><code>UserId</code></td>
+<td><code>user_id</code></td>
+<td><code>user-id</code></td>
+<td><code>USER_ID</code></td>
+</tr>
+<tr>
+<td>メールアドレス</td>
+<td><code>emailAddress</code></td>
+<td><code>EmailAddress</code></td>
+<td><code>email_address</code></td>
+<td><code>email-address</code></td>
+<td><code>EMAIL_ADDRESS</code></td>
+</tr>
+<tr>
+<td>パスワード</td>
+<td><code>password</code></td>
+<td><code>Password</code></td>
+<td><code>password</code></td>
+<td><code>password</code></td>
+<td><code>PASSWORD</code></td>
+</tr>
+<tr>
+<td>プロフィール画像</td>
+<td><code>profileImage</code></td>
+<td><code>ProfileImage</code></td>
+<td><code>profile_image</code></td>
+<td><code>profile-image</code></td>
+<td><code>PROFILE_IMAGE</code></td>
+</tr>
+<tr>
+<td>最終ログイン日時</td>
+<td><code>lastLoginDateTime</code></td>
+<td><code>LastLoginDateTime</code></td>
+<td><code>last_login_datetime</code></td>
+<td><code>last-login-datetime</code></td>
+<td><code>LAST_LOGIN_DATETIME</code></td>
+</tr>
+<tr>
+<td>アカウントステータス</td>
+<td><code>accountStatus</code></td>
+<td><code>AccountStatus</code></td>
+<td><code>account_status</code></td>
+<td><code>account-status</code></td>
+<td><code>ACCOUNT_STATUS</code></td>
+</tr>
+<tr>
+<td>年齢</td>
+<td><code>userAge</code></td>
+<td><code>UserAge</code></td>
+<td><code>user_age</code></td>
+<td><code>user-age</code></td>
+<td><code>USER_AGE</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>商品・注文関連</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商品名</td>
+<td><code>productName</code></td>
+<td><code>ProductName</code></td>
+<td><code>product_name</code></td>
+<td><code>product-name</code></td>
+<td><code>PRODUCT_NAME</code></td>
+</tr>
+<tr>
+<td>商品価格</td>
+<td><code>productPrice</code></td>
+<td><code>ProductPrice</code></td>
+<td><code>product_price</code></td>
+<td><code>product-price</code></td>
+<td><code>PRODUCT_PRICE</code></td>
+</tr>
+<tr>
+<td>在庫数</td>
+<td><code>stockQuantity</code></td>
+<td><code>StockQuantity</code></td>
+<td><code>stock_quantity</code></td>
+<td><code>stock-quantity</code></td>
+<td><code>STOCK_QUANTITY</code></td>
+</tr>
+<tr>
+<td>注文番号</td>
+<td><code>orderNumber</code></td>
+<td><code>OrderNumber</code></td>
+<td><code>order_number</code></td>
+<td><code>order-number</code></td>
+<td><code>ORDER_NUMBER</code></td>
+</tr>
+<tr>
+<td>合計金額</td>
+<td><code>totalAmount</code></td>
+<td><code>TotalAmount</code></td>
+<td><code>total_amount</code></td>
+<td><code>total-amount</code></td>
+<td><code>TOTAL_AMOUNT</code></td>
+</tr>
+<tr>
+<td>配送先住所</td>
+<td><code>shippingAddress</code></td>
+<td><code>ShippingAddress</code></td>
+<td><code>shipping_address</code></td>
+<td><code>shipping-address</code></td>
+<td><code>SHIPPING_ADDRESS</code></td>
+</tr>
+<tr>
+<td>割引率</td>
+<td><code>discountRate</code></td>
+<td><code>DiscountRate</code></td>
+<td><code>discount_rate</code></td>
+<td><code>discount-rate</code></td>
+<td><code>DISCOUNT_RATE</code></td>
+</tr>
+<tr>
+<td>カテゴリー</td>
+<td><code>categoryName</code></td>
+<td><code>CategoryName</code></td>
+<td><code>category_name</code></td>
+<td><code>category-name</code></td>
+<td><code>CATEGORY_NAME</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>ブール値（真偽値）変数</h2>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アクティブか</td>
+<td><code>isActive</code></td>
+<td><code>IsActive</code></td>
+<td><code>is_active</code></td>
+<td><code>is-active</code></td>
+<td><code>IS_ACTIVE</code></td>
+</tr>
+<tr>
+<td>有効か</td>
+<td><code>isValid</code></td>
+<td><code>IsValid</code></td>
+<td><code>is_valid</code></td>
+<td><code>is-valid</code></td>
+<td><code>IS_VALID</code></td>
+</tr>
+<tr>
+<td>ログイン中か</td>
+<td><code>isLoggedIn</code></td>
+<td><code>IsLoggedIn</code></td>
+<td><code>is_logged_in</code></td>
+<td><code>is-logged-in</code></td>
+<td><code>IS_LOGGED_IN</code></td>
+</tr>
+<tr>
+<td>権限があるか</td>
+<td><code>hasPermission</code></td>
+<td><code>HasPermission</code></td>
+<td><code>has_permission</code></td>
+<td><code>has-permission</code></td>
+<td><code>HAS_PERMISSION</code></td>
+</tr>
+<tr>
+<td>編集可能か</td>
+<td><code>canEdit</code></td>
+<td><code>CanEdit</code></td>
+<td><code>can_edit</code></td>
+<td><code>can-edit</code></td>
+<td><code>CAN_EDIT</code></td>
+</tr>
+<tr>
+<td>更新すべきか</td>
+<td><code>shouldUpdate</code></td>
+<td><code>ShouldUpdate</code></td>
+<td><code>should_update</code></td>
+<td><code>should-update</code></td>
+<td><code>SHOULD_UPDATE</code></td>
+</tr>
+<tr>
+<td>読み込み中か</td>
+<td><code>isLoading</code></td>
+<td><code>IsLoading</code></td>
+<td><code>is_loading</code></td>
+<td><code>is-loading</code></td>
+<td><code>IS_LOADING</code></td>
+</tr>
+<tr>
+<td>表示するか</td>
+<td><code>isVisible</code></td>
+<td><code>IsVisible</code></td>
+<td><code>is_visible</code></td>
+<td><code>is-visible</code></td>
+<td><code>IS_VISIBLE</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>関数・メソッド名</h2>
+
+<h3><strong>データ取得系</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザーを取得</td>
+<td><code>getUser()</code></td>
+<td><code>GetUser()</code></td>
+<td><code>get_user()</code></td>
+<td><code>get-user</code></td>
+</tr>
+<tr>
+<td>全ユーザーを取得</td>
+<td><code>getAllUsers()</code></td>
+<td><code>GetAllUsers()</code></td>
+<td><code>get_all_users()</code></td>
+<td><code>get-all-users</code></td>
+</tr>
+<tr>
+<td>IDでユーザーを取得</td>
+<td><code>getUserById()</code></td>
+<td><code>GetUserById()</code></td>
+<td><code>get_user_by_id()</code></td>
+<td><code>get-user-by-id</code></td>
+</tr>
+<tr>
+<td>データを取得</td>
+<td><code>fetchData()</code></td>
+<td><code>FetchData()</code></td>
+<td><code>fetch_data()</code></td>
+<td><code>fetch-data</code></td>
+</tr>
+<tr>
+<td>設定を読み込む</td>
+<td><code>loadSettings()</code></td>
+<td><code>LoadSettings()</code></td>
+<td><code>load_settings()</code></td>
+<td><code>load-settings</code></td>
+</tr>
+<tr>
+<td>キャッシュから取得</td>
+<td><code>getFromCache()</code></td>
+<td><code>GetFromCache()</code></td>
+<td><code>get_from_cache()</code></td>
+<td><code>get-from-cache</code></td>
+</tr>
+<tr>
+<td>最新データを取得</td>
+<td><code>getLatestData()</code></td>
+<td><code>GetLatestData()</code></td>
+<td><code>get_latest_data()</code></td>
+<td><code>get-latest-data</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>データ操作系</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザーを作成</td>
+<td><code>createUser()</code></td>
+<td><code>CreateUser()</code></td>
+<td><code>create_user()</code></td>
+<td><code>create-user</code></td>
+</tr>
+<tr>
+<td>ユーザーを更新</td>
+<td><code>updateUser()</code></td>
+<td><code>UpdateUser()</code></td>
+<td><code>update_user()</code></td>
+<td><code>update-user</code></td>
+</tr>
+<tr>
+<td>ユーザーを削除</td>
+<td><code>deleteUser()</code></td>
+<td><code>DeleteUser()</code></td>
+<td><code>delete_user()</code></td>
+<td><code>delete-user</code></td>
+</tr>
+<tr>
+<td>データを保存</td>
+<td><code>saveData()</code></td>
+<td><code>SaveData()</code></td>
+<td><code>save_data()</code></td>
+<td><code>save-data</code></td>
+</tr>
+<tr>
+<td>ファイルに書き込む</td>
+<td><code>writeToFile()</code></td>
+<td><code>WriteToFile()</code></td>
+<td><code>write_to_file()</code></td>
+<td><code>write-to-file</code></td>
+</tr>
+<tr>
+<td>配列に追加</td>
+<td><code>addToArray()</code></td>
+<td><code>AddToArray()</code></td>
+<td><code>add_to_array()</code></td>
+<td><code>add-to-array</code></td>
+</tr>
+<tr>
+<td>要素を削除</td>
+<td><code>removeElement()</code></td>
+<td><code>RemoveElement()</code></td>
+<td><code>remove_element()</code></td>
+<td><code>remove-element</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>計算・処理系</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合計を計算</td>
+<td><code>calculateTotal()</code></td>
+<td><code>CalculateTotal()</code></td>
+<td><code>calculate_total()</code></td>
+<td><code>calculate-total</code></td>
+</tr>
+<tr>
+<td>平均を計算</td>
+<td><code>calculateAverage()</code></td>
+<td><code>CalculateAverage()</code></td>
+<td><code>calculate_average()</code></td>
+<td><code>calculate-average</code></td>
+</tr>
+<tr>
+<td>データを処理</td>
+<td><code>processData()</code></td>
+<td><code>ProcessData()</code></td>
+<td><code>process_data()</code></td>
+<td><code>process-data</code></td>
+</tr>
+<tr>
+<td>文字列を変換</td>
+<td><code>convertString()</code></td>
+<td><code>ConvertString()</code></td>
+<td><code>convert_string()</code></td>
+<td><code>convert-string</code></td>
+</tr>
+<tr>
+<td>検証する</td>
+<td><code>validateInput()</code></td>
+<td><code>ValidateInput()</code></td>
+<td><code>validate_input()</code></td>
+<td><code>validate-input</code></td>
+</tr>
+<tr>
+<td>フォーマットする</td>
+<td><code>formatDate()</code></td>
+<td><code>FormatDate()</code></td>
+<td><code>format_date()</code></td>
+<td><code>format-date</code></td>
+</tr>
+<tr>
+<td>並び替える</td>
+<td><code>sortItems()</code></td>
+<td><code>SortItems()</code></td>
+<td><code>sort_items()</code></td>
+<td><code>sort-items</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>クラス名</h2>
+
+<h3><strong>モデル・エンティティ系</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="pascal-case">PascalCase（推奨）</th>
+<th class="camel-case">camelCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザー</td>
+<td><code>User</code></td>
+<td><code>user</code></td>
+<td><code>user</code></td>
+<td><code>user</code></td>
+</tr>
+<tr>
+<td>ユーザーアカウント</td>
+<td><code>UserAccount</code></td>
+<td><code>userAccount</code></td>
+<td><code>user_account</code></td>
+<td><code>user-account</code></td>
+</tr>
+<tr>
+<td>商品</td>
+<td><code>Product</code></td>
+<td><code>product</code></td>
+<td><code>product</code></td>
+<td><code>product</code></td>
+</tr>
+<tr>
+<td>注文</td>
+<td><code>Order</code></td>
+<td><code>order</code></td>
+<td><code>order</code></td>
+<td><code>order</code></td>
+</tr>
+<tr>
+<td>注文明細</td>
+<td><code>OrderItem</code></td>
+<td><code>orderItem</code></td>
+<td><code>order_item</code></td>
+<td><code>order-item</code></td>
+</tr>
+<tr>
+<td>顧客</td>
+<td><code>Customer</code></td>
+<td><code>customer</code></td>
+<td><code>customer</code></td>
+<td><code>customer</code></td>
+</tr>
+<tr>
+<td>従業員</td>
+<td><code>Employee</code></td>
+<td><code>employee</code></td>
+<td><code>employee</code></td>
+<td><code>employee</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>サービス・コントローラー系</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="pascal-case">PascalCase（推奨）</th>
+<th class="camel-case">camelCase</th>
+<th class="snake-case">snake_case</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザーサービス</td>
+<td><code>UserService</code></td>
+<td><code>userService</code></td>
+<td><code>user_service</code></td>
+<td><code>user-service</code></td>
+</tr>
+<tr>
+<td>認証サービス</td>
+<td><code>AuthenticationService</code></td>
+<td><code>authenticationService</code></td>
+<td><code>authentication_service</code></td>
+<td><code>authentication-service</code></td>
+</tr>
+<tr>
+<td>商品コントローラー</td>
+<td><code>ProductController</code></td>
+<td><code>productController</code></td>
+<td><code>product_controller</code></td>
+<td><code>product-controller</code></td>
+</tr>
+<tr>
+<td>データベース接続</td>
+<td><code>DatabaseConnection</code></td>
+<td><code>databaseConnection</code></td>
+<td><code>database_connection</code></td>
+<td><code>database-connection</code></td>
+</tr>
+<tr>
+<td>メール送信者</td>
+<td><code>EmailSender</code></td>
+<td><code>emailSender</code></td>
+<td><code>email_sender</code></td>
+<td><code>email-sender</code></td>
+</tr>
+<tr>
+<td>ファイルマネージャー</td>
+<td><code>FileManager</code></td>
+<td><code>fileManager</code></td>
+<td><code>file_manager</code></td>
+<td><code>file-manager</code></td>
+</tr>
+<tr>
+<td>キャッシュマネージャー</td>
+<td><code>CacheManager</code></td>
+<td><code>cacheManager</code></td>
+<td><code>cache_manager</code></td>
+<td><code>cache-manager</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>定数名</h2>
+
+<h3><strong>設定・制限値</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE（推奨）</th>
+<th class="pascal-case">PascalCase</th>
+<th class="camel-case">camelCase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最大リトライ回数</td>
+<td><code>MAX_RETRY_COUNT</code></td>
+<td><code>MaxRetryCount</code></td>
+<td><code>maxRetryCount</code></td>
+</tr>
+<tr>
+<td>デフォルトポート</td>
+<td><code>DEFAULT_PORT</code></td>
+<td><code>DefaultPort</code></td>
+<td><code>defaultPort</code></td>
+</tr>
+<tr>
+<td>APIベースURL</td>
+<td><code>API_BASE_URL</code></td>
+<td><code>ApiBaseUrl</code></td>
+<td><code>apiBaseUrl</code></td>
+</tr>
+<tr>
+<td>タイムアウト時間</td>
+<td><code>TIMEOUT_DURATION</code></td>
+<td><code>TimeoutDuration</code></td>
+<td><code>timeoutDuration</code></td>
+</tr>
+<tr>
+<td>最大ファイルサイズ</td>
+<td><code>MAX_FILE_SIZE</code></td>
+<td><code>MaxFileSize</code></td>
+<td><code>maxFileSize</code></td>
+</tr>
+<tr>
+<td>デバッグモード</td>
+<td><code>DEBUG_MODE</code></td>
+<td><code>DebugMode</code></td>
+<td><code>debugMode</code></td>
+</tr>
+<tr>
+<td>アプリケーション名</td>
+<td><code>APP_NAME</code></td>
+<td><code>AppName</code></td>
+<td><code>appName</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>ステータス・タイプ</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>意味</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE（推奨）</th>
+<th class="pascal-case">PascalCase</th>
+<th class="camel-case">camelCase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成功ステータス</td>
+<td><code>STATUS_SUCCESS</code></td>
+<td><code>StatusSuccess</code></td>
+<td><code>statusSuccess</code></td>
+</tr>
+<tr>
+<td>エラーステータス</td>
+<td><code>STATUS_ERROR</code></td>
+<td><code>StatusError</code></td>
+<td><code>statusError</code></td>
+</tr>
+<tr>
+<td>ユーザータイプ：管理者</td>
+<td><code>USER_TYPE_ADMIN</code></td>
+<td><code>UserTypeAdmin</code></td>
+<td><code>userTypeAdmin</code></td>
+</tr>
+<tr>
+<td>ユーザータイプ：ゲスト</td>
+<td><code>USER_TYPE_GUEST</code></td>
+<td><code>UserTypeGuest</code></td>
+<td><code>userTypeGuest</code></td>
+</tr>
+<tr>
+<td>HTTPメソッド：GET</td>
+<td><code>HTTP_METHOD_GET</code></td>
+<td><code>HttpMethodGet</code></td>
+<td><code>httpMethodGet</code></td>
+</tr>
+<tr>
+<td>HTTPメソッド：POST</td>
+<td><code>HTTP_METHOD_POST</code></td>
+<td><code>HttpMethodPost</code></td>
+<td><code>httpMethodPost</code></td>
+</tr>
+<tr>
+<td>エラーコード：未認証</td>
+<td><code>ERROR_UNAUTHORIZED</code></td>
+<td><code>ErrorUnauthorized</code></td>
+<td><code>errorUnauthorized</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>ファイル・ディレクトリ名</h2>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="kebab-case">kebab-case（推奨）</th>
+<th class="snake-case">snake_case</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設定ファイル</td>
+<td><code>app-config.json</code></td>
+<td><code>app_config.json</code></td>
+<td><code>appConfig.json</code></td>
+<td><code>AppConfig.json</code></td>
+</tr>
+<tr>
+<td>ユーザーモデル</td>
+<td><code>user-model.js</code></td>
+<td><code>user_model.js</code></td>
+<td><code>userModel.js</code></td>
+<td><code>UserModel.js</code></td>
+</tr>
+<tr>
+<td>テストファイル</td>
+<td><code>user-service.test.js</code></td>
+<td><code>user_service_test.js</code></td>
+<td><code>userService.test.js</code></td>
+<td><code>UserService.test.js</code></td>
+</tr>
+<tr>
+<td>スタイルシート</td>
+<td><code>main-styles.css</code></td>
+<td><code>main_styles.css</code></td>
+<td><code>mainStyles.css</code></td>
+<td><code>MainStyles.css</code></td>
+</tr>
+<tr>
+<td>コンポーネント</td>
+<td><code>user-profile.jsx</code></td>
+<td><code>user_profile.jsx</code></td>
+<td><code>userProfile.jsx</code></td>
+<td><code>UserProfile.jsx</code></td>
+</tr>
+<tr>
+<td>画像フォルダ</td>
+<td><code>user-images/</code></td>
+<td><code>user_images/</code></td>
+<td><code>userImages/</code></td>
+<td><code>UserImages/</code></td>
+</tr>
+<tr>
+<td>APIルート</td>
+<td><code>api-routes/</code></td>
+<td><code>api_routes/</code></td>
+<td><code>apiRoutes/</code></td>
+<td><code>ApiRoutes/</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>データベース関連</h2>
+
+<h3><strong>テーブル名・カラム名</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="snake-case">snake_case（推奨）</th>
+<th class="camel-case">camelCase</th>
+<th class="pascal-case">PascalCase</th>
+<th class="kebab-case">kebab-case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザーテーブル</td>
+<td><code>users</code></td>
+<td><code>users</code></td>
+<td><code>Users</code></td>
+<td><code>users</code></td>
+</tr>
+<tr>
+<td>注文テーブル</td>
+<td><code>orders</code></td>
+<td><code>orders</code></td>
+<td><code>Orders</code></td>
+<td><code>orders</code></td>
+</tr>
+<tr>
+<td>注文明細テーブル</td>
+<td><code>order_items</code></td>
+<td><code>orderItems</code></td>
+<td><code>OrderItems</code></td>
+<td><code>order-items</code></td>
+</tr>
+<tr>
+<td>ユーザーID（カラム）</td>
+<td><code>user_id</code></td>
+<td><code>userId</code></td>
+<td><code>UserId</code></td>
+<td><code>user-id</code></td>
+</tr>
+<tr>
+<td>作成日時（カラム）</td>
+<td><code>created_at</code></td>
+<td><code>createdAt</code></td>
+<td><code>CreatedAt</code></td>
+<td><code>created-at</code></td>
+</tr>
+<tr>
+<td>更新日時（カラム）</td>
+<td><code>updated_at</code></td>
+<td><code>updatedAt</code></td>
+<td><code>UpdatedAt</code></td>
+<td><code>updated-at</code></td>
+</tr>
+<tr>
+<td>削除フラグ（カラム）</td>
+<td><code>is_deleted</code></td>
+<td><code>isDeleted</code></td>
+<td><code>IsDeleted</code></td>
+<td><code>is-deleted</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>Web開発特有の命名</h2>
+
+<h3><strong>URL・エンドポイント</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="kebab-case">kebab-case（推奨）</th>
+<th class="snake-case">snake_case</th>
+<th class="camel-case">camelCase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザー一覧</td>
+<td><code>/users</code></td>
+<td><code>/users</code></td>
+<td><code>/users</code></td>
+</tr>
+<tr>
+<td>ユーザー詳細</td>
+<td><code>/users/user-id</code></td>
+<td><code>/users/user_id</code></td>
+<td><code>/users/userId</code></td>
+</tr>
+<tr>
+<td>ユーザープロフィール</td>
+<td><code>/user-profile</code></td>
+<td><code>/user_profile</code></td>
+<td><code>/userProfile</code></td>
+</tr>
+<tr>
+<td>パスワードリセット</td>
+<td><code>/password-reset</code></td>
+<td><code>/password_reset</code></td>
+<td><code>/passwordReset</code></td>
+</tr>
+<tr>
+<td>API：ユーザー作成</td>
+<td><code>/api/create-user</code></td>
+<td><code>/api/create_user</code></td>
+<td><code>/api/createUser</code></td>
+</tr>
+<tr>
+<td>API：データ取得</td>
+<td><code>/api/get-data</code></td>
+<td><code>/api/get_data</code></td>
+<td><code>/api/getData</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3><strong>CSS クラス名・ID</strong></h3>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="kebab-case">kebab-case（推奨）</th>
+<th class="camel-case">camelCase</th>
+<th class="snake-case">snake_case</th>
+<th>BEM記法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ナビゲーションバー</td>
+<td><code>.nav-bar</code></td>
+<td><code>.navBar</code></td>
+<td><code>.nav_bar</code></td>
+<td><code>.nav-bar</code></td>
+</tr>
+<tr>
+<td>メインコンテンツ</td>
+<td><code>#main-content</code></td>
+<td><code>#mainContent</code></td>
+<td><code>#main_content</code></td>
+<td><code>.main-content</code></td>
+</tr>
+<tr>
+<td>ユーザーカード</td>
+<td><code>.user-card</code></td>
+<td><code>.userCard</code></td>
+<td><code>.user_card</code></td>
+<td><code>.user-card</code></td>
+</tr>
+<tr>
+<td>ボタン（プライマリ）</td>
+<td><code>.btn-primary</code></td>
+<td><code>.btnPrimary</code></td>
+<td><code>.btn_primary</code></td>
+<td><code>.btn--primary</code></td>
+</tr>
+<tr>
+<td>フォーム入力欄</td>
+<td><code>.form-input</code></td>
+<td><code>.formInput</code></td>
+<td><code>.form_input</code></td>
+<td><code>.form__input</code></td>
+</tr>
+<tr>
+<td>エラーメッセージ</td>
+<td><code>.error-message</code></td>
+<td><code>.errorMessage</code></td>
+<td><code>.error_message</code></td>
+<td><code>.message--error</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>イベントハンドラー</h2>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="camel-case">camelCase（推奨）</th>
+<th class="pascal-case">PascalCase</th>
+<th class="snake-case">snake_case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>クリックイベント</td>
+<td><code>handleClick</code></td>
+<td><code>HandleClick</code></td>
+<td><code>handle_click</code></td>
+</tr>
+<tr>
+<td>送信イベント</td>
+<td><code>handleSubmit</code></td>
+<td><code>HandleSubmit</code></td>
+<td><code>handle_submit</code></td>
+</tr>
+<tr>
+<td>変更イベント</td>
+<td><code>handleChange</code></td>
+<td><code>HandleChange</code></td>
+<td><code>handle_change</code></td>
+</tr>
+<tr>
+<td>ボタンクリック</td>
+<td><code>onButtonClick</code></td>
+<td><code>OnButtonClick</code></td>
+<td><code>on_button_click</code></td>
+</tr>
+<tr>
+<td>フォーム送信</td>
+<td><code>onFormSubmit</code></td>
+<td><code>OnFormSubmit</code></td>
+<td><code>on_form_submit</code></td>
+</tr>
+<tr>
+<td>データ読み込み</td>
+<td><code>onDataLoad</code></td>
+<td><code>OnDataLoad</code></td>
+<td><code>on_data_load</code></td>
+</tr>
+<tr>
+<td>ユーザー作成</td>
+<td><code>onUserCreate</code></td>
+<td><code>OnUserCreate</code></td>
+<td><code>on_user_create</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>プライベート変数・メソッド</h2>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>言語/種類</th>
+<th>変数例</th>
+<th>メソッド例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JavaScript (慣例)</td>
+<td><code>_privateVar</code></td>
+<td><code>_privateMethod()</code></td>
+<td>アンダースコア接頭辞</td>
+</tr>
+<tr>
+<td>JavaScript (ES2022)</td>
+<td><code>#privateField</code></td>
+<td><code>#privateMethod()</code></td>
+<td>真のプライベート</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>_internal_var</code></td>
+<td><code>_internal_method()</code></td>
+<td>内部使用を示す</td>
+</tr>
+<tr>
+<td>Python (名前マングリング)</td>
+<td><code>__private_var</code></td>
+<td><code>__private_method()</code></td>
+<td>より強いプライベート</td>
+</tr>
+<tr>
+<td>C#</td>
+<td><code>_privateField</code></td>
+<td><code>_privateMethod()</code></td>
+<td>慣例的な接頭辞</td>
+</tr>
+<tr>
+<td>Java</td>
+<td><code>privateField</code></td>
+<td><code>privateMethod()</code></td>
+<td>privateキーワード使用</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>環境変数</h2>
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th class="upper-snake-case">UPPER_SNAKE_CASE（推奨）</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>データベースURL</td>
+<td><code>DATABASE_URL</code></td>
+<td>データベース接続文字列</td>
+</tr>
+<tr>
+<td>APIキー</td>
+<td><code>API_KEY</code></td>
+<td>外部APIのキー</td>
+</tr>
+<tr>
+<td>秘密鍵</td>
+<td><code>SECRET_KEY</code></td>
+<td>暗号化用の秘密鍵</td>
+</tr>
+<tr>
+<td>ポート番号</td>
+<td><code>PORT</code></td>
+<td>アプリケーションのポート</td>
+</tr>
+<tr>
+<td>ノード環境</td>
+<td><code>NODE_ENV</code></td>
+<td>実行環境（development/production）</td>
+</tr>
+<tr>
+<td>ログレベル</td>
+<td><code>LOG_LEVEL</code></td>
+<td>ログ出力レベル</td>
+</tr>
+<tr>
+<td>最大ワーカー数</td>
+<td><code>MAX_WORKERS</code></td>
+<td>並列処理の最大数</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

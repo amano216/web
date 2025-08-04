@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング命名規則チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--background-modifier-border);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-normal);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        .nav-links a.active {
+            background-color: var(--background-secondary);
+            color: var(--text-accent);
+        }
+
+        /* メインコンテンツ */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        /* Obsidian風のリンクスタイル */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        /* スクロールバー */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        /* 命名規則の例のスタイル */
+        .naming-example {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+
+        .good {
+            color: #98c379;
+        }
+
+        .bad {
+            color: #e06c75;
+        }
+
+        .neutral {
+            color: #61afef;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>プログラミング命名規則チートシート</h1>
+
+<p>プログラミングにおける変数、関数、クラスなどの命名規則をまとめたリファレンスです。可読性が高く、保守しやすいコードを書くための基本的なガイドラインを提供します。</p>
+
+<hr>
+
+<h2>命名規則の種類</h2>
+
+<h3><strong>主要な命名規則一覧</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>命名規則</th>
+<th>記法例 (Example)</th>
+<th>主な用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>キャメルケース</strong><br>(camelCase)</td>
+<td><code>userName</code>, <code>calculateTotalPrice</code></td>
+<td>JavaScript/TypeScriptの変数・関数名<br>Javaのメソッド名<br>Swiftの変数・関数名</td>
+</tr>
+<tr>
+<td><strong>パスカルケース</strong><br>(PascalCase)</td>
+<td><code>UserAccount</code>, <code>OrderController</code></td>
+<td>クラス名（ほぼ全言語）<br>Reactコンポーネント名<br>C#のメソッド名</td>
+</tr>
+<tr>
+<td><strong>スネークケース</strong><br>(snake_case)</td>
+<td><code>user_name</code>, <code>calculate_total_price</code></td>
+<td>Pythonの変数・関数名<br>Rubyの変数・メソッド名<br>データベースのカラム名</td>
+</tr>
+<tr>
+<td><strong>ケバブケース</strong><br>(kebab-case)</td>
+<td><code>user-profile</code>, <code>main-content</code></td>
+<td>URLのスラッグ<br>CSSのクラス名<br>HTMLのid属性<br>npmパッケージ名</td>
+</tr>
+<tr>
+<td><strong>アッパースネークケース</strong><br>(UPPER_SNAKE_CASE)</td>
+<td><code>MAX_RETRY_COUNT</code>, <code>API_BASE_URL</code></td>
+<td>定数（ほぼ全言語）<br>環境変数名</td>
+</tr>
+<tr>
+<td><strong>ハンガリアン記法</strong><br>(Hungarian Notation)</td>
+<td><code>strName</code>, <code>intAge</code>, <code>bIsActive</code></td>
+<td>レガシーコード<br>現在は非推奨</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>言語別の命名規則</h2>
+
+<h3><strong>JavaScript / TypeScript</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>変数</td>
+<td>camelCase</td>
+<td><code>const userAge = 25;</code></td>
+</tr>
+<tr>
+<td>関数</td>
+<td>camelCase</td>
+<td><code>function calculateTotal() {}</code></td>
+</tr>
+<tr>
+<td>クラス</td>
+<td>PascalCase</td>
+<td><code>class UserAccount {}</code></td>
+</tr>
+<tr>
+<td>定数</td>
+<td>UPPER_SNAKE_CASE</td>
+<td><code>const MAX_RETRY = 3;</code></td>
+</tr>
+<tr>
+<td>プライベート変数</td>
+<td>_camelCase または #camelCase</td>
+<td><code>_privateVar</code> または <code>#privateField</code></td>
+</tr>
+<tr>
+<td>Reactコンポーネント</td>
+<td>PascalCase</td>
+<td><code>function UserProfile() {}</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>Python</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>変数</td>
+<td>snake_case</td>
+<td><code>user_age = 25</code></td>
+</tr>
+<tr>
+<td>関数</td>
+<td>snake_case</td>
+<td><code>def calculate_total():</code></td>
+</tr>
+<tr>
+<td>クラス</td>
+<td>PascalCase</td>
+<td><code>class UserAccount:</code></td>
+</tr>
+<tr>
+<td>定数</td>
+<td>UPPER_SNAKE_CASE</td>
+<td><code>MAX_RETRY = 3</code></td>
+</tr>
+<tr>
+<td>プライベート変数/メソッド</td>
+<td>_snake_case</td>
+<td><code>_private_method()</code></td>
+</tr>
+<tr>
+<td>特殊メソッド</td>
+<td>__snake_case__</td>
+<td><code>__init__()</code>, <code>__str__()</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>Java</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>変数</td>
+<td>camelCase</td>
+<td><code>int userAge = 25;</code></td>
+</tr>
+<tr>
+<td>メソッド</td>
+<td>camelCase</td>
+<td><code>public void calculateTotal() {}</code></td>
+</tr>
+<tr>
+<td>クラス</td>
+<td>PascalCase</td>
+<td><code>public class UserAccount {}</code></td>
+</tr>
+<tr>
+<td>定数</td>
+<td>UPPER_SNAKE_CASE</td>
+<td><code>public static final int MAX_RETRY = 3;</code></td>
+</tr>
+<tr>
+<td>パッケージ</td>
+<td>lowercase</td>
+<td><code>com.example.userservice</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>C# (.NET)</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>パブリック変数</td>
+<td>PascalCase</td>
+<td><code>public string UserName { get; set; }</code></td>
+</tr>
+<tr>
+<td>プライベート変数</td>
+<td>_camelCase</td>
+<td><code>private int _userAge;</code></td>
+</tr>
+<tr>
+<td>メソッド</td>
+<td>PascalCase</td>
+<td><code>public void CalculateTotal() {}</code></td>
+</tr>
+<tr>
+<td>クラス</td>
+<td>PascalCase</td>
+<td><code>public class UserAccount {}</code></td>
+</tr>
+<tr>
+<td>インターフェース</td>
+<td>IPascalCase</td>
+<td><code>public interface IUserService {}</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>用途別の命名規則</h2>
+
+<h3><strong>Web開発</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL パス</td>
+<td>kebab-case</td>
+<td><code>/user-profile</code>, <code>/api/get-users</code></td>
+</tr>
+<tr>
+<td>CSS クラス</td>
+<td>kebab-case</td>
+<td><code>.header-nav</code>, <code>.btn-primary</code></td>
+</tr>
+<tr>
+<td>CSS ID</td>
+<td>kebab-case</td>
+<td><code>#main-content</code>, <code>#user-form</code></td>
+</tr>
+<tr>
+<td>HTML データ属性</td>
+<td>kebab-case</td>
+<td><code>data-user-id</code>, <code>data-toggle</code></td>
+</tr>
+<tr>
+<td>REST API エンドポイント</td>
+<td>kebab-case</td>
+<td><code>/api/user-accounts</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>データベース</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>推奨される命名規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>テーブル名</td>
+<td>snake_case (複数形)</td>
+<td><code>users</code>, <code>order_items</code></td>
+</tr>
+<tr>
+<td>カラム名</td>
+<td>snake_case</td>
+<td><code>user_id</code>, <code>created_at</code></td>
+</tr>
+<tr>
+<td>インデックス名</td>
+<td>idx_テーブル名_カラム名</td>
+<td><code>idx_users_email</code></td>
+</tr>
+<tr>
+<td>外部キー</td>
+<td>fk_テーブル名_参照テーブル名</td>
+<td><code>fk_orders_users</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>命名のベストプラクティス</h2>
+
+<h3><strong>一般的な原則</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>説明</th>
+<th>良い例 / 悪い例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>意味のある名前</strong></td>
+<td>変数や関数の目的が明確に分かる名前を使用</td>
+<td>✅ <code>userAge</code><br>❌ <code>a</code>, <code>temp</code></td>
+</tr>
+<tr>
+<td><strong>検索しやすい名前</strong></td>
+<td>コード内で検索しやすい、一意性のある名前</td>
+<td>✅ <code>MAX_RETRY_COUNT</code><br>❌ <code>MAX</code></td>
+</tr>
+<tr>
+<td><strong>発音しやすい名前</strong></td>
+<td>チーム内で口頭で議論しやすい名前</td>
+<td>✅ <code>customerRecord</code><br>❌ <code>xCstmrRcrd</code></td>
+</tr>
+<tr>
+<td><strong>一貫性</strong></td>
+<td>プロジェクト全体で同じ命名規則を使用</td>
+<td>✅ 全て <code>getUserById</code><br>❌ 混在: <code>fetchUser</code>, <code>retrieveUser</code></td>
+</tr>
+<tr>
+<td><strong>適切な長さ</strong></td>
+<td>短すぎず長すぎない、バランスの取れた名前</td>
+<td>✅ <code>calculateTotalPrice</code><br>❌ <code>calc</code>, <code>calculateTheTotalPriceOfAllItemsInTheShoppingCart</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>避けるべきパターン</strong></h3>
+
+<div class="naming-example">
+<p class="bad">❌ 悪い例:</p>
+<pre><code>// 意味不明な略語
+const d = new Date();
+const yrs = calcYrs();
+
+// 数字を含む変数名
+const value1 = "John";
+const value2 = "Jane";
+
+// 誤解を招く名前
+const accountList = {}; // 実際はオブジェクト
+
+// ノイズワード
+const theUser = {};
+const userData = {};
+const userInfo = {};</code></pre>
+</div>
+
+<div class="naming-example">
+<p class="good">✅ 良い例:</p>
+<pre><code>// 明確で意味のある名前
+const currentDate = new Date();
+const yearsSinceJoined = calculateYearsSinceJoined();
+
+// 具体的な名前
+const firstName = "John";
+const lastName = "Jane";
+
+// 正確な型を示す名前
+const accountMap = {};
+
+// 明確に区別された名前
+const user = {};
+const userProfile = {};
+const userSettings = {};</code></pre>
+</div>
+
+<hr>
+
+<h2>特殊なケース</h2>
+
+<h3><strong>ブール値の命名</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is + 形容詞/名詞</td>
+<td><code>isActive</code>, <code>isValid</code>, <code>isUser</code></td>
+<td>状態を表す最も一般的なパターン</td>
+</tr>
+<tr>
+<td>has + 名詞</td>
+<td><code>hasPermission</code>, <code>hasChildren</code></td>
+<td>所有や包含を表す</td>
+</tr>
+<tr>
+<td>can + 動詞</td>
+<td><code>canEdit</code>, <code>canDelete</code></td>
+<td>能力や権限を表す</td>
+</tr>
+<tr>
+<td>should + 動詞</td>
+<td><code>shouldUpdate</code>, <code>shouldRender</code></td>
+<td>推奨される動作を表す</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>コレクションの命名</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>型</th>
+<th>単数形</th>
+<th>複数形/コレクション</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配列</td>
+<td><code>user</code></td>
+<td><code>users</code>, <code>userList</code>, <code>userArray</code></td>
+</tr>
+<tr>
+<td>マップ/辞書</td>
+<td><code>user</code></td>
+<td><code>userMap</code>, <code>userById</code>, <code>userDictionary</code></td>
+</tr>
+<tr>
+<td>セット</td>
+<td><code>tag</code></td>
+<td><code>tagSet</code>, <code>uniqueTags</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>イベントハンドラの命名</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>パターン</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>イベントハンドラ</td>
+<td>handle + イベント名</td>
+<td><code>handleClick</code>, <code>handleSubmit</code></td>
+</tr>
+<tr>
+<td>イベントハンドラ（React）</td>
+<td>on + イベント名</td>
+<td><code>onClick</code>, <code>onSubmit</code></td>
+</tr>
+<tr>
+<td>カスタムイベント</td>
+<td>on + 動作</td>
+<td><code>onUserCreate</code>, <code>onDataLoad</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>命名規則チェッカーツール</h2>
+
+<h3><strong>自動チェックツール</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ツール</th>
+<th>対応言語</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ESLint</strong></td>
+<td>JavaScript/TypeScript</td>
+<td>命名規則を含むコーディング規約をチェック</td>
+</tr>
+<tr>
+<td><strong>Pylint</strong></td>
+<td>Python</td>
+<td>PEP 8準拠の命名規則をチェック</td>
+</tr>
+<tr>
+<td><strong>RuboCop</strong></td>
+<td>Ruby</td>
+<td>Rubyスタイルガイドに基づいた命名規則チェック</td>
+</tr>
+<tr>
+<td><strong>StyleCop</strong></td>
+<td>C#</td>
+<td>.NETの命名規則をチェック</td>
+</tr>
+<tr>
+<td><strong>Checkstyle</strong></td>
+<td>Java</td>
+<td>Javaコーディング規約と命名規則をチェック</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>
