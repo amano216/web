@@ -58,6 +58,8 @@ new_navigation = '''            <div class="nav-dropdown">
                     <a href="git-history.html">Gitの歴史</a>
                     <a href="linux-commands.html">Linuxコマンド</a>
                     <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
                 </div>
             </div>'''
 
@@ -78,7 +80,15 @@ files_to_update = [
     'ruby-reference.html',
     'ruby-cheatsheet.html',
     'http-reference.html',
-    'http-cheatsheet.html'
+    'http-cheatsheet.html',
+    'html-cheatsheet.html',
+    'html-history.html',
+    'css-history.html',
+    'javascript-history.html',
+    'http-history.html',
+    'git-history.html',
+    'modern-cli-tools.html',
+    'shortcuts.html'
 ]
 
 def update_navigation(filepath):
