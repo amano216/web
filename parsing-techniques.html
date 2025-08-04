@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>構文解析技術チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .example-box {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .grammar-box {
+            background-color: #1a1a1a;
+            border-left: 3px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+        }
+
+        .parse-tree {
+            text-align: center;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            margin: 1rem 0;
+            background-color: var(--background-secondary);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .tree-node {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem;
+            background-color: var(--code-background);
+            border-radius: 3px;
+        }
+
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        .comment { color: #5c6370; font-style: italic; }
+        .function { color: #61afef; }
+        .variable { color: #e06c75; }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>構文解析技術チートシート</h1>
+
+<p>プログラミング言語やデータ形式の構文解析（パージング）に関する技術と手法をまとめたリファレンスです。字句解析から構文木の生成、パーサーの実装方法まで網羅しています。</p>
+
+<hr>
+
+<h2>構文解析の基本概念</h2>
+
+<h3><strong>構文解析の流れ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>段階</th>
+<th>英語名</th>
+<th>処理内容</th>
+<th>出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>字句解析</strong></td>
+<td>Lexical Analysis</td>
+<td>文字列をトークンに分割</td>
+<td>トークン列</td>
+</tr>
+<tr>
+<td><strong>構文解析</strong></td>
+<td>Syntax Analysis</td>
+<td>トークン列から構造を解析</td>
+<td>構文木（Parse Tree）</td>
+</tr>
+<tr>
+<td><strong>意味解析</strong></td>
+<td>Semantic Analysis</td>
+<td>意味的な正しさを検証</td>
+<td>AST（抽象構文木）</td>
+</tr>
+<tr>
+<td><strong>評価/実行</strong></td>
+<td>Evaluation</td>
+<td>構文木を評価・実行</td>
+<td>実行結果</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>字句解析（レキシカル解析）</h2>
+
+<h3><strong>トークンの種類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>トークン種別</th>
+<th>英語名</th>
+<th>例</th>
+<th>正規表現例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>キーワード</strong></td>
+<td>Keyword</td>
+<td><code>if</code>, <code>while</code>, <code>function</code></td>
+<td><code>/^(if|while|function)$/</code></td>
+</tr>
+<tr>
+<td><strong>識別子</strong></td>
+<td>Identifier</td>
+<td><code>userName</code>, <code>_count</code></td>
+<td><code>/^[a-zA-Z_][a-zA-Z0-9_]*$/</code></td>
+</tr>
+<tr>
+<td><strong>数値リテラル</strong></td>
+<td>Number Literal</td>
+<td><code>123</code>, <code>3.14</code>, <code>0xFF</code></td>
+<td><code>/^\d+(\.\d+)?$/</code></td>
+</tr>
+<tr>
+<td><strong>文字列リテラル</strong></td>
+<td>String Literal</td>
+<td><code>"hello"</code>, <code>'world'</code></td>
+<td><code>/"([^"\\]|\\.)*"/</code></td>
+</tr>
+<tr>
+<td><strong>演算子</strong></td>
+<td>Operator</td>
+<td><code>+</code>, <code>-</code>, <code>==</code>, <code>&&</code></td>
+<td><code>/^(\+\+|--|==|&&|\|\||[+\-*/=<>])$/</code></td>
+</tr>
+<tr>
+<td><strong>区切り文字</strong></td>
+<td>Delimiter</td>
+<td><code>(</code>, <code>)</code>, <code>{</code>, <code>}</code>, <code>;</code></td>
+<td><code>/^[(){}[\];,]$/</code></td>
+</tr>
+<tr>
+<td><strong>空白</strong></td>
+<td>Whitespace</td>
+<td>スペース、タブ、改行</td>
+<td><code>/^\s+$/</code></td>
+</tr>
+<tr>
+<td><strong>コメント</strong></td>
+<td>Comment</td>
+<td><code>// comment</code>, <code>/* comment */</code></td>
+<td><code>/^\/\/.*$/</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>字句解析器の実装例</strong></h3>
+
+<div class="example-box">
+<h4>JavaScript での簡単なレクサー</h4>
+<pre><code><span class="keyword">class</span> <span class="function">Lexer</span> {
+    <span class="keyword">constructor</span>(input) {
+        <span class="keyword">this</span>.input = input;
+        <span class="keyword">this</span>.position = <span class="number">0</span>;
+        <span class="keyword">this</span>.tokens = [];
+    }
+
+    <span class="function">tokenize</span>() {
+        <span class="keyword">while</span> (<span class="keyword">this</span>.position < <span class="keyword">this</span>.input.length) {
+            <span class="comment">// 空白をスキップ</span>
+            <span class="keyword">if</span> (<span class="keyword">this</span>.input[<span class="keyword">this</span>.position].match(<span class="string">/\s/</span>)) {
+                <span class="keyword">this</span>.position++;
+                <span class="keyword">continue</span>;
+            }
+            
+            <span class="comment">// 数値</span>
+            <span class="keyword">if</span> (<span class="keyword">this</span>.input[<span class="keyword">this</span>.position].match(<span class="string">/\d/</span>)) {
+                <span class="keyword">this</span>.tokens.push(<span class="keyword">this</span>.readNumber());
+            }
+            <span class="comment">// 識別子/キーワード</span>
+            <span class="keyword">else if</span> (<span class="keyword">this</span>.input[<span class="keyword">this</span>.position].match(<span class="string">/[a-zA-Z_]/</span>)) {
+                <span class="keyword">this</span>.tokens.push(<span class="keyword">this</span>.readIdentifier());
+            }
+            <span class="comment">// 演算子</span>
+            <span class="keyword">else</span> {
+                <span class="keyword">this</span>.tokens.push(<span class="keyword">this</span>.readOperator());
+            }
+        }
+        <span class="keyword">return</span> <span class="keyword">this</span>.tokens;
+    }
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>構文解析手法</h2>
+
+<h3><strong>主要な構文解析アルゴリズム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>手法</th>
+<th>分類</th>
+<th>特徴</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>再帰下降構文解析</strong></td>
+<td>トップダウン</td>
+<td>実装が簡単<br>直感的<br>バックトラック可能</td>
+<td>手書きパーサー<br>教育用<br>小規模言語</td>
+</tr>
+<tr>
+<td><strong>LL(k)構文解析</strong></td>
+<td>トップダウン</td>
+<td>左から右へ<br>最左導出<br>k個先読み</td>
+<td>コンパイラ生成器<br>ANTLR</td>
+</tr>
+<tr>
+<td><strong>LR(k)構文解析</strong></td>
+<td>ボトムアップ</td>
+<td>左から右へ<br>最右導出<br>強力</td>
+<td>yacc/bison<br>プログラミング言語</td>
+</tr>
+<tr>
+<td><strong>LALR(1)構文解析</strong></td>
+<td>ボトムアップ</td>
+<td>LRの効率化版<br>状態数削減</td>
+<td>実用的なパーサー<br>多くの言語</td>
+</tr>
+<tr>
+<td><strong>Earley構文解析</strong></td>
+<td>チャート法</td>
+<td>任意のCFG対応<br>O(n³)</td>
+<td>自然言語処理<br>曖昧な文法</td>
+</tr>
+<tr>
+<td><strong>パーサコンビネータ</strong></td>
+<td>関数型</td>
+<td>小さなパーサーを組み合わせ<br>型安全</td>
+<td>Haskell (Parsec)<br>関数型言語</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文法の記述</h2>
+
+<h3><strong>BNF（バッカス・ナウア記法）</strong></h3>
+
+<div class="grammar-box">
+<pre><code><span class="comment"># 基本的なBNF記法</span>
+&lt;expression&gt; ::= &lt;term&gt; | &lt;expression&gt; "+" &lt;term&gt; | &lt;expression&gt; "-" &lt;term&gt;
+&lt;term&gt;       ::= &lt;factor&gt; | &lt;term&gt; "*" &lt;factor&gt; | &lt;term&gt; "/" &lt;factor&gt;
+&lt;factor&gt;     ::= &lt;number&gt; | "(" &lt;expression&gt; ")"
+&lt;number&gt;     ::= &lt;digit&gt; | &lt;number&gt; &lt;digit&gt;
+&lt;digit&gt;      ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"</code></pre>
+</div>
+
+<h3><strong>EBNF（拡張BNF）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>意味</th>
+<th>例</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[ ]</code></td>
+<td>省略可能</td>
+<td><code>["+"|"-"] number</code></td>
+<td>符号は省略可能</td>
+</tr>
+<tr>
+<td><code>{ }</code></td>
+<td>0回以上の繰り返し</td>
+<td><code>digit {digit}</code></td>
+<td>1桁以上の数字</td>
+</tr>
+<tr>
+<td><code>( )</code></td>
+<td>グループ化</td>
+<td><code>("+"|"-"|"*"|"/")</code></td>
+<td>演算子のグループ</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>選択</td>
+<td><code>"true" | "false"</code></td>
+<td>どちらか一方</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>1回以上の繰り返し</td>
+<td><code>letter+</code></td>
+<td>1文字以上の文字</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>0回または1回</td>
+<td><code>sign? number</code></td>
+<td>符号は任意</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>再帰下降パーサー</h2>
+
+<h3><strong>実装パターン</strong></h3>
+
+<div class="example-box">
+<h4>式パーサーの実装例</h4>
+<pre><code><span class="keyword">class</span> <span class="function">Parser</span> {
+    <span class="keyword">constructor</span>(tokens) {
+        <span class="keyword">this</span>.tokens = tokens;
+        <span class="keyword">this</span>.current = <span class="number">0</span>;
+    }
+
+    <span class="comment">// expression = term (('+' | '-') term)*</span>
+    <span class="function">parseExpression</span>() {
+        <span class="keyword">let</span> left = <span class="keyword">this</span>.parseTerm();
+        
+        <span class="keyword">while</span> (<span class="keyword">this</span>.match(<span class="string">'+'</span>, <span class="string">'-'</span>)) {
+            <span class="keyword">const</span> op = <span class="keyword">this</span>.previous();
+            <span class="keyword">const</span> right = <span class="keyword">this</span>.parseTerm();
+            left = { type: <span class="string">'BinaryOp'</span>, op, left, right };
+        }
+        
+        <span class="keyword">return</span> left;
+    }
+
+    <span class="comment">// term = factor (('*' | '/') factor)*</span>
+    <span class="function">parseTerm</span>() {
+        <span class="keyword">let</span> left = <span class="keyword">this</span>.parseFactor();
+        
+        <span class="keyword">while</span> (<span class="keyword">this</span>.match(<span class="string">'*'</span>, <span class="string">'/'</span>)) {
+            <span class="keyword">const</span> op = <span class="keyword">this</span>.previous();
+            <span class="keyword">const</span> right = <span class="keyword">this</span>.parseFactor();
+            left = { type: <span class="string">'BinaryOp'</span>, op, left, right };
+        }
+        
+        <span class="keyword">return</span> left;
+    }
+
+    <span class="comment">// factor = number | '(' expression ')'</span>
+    <span class="function">parseFactor</span>() {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.match(<span class="string">'NUMBER'</span>)) {
+            <span class="keyword">return</span> { type: <span class="string">'Number'</span>, value: <span class="keyword">this</span>.previous().value };
+        }
+        
+        <span class="keyword">if</span> (<span class="keyword">this</span>.match(<span class="string">'('</span>)) {
+            <span class="keyword">const</span> expr = <span class="keyword">this</span>.parseExpression();
+            <span class="keyword">this</span>.consume(<span class="string">')'</span>, <span class="string">"Expected ')'"</span>);
+            <span class="keyword">return</span> expr;
+        }
+        
+        <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Unexpected token"</span>);
+    }
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>構文木（Parse Tree）と抽象構文木（AST）</h2>
+
+<h3><strong>違いと特徴</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>特徴</th>
+<th>構文木（Parse Tree）</th>
+<th>抽象構文木（AST）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>詳細度</strong></td>
+<td>すべての文法要素を含む</td>
+<td>意味的に重要な要素のみ</td>
+</tr>
+<tr>
+<td><strong>サイズ</strong></td>
+<td>大きい</td>
+<td>コンパクト</td>
+</tr>
+<tr>
+<td><strong>用途</strong></td>
+<td>構文の完全な表現</td>
+<td>コード解析・変換</td>
+</tr>
+<tr>
+<td><strong>括弧</strong></td>
+<td>含まれる</td>
+<td>省略される</td>
+</tr>
+<tr>
+<td><strong>演算子の優先順位</strong></td>
+<td>ノードの深さで表現</td>
+<td>構造で暗黙的に表現</td>
+</tr>
+</tbody>
+</table>
+
+<div class="parse-tree">
+<h4>例: <code>2 + 3 * 4</code> のAST</h4>
+<pre>
+        +
+       / \
+      2   *
+         / \
+        3   4
+</pre>
+</div>
+
+<hr>
+
+<h2>パーサージェネレーター</h2>
+
+<h3><strong>主要なツール</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ツール</th>
+<th>言語</th>
+<th>パーサー種別</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>yacc/bison</strong></td>
+<td>C/C++</td>
+<td>LALR(1)</td>
+<td>歴史的に広く使用<br>Unixツール<br>強力で高速</td>
+</tr>
+<tr>
+<td><strong>ANTLR</strong></td>
+<td>Java他</td>
+<td>LL(*)</td>
+<td>多言語対応<br>優れたエラー回復<br>IDE統合</td>
+</tr>
+<tr>
+<td><strong>PEG.js</strong></td>
+<td>JavaScript</td>
+<td>PEG</td>
+<td>パーサ式文法<br>バックトラック<br>Webフレンドリー</td>
+</tr>
+<tr>
+<td><strong>Jison</strong></td>
+<td>JavaScript</td>
+<td>LALR(1)</td>
+<td>bisonのJS版<br>ブラウザで動作</td>
+</tr>
+<tr>
+<td><strong>nom</strong></td>
+<td>Rust</td>
+<td>パーサコンビネータ</td>
+<td>型安全<br>高速<br>エラー処理優秀</td>
+</tr>
+<tr>
+<td><strong>Parsec</strong></td>
+<td>Haskell</td>
+<td>パーサコンビネータ</td>
+<td>関数型<br>エレガント<br>型による保証</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>エラー回復とエラー処理</h2>
+
+<h3><strong>エラー回復戦略</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>戦略</th>
+<th>説明</th>
+<th>利点</th>
+<th>欠点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>パニックモード</strong></td>
+<td>同期トークンまでスキップ</td>
+<td>実装が簡単<br>確実に回復</td>
+<td>多くのトークンを破棄</td>
+</tr>
+<tr>
+<td><strong>フレーズレベル</strong></td>
+<td>局所的な修正を試みる</td>
+<td>より多くのエラー検出</td>
+<td>複雑な実装</td>
+</tr>
+<tr>
+<td><strong>エラー生成規則</strong></td>
+<td>よくあるエラーを文法に含める</td>
+<td>精密なエラーメッセージ</td>
+<td>文法が複雑化</td>
+</tr>
+<tr>
+<td><strong>グローバル修正</strong></td>
+<td>最小コストの修正を探索</td>
+<td>理論的に最適</td>
+<td>計算コストが高い</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>実用的な構文解析の例</h2>
+
+<h3><strong>JSON パーサー</strong></h3>
+
+<div class="grammar-box">
+<pre><code><span class="comment">// JSON文法（簡略版）</span>
+json     = value
+value    = object | array | string | number | "true" | "false" | "null"
+object   = "{" [members] "}"
+members  = pair {"," pair}
+pair     = string ":" value
+array    = "[" [elements] "]"
+elements = value {"," value}
+string   = '"' characters '"'
+number   = ["-"] digits ["." digits] [("e"|"E") ["+"|"-"] digits]</code></pre>
+</div>
+
+<h3><strong>正規表現パーサー</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>文法規則</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>文字</strong></td>
+<td><code>char = any-char-except-meta</code></td>
+<td><code>a</code>, <code>1</code></td>
+</tr>
+<tr>
+<td><strong>エスケープ</strong></td>
+<td><code>escape = "\" special-char</code></td>
+<td><code>\n</code>, <code>\.</code></td>
+</tr>
+<tr>
+<td><strong>文字クラス</strong></td>
+<td><code>class = "[" [^] chars "]"</code></td>
+<td><code>[a-z]</code>, <code>[^0-9]</code></td>
+</tr>
+<tr>
+<td><strong>量指定子</strong></td>
+<td><code>quant = "*" | "+" | "?" | "{" n ["," m] "}"</code></td>
+<td><code>a*</code>, <code>b+</code>, <code>c{2,4}</code></td>
+</tr>
+<tr>
+<td><strong>グループ</strong></td>
+<td><code>group = "(" regex ")"</code></td>
+<td><code>(ab)+</code></td>
+</tr>
+<tr>
+<td><strong>選択</strong></td>
+<td><code>alt = regex "|" regex</code></td>
+<td><code>cat|dog</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>最適化技法</h2>
+
+<h3><strong>パーサーの最適化</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>技法</th>
+<th>説明</th>
+<th>効果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>メモ化</strong></td>
+<td>解析結果をキャッシュ</td>
+<td>バックトラックの高速化</td>
+</tr>
+<tr>
+<td><strong>先読みテーブル</strong></td>
+<td>次のトークンで分岐を決定</td>
+<td>分岐の高速化</td>
+</tr>
+<tr>
+<td><strong>インライン化</strong></td>
+<td>小さな規則を展開</td>
+<td>関数呼び出しの削減</td>
+</tr>
+<tr>
+<td><strong>左再帰の除去</strong></td>
+<td>文法を書き換え</td>
+<td>スタックオーバーフロー防止</td>
+</tr>
+<tr>
+<td><strong>共通部分式の括り出し</strong></td>
+<td>左因子化</td>
+<td>バックトラックの削減</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>左再帰の除去例</h4>
+<pre><code><span class="comment">// 左再帰あり（問題）</span>
+A → A α | β
+
+<span class="comment">// 左再帰なし（解決）</span>
+A → β A'
+A' → α A' | ε</code></pre>
+</div>
+
+<hr>
+
+<h2>実世界での応用</h2>
+
+<h3><strong>構文解析の用途</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>用途</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>プログラミング言語</strong></td>
+<td>コンパイラ・インタプリタ</td>
+<td>GCC, V8, Python</td>
+</tr>
+<tr>
+<td><strong>データ形式</strong></td>
+<td>シリアライゼーション</td>
+<td>JSON, XML, YAML</td>
+</tr>
+<tr>
+<td><strong>クエリ言語</strong></td>
+<td>データベース・検索</td>
+<td>SQL, GraphQL, Elasticsearch</td>
+</tr>
+<tr>
+<td><strong>設定ファイル</strong></td>
+<td>設定の読み込み</td>
+<td>INI, TOML, .env</td>
+</tr>
+<tr>
+<td><strong>テンプレート</strong></td>
+<td>テンプレートエンジン</td>
+<td>Handlebars, Jinja2, ERB</td>
+</tr>
+<tr>
+<td><strong>DSL</strong></td>
+<td>ドメイン特化言語</td>
+<td>正規表現, Makefile, Dockerfile</td>
+</tr>
+<tr>
+<td><strong>自然言語処理</strong></td>
+<td>構文解析・品詞タグ付け</td>
+<td>Stanford Parser, spaCy</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

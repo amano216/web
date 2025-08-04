@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字列処理技術チートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .example-box {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pattern-box {
+            background-color: #1a1a1a;
+            border-left: 3px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+        }
+
+        .algorithm-flow {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--text-accent);
+            margin: 0.5rem 0;
+        }
+
+        .performance-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        .comment { color: #5c6370; font-style: italic; }
+        .function { color: #61afef; }
+        .variable { color: #e06c75; }
+        .regex { color: #56b6c2; }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>文字列処理技術チートシート</h1>
+
+<p>プログラミングにおける文字列処理の基本技術、アルゴリズム、正規表現、エンコーディング、文字列検索・マッチング技術を網羅したリファレンスです。</p>
+
+<hr>
+
+<h2>文字列処理の基本操作</h2>
+
+<h3><strong>基本的な文字列操作</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>英語名</th>
+<th>説明</th>
+<th>計算量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>連結</strong></td>
+<td>Concatenation</td>
+<td>複数の文字列を結合</td>
+<td>O(n+m)</td>
+</tr>
+<tr>
+<td><strong>部分文字列</strong></td>
+<td>Substring</td>
+<td>文字列の一部を抽出</td>
+<td>O(k)</td>
+</tr>
+<tr>
+<td><strong>検索</strong></td>
+<td>Search/Find</td>
+<td>パターンの位置を検索</td>
+<td>O(nm)〜O(n+m)</td>
+</tr>
+<tr>
+<td><strong>置換</strong></td>
+<td>Replace</td>
+<td>パターンを別の文字列に置換</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>分割</strong></td>
+<td>Split</td>
+<td>区切り文字で分割</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>結合</strong></td>
+<td>Join</td>
+<td>配列を文字列に結合</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>トリミング</strong></td>
+<td>Trim</td>
+<td>前後の空白を除去</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>大文字小文字変換</strong></td>
+<td>Case Conversion</td>
+<td>大文字/小文字に変換</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>言語別の文字列操作メソッド</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>JavaScript</th>
+<th>Python</th>
+<th>Java</th>
+<th>Ruby</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>長さ取得</strong></td>
+<td><code>.length</code></td>
+<td><code>len()</code></td>
+<td><code>.length()</code></td>
+<td><code>.length</code></td>
+</tr>
+<tr>
+<td><strong>連結</strong></td>
+<td><code>+</code> or <code>.concat()</code></td>
+<td><code>+</code> or <code>.join()</code></td>
+<td><code>+</code> or <code>.concat()</code></td>
+<td><code>+</code> or <code><<</code></td>
+</tr>
+<tr>
+<td><strong>部分文字列</strong></td>
+<td><code>.substring()</code>/<code>.slice()</code></td>
+<td><code>[start:end]</code></td>
+<td><code>.substring()</code></td>
+<td><code>[start..end]</code></td>
+</tr>
+<tr>
+<td><strong>検索</strong></td>
+<td><code>.indexOf()</code></td>
+<td><code>.find()</code></td>
+<td><code>.indexOf()</code></td>
+<td><code>.index()</code></td>
+</tr>
+<tr>
+<td><strong>置換</strong></td>
+<td><code>.replace()</code></td>
+<td><code>.replace()</code></td>
+<td><code>.replace()</code></td>
+<td><code>.gsub()</code></td>
+</tr>
+<tr>
+<td><strong>分割</strong></td>
+<td><code>.split()</code></td>
+<td><code>.split()</code></td>
+<td><code>.split()</code></td>
+<td><code>.split()</code></td>
+</tr>
+<tr>
+<td><strong>大文字変換</strong></td>
+<td><code>.toUpperCase()</code></td>
+<td><code>.upper()</code></td>
+<td><code>.toUpperCase()</code></td>
+<td><code>.upcase</code></td>
+</tr>
+<tr>
+<td><strong>小文字変換</strong></td>
+<td><code>.toLowerCase()</code></td>
+<td><code>.lower()</code></td>
+<td><code>.toLowerCase()</code></td>
+<td><code>.downcase</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>文字エンコーディング</h2>
+
+<h3><strong>主要な文字エンコーディング</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンコーディング</th>
+<th>英語名</th>
+<th>特徴</th>
+<th>バイト数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ASCII</strong></td>
+<td>American Standard Code</td>
+<td>英数字・記号（128文字）</td>
+<td>1バイト固定</td>
+</tr>
+<tr>
+<td><strong>UTF-8</strong></td>
+<td>8-bit Unicode</td>
+<td>可変長・ASCII互換<br>Web標準</td>
+<td>1-4バイト</td>
+</tr>
+<tr>
+<td><strong>UTF-16</strong></td>
+<td>16-bit Unicode</td>
+<td>固定/可変長<br>JavaやWindowsで使用</td>
+<td>2-4バイト</td>
+</tr>
+<tr>
+<td><strong>UTF-32</strong></td>
+<td>32-bit Unicode</td>
+<td>固定長<br>処理は簡単だがサイズ大</td>
+<td>4バイト固定</td>
+</tr>
+<tr>
+<td><strong>Shift_JIS</strong></td>
+<td>Shift JIS</td>
+<td>日本語エンコーディング<br>レガシーシステム</td>
+<td>1-2バイト</td>
+</tr>
+<tr>
+<td><strong>EUC-JP</strong></td>
+<td>Extended Unix Code</td>
+<td>Unix系で使用された<br>日本語エンコーディング</td>
+<td>1-3バイト</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>エンコーディング変換</strong></h3>
+
+<div class="example-box">
+<h4>各言語でのエンコーディング処理</h4>
+<pre><code><span class="comment">// JavaScript</span>
+<span class="keyword">const</span> <span class="variable">encoded</span> = <span class="function">encodeURIComponent</span>(<span class="string">'日本語'</span>);
+<span class="keyword">const</span> <span class="variable">decoded</span> = <span class="function">decodeURIComponent</span>(<span class="variable">encoded</span>);
+
+<span class="comment"># Python</span>
+<span class="variable">text</span> = <span class="string">'日本語'</span>
+<span class="variable">encoded</span> = <span class="variable">text</span>.<span class="function">encode</span>(<span class="string">'utf-8'</span>)
+<span class="variable">decoded</span> = <span class="variable">encoded</span>.<span class="function">decode</span>(<span class="string">'utf-8'</span>)
+
+<span class="comment">// Java</span>
+<span class="keyword">byte</span>[] <span class="variable">bytes</span> = <span class="variable">text</span>.<span class="function">getBytes</span>(<span class="string">"UTF-8"</span>);
+<span class="keyword">String</span> <span class="variable">decoded</span> = <span class="keyword">new</span> <span class="function">String</span>(<span class="variable">bytes</span>, <span class="string">"UTF-8"</span>);
+
+<span class="comment"># Ruby</span>
+<span class="variable">encoded</span> = <span class="variable">text</span>.<span class="function">encode</span>(<span class="string">'UTF-8'</span>)
+<span class="variable">decoded</span> = <span class="variable">encoded</span>.<span class="function">force_encoding</span>(<span class="string">'UTF-8'</span>)</code></pre>
+</div>
+
+<hr>
+
+<h2>正規表現（Regular Expression）</h2>
+
+<h3><strong>基本的な正規表現パターン</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>意味</th>
+<th>例</th>
+<th>マッチする文字列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>任意の1文字</td>
+<td><code>a.c</code></td>
+<td>abc, a1c, a c</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>0回以上の繰り返し</td>
+<td><code>ab*c</code></td>
+<td>ac, abc, abbc</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>1回以上の繰り返し</td>
+<td><code>ab+c</code></td>
+<td>abc, abbc, abbbc</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>0回または1回</td>
+<td><code>colou?r</code></td>
+<td>color, colour</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>行頭</td>
+<td><code>^Hello</code></td>
+<td>行頭のHello</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>行末</td>
+<td><code>world$</code></td>
+<td>行末のworld</td>
+</tr>
+<tr>
+<td><code>[abc]</code></td>
+<td>文字クラス</td>
+<td><code>[aeiou]</code></td>
+<td>母音のいずれか</td>
+</tr>
+<tr>
+<td><code>[^abc]</code></td>
+<td>否定文字クラス</td>
+<td><code>[^0-9]</code></td>
+<td>数字以外</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>数字</td>
+<td><code>\d{3}</code></td>
+<td>3桁の数字</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>単語文字</td>
+<td><code>\w+</code></td>
+<td>単語</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>空白文字</td>
+<td><code>\s+</code></td>
+<td>スペース、タブ等</td>
+</tr>
+<tr>
+<td><code>()</code></td>
+<td>グループ化</td>
+<td><code>(ab)+</code></td>
+<td>ab, abab, ababab</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>OR条件</td>
+<td><code>cat|dog</code></td>
+<td>cat または dog</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>高度な正規表現</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>名称</th>
+<th>説明</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(?=...)</code></td>
+<td>先読み</td>
+<td>後に続く文字を確認（消費しない）</td>
+<td><code>test(?=ing)</code></td>
+</tr>
+<tr>
+<td><code>(?!...)</code></td>
+<td>否定先読み</td>
+<td>後に続かない場合にマッチ</td>
+<td><code>test(?!ing)</code></td>
+</tr>
+<tr>
+<td><code>(?<=...)</code></td>
+<td>後読み</td>
+<td>前にある文字を確認</td>
+<td><code>(?<=@)\w+</code></td>
+</tr>
+<tr>
+<td><code>(?<!...)</code></td>
+<td>否定後読み</td>
+<td>前にない場合にマッチ</td>
+<td><code>(?<!un)happy</code></td>
+</tr>
+<tr>
+<td><code>(?: ...)</code></td>
+<td>非キャプチャグループ</td>
+<td>グループ化するがキャプチャしない</td>
+<td><code>(?:ab)+</code></td>
+</tr>
+<tr>
+<td><code>\1, \2</code></td>
+<td>後方参照</td>
+<td>キャプチャグループの参照</td>
+<td><code>(\w+)\s\1</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="pattern-box">
+<h4>実用的な正規表現パターン</h4>
+<pre><code><span class="comment">// メールアドレス</span>
+<span class="regex">/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/</span>
+
+<span class="comment">// URL</span>
+<span class="regex">/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/</span>
+
+<span class="comment">// 日本の郵便番号</span>
+<span class="regex">/^\d{3}-?\d{4}$/</span>
+
+<span class="comment">// 電話番号（日本）</span>
+<span class="regex">/^0\d{1,4}-?\d{1,4}-?\d{4}$/</span>
+
+<span class="comment">// IPアドレス（IPv4）</span>
+<span class="regex">/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/</span></code></pre>
+</div>
+
+<hr>
+
+<h2>文字列検索アルゴリズム</h2>
+
+<h3><strong>主要な文字列検索アルゴリズム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>アルゴリズム</th>
+<th>平均計算量</th>
+<th>最悪計算量</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>総当たり法</strong></td>
+<td>O(nm)</td>
+<td>O(nm)</td>
+<td>単純だが遅い<br>実装が簡単</td>
+</tr>
+<tr>
+<td><strong>KMP法</strong></td>
+<td>O(n+m)</td>
+<td>O(n+m)</td>
+<td>前処理でパターンを解析<br>バックトラックなし</td>
+</tr>
+<tr>
+<td><strong>Boyer-Moore法</strong></td>
+<td>O(n/m)</td>
+<td>O(nm)</td>
+<td>後ろから比較<br>長いパターンで高速</td>
+</tr>
+<tr>
+<td><strong>Rabin-Karp法</strong></td>
+<td>O(n+m)</td>
+<td>O(nm)</td>
+<td>ハッシュ値を使用<br>複数パターン検索に有効</td>
+</tr>
+<tr>
+<td><strong>Aho-Corasick法</strong></td>
+<td>O(n+m+z)</td>
+<td>O(n+m+z)</td>
+<td>複数パターンの同時検索<br>トライ木を使用</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>KMP法の実装例</h4>
+<pre><code><span class="keyword">function</span> <span class="function">buildFailureTable</span>(<span class="variable">pattern</span>) {
+    <span class="keyword">const</span> <span class="variable">table</span> = [<span class="number">0</span>];
+    <span class="keyword">let</span> <span class="variable">j</span> = <span class="number">0</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">1</span>; <span class="variable">i</span> < <span class="variable">pattern</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
+        <span class="keyword">while</span> (<span class="variable">j</span> > <span class="number">0</span> && <span class="variable">pattern</span>[<span class="variable">i</span>] !== <span class="variable">pattern</span>[<span class="variable">j</span>]) {
+            <span class="variable">j</span> = <span class="variable">table</span>[<span class="variable">j</span> - <span class="number">1</span>];
+        }
+        <span class="keyword">if</span> (<span class="variable">pattern</span>[<span class="variable">i</span>] === <span class="variable">pattern</span>[<span class="variable">j</span>]) {
+            <span class="variable">j</span>++;
+        }
+        <span class="variable">table</span>[<span class="variable">i</span>] = <span class="variable">j</span>;
+    }
+    <span class="keyword">return</span> <span class="variable">table</span>;
+}
+
+<span class="keyword">function</span> <span class="function">kmpSearch</span>(<span class="variable">text</span>, <span class="variable">pattern</span>) {
+    <span class="keyword">const</span> <span class="variable">table</span> = <span class="function">buildFailureTable</span>(<span class="variable">pattern</span>);
+    <span class="keyword">let</span> <span class="variable">j</span> = <span class="number">0</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="variable">text</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
+        <span class="keyword">while</span> (<span class="variable">j</span> > <span class="number">0</span> && <span class="variable">text</span>[<span class="variable">i</span>] !== <span class="variable">pattern</span>[<span class="variable">j</span>]) {
+            <span class="variable">j</span> = <span class="variable">table</span>[<span class="variable">j</span> - <span class="number">1</span>];
+        }
+        <span class="keyword">if</span> (<span class="variable">text</span>[<span class="variable">i</span>] === <span class="variable">pattern</span>[<span class="variable">j</span>]) {
+            <span class="variable">j</span>++;
+        }
+        <span class="keyword">if</span> (<span class="variable">j</span> === <span class="variable">pattern</span>.<span class="variable">length</span>) {
+            <span class="keyword">return</span> <span class="variable">i</span> - <span class="variable">j</span> + <span class="number">1</span>; <span class="comment">// マッチ位置</span>
+        }
+    }
+    <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 見つからない</span>
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>文字列の類似度・距離</h2>
+
+<h3><strong>文字列距離アルゴリズム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>アルゴリズム</th>
+<th>用途</th>
+<th>計算量</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>レーベンシュタイン距離</strong></td>
+<td>編集距離</td>
+<td>O(nm)</td>
+<td>挿入・削除・置換の最小回数<br>スペルチェッカー</td>
+</tr>
+<tr>
+<td><strong>ハミング距離</strong></td>
+<td>固定長文字列の比較</td>
+<td>O(n)</td>
+<td>同じ位置の異なる文字数<br>エラー検出</td>
+</tr>
+<tr>
+<td><strong>ジャロ・ウィンクラー距離</strong></td>
+<td>類似度測定</td>
+<td>O(nm)</td>
+<td>0〜1の類似度<br>名前のマッチング</td>
+</tr>
+<tr>
+<td><strong>コサイン類似度</strong></td>
+<td>文書の類似度</td>
+<td>O(n)</td>
+<td>ベクトルの角度<br>文書分類</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>レーベンシュタイン距離の実装</h4>
+<pre><code><span class="keyword">function</span> <span class="function">levenshteinDistance</span>(<span class="variable">str1</span>, <span class="variable">str2</span>) {
+    <span class="keyword">const</span> <span class="variable">m</span> = <span class="variable">str1</span>.<span class="variable">length</span>;
+    <span class="keyword">const</span> <span class="variable">n</span> = <span class="variable">str2</span>.<span class="variable">length</span>;
+    <span class="keyword">const</span> <span class="variable">dp</span> = <span class="function">Array</span>(<span class="variable">m</span> + <span class="number">1</span>).<span class="function">fill</span>().<span class="function">map</span>(() => <span class="function">Array</span>(<span class="variable">n</span> + <span class="number">1</span>).<span class="function">fill</span>(<span class="number">0</span>));
+    
+    <span class="comment">// 初期化</span>
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> <= <span class="variable">m</span>; <span class="variable">i</span>++) <span class="variable">dp</span>[<span class="variable">i</span>][<span class="number">0</span>] = <span class="variable">i</span>;
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">j</span> = <span class="number">0</span>; <span class="variable">j</span> <= <span class="variable">n</span>; <span class="variable">j</span>++) <span class="variable">dp</span>[<span class="number">0</span>][<span class="variable">j</span>] = <span class="variable">j</span>;
+    
+    <span class="comment">// 動的計画法</span>
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">1</span>; <span class="variable">i</span> <= <span class="variable">m</span>; <span class="variable">i</span>++) {
+        <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">j</span> = <span class="number">1</span>; <span class="variable">j</span> <= <span class="variable">n</span>; <span class="variable">j</span>++) {
+            <span class="keyword">if</span> (<span class="variable">str1</span>[<span class="variable">i</span> - <span class="number">1</span>] === <span class="variable">str2</span>[<span class="variable">j</span> - <span class="number">1</span>]) {
+                <span class="variable">dp</span>[<span class="variable">i</span>][<span class="variable">j</span>] = <span class="variable">dp</span>[<span class="variable">i</span> - <span class="number">1</span>][<span class="variable">j</span> - <span class="number">1</span>];
+            } <span class="keyword">else</span> {
+                <span class="variable">dp</span>[<span class="variable">i</span>][<span class="variable">j</span>] = <span class="number">1</span> + <span class="function">Math.min</span>(
+                    <span class="variable">dp</span>[<span class="variable">i</span> - <span class="number">1</span>][<span class="variable">j</span>],    <span class="comment">// 削除</span>
+                    <span class="variable">dp</span>[<span class="variable">i</span>][<span class="variable">j</span> - <span class="number">1</span>],    <span class="comment">// 挿入</span>
+                    <span class="variable">dp</span>[<span class="variable">i</span> - <span class="number">1</span>][<span class="variable">j</span> - <span class="number">1</span>] <span class="comment">// 置換</span>
+                );
+            }
+        }
+    }
+    
+    <span class="keyword">return</span> <span class="variable">dp</span>[<span class="variable">m</span>][<span class="variable">n</span>];
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>文字列の圧縮</h2>
+
+<h3><strong>文字列圧縮アルゴリズム</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>アルゴリズム</th>
+<th>種類</th>
+<th>特徴</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ランレングス符号化</strong></td>
+<td>連長圧縮</td>
+<td>連続する同じ文字を圧縮<br>単純で高速</td>
+<td>画像データ<br>FAX</td>
+</tr>
+<tr>
+<td><strong>ハフマン符号化</strong></td>
+<td>エントロピー符号化</td>
+<td>頻度に基づく可変長符号<br>最適な符号化</td>
+<td>ZIP<br>JPEG</td>
+</tr>
+<tr>
+<td><strong>LZ77/LZ78</strong></td>
+<td>辞書式圧縮</td>
+<td>繰り返しパターンを参照<br>スライディングウィンドウ</td>
+<td>ZIP<br>PNG</td>
+</tr>
+<tr>
+<td><strong>LZW</strong></td>
+<td>辞書式圧縮</td>
+<td>動的辞書構築<br>特許問題（期限切れ）</td>
+<td>GIF<br>TIFF</td>
+</tr>
+<tr>
+<td><strong>BWT</strong></td>
+<td>ブロックソート</td>
+<td>文字の並び替えで圧縮率向上<br>bzip2で使用</td>
+<td>bzip2</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>ランレングス符号化の実装</h4>
+<pre><code><span class="keyword">function</span> <span class="function">runLengthEncode</span>(<span class="variable">str</span>) {
+    <span class="keyword">if</span> (!<span class="variable">str</span>) <span class="keyword">return</span> <span class="string">''</span>;
+    
+    <span class="keyword">let</span> <span class="variable">encoded</span> = <span class="string">''</span>;
+    <span class="keyword">let</span> <span class="variable">count</span> = <span class="number">1</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">1</span>; <span class="variable">i</span> <= <span class="variable">str</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
+        <span class="keyword">if</span> (<span class="variable">i</span> < <span class="variable">str</span>.<span class="variable">length</span> && <span class="variable">str</span>[<span class="variable">i</span>] === <span class="variable">str</span>[<span class="variable">i</span> - <span class="number">1</span>]) {
+            <span class="variable">count</span>++;
+        } <span class="keyword">else</span> {
+            <span class="variable">encoded</span> += <span class="variable">str</span>[<span class="variable">i</span> - <span class="number">1</span>] + <span class="variable">count</span>;
+            <span class="variable">count</span> = <span class="number">1</span>;
+        }
+    }
+    
+    <span class="keyword">return</span> <span class="variable">encoded</span>;
+}
+
+<span class="keyword">function</span> <span class="function">runLengthDecode</span>(<span class="variable">encoded</span>) {
+    <span class="keyword">let</span> <span class="variable">decoded</span> = <span class="string">''</span>;
+    <span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>;
+    
+    <span class="keyword">while</span> (<span class="variable">i</span> < <span class="variable">encoded</span>.<span class="variable">length</span>) {
+        <span class="keyword">const</span> <span class="variable">char</span> = <span class="variable">encoded</span>[<span class="variable">i</span>];
+        <span class="variable">i</span>++;
+        
+        <span class="keyword">let</span> <span class="variable">numStr</span> = <span class="string">''</span>;
+        <span class="keyword">while</span> (<span class="variable">i</span> < <span class="variable">encoded</span>.<span class="variable">length</span> && <span class="regex">/\d/</span>.<span class="function">test</span>(<span class="variable">encoded</span>[<span class="variable">i</span>])) {
+            <span class="variable">numStr</span> += <span class="variable">encoded</span>[<span class="variable">i</span>];
+            <span class="variable">i</span>++;
+        }
+        
+        <span class="keyword">const</span> <span class="variable">count</span> = <span class="function">parseInt</span>(<span class="variable">numStr</span>);
+        <span class="variable">decoded</span> += <span class="variable">char</span>.<span class="function">repeat</span>(<span class="variable">count</span>);
+    }
+    
+    <span class="keyword">return</span> <span class="variable">decoded</span>;
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>文字列のハッシュ</h2>
+
+<h3><strong>文字列ハッシュ関数</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>ハッシュ関数</th>
+<th>特徴</th>
+<th>用途</th>
+<th>速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ポリノミアルハッシュ</strong></td>
+<td>多項式を使用<br>実装が簡単</td>
+<td>文字列検索<br>ハッシュテーブル</td>
+<td>高速</td>
+</tr>
+<tr>
+<td><strong>ローリングハッシュ</strong></td>
+<td>スライディングウィンドウ<br>差分更新可能</td>
+<td>Rabin-Karp法<br>パターンマッチング</td>
+<td>高速</td>
+</tr>
+<tr>
+<td><strong>MD5</strong></td>
+<td>128ビット<br>暗号学的には非推奨</td>
+<td>チェックサム<br>重複検出</td>
+<td>中速</td>
+</tr>
+<tr>
+<td><strong>SHA-256</strong></td>
+<td>256ビット<br>暗号学的に安全</td>
+<td>パスワード<br>デジタル署名</td>
+<td>低速</td>
+</tr>
+<tr>
+<td><strong>CRC32</strong></td>
+<td>32ビット<br>エラー検出向け</td>
+<td>データ整合性<br>ZIP</td>
+<td>高速</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>ポリノミアルハッシュの実装</h4>
+<pre><code><span class="keyword">function</span> <span class="function">polynomialHash</span>(<span class="variable">str</span>, <span class="variable">base</span> = <span class="number">31</span>, <span class="variable">mod</span> = <span class="number">1e9</span> + <span class="number">7</span>) {
+    <span class="keyword">let</span> <span class="variable">hash</span> = <span class="number">0</span>;
+    <span class="keyword">let</span> <span class="variable">pow</span> = <span class="number">1</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="variable">str</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
+        <span class="variable">hash</span> = (<span class="variable">hash</span> + <span class="variable">str</span>.<span class="function">charCodeAt</span>(<span class="variable">i</span>) * <span class="variable">pow</span>) % <span class="variable">mod</span>;
+        <span class="variable">pow</span> = (<span class="variable">pow</span> * <span class="variable">base</span>) % <span class="variable">mod</span>;
+    }
+    
+    <span class="keyword">return</span> <span class="variable">hash</span>;
+}
+
+<span class="comment">// ローリングハッシュ</span>
+<span class="keyword">class</span> <span class="function">RollingHash</span> {
+    <span class="keyword">constructor</span>(<span class="variable">str</span>, <span class="variable">windowSize</span>, <span class="variable">base</span> = <span class="number">256</span>, <span class="variable">mod</span> = <span class="number">101</span>) {
+        <span class="keyword">this</span>.<span class="variable">str</span> = <span class="variable">str</span>;
+        <span class="keyword">this</span>.<span class="variable">windowSize</span> = <span class="variable">windowSize</span>;
+        <span class="keyword">this</span>.<span class="variable">base</span> = <span class="variable">base</span>;
+        <span class="keyword">this</span>.<span class="variable">mod</span> = <span class="variable">mod</span>;
+        <span class="keyword">this</span>.<span class="variable">hash</span> = <span class="number">0</span>;
+        <span class="keyword">this</span>.<span class="variable">pow</span> = <span class="number">1</span>;
+        
+        <span class="comment">// 初期ハッシュ計算</span>
+        <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="variable">windowSize</span>; <span class="variable">i</span>++) {
+            <span class="keyword">this</span>.<span class="variable">hash</span> = (<span class="keyword">this</span>.<span class="variable">hash</span> * <span class="variable">base</span> + <span class="variable">str</span>.<span class="function">charCodeAt</span>(<span class="variable">i</span>)) % <span class="variable">mod</span>;
+            <span class="keyword">if</span> (<span class="variable">i</span> < <span class="variable">windowSize</span> - <span class="number">1</span>) {
+                <span class="keyword">this</span>.<span class="variable">pow</span> = (<span class="keyword">this</span>.<span class="variable">pow</span> * <span class="variable">base</span>) % <span class="variable">mod</span>;
+            }
+        }
+    }
+    
+    <span class="function">roll</span>(<span class="variable">oldChar</span>, <span class="variable">newChar</span>) {
+        <span class="keyword">this</span>.<span class="variable">hash</span> = (<span class="keyword">this</span>.<span class="variable">hash</span> - <span class="variable">oldChar</span>.<span class="function">charCodeAt</span>(<span class="number">0</span>) * <span class="keyword">this</span>.<span class="variable">pow</span>) % <span class="keyword">this</span>.<span class="variable">mod</span>;
+        <span class="keyword">this</span>.<span class="variable">hash</span> = (<span class="keyword">this</span>.<span class="variable">hash</span> * <span class="keyword">this</span>.<span class="variable">base</span> + <span class="variable">newChar</span>.<span class="function">charCodeAt</span>(<span class="number">0</span>)) % <span class="keyword">this</span>.<span class="variable">mod</span>;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.<span class="variable">hash</span> < <span class="number">0</span>) <span class="keyword">this</span>.<span class="variable">hash</span> += <span class="keyword">this</span>.<span class="variable">mod</span>;
+        <span class="keyword">return</span> <span class="keyword">this</span>.<span class="variable">hash</span>;
+    }
+}</code></pre>
+</div>
+
+<hr>
+
+<h2>文字列のパフォーマンス最適化</h2>
+
+<h3><strong>文字列操作の最適化テクニック</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>テクニック</th>
+<th>説明</th>
+<th>効果</th>
+<th>適用場面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>StringBuilder/StringBuffer</strong></td>
+<td>可変文字列バッファ</td>
+<td>連結の高速化</td>
+<td>大量の文字列連結</td>
+</tr>
+<tr>
+<td><strong>文字列プール</strong></td>
+<td>同じ文字列を共有</td>
+<td>メモリ節約</td>
+<td>重複文字列が多い場合</td>
+</tr>
+<tr>
+<td><strong>遅延評価</strong></td>
+<td>必要時まで処理を遅延</td>
+<td>不要な処理を削減</td>
+<td>条件付き処理</td>
+</tr>
+<tr>
+<td><strong>イミュータブル文字列</strong></td>
+<td>不変の文字列</td>
+<td>スレッドセーフ<br>キャッシュ可能</td>
+<td>並行処理</td>
+</tr>
+<tr>
+<td><strong>文字配列操作</strong></td>
+<td>文字列の代わりに配列使用</td>
+<td>インデックスアクセス高速</td>
+<td>頻繁な文字アクセス</td>
+</tr>
+</tbody>
+</table>
+
+<div class="performance-box">
+<h4>パフォーマンス比較</h4>
+<pre><code><span class="comment">// 悪い例：文字列連結の繰り返し</span>
+<span class="keyword">let</span> <span class="variable">result</span> = <span class="string">''</span>;
+<span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="number">10000</span>; <span class="variable">i</span>++) {
+    <span class="variable">result</span> += <span class="string">'a'</span>; <span class="comment">// O(n²)の時間複雑度</span>
+}
+
+<span class="comment">// 良い例：配列を使用</span>
+<span class="keyword">const</span> <span class="variable">parts</span> = [];
+<span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="number">10000</span>; <span class="variable">i</span>++) {
+    <span class="variable">parts</span>.<span class="function">push</span>(<span class="string">'a'</span>);
+}
+<span class="keyword">const</span> <span class="variable">result</span> = <span class="variable">parts</span>.<span class="function">join</span>(<span class="string">''</span>); <span class="comment">// O(n)の時間複雑度</span></code></pre>
+</div>
+
+<hr>
+
+<h2>実用的な文字列処理</h2>
+
+<h3><strong>よく使う文字列処理パターン</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>処理</th>
+<th>説明</th>
+<th>実装例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>トークン化</strong></td>
+<td>文字列を意味のある単位に分割</td>
+<td><code>text.split(/\s+/)</code></td>
+</tr>
+<tr>
+<td><strong>正規化</strong></td>
+<td>統一された形式に変換</td>
+<td><code>text.normalize('NFKC')</code></td>
+</tr>
+<tr>
+<td><strong>サニタイズ</strong></td>
+<td>危険な文字を除去・エスケープ</td>
+<td>HTMLエスケープ、SQLエスケープ</td>
+</tr>
+<tr>
+<td><strong>バリデーション</strong></td>
+<td>形式の妥当性チェック</td>
+<td>メールアドレス、URL検証</td>
+</tr>
+<tr>
+<td><strong>フォーマット</strong></td>
+<td>特定の形式に整形</td>
+<td>日付、数値、通貨</td>
+</tr>
+</tbody>
+</table>
+
+<div class="example-box">
+<h4>実用的な文字列処理関数</h4>
+<pre><code><span class="comment">// HTMLエスケープ</span>
+<span class="keyword">function</span> <span class="function">escapeHtml</span>(<span class="variable">text</span>) {
+    <span class="keyword">const</span> <span class="variable">map</span> = {
+        <span class="string">'&'</span>: <span class="string">'&amp;'</span>,
+        <span class="string">'<'</span>: <span class="string">'&lt;'</span>,
+        <span class="string">'>'</span>: <span class="string">'&gt;'</span>,
+        <span class="string">'"'</span>: <span class="string">'&quot;'</span>,
+        <span class="string">"'"</span>: <span class="string">'&#039;'</span>
+    };
+    <span class="keyword">return</span> <span class="variable">text</span>.<span class="function">replace</span>(<span class="regex">/[&<>"']/g</span>, <span class="variable">m</span> => <span class="variable">map</span>[<span class="variable">m</span>]);
+}
+
+<span class="comment">// キャメルケース変換</span>
+<span class="keyword">function</span> <span class="function">toCamelCase</span>(<span class="variable">str</span>) {
+    <span class="keyword">return</span> <span class="variable">str</span>.<span class="function">replace</span>(<span class="regex">/[-_](.)/g</span>, (_, <span class="variable">c</span>) => <span class="variable">c</span>.<span class="function">toUpperCase</span>());
+}
+
+<span class="comment">// スネークケース変換</span>
+<span class="keyword">function</span> <span class="function">toSnakeCase</span>(<span class="variable">str</span>) {
+    <span class="keyword">return</span> <span class="variable">str</span>.<span class="function">replace</span>(<span class="regex">/[A-Z]/g</span>, <span class="variable">c</span> => <span class="string">'_'</span> + <span class="variable">c</span>.<span class="function">toLowerCase</span>());
+}
+
+<span class="comment">// URLスラッグ生成</span>
+<span class="keyword">function</span> <span class="function">slugify</span>(<span class="variable">text</span>) {
+    <span class="keyword">return</span> <span class="variable">text</span>
+        .<span class="function">toString</span>()
+        .<span class="function">toLowerCase</span>()
+        .<span class="function">trim</span>()
+        .<span class="function">replace</span>(<span class="regex">/\s+/g</span>, <span class="string">'-'</span>)
+        .<span class="function">replace</span>(<span class="regex">/[^\w\-]+/g</span>, <span class="string">''</span>)
+        .<span class="function">replace</span>(<span class="regex">/\-\-+/g</span>, <span class="string">'-'</span>);
+}</code></pre>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

@@ -365,6 +365,66 @@ const searchIndex = [
             { heading: "イベントハンドラー", keywords: ["handleClick", "handleSubmit", "onButtonClick", "onFormSubmit", "onDataLoad"] },
             { heading: "環境変数", keywords: ["DATABASE_URL", "API_KEY", "SECRET_KEY", "PORT", "NODE_ENV", "LOG_LEVEL"] }
         ]
+    },
+    {
+        title: "プログラミング言語の分類と仕組み",
+        url: "computer-languages.html",
+        category: "その他",
+        keywords: ["プログラミング言語", "コンパイラ", "インタプリタ", "compiler", "interpreter", "コンパイル型", "インタプリタ型", "バイトコード", "JIT"],
+        sections: [
+            { heading: "プログラミング言語の実行方式", keywords: ["コンパイル型", "インタプリタ型", "バイトコード型", "JIT型", "トランスパイル型", "compiled", "interpreted", "bytecode", "just-in-time"] },
+            { heading: "コンパイル型言語", keywords: ["C", "C++", "Go", "Rust", "Swift", "GCC", "Clang", "MSVC", "rustc", "機械語", "実行ファイル", "バイナリ"] },
+            { heading: "インタプリタ型言語", keywords: ["Python", "Ruby", "JavaScript", "PHP", "Perl", "CPython", "MRI", "V8", "逐次実行", "動的型付け"] },
+            { heading: "中間的な実行方式", keywords: ["Java", "C#", "JVM", "CLR", ".NET", "バイトコード", "仮想マシン", "VM", "中間コード"] },
+            { heading: "JITコンパイル", keywords: ["HotSpot", "V8", "RyuJIT", "PyPy", "ホットスポット", "最適化", "実行時コンパイル"] },
+            { heading: "トランスパイル型言語", keywords: ["TypeScript", "JSX", "Sass", "SCSS", "CoffeeScript", "Elm", "Kotlin", "ソース間変換"] },
+            { heading: "言語処理系の構成要素", keywords: ["字句解析", "構文解析", "意味解析", "最適化", "コード生成", "lexical", "parsing", "semantic", "optimization"] }
+        ]
+    },
+    {
+        title: "構文解析技術チートシート",
+        url: "parsing-techniques.html",
+        category: "その他",
+        keywords: ["構文解析", "パーサー", "parser", "parsing", "字句解析", "lexer", "AST", "抽象構文木"],
+        sections: [
+            { heading: "構文解析の基本概念", keywords: ["字句解析", "構文解析", "意味解析", "評価", "lexical analysis", "syntax analysis", "semantic analysis", "evaluation"] },
+            { heading: "字句解析（レキシカル解析）", keywords: ["トークン", "token", "キーワード", "識別子", "リテラル", "演算子", "区切り文字", "レクサー", "lexer"] },
+            { heading: "構文解析手法", keywords: ["再帰下降", "LL", "LR", "LALR", "Earley", "パーサコンビネータ", "recursive descent", "top-down", "bottom-up"] },
+            { heading: "文法の記述", keywords: ["BNF", "EBNF", "バッカス・ナウア記法", "拡張BNF", "文法規則", "終端記号", "非終端記号"] },
+            { heading: "構文木とAST", keywords: ["Parse Tree", "AST", "抽象構文木", "構文木", "ノード", "トラバース", "変換"] },
+            { heading: "パーサージェネレーター", keywords: ["yacc", "bison", "ANTLR", "PEG.js", "Jison", "nom", "Parsec", "パーサ生成"] },
+            { heading: "エラー回復", keywords: ["パニックモード", "フレーズレベル", "エラー生成規則", "グローバル修正", "同期トークン"] }
+        ]
+    },
+    {
+        title: "文字列処理技術チートシート",
+        url: "string-processing.html",
+        category: "その他",
+        keywords: ["文字列処理", "string", "テキスト処理", "正規表現", "regex", "エンコーディング", "文字列検索"],
+        sections: [
+            { heading: "文字列処理の基本操作", keywords: ["連結", "部分文字列", "検索", "置換", "分割", "結合", "トリミング", "大文字小文字変換", "concatenation", "substring", "replace", "split", "join"] },
+            { heading: "文字エンコーディング", keywords: ["ASCII", "UTF-8", "UTF-16", "UTF-32", "Shift_JIS", "EUC-JP", "Unicode", "エンコード", "デコード"] },
+            { heading: "正規表現", keywords: ["regex", "regexp", "パターンマッチング", "メタ文字", "量指定子", "グループ", "先読み", "後読み", "キャプチャ"] },
+            { heading: "文字列検索アルゴリズム", keywords: ["総当たり法", "KMP法", "Boyer-Moore", "Rabin-Karp", "Aho-Corasick", "パターンマッチング"] },
+            { heading: "文字列の類似度・距離", keywords: ["レーベンシュタイン距離", "ハミング距離", "ジャロ・ウィンクラー", "コサイン類似度", "編集距離"] },
+            { heading: "文字列の圧縮", keywords: ["ランレングス符号化", "ハフマン符号化", "LZ77", "LZ78", "LZW", "BWT", "圧縮アルゴリズム"] },
+            { heading: "文字列のハッシュ", keywords: ["ポリノミアルハッシュ", "ローリングハッシュ", "MD5", "SHA-256", "CRC32", "ハッシュ関数"] }
+        ]
+    },
+    {
+        title: "テンプレートエンジンチートシート",
+        url: "template-engines.html",
+        category: "その他",
+        keywords: ["テンプレートエンジン", "template engine", "テンプレート", "ビュー", "レンダリング", "EJS", "Handlebars", "Jinja2"],
+        sections: [
+            { heading: "テンプレートエンジンの基本概念", keywords: ["テンプレート", "コンテキスト", "レンダリング", "変数展開", "エスケープ", "template", "context", "rendering", "interpolation"] },
+            { heading: "主要なテンプレートエンジン", keywords: ["EJS", "Handlebars", "Pug", "Mustache", "Jinja2", "Django Templates", "ERB", "Twig", "Thymeleaf"] },
+            { heading: "基本構文の比較", keywords: ["変数出力", "条件分岐", "ループ", "コメント", "エスケープ", "if", "for", "each", "block"] },
+            { heading: "テンプレートの継承とインクルード", keywords: ["extends", "include", "block", "partial", "layout", "継承", "インクルード", "レイアウト"] },
+            { heading: "フィルターと関数", keywords: ["filter", "helper", "カスタムフィルター", "組み込みフィルター", "upper", "lower", "date", "format"] },
+            { heading: "セキュリティ機能", keywords: ["XSS", "自動エスケープ", "サンドボックス", "セキュリティ", "エスケープ", "サニタイズ"] },
+            { heading: "パフォーマンス最適化", keywords: ["キャッシュ", "コンパイル", "プリコンパイル", "遅延読み込み", "最適化"] }
+        ]
     }
 ];
 
@@ -396,5 +456,9 @@ const contentCache = {
     "naming-examples.html": "命名例 naming examples 変数名 関数名 クラス名 定数名 具体例 userName userId emailAddress productName isActive isValid hasPermission getUser createUser updateUser User UserAccount UserService MAX_RETRY_COUNT API_BASE_URL DATABASE_URL 比較表",
     "computer-principles.html": "コンピューター原理原則 computer principles プログラミング基礎 順次構造 sequential 分岐構造 conditional selection 反復構造 iteration loop データ構造 data structure 配列 array リスト list スタック stack キュー queue LIFO FIFO アルゴリズム algorithm ソート sort 探索 search Big O 計算量 オブジェクト指向 OOP SOLID原則 DRY KISS YAGNI メモリ管理 memory スタック ヒープ heap 並行処理 concurrent parallel プロセス process スレッド thread 同期 非同期 async",
     "computer-concepts.html": "コンピューター概念 computer concepts ビット bit バイト byte KB MB GB TB 2進数 binary 8進数 octal 16進数 hexadecimal エンコーディング encoding ASCII Unicode UTF-8 CPU メモリ RAM ストレージ storage HDD SSD アーキテクチャ architecture フォン・ノイマン von Neumann OS オペレーティングシステム カーネル kernel ネットワーク network OSI参照モデル TCP/IP HTTP HTTPS セキュリティ security 暗号化 encryption ハッシュ hash SSL TLS AI 人工知能 機械学習 machine learning ML 深層学習 deep learning",
-    "operators-comparison.html": "演算子比較 operators comparison JavaScript Python Ruby SQL 比較演算子 comparison 論理演算子 logical 算術演算子 arithmetic ビット演算子 bitwise == === != !== > < >= <= and or not && || ! 加算 減算 乗算 除算 剰余 累乗 インクリメント デクリメント null undefined None nil IS NULL 型変換 厳密等価 等価 不等価 短絡評価 三項演算子 条件演算子 Null合体演算子 宇宙船演算子"
+    "operators-comparison.html": "演算子比較 operators comparison JavaScript Python Ruby SQL 比較演算子 comparison 論理演算子 logical 算術演算子 arithmetic ビット演算子 bitwise == === != !== > < >= <= and or not && || ! 加算 減算 乗算 除算 剰余 累乗 インクリメント デクリメント null undefined None nil IS NULL 型変換 厳密等価 等価 不等価 短絡評価 三項演算子 条件演算子 Null合体演算子 宇宙船演算子",
+    "computer-languages.html": "プログラミング言語 programming language コンパイラ compiler インタプリタ interpreter コンパイル型 インタプリタ型 バイトコード bytecode JIT Just-In-Time C C++ Go Rust Python Ruby JavaScript Java C# JVM CLR 仮想マシン VM TypeScript トランスパイル 字句解析 構文解析 最適化 コード生成 実行ファイル バイナリ 機械語",
+    "parsing-techniques.html": "構文解析 parsing パーサー parser 字句解析 lexical analysis レクサー lexer トークン token AST 抽象構文木 abstract syntax tree BNF EBNF バッカス・ナウア記法 再帰下降 recursive descent LL LR LALR yacc bison ANTLR PEG パーサコンビネータ エラー回復 文法 grammar 終端記号 非終端記号",
+    "string-processing.html": "文字列処理 string processing テキスト処理 text 正規表現 regex regexp regular expression エンコーディング encoding UTF-8 Unicode ASCII 文字列検索 string search KMP Boyer-Moore Rabin-Karp レーベンシュタイン距離 編集距離 ハミング距離 文字列圧縮 ランレングス ハフマン LZ77 ハッシュ hash MD5 SHA-256",
+    "template-engines.html": "テンプレートエンジン template engine テンプレート template ビュー view レンダリング rendering EJS Handlebars Pug Mustache Jinja2 Django ERB Twig 変数展開 interpolation エスケープ escape 継承 extends include partial フィルター filter ヘルパー helper XSS セキュリティ キャッシュ cache"
 };

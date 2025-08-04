@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テンプレートエンジンチートシート</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .template-example {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .syntax-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .syntax-box {
+            background-color: #1a1a1a;
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .syntax-box h5 {
+            margin-top: 0;
+            color: var(--text-accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .feature-card {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .architecture-flow {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--text-accent);
+            margin: 0.5rem 0;
+        }
+
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        .comment { color: #5c6370; font-style: italic; }
+        .function { color: #61afef; }
+        .variable { color: #e06c75; }
+        .tag { color: #e06c75; }
+        .attribute { color: #d19a66; }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>テンプレートエンジンチートシート</h1>
+
+<p>Web開発で使用される主要なテンプレートエンジンの機能、構文、特徴を比較したリファレンスです。動的なHTMLの生成やビューの構築に必要な知識をまとめています。</p>
+
+<hr>
+
+<h2>テンプレートエンジンの基本概念</h2>
+
+<h3><strong>テンプレートエンジンとは</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語名</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>テンプレート</strong></td>
+<td>Template</td>
+<td>動的な部分を含む静的なマークアップ</td>
+</tr>
+<tr>
+<td><strong>コンテキスト</strong></td>
+<td>Context</td>
+<td>テンプレートに渡されるデータ</td>
+</tr>
+<tr>
+<td><strong>レンダリング</strong></td>
+<td>Rendering</td>
+<td>テンプレートとデータを結合して出力を生成</td>
+</tr>
+<tr>
+<td><strong>変数展開</strong></td>
+<td>Variable Interpolation</td>
+<td>プレースホルダーを実際の値で置換</td>
+</tr>
+<tr>
+<td><strong>エスケープ</strong></td>
+<td>Escaping</td>
+<td>HTMLなどの特殊文字を安全に表示</td>
+</tr>
+</tbody>
+</table>
+
+<div class="architecture-flow">
+<strong>テンプレートエンジンの処理フロー</strong><br><br>
+テンプレートファイル + データ（変数・オブジェクト）
+<div class="flow-arrow">↓</div>
+テンプレートエンジン（パース・評価）
+<div class="flow-arrow">↓</div>
+レンダリング処理
+<div class="flow-arrow">↓</div>
+最終的なHTML/テキスト出力
+</div>
+
+<hr>
+
+<h2>主要なテンプレートエンジン</h2>
+
+<h3><strong>言語別テンプレートエンジン一覧</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>言語</th>
+<th>テンプレートエンジン</th>
+<th>特徴</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>EJS, Handlebars, Pug, Mustache</td>
+<td>Node.js対応<br>クライアント/サーバー両対応</td>
+<td>Webアプリ<br>静的サイト生成</td>
+</tr>
+<tr>
+<td><strong>Python</strong></td>
+<td>Jinja2, Django Templates, Mako</td>
+<td>Pythonic構文<br>強力な継承機能</td>
+<td>Flask/Django<br>設定ファイル生成</td>
+</tr>
+<tr>
+<td><strong>Ruby</strong></td>
+<td>ERB, Haml, Slim</td>
+<td>Ruby埋め込み<br>簡潔な構文</td>
+<td>Rails<br>静的サイト生成</td>
+</tr>
+<tr>
+<td><strong>PHP</strong></td>
+<td>Twig, Blade, Smarty</td>
+<td>PHP自体がテンプレート<br>モダンな構文</td>
+<td>Laravel/Symfony<br>CMS</td>
+</tr>
+<tr>
+<td><strong>Java</strong></td>
+<td>Thymeleaf, JSP, Freemarker</td>
+<td>型安全<br>Spring統合</td>
+<td>エンタープライズ<br>Webアプリ</td>
+</tr>
+<tr>
+<td><strong>Go</strong></td>
+<td>html/template, text/template</td>
+<td>標準ライブラリ<br>型安全</td>
+<td>Webサーバー<br>CLI ツール</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>基本構文の比較</h2>
+
+<h3><strong>変数の出力</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンジン</th>
+<th>構文</th>
+<th>自動エスケープ</th>
+<th>エスケープなし</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EJS</strong></td>
+<td><code>&lt;%= name %&gt;</code></td>
+<td>なし</td>
+<td><code>&lt;%- name %&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Handlebars</strong></td>
+<td><code>{{name}}</code></td>
+<td>あり</td>
+<td><code>{{{name}}}</code></td>
+</tr>
+<tr>
+<td><strong>Jinja2</strong></td>
+<td><code>{{ name }}</code></td>
+<td>あり</td>
+<td><code>{{ name|safe }}</code></td>
+</tr>
+<tr>
+<td><strong>ERB</strong></td>
+<td><code>&lt;%= name %&gt;</code></td>
+<td>なし</td>
+<td>同じ</td>
+</tr>
+<tr>
+<td><strong>Twig</strong></td>
+<td><code>{{ name }}</code></td>
+<td>あり</td>
+<td><code>{{ name|raw }}</code></td>
+</tr>
+<tr>
+<td><strong>Pug</strong></td>
+<td><code>#{name}</code></td>
+<td>あり</td>
+<td><code>!{name}</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>条件分岐</strong></h3>
+
+<div class="syntax-comparison">
+<div class="syntax-box">
+<h5>EJS</h5>
+<pre><code><span class="tag">&lt;%</span> <span class="keyword">if</span> (<span class="variable">user</span>.<span class="variable">isAdmin</span>) { <span class="tag">%&gt;</span>
+    <span class="tag">&lt;p&gt;</span>管理者です<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;%</span> } <span class="keyword">else</span> { <span class="tag">%&gt;</span>
+    <span class="tag">&lt;p&gt;</span>一般ユーザーです<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;%</span> } <span class="tag">%&gt;</span></code></pre>
+</div>
+<div class="syntax-box">
+<h5>Handlebars</h5>
+<pre><code>{{<span class="keyword">#if</span> <span class="variable">user.isAdmin</span>}}
+    <span class="tag">&lt;p&gt;</span>管理者です<span class="tag">&lt;/p&gt;</span>
+{{<span class="keyword">else</span>}}
+    <span class="tag">&lt;p&gt;</span>一般ユーザーです<span class="tag">&lt;/p&gt;</span>
+{{<span class="keyword">/if</span>}}</code></pre>
+</div>
+</div>
+
+<div class="syntax-comparison">
+<div class="syntax-box">
+<h5>Jinja2</h5>
+<pre><code>{% <span class="keyword">if</span> <span class="variable">user</span>.<span class="variable">is_admin</span> %}
+    <span class="tag">&lt;p&gt;</span>管理者です<span class="tag">&lt;/p&gt;</span>
+{% <span class="keyword">else</span> %}
+    <span class="tag">&lt;p&gt;</span>一般ユーザーです<span class="tag">&lt;/p&gt;</span>
+{% <span class="keyword">endif</span> %}</code></pre>
+</div>
+<div class="syntax-box">
+<h5>Pug</h5>
+<pre><code><span class="keyword">if</span> <span class="variable">user</span>.<span class="variable">isAdmin</span>
+    <span class="tag">p</span> 管理者です
+<span class="keyword">else</span>
+    <span class="tag">p</span> 一般ユーザーです</code></pre>
+</div>
+</div>
+
+<hr>
+
+<h2>ループ処理</h2>
+
+<h3><strong>配列・リストの反復処理</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンジン</th>
+<th>基本構文</th>
+<th>インデックス付き</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EJS</strong></td>
+<td><code>&lt;% items.forEach(item =&gt; { %&gt;</code></td>
+<td><code>&lt;% items.forEach((item, index) =&gt; { %&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Handlebars</strong></td>
+<td><code>{{#each items}}</code></td>
+<td><code>{{@index}}</code>で取得</td>
+</tr>
+<tr>
+<td><strong>Jinja2</strong></td>
+<td><code>{% for item in items %}</code></td>
+<td><code>{% for item in items %}{{loop.index}}</code></td>
+</tr>
+<tr>
+<td><strong>ERB</strong></td>
+<td><code>&lt;% items.each do |item| %&gt;</code></td>
+<td><code>&lt;% items.each_with_index do |item, i| %&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Twig</strong></td>
+<td><code>{% for item in items %}</code></td>
+<td><code>{% for item in items %}{{loop.index}}</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="template-example">
+<h4>ループ処理の実例（Jinja2）</h4>
+<pre><code>{% <span class="keyword">for</span> <span class="variable">product</span> <span class="keyword">in</span> <span class="variable">products</span> %}
+    <span class="tag">&lt;div</span> <span class="attribute">class</span>=<span class="string">"product"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;h3&gt;</span>{{ <span class="variable">product</span>.<span class="variable">name</span> }}<span class="tag">&lt;/h3&gt;</span>
+        <span class="tag">&lt;p&gt;</span>価格: {{ <span class="variable">product</span>.<span class="variable">price</span> }}円<span class="tag">&lt;/p&gt;</span>
+        {% <span class="keyword">if</span> <span class="variable">loop</span>.<span class="variable">first</span> %}
+            <span class="tag">&lt;span</span> <span class="attribute">class</span>=<span class="string">"new"</span><span class="tag">&gt;</span>NEW!<span class="tag">&lt;/span&gt;</span>
+        {% <span class="keyword">endif</span> %}
+    <span class="tag">&lt;/div&gt;</span>
+{% <span class="keyword">else</span> %}
+    <span class="tag">&lt;p&gt;</span>商品がありません<span class="tag">&lt;/p&gt;</span>
+{% <span class="keyword">endfor</span> %}</code></pre>
+</div>
+
+<hr>
+
+<h2>テンプレートの継承とインクルード</h2>
+
+<h3><strong>継承機能の比較</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンジン</th>
+<th>ベーステンプレート定義</th>
+<th>継承</th>
+<th>ブロック定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jinja2</strong></td>
+<td><code>base.html</code></td>
+<td><code>{% extends "base.html" %}</code></td>
+<td><code>{% block content %}{% endblock %}</code></td>
+</tr>
+<tr>
+<td><strong>Pug</strong></td>
+<td><code>layout.pug</code></td>
+<td><code>extends layout</code></td>
+<td><code>block content</code></td>
+</tr>
+<tr>
+<td><strong>Twig</strong></td>
+<td><code>base.html.twig</code></td>
+<td><code>{% extends 'base.html.twig' %}</code></td>
+<td><code>{% block content %}{% endblock %}</code></td>
+</tr>
+<tr>
+<td><strong>EJS</strong></td>
+<td>非対応</td>
+<td>インクルードのみ</td>
+<td><code>&lt;%- include('partial') %&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Handlebars</strong></td>
+<td>非対応</td>
+<td>パーシャルのみ</td>
+<td><code>{{> partial}}</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="template-example">
+<h4>テンプレート継承の例（Jinja2）</h4>
+<pre><code><span class="comment">{# base.html #}</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span>{% <span class="keyword">block</span> <span class="variable">title</span> %}デフォルトタイトル{% <span class="keyword">endblock</span> %}<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;header&gt;</span>{% <span class="keyword">block</span> <span class="variable">header</span> %}共通ヘッダー{% <span class="keyword">endblock</span> %}<span class="tag">&lt;/header&gt;</span>
+    <span class="tag">&lt;main&gt;</span>
+        {% <span class="keyword">block</span> <span class="variable">content</span> %}{% <span class="keyword">endblock</span> %}
+    <span class="tag">&lt;/main&gt;</span>
+    <span class="tag">&lt;footer&gt;</span>{% <span class="keyword">block</span> <span class="variable">footer</span> %}共通フッター{% <span class="keyword">endblock</span> %}<span class="tag">&lt;/footer&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span>
+
+<span class="comment">{# page.html #}</span>
+{% <span class="keyword">extends</span> <span class="string">"base.html"</span> %}
+
+{% <span class="keyword">block</span> <span class="variable">title</span> %}商品一覧{% <span class="keyword">endblock</span> %}
+
+{% <span class="keyword">block</span> <span class="variable">content</span> %}
+    <span class="tag">&lt;h1&gt;</span>商品一覧<span class="tag">&lt;/h1&gt;</span>
+    <span class="comment">{# 商品リスト #}</span>
+{% <span class="keyword">endblock</span> %}</code></pre>
+</div>
+
+<hr>
+
+<h2>フィルターと関数</h2>
+
+<h3><strong>組み込みフィルター</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>処理</th>
+<th>Jinja2</th>
+<th>Twig</th>
+<th>Handlebars</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>大文字変換</strong></td>
+<td><code>{{ text|upper }}</code></td>
+<td><code>{{ text|upper }}</code></td>
+<td>ヘルパー作成要</td>
+</tr>
+<tr>
+<td><strong>小文字変換</strong></td>
+<td><code>{{ text|lower }}</code></td>
+<td><code>{{ text|lower }}</code></td>
+<td>ヘルパー作成要</td>
+</tr>
+<tr>
+<td><strong>日付フォーマット</strong></td>
+<td><code>{{ date|date('%Y-%m-%d') }}</code></td>
+<td><code>{{ date|date('Y-m-d') }}</code></td>
+<td>ヘルパー作成要</td>
+</tr>
+<tr>
+<td><strong>デフォルト値</strong></td>
+<td><code>{{ value|default('N/A') }}</code></td>
+<td><code>{{ value|default('N/A') }}</code></td>
+<td><code>{{#if value}}...{{/if}}</code></td>
+</tr>
+<tr>
+<td><strong>文字列切り詰め</strong></td>
+<td><code>{{ text|truncate(20) }}</code></td>
+<td><code>{{ text|truncate(20) }}</code></td>
+<td>ヘルパー作成要</td>
+</tr>
+<tr>
+<td><strong>JSON出力</strong></td>
+<td><code>{{ data|tojson }}</code></td>
+<td><code>{{ data|json_encode }}</code></td>
+<td>ヘルパー作成要</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>カスタムフィルター/ヘルパー</strong></h3>
+
+<div class="template-example">
+<h4>カスタムフィルターの実装例</h4>
+<pre><code><span class="comment">// Jinja2 (Python)</span>
+<span class="keyword">def</span> <span class="function">currency_format</span>(<span class="variable">value</span>):
+    <span class="keyword">return</span> <span class="string">f"¥{value:,.0f}"</span>
+
+<span class="variable">env</span>.<span class="variable">filters</span>[<span class="string">'currency'</span>] = <span class="variable">currency_format</span>
+
+<span class="comment">// 使用例</span>
+{{ <span class="variable">price</span>|<span class="function">currency</span> }}  <span class="comment">// 出力: ¥1,234</span>
+
+<span class="comment">// Handlebars (JavaScript)</span>
+<span class="variable">Handlebars</span>.<span class="function">registerHelper</span>(<span class="string">'currency'</span>, <span class="keyword">function</span>(<span class="variable">value</span>) {
+    <span class="keyword">return</span> <span class="string">`¥${value.toLocaleString()}`</span>;
+});
+
+<span class="comment">// 使用例</span>
+{{<span class="function">currency</span> <span class="variable">price</span>}}  <span class="comment">// 出力: ¥1,234</span></code></pre>
+</div>
+
+<hr>
+
+<h2>セキュリティ機能</h2>
+
+<h3><strong>セキュリティ対策</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>脅威</th>
+<th>対策</th>
+<th>実装例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>XSS攻撃</strong></td>
+<td>自動エスケープ</td>
+<td>デフォルトで有効（多くのエンジン）</td>
+</tr>
+<tr>
+<td><strong>テンプレートインジェクション</strong></td>
+<td>サンドボックス化</td>
+<td>Jinja2: <code>SandboxedEnvironment</code></td>
+</tr>
+<tr>
+<td><strong>パストラバーサル</strong></td>
+<td>パス検証</td>
+<td>相対パスの制限</td>
+</tr>
+<tr>
+<td><strong>情報漏洩</strong></td>
+<td>エラーハンドリング</td>
+<td>本番環境でデバッグ無効化</td>
+</tr>
+</tbody>
+</table>
+
+<div class="template-example">
+<h4>セキュアな設定例（Jinja2）</h4>
+<pre><code><span class="keyword">from</span> <span class="variable">jinja2</span> <span class="keyword">import</span> <span class="variable">Environment</span>, <span class="variable">FileSystemLoader</span>, <span class="variable">select_autoescape</span>
+
+<span class="variable">env</span> = <span class="function">Environment</span>(
+    <span class="variable">loader</span>=<span class="function">FileSystemLoader</span>(<span class="string">'templates'</span>),
+    <span class="variable">autoescape</span>=<span class="function">select_autoescape</span>([<span class="string">'html'</span>, <span class="string">'xml'</span>]),  <span class="comment"># 自動エスケープ</span>
+    <span class="variable">trim_blocks</span>=<span class="keyword">True</span>,
+    <span class="variable">lstrip_blocks</span>=<span class="keyword">True</span>
+)
+
+<span class="comment"># サンドボックス環境</span>
+<span class="keyword">from</span> <span class="variable">jinja2</span>.<span class="variable">sandbox</span> <span class="keyword">import</span> <span class="variable">SandboxedEnvironment</span>
+<span class="variable">safe_env</span> = <span class="function">SandboxedEnvironment</span>(<span class="variable">loader</span>=<span class="function">FileSystemLoader</span>(<span class="string">'templates'</span>))</code></pre>
+</div>
+
+<hr>
+
+<h2>パフォーマンス最適化</h2>
+
+<h3><strong>最適化テクニック</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>テクニック</th>
+<th>説明</th>
+<th>効果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>テンプレートキャッシュ</strong></td>
+<td>コンパイル済みテンプレートを保存</td>
+<td>パース時間削減</td>
+</tr>
+<tr>
+<td><strong>フラグメントキャッシュ</strong></td>
+<td>部分的な結果をキャッシュ</td>
+<td>重い処理の削減</td>
+</tr>
+<tr>
+<td><strong>遅延読み込み</strong></td>
+<td>必要時のみテンプレート読み込み</td>
+<td>メモリ使用量削減</td>
+</tr>
+<tr>
+<td><strong>静的な最適化</strong></td>
+<td>ビルド時に静的部分を事前処理</td>
+<td>実行時処理削減</td>
+</tr>
+</tbody>
+</table>
+
+<div class="template-example">
+<h4>キャッシュの実装例</h4>
+<pre><code><span class="comment">// Node.js + EJS</span>
+<span class="keyword">const</span> <span class="variable">ejs</span> = <span class="function">require</span>(<span class="string">'ejs'</span>);
+<span class="keyword">const</span> <span class="variable">LRU</span> = <span class="function">require</span>(<span class="string">'lru-cache'</span>);
+
+<span class="comment">// テンプレートキャッシュ設定</span>
+<span class="variable">ejs</span>.<span class="variable">cache</span> = <span class="keyword">new</span> <span class="function">LRU</span>({
+    <span class="variable">max</span>: <span class="number">100</span>,  <span class="comment">// 最大100テンプレート</span>
+    <span class="variable">maxAge</span>: <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span>  <span class="comment">// 1時間</span>
+});
+
+<span class="comment"># Django Templates</span>
+<span class="variable">TEMPLATES</span> = [{
+    <span class="string">'OPTIONS'</span>: {
+        <span class="string">'loaders'</span>: [
+            (<span class="string">'django.template.loaders.cached.Loader'</span>, [
+                <span class="string">'django.template.loaders.filesystem.Loader'</span>,
+                <span class="string">'django.template.loaders.app_directories.Loader'</span>,
+            ]),
+        ],
+    },
+}]</code></pre>
+</div>
+
+<hr>
+
+<h2>高度な機能</h2>
+
+<h3><strong>マクロ・ミックスイン</strong></h3>
+
+<div class="template-example">
+<h4>マクロの定義と使用（Jinja2）</h4>
+<pre><code>{% <span class="keyword">macro</span> <span class="function">render_field</span>(<span class="variable">field</span>, <span class="variable">label</span>=<span class="string">''</span>) %}
+    <span class="tag">&lt;div</span> <span class="attribute">class</span>=<span class="string">"form-group"</span><span class="tag">&gt;</span>
+        {% <span class="keyword">if</span> <span class="variable">label</span> %}
+            <span class="tag">&lt;label</span> <span class="attribute">for</span>=<span class="string">"{{ field.id }}"</span><span class="tag">&gt;</span>{{ <span class="variable">label</span> }}<span class="tag">&lt;/label&gt;</span>
+        {% <span class="keyword">endif</span> %}
+        <span class="tag">&lt;input</span> 
+            <span class="attribute">type</span>=<span class="string">"{{ field.type|default('text') }}"</span>
+            <span class="attribute">id</span>=<span class="string">"{{ field.id }}"</span>
+            <span class="attribute">name</span>=<span class="string">"{{ field.name }}"</span>
+            <span class="attribute">value</span>=<span class="string">"{{ field.value|default('') }}"</span>
+            {% <span class="keyword">if</span> <span class="variable">field</span>.<span class="variable">required</span> %}<span class="attribute">required</span>{% <span class="keyword">endif</span> %}
+        <span class="tag">&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+{% <span class="keyword">endmacro</span> %}
+
+<span class="comment">{# 使用例 #}</span>
+{{ <span class="function">render_field</span>({<span class="string">'id'</span>: <span class="string">'email'</span>, <span class="string">'name'</span>: <span class="string">'email'</span>, <span class="string">'type'</span>: <span class="string">'email'</span>}, <span class="string">'メールアドレス'</span>) }}</code></pre>
+</div>
+
+<h3><strong>国際化（i18n）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>エンジン</th>
+<th>i18n構文</th>
+<th>複数形対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jinja2</strong></td>
+<td><code>{{ _('Hello') }}</code></td>
+<td><code>{{ ngettext('item', 'items', count) }}</code></td>
+</tr>
+<tr>
+<td><strong>Django</strong></td>
+<td><code>{% trans "Hello" %}</code></td>
+<td><code>{% blocktrans count n %}</code></td>
+</tr>
+<tr>
+<td><strong>Twig</strong></td>
+<td><code>{{ 'Hello'|trans }}</code></td>
+<td><code>{{ 'item'|transchoice(count) }}</code></td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>テンプレートエンジンの選定基準</h2>
+
+<h3><strong>用途別推奨エンジン</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>推奨エンジン</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Node.js Web アプリ</strong></td>
+<td>EJS, Pug</td>
+<td>Express との統合が簡単<br>JavaScript構文に近い</td>
+</tr>
+<tr>
+<td><strong>静的サイト生成</strong></td>
+<td>Handlebars, Liquid</td>
+<td>ロジックレス<br>安全性が高い</td>
+</tr>
+<tr>
+<td><strong>Python Web アプリ</strong></td>
+<td>Jinja2</td>
+<td>Flask/Django対応<br>強力な機能</td>
+</tr>
+<tr>
+<td><strong>メール テンプレート</strong></td>
+<td>Mustache</td>
+<td>言語非依存<br>シンプル</td>
+</tr>
+<tr>
+<td><strong>設定ファイル生成</strong></td>
+<td>Go template</td>
+<td>型安全<br>標準ライブラリ</td>
+</tr>
+</tbody>
+</table>
+
+<div class="feature-grid">
+<div class="feature-card">
+<h4>パフォーマンス重視</h4>
+<ul style="text-align: left;">
+<li>コンパイル型</li>
+<li>キャッシュ機能</li>
+<li>最小限の機能</li>
+</ul>
+</div>
+<div class="feature-card">
+<h4>開発効率重視</h4>
+<ul style="text-align: left;">
+<li>デバッグ機能</li>
+<li>エラーメッセージ</li>
+<li>ホットリロード</li>
+</ul>
+</div>
+<div class="feature-card">
+<h4>保守性重視</h4>
+<ul style="text-align: left;">
+<li>継承機能</li>
+<li>部品化</li>
+<li>型チェック</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<h2>実装例とベストプラクティス</h2>
+
+<h3><strong>プロジェクト構造</strong></h3>
+
+<div class="template-example">
+<pre><code>project/
+├── templates/
+│   ├── layouts/
+│   │   └── base.html
+│   ├── components/
+│   │   ├── header.html
+│   │   ├── footer.html
+│   │   └── navigation.html
+│   ├── pages/
+│   │   ├── home.html
+│   │   ├── about.html
+│   │   └── products/
+│   │       ├── list.html
+│   │       └── detail.html
+│   └── emails/
+│       ├── welcome.html
+│       └── notification.html
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── images/
+└── app.js</code></pre>
+</div>
+
+<h3><strong>ベストプラクティス</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>説明</th>
+<th>実装方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DRY原則</strong></td>
+<td>重複を避ける</td>
+<td>継承・インクルード・マクロを活用</td>
+</tr>
+<tr>
+<td><strong>関心の分離</strong></td>
+<td>ロジックとビューを分離</td>
+<td>複雑な処理はコントローラで</td>
+</tr>
+<tr>
+<td><strong>セキュリティ</strong></td>
+<td>XSS対策</td>
+<td>自動エスケープを有効化</td>
+</tr>
+<tr>
+<td><strong>パフォーマンス</strong></td>
+<td>レンダリング最適化</td>
+<td>キャッシュを適切に使用</td>
+</tr>
+<tr>
+<td><strong>保守性</strong></td>
+<td>理解しやすいコード</td>
+<td>適切な命名・構造化</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>

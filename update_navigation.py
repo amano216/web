@@ -95,7 +95,12 @@ files_to_update = [
     'naming-conventions.html',
     'naming-examples.html',
     'computer-principles.html',
-    'computer-concepts.html'
+    'computer-concepts.html',
+    'operators-comparison.html',
+    'computer-languages.html',
+    'parsing-techniques.html',
+    'string-processing.html',
+    'template-engines.html'
 ]
 
 def update_navigation(filepath):

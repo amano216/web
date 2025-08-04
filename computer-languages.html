@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プログラミング言語の分類と仕組み</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--background-modifier-border);
+            margin: 2rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-normal);
+        }
+
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-accent);
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .process-flow {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--text-accent);
+            margin: 0.5rem 0;
+        }
+
+        .comparison-box {
+            background-color: rgba(127, 109, 242, 0.1);
+            border-left: 3px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pros, .cons {
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .pros {
+            background-color: rgba(98, 195, 121, 0.1);
+            border: 1px solid rgba(98, 195, 121, 0.3);
+        }
+
+        .cons {
+            background-color: rgba(224, 108, 117, 0.1);
+            border: 1px solid rgba(224, 108, 117, 0.3);
+        }
+
+        .pros h4 {
+            color: #62c379;
+        }
+
+        .cons h4 {
+            color: #e06c75;
+        }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="global-search.css">
+    <link rel="stylesheet" href="nav-search.css">
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="nav-title">Web開発リファレンス</div>
+        <button class="mobile-menu-button">☰</button>
+        <div class="nav-menu">
+            <div class="nav-dropdown">
+                <a href="#">HTML</a>
+                <div class="dropdown-menu">
+                    <a href="index.html">HTMLタグ一覧</a>
+                    <a href="html-cheatsheet.html">HTML記法チート</a>
+                    <a href="html-history.html">HTMLの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">CSS</a>
+                <div class="dropdown-menu">
+                    <a href="css-reference.html">CSSプロパティ</a>
+                    <a href="css-cheatsheet.html">CSS記法チート</a>
+                    <a href="css-history.html">CSSの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">JavaScript</a>
+                <div class="dropdown-menu">
+                    <a href="javascript-reference.html">JSメソッド一覧</a>
+                    <a href="javascript-cheatsheet.html">JS記法チート</a>
+                    <a href="javascript-history.html">JavaScriptの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">SQL</a>
+                <div class="dropdown-menu">
+                    <a href="sql-reference.html">SQLコマンド一覧</a>
+                    <a href="sql-cheatsheet.html">SQL記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">Ruby</a>
+                <div class="dropdown-menu">
+                    <a href="ruby-reference.html">Rubyメソッド一覧</a>
+                    <a href="ruby-cheatsheet.html">Ruby記法チート</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">HTTP</a>
+                <div class="dropdown-menu">
+                    <a href="http-reference.html">HTTPメソッド一覧</a>
+                    <a href="http-cheatsheet.html">HTTP記法チート</a>
+                    <a href="http-history.html">HTTPの歴史</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#">その他</a>
+                <div class="dropdown-menu">
+                    <a href="symbols-reference.html">記号の読み方</a>
+                    <a href="git-commands.html">Git/GitHub</a>
+                    <a href="git-cheatsheet.html">Git記法チート</a>
+                    <a href="git-history.html">Gitの歴史</a>
+                    <a href="linux-commands.html">Linuxコマンド</a>
+                    <a href="linux-cheatsheet.html">Linux記法チート</a>
+                    <a href="naming-conventions.html">命名規則</a>
+                    <a href="naming-examples.html">命名例一覧</a>
+                    <a href="computer-principles.html">原理原則</a>
+                    <a href="computer-concepts.html">概念一覧</a>
+                    <a href="operators-comparison.html">演算子比較</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+
+<h1>プログラミング言語の分類と仕組み</h1>
+
+<p>プログラミング言語の実行方式の違い、コンパイラとインタプリタの仕組み、各方式の特徴と用途を解説します。</p>
+
+<hr>
+
+<h2>プログラミング言語の実行方式</h2>
+
+<h3><strong>主な実行方式の分類</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>実行方式</th>
+<th>英語名</th>
+<th>代表的な言語</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>コンパイル型</strong></td>
+<td>Compiled Language</td>
+<td>C, C++, Go, Rust</td>
+<td>事前に機械語に変換<br>高速実行・配布容易</td>
+</tr>
+<tr>
+<td><strong>インタプリタ型</strong></td>
+<td>Interpreted Language</td>
+<td>Python, Ruby, JavaScript, PHP</td>
+<td>逐次解釈・実行<br>開発効率高・柔軟性</td>
+</tr>
+<tr>
+<td><strong>バイトコード型</strong></td>
+<td>Bytecode Language</td>
+<td>Java, C#, Python(一部)</td>
+<td>中間コードに変換<br>仮想マシン上で実行</td>
+</tr>
+<tr>
+<td><strong>JIT型</strong></td>
+<td>Just-In-Time Compiled</td>
+<td>Java(HotSpot), C#(.NET), JavaScript(V8)</td>
+<td>実行時に機械語に変換<br>高速化と柔軟性の両立</td>
+</tr>
+<tr>
+<td><strong>トランスパイル型</strong></td>
+<td>Transpiled Language</td>
+<td>TypeScript→JavaScript, Sass→CSS</td>
+<td>他の言語に変換<br>新機能を古い環境で実行</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>コンパイル型言語</h2>
+
+<h3><strong>コンパイルプロセス</strong></h3>
+
+<div class="process-flow">
+<strong>ソースコード</strong><br>
+（.c, .cpp, .go）<br>
+<div class="flow-arrow">↓</div>
+<strong>字句解析</strong><br>
+（トークン化）<br>
+<div class="flow-arrow">↓</div>
+<strong>構文解析</strong><br>
+（抽象構文木生成）<br>
+<div class="flow-arrow">↓</div>
+<strong>意味解析</strong><br>
+（型チェック等）<br>
+<div class="flow-arrow">↓</div>
+<strong>最適化</strong><br>
+（コード最適化）<br>
+<div class="flow-arrow">↓</div>
+<strong>コード生成</strong><br>
+（機械語生成）<br>
+<div class="flow-arrow">↓</div>
+<strong>実行ファイル</strong><br>
+（.exe, バイナリ）
+</div>
+
+<h3><strong>主要なコンパイル型言語</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>言語</th>
+<th>コンパイラ</th>
+<th>特徴・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C</strong></td>
+<td>GCC, Clang, MSVC</td>
+<td>システムプログラミング<br>組み込み開発<br>高速処理が必要な場面</td>
+</tr>
+<tr>
+<td><strong>C++</strong></td>
+<td>G++, Clang++, MSVC</td>
+<td>ゲーム開発<br>高性能アプリケーション<br>システムソフトウェア</td>
+</tr>
+<tr>
+<td><strong>Go</strong></td>
+<td>go build</td>
+<td>Webサーバー<br>並行処理<br>クラウドツール</td>
+</tr>
+<tr>
+<td><strong>Rust</strong></td>
+<td>rustc</td>
+<td>システムプログラミング<br>メモリ安全性重視<br>高性能Web API</td>
+</tr>
+<tr>
+<td><strong>Swift</strong></td>
+<td>swiftc</td>
+<td>iOS/macOSアプリ開発<br>サーバーサイド開発</td>
+</tr>
+</tbody>
+</table>
+
+<div class="pros-cons">
+<div class="pros">
+<h4>メリット</h4>
+<ul>
+<li>実行速度が速い</li>
+<li>メモリ効率が良い</li>
+<li>実行時にコンパイラ不要</li>
+<li>ソースコードの秘匿性</li>
+<li>コンパイル時エラー検出</li>
+</ul>
+</div>
+<div class="cons">
+<h4>デメリット</h4>
+<ul>
+<li>開発サイクルが遅い</li>
+<li>プラットフォーム依存</li>
+<li>デバッグが難しい場合も</li>
+<li>動的な機能に制限</li>
+<li>配布ファイルサイズ大</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<h2>インタプリタ型言語</h2>
+
+<h3><strong>インタプリタの動作</strong></h3>
+
+<div class="process-flow">
+<strong>ソースコード</strong><br>
+（.py, .rb, .js）<br>
+<div class="flow-arrow">↓</div>
+<strong>字句解析</strong><br>
+（リアルタイム）<br>
+<div class="flow-arrow">↓</div>
+<strong>構文解析</strong><br>
+（リアルタイム）<br>
+<div class="flow-arrow">↓</div>
+<strong>評価・実行</strong><br>
+（逐次実行）<br>
+<div class="flow-arrow">↓</div>
+<strong>結果出力</strong><br>
+（即座に反映）
+</div>
+
+<h3><strong>主要なインタプリタ型言語</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>言語</th>
+<th>インタプリタ</th>
+<th>特徴・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python</strong></td>
+<td>CPython, PyPy</td>
+<td>データ分析・AI/ML<br>Web開発<br>スクリプティング</td>
+</tr>
+<tr>
+<td><strong>Ruby</strong></td>
+<td>MRI, JRuby</td>
+<td>Web開発（Rails）<br>スクリプティング<br>DSL作成</td>
+</tr>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>V8, SpiderMonkey</td>
+<td>Web フロントエンド<br>Node.js（サーバー）<br>モバイルアプリ</td>
+</tr>
+<tr>
+<td><strong>PHP</strong></td>
+<td>Zend Engine</td>
+<td>Web開発<br>サーバーサイド<br>CMS開発</td>
+</tr>
+<tr>
+<td><strong>Perl</strong></td>
+<td>perl</td>
+<td>テキスト処理<br>システム管理<br>Web開発</td>
+</tr>
+</tbody>
+</table>
+
+<div class="pros-cons">
+<div class="pros">
+<h4>メリット</h4>
+<ul>
+<li>開発効率が高い</li>
+<li>即座に実行・テスト可能</li>
+<li>プラットフォーム非依存</li>
+<li>動的な機能が豊富</li>
+<li>デバッグが容易</li>
+</ul>
+</div>
+<div class="cons">
+<h4>デメリット</h4>
+<ul>
+<li>実行速度が遅い</li>
+<li>メモリ使用量が多い</li>
+<li>実行時にインタプリタ必要</li>
+<li>ソースコードが公開される</li>
+<li>実行時エラーの可能性</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<h2>中間的な実行方式</h2>
+
+<h3><strong>バイトコード型（仮想マシン型）</strong></h3>
+
+<div class="process-flow">
+<strong>ソースコード</strong><br>
+（.java, .cs）<br>
+<div class="flow-arrow">↓</div>
+<strong>コンパイル</strong><br>
+（バイトコードへ）<br>
+<div class="flow-arrow">↓</div>
+<strong>バイトコード</strong><br>
+（.class, .dll）<br>
+<div class="flow-arrow">↓</div>
+<strong>仮想マシン</strong><br>
+（JVM, CLR）<br>
+<div class="flow-arrow">↓</div>
+<strong>実行</strong>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>言語/プラットフォーム</th>
+<th>仮想マシン</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Java</strong></td>
+<td>JVM (Java Virtual Machine)</td>
+<td>Write Once, Run Anywhere<br>エンタープライズ開発<br>Android開発</td>
+</tr>
+<tr>
+<td><strong>C#</strong></td>
+<td>CLR (Common Language Runtime)</td>
+<td>.NET Framework<br>Windows開発<br>Unity（ゲーム開発）</td>
+</tr>
+<tr>
+<td><strong>Python</strong></td>
+<td>Python VM</td>
+<td>.pycファイル生成<br>実行速度の向上<br>ソースコード保護</td>
+</tr>
+<tr>
+<td><strong>Erlang/Elixir</strong></td>
+<td>BEAM</td>
+<td>高可用性システム<br>並行処理<br>耐障害性</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>JIT（Just-In-Time）コンパイル</strong></h3>
+
+<div class="comparison-box">
+<h4>JITコンパイルの特徴</h4>
+<ul>
+<li>実行時に頻繁に使用される部分（ホットスポット）を検出</li>
+<li>該当部分を機械語にコンパイル</li>
+<li>次回以降は高速な機械語を実行</li>
+<li>実行プロファイルに基づく最適化</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>実装</th>
+<th>言語/環境</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HotSpot</strong></td>
+<td>Java</td>
+<td>Oracle JVM<br>C1/C2コンパイラ<br>段階的最適化</td>
+</tr>
+<tr>
+<td><strong>V8</strong></td>
+<td>JavaScript</td>
+<td>Chrome, Node.js<br>Ignition + TurboFan<br>高速実行</td>
+</tr>
+<tr>
+<td><strong>RyuJIT</strong></td>
+<td>C# (.NET)</td>
+<td>.NET Core/5+<br>x64最適化<br>SIMD対応</td>
+</tr>
+<tr>
+<td><strong>PyPy</strong></td>
+<td>Python</td>
+<td>RPython実装<br>トレーシングJIT<br>CPythonより高速</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>トランスパイル型言語</h2>
+
+<h3><strong>ソース間変換</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>元言語</th>
+<th>対象言語</th>
+<th>用途・理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TypeScript</strong></td>
+<td>JavaScript</td>
+<td>型安全性の追加<br>最新機能の使用<br>大規模開発対応</td>
+</tr>
+<tr>
+<td><strong>JSX</strong></td>
+<td>JavaScript</td>
+<td>React開発<br>HTMLライクな構文<br>コンポーネント記述</td>
+</tr>
+<tr>
+<td><strong>Sass/SCSS</strong></td>
+<td>CSS</td>
+<td>変数・ネスト・ミックスイン<br>保守性向上<br>DRY原則</td>
+</tr>
+<tr>
+<td><strong>CoffeeScript</strong></td>
+<td>JavaScript</td>
+<td>簡潔な構文<br>Ruby風の記法<br>（現在は衰退）</td>
+</tr>
+<tr>
+<td><strong>Elm</strong></td>
+<td>JavaScript</td>
+<td>関数型プログラミング<br>ランタイムエラー無し<br>型安全性</td>
+</tr>
+<tr>
+<td><strong>Kotlin</strong></td>
+<td>JavaScript/JVM</td>
+<td>マルチプラットフォーム<br>null安全<br>簡潔な構文</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>言語処理系の構成要素</h2>
+
+<h3><strong>フロントエンド（前段処理）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>処理段階</th>
+<th>英語名</th>
+<th>処理内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>字句解析</strong></td>
+<td>Lexical Analysis</td>
+<td>文字列をトークン（字句）に分割<br>キーワード、識別子、演算子を認識<br>空白・コメントの除去</td>
+</tr>
+<tr>
+<td><strong>構文解析</strong></td>
+<td>Syntax Analysis / Parsing</td>
+<td>トークン列から構文木を生成<br>文法規則のチェック<br>AST（抽象構文木）の構築</td>
+</tr>
+<tr>
+<td><strong>意味解析</strong></td>
+<td>Semantic Analysis</td>
+<td>型チェック<br>変数の宣言・参照チェック<br>スコープの解決</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>バックエンド（後段処理）</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>処理段階</th>
+<th>英語名</th>
+<th>処理内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>中間表現生成</strong></td>
+<td>IR Generation</td>
+<td>プラットフォーム非依存の中間コード<br>最適化しやすい形式<br>LLVM IR、Java バイトコード等</td>
+</tr>
+<tr>
+<td><strong>最適化</strong></td>
+<td>Optimization</td>
+<td>デッドコード除去<br>定数畳み込み<br>ループ展開<br>インライン展開</td>
+</tr>
+<tr>
+<td><strong>コード生成</strong></td>
+<td>Code Generation</td>
+<td>ターゲットマシンの機械語生成<br>レジスタ割り当て<br>命令選択</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>実行環境の比較</h2>
+
+<h3><strong>パフォーマンス特性</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>コンパイル型</th>
+<th>インタプリタ型</th>
+<th>JIT型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>起動時間</strong></td>
+<td>高速</td>
+<td>高速</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td><strong>実行速度</strong></td>
+<td>最高速</td>
+<td>低速</td>
+<td>高速（ウォームアップ後）</td>
+</tr>
+<tr>
+<td><strong>メモリ使用量</strong></td>
+<td>小</td>
+<td>大</td>
+<td>中〜大</td>
+</tr>
+<tr>
+<td><strong>開発効率</strong></td>
+<td>低</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>デバッグ</strong></td>
+<td>難</td>
+<td>容易</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td><strong>配布</strong></td>
+<td>容易（単一バイナリ）</td>
+<td>要インタプリタ</td>
+<td>要ランタイム</td>
+</tr>
+</tbody>
+</table>
+
+<h3><strong>用途別の選択指針</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>推奨される実行方式</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>システムプログラミング</strong></td>
+<td>コンパイル型</td>
+<td>高速実行・メモリ効率・ハードウェア制御</td>
+</tr>
+<tr>
+<td><strong>Web開発</strong></td>
+<td>インタプリタ型/JIT型</td>
+<td>開発効率・動的機能・迅速なデプロイ</td>
+</tr>
+<tr>
+<td><strong>データ分析・AI</strong></td>
+<td>インタプリタ型</td>
+<td>対話的実行・豊富なライブラリ・試行錯誤</td>
+</tr>
+<tr>
+<td><strong>モバイルアプリ</strong></td>
+<td>コンパイル型/JIT型</td>
+<td>パフォーマンス・バッテリー効率</td>
+</tr>
+<tr>
+<td><strong>ゲーム開発</strong></td>
+<td>コンパイル型</td>
+<td>最高性能・リアルタイム処理</td>
+</tr>
+<tr>
+<td><strong>エンタープライズ</strong></td>
+<td>バイトコード型</td>
+<td>プラットフォーム独立・管理性・安定性</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>最新の動向</h2>
+
+<h3><strong>ハイブリッドアプローチ</strong></h3>
+
+<table>
+<thead>
+<tr>
+<th>技術・言語</th>
+<th>アプローチ</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Python + Cython</strong></td>
+<td>部分的コンパイル</td>
+<td>ボトルネック部分をC言語に変換<br>Pythonの生産性とCの速度</td>
+</tr>
+<tr>
+<td><strong>Julia</strong></td>
+<td>JITコンパイル</td>
+<td>動的言語の柔軟性<br>静的言語の性能<br>科学計算向け</td>
+</tr>
+<tr>
+<td><strong>GraalVM</strong></td>
+<td>多言語VM</td>
+<td>複数言語の相互運用<br>AOT/JITコンパイル<br>ネイティブイメージ生成</td>
+</tr>
+<tr>
+<td><strong>WebAssembly</strong></td>
+<td>ポータブルバイトコード</td>
+<td>ブラウザでネイティブ並みの速度<br>複数言語からコンパイル可能</td>
+</tr>
+</tbody>
+</table>
+
+<div class="comparison-box">
+<h4>選択のポイント</h4>
+<ul>
+<li><strong>パフォーマンス重視</strong>：コンパイル型（C/C++/Rust/Go）</li>
+<li><strong>開発効率重視</strong>：インタプリタ型（Python/Ruby/JavaScript）</li>
+<li><strong>バランス重視</strong>：JIT型・バイトコード型（Java/C#）</li>
+<li><strong>型安全性重視</strong>：トランスパイル型（TypeScript）</li>
+</ul>
+</div>
+
+</div>
+
+<script src="navigation.js"></script>
+<script src="search-index.js"></script>
+<script src="global-search.js"></script>
+<script src="nav-search.js"></script>
+<script src="highlight-search.js"></script>
+
+<script src="mega-menu.js"></script>
+</body>
+</html>
