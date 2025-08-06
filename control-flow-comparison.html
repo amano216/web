@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件分岐・制御構文比較表 - JavaScript, Ruby, Python</title>
+    <style>
+        :root {
+            --background-primary: #202020;
+            --background-secondary: #262626;
+            --background-modifier-border: #333;
+            --text-normal: #dcddde;
+            --text-muted: #999;
+            --text-accent: #7f6df2;
+            --interactive-accent: #7f6df2;
+            --interactive-accent-rgb: 127, 109, 242;
+            --background-modifier-hover: rgba(255, 255, 255, 0.05);
+            --table-header-bg: #2d2d2d;
+            --code-background: #2f3136;
+            --nav-bg: #1a1a1a;
+            --js-color: #f7df1e;
+            --python-color: #3776ab;
+            --ruby-color: #cc342d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--background-primary);
+            color: var(--text-normal);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-accent);
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            border-bottom: 1px solid var(--background-modifier-border);
+            padding-bottom: 0.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--background-modifier-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: var(--background-modifier-hover);
+        }
+
+        code {
+            background-color: var(--code-background);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", "Courier New", monospace;
+            font-size: 0.875em;
+            color: #e06c75;
+        }
+
+        pre {
+            background-color: var(--code-background);
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-normal);
+        }
+
+        .js-example { border-left: 4px solid var(--js-color); }
+        .python-example { border-left: 4px solid var(--python-color); }
+        .ruby-example { border-left: 4px solid var(--ruby-color); }
+
+        .note {
+            background-color: var(--background-secondary);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background-color: var(--code-background);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .code-block h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .language-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .js-tag { background-color: var(--js-color); color: #000; }
+        .python-tag { background-color: var(--python-color); color: #fff; }
+        .ruby-tag { background-color: var(--ruby-color); color: #fff; }
+    </style>
+</head>
+<body>
+    <nav id="global-nav"></nav>
+    
+    <div class="content-wrapper">
+        <h1>条件分岐・制御構文比較表</h1>
+        <p>JavaScript、Ruby、Pythonにおける条件分岐と制御構文の書き方を比較します。</p>
+
+        <h2>基本的な if 文</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>構文要素</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>基本構文</td>
+                    <td><code>if (条件) { 処理 }</code></td>
+                    <td><code>if 条件 then 処理 end</code></td>
+                    <td><code>if 条件: 処理</code></td>
+                </tr>
+                <tr>
+                    <td>else if / elsif</td>
+                    <td><code>else if (条件)</code></td>
+                    <td><code>elsif 条件</code></td>
+                    <td><code>elif 条件:</code></td>
+                </tr>
+                <tr>
+                    <td>else</td>
+                    <td><code>else { 処理 }</code></td>
+                    <td><code>else 処理 end</code></td>
+                    <td><code>else: 処理</code></td>
+                </tr>
+                <tr>
+                    <td>否定条件</td>
+                    <td><code>if (!条件)</code></td>
+                    <td><code>unless 条件</code></td>
+                    <td><code>if not 条件:</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>if文の例</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>let age = 20;
+
+if (age >= 20) {
+    console.log("成人です");
+} else if (age >= 13) {
+    console.log("ティーンエイジャーです");
+} else {
+    console.log("子供です");
+}</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code>age = 20
+
+if age >= 20
+  puts "成人です"
+elsif age >= 13
+  puts "ティーンエイジャーです"
+else
+  puts "子供です"
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code>age = 20
+
+if age >= 20:
+    print("成人です")
+elif age >= 13:
+    print("ティーンエイジャーです")
+else:
+    print("子供です")</code></pre>
+            </div>
+        </div>
+
+        <h2>三項演算子・条件式</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>言語</th>
+                    <th>構文</th>
+                    <th>例</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>JavaScript</td>
+                    <td><code>条件 ? 真の値 : 偽の値</code></td>
+                    <td><code>age >= 20 ? "成人" : "未成年"</code></td>
+                </tr>
+                <tr>
+                    <td>Ruby</td>
+                    <td><code>条件 ? 真の値 : 偽の値</code></td>
+                    <td><code>age >= 20 ? "成人" : "未成年"</code></td>
+                </tr>
+                <tr>
+                    <td>Python</td>
+                    <td><code>真の値 if 条件 else 偽の値</code></td>
+                    <td><code>"成人" if age >= 20 else "未成年"</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>switch文 / case文</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>構文要素</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>キーワード</td>
+                    <td><code>switch / case</code></td>
+                    <td><code>case / when</code></td>
+                    <td><code>match / case</code> (3.10+)</td>
+                </tr>
+                <tr>
+                    <td>デフォルト</td>
+                    <td><code>default:</code></td>
+                    <td><code>else</code></td>
+                    <td><code>case _:</code></td>
+                </tr>
+                <tr>
+                    <td>break必要性</td>
+                    <td>必要</td>
+                    <td>不要</td>
+                    <td>不要</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>switch/case文の例</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>let day = "月曜日";
+
+switch (day) {
+    case "月曜日":
+    case "火曜日":
+    case "水曜日":
+    case "木曜日":
+    case "金曜日":
+        console.log("平日です");
+        break;
+    case "土曜日":
+    case "日曜日":
+        console.log("週末です");
+        break;
+    default:
+        console.log("不明な曜日");
+}</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code>day = "月曜日"
+
+case day
+when "月曜日", "火曜日", "水曜日", "木曜日", "金曜日"
+  puts "平日です"
+when "土曜日", "日曜日"
+  puts "週末です"
+else
+  puts "不明な曜日"
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code># Python 3.10以降
+day = "月曜日"
+
+match day:
+    case "月曜日" | "火曜日" | "水曜日" | "木曜日" | "金曜日":
+        print("平日です")
+    case "土曜日" | "日曜日":
+        print("週末です")
+    case _:
+        print("不明な曜日")
+
+# Python 3.9以前（辞書を使用）
+weekday_type = {
+    "月曜日": "平日", "火曜日": "平日",
+    "水曜日": "平日", "木曜日": "平日",
+    "金曜日": "平日", "土曜日": "週末",
+    "日曜日": "週末"
+}
+print(weekday_type.get(day, "不明な曜日"))</code></pre>
+            </div>
+        </div>
+
+        <h2>ループ文（for文）</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>種類</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>基本for文</td>
+                    <td><code>for (let i = 0; i < 10; i++)</code></td>
+                    <td><code>for i in 0..9</code></td>
+                    <td><code>for i in range(10):</code></td>
+                </tr>
+                <tr>
+                    <td>配列の反復</td>
+                    <td><code>for (let item of array)</code></td>
+                    <td><code>array.each do |item|</code></td>
+                    <td><code>for item in array:</code></td>
+                </tr>
+                <tr>
+                    <td>インデックス付き</td>
+                    <td><code>array.forEach((item, i) =>)</code></td>
+                    <td><code>array.each_with_index do |item, i|</code></td>
+                    <td><code>for i, item in enumerate(array):</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>for文の例</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>// 配列の反復
+const fruits = ["りんご", "バナナ", "オレンジ"];
+
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// インデックス付き
+fruits.forEach((fruit, index) => {
+    console.log(`${index}: ${fruit}`);
+});</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code># 配列の反復
+fruits = ["りんご", "バナナ", "オレンジ"]
+
+fruits.each do |fruit|
+  puts fruit
+end
+
+# インデックス付き
+fruits.each_with_index do |fruit, index|
+  puts "#{index}: #{fruit}"
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code># 配列の反復
+fruits = ["りんご", "バナナ", "オレンジ"]
+
+for fruit in fruits:
+    print(fruit)
+
+# インデックス付き
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")</code></pre>
+            </div>
+        </div>
+
+        <h2>while文</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>構文要素</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>基本構文</td>
+                    <td><code>while (条件) { 処理 }</code></td>
+                    <td><code>while 条件 do 処理 end</code></td>
+                    <td><code>while 条件: 処理</code></td>
+                </tr>
+                <tr>
+                    <td>do-while</td>
+                    <td><code>do { 処理 } while (条件)</code></td>
+                    <td><code>begin 処理 end while 条件</code></td>
+                    <td>なし（whileで代替）</td>
+                </tr>
+                <tr>
+                    <td>否定条件</td>
+                    <td><code>while (!条件)</code></td>
+                    <td><code>until 条件</code></td>
+                    <td><code>while not 条件:</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>while文の例</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>let count = 0;
+
+while (count < 5) {
+    console.log(`カウント: ${count}`);
+    count++;
+}
+
+// do-while
+let x = 0;
+do {
+    console.log(x);
+    x++;
+} while (x < 3);</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code>count = 0
+
+while count < 5
+  puts "カウント: #{count}"
+  count += 1
+end
+
+# until（否定条件）
+x = 0
+until x >= 5
+  puts x
+  x += 1
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code>count = 0
+
+while count < 5:
+    print(f"カウント: {count}")
+    count += 1
+
+# do-whileの代替
+x = 0
+while True:
+    print(x)
+    x += 1
+    if x >= 3:
+        break</code></pre>
+            </div>
+        </div>
+
+        <h2>ループ制御</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>制御文</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ループを抜ける</td>
+                    <td><code>break</code></td>
+                    <td><code>break</code></td>
+                    <td><code>break</code></td>
+                </tr>
+                <tr>
+                    <td>次の反復へ</td>
+                    <td><code>continue</code></td>
+                    <td><code>next</code></td>
+                    <td><code>continue</code></td>
+                </tr>
+                <tr>
+                    <td>やり直し</td>
+                    <td>なし</td>
+                    <td><code>redo</code></td>
+                    <td>なし</td>
+                </tr>
+                <tr>
+                    <td>再試行</td>
+                    <td>なし</td>
+                    <td><code>retry</code></td>
+                    <td>なし</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>例外処理（try-catch）</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>構文要素</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>試行</td>
+                    <td><code>try { }</code></td>
+                    <td><code>begin</code></td>
+                    <td><code>try:</code></td>
+                </tr>
+                <tr>
+                    <td>エラー捕捉</td>
+                    <td><code>catch (e) { }</code></td>
+                    <td><code>rescue => e</code></td>
+                    <td><code>except Exception as e:</code></td>
+                </tr>
+                <tr>
+                    <td>最終処理</td>
+                    <td><code>finally { }</code></td>
+                    <td><code>ensure</code></td>
+                    <td><code>finally:</code></td>
+                </tr>
+                <tr>
+                    <td>エラー発生</td>
+                    <td><code>throw new Error()</code></td>
+                    <td><code>raise</code></td>
+                    <td><code>raise Exception()</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>例外処理の例</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>try {
+    let result = 10 / 0;
+    if (!isFinite(result)) {
+        throw new Error("ゼロ除算エラー");
+    }
+} catch (error) {
+    console.error(`エラー: ${error.message}`);
+} finally {
+    console.log("処理完了");
+}</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code>begin
+  result = 10 / 0
+rescue ZeroDivisionError => e
+  puts "エラー: #{e.message}"
+rescue => e
+  puts "その他のエラー: #{e.message}"
+ensure
+  puts "処理完了"
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code>try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"エラー: {e}")
+except Exception as e:
+    print(f"その他のエラー: {e}")
+finally:
+    print("処理完了")</code></pre>
+            </div>
+        </div>
+
+        <h2>論理演算子</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>演算</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AND（かつ）</td>
+                    <td><code>&&</code></td>
+                    <td><code>&&</code> または <code>and</code></td>
+                    <td><code>and</code></td>
+                </tr>
+                <tr>
+                    <td>OR（または）</td>
+                    <td><code>||</code></td>
+                    <td><code>||</code> または <code>or</code></td>
+                    <td><code>or</code></td>
+                </tr>
+                <tr>
+                    <td>NOT（否定）</td>
+                    <td><code>!</code></td>
+                    <td><code>!</code> または <code>not</code></td>
+                    <td><code>not</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>比較演算子</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>演算</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                    <th>Python</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>等しい</td>
+                    <td><code>==</code> / <code>===</code></td>
+                    <td><code>==</code></td>
+                    <td><code>==</code></td>
+                </tr>
+                <tr>
+                    <td>等しくない</td>
+                    <td><code>!=</code> / <code>!==</code></td>
+                    <td><code>!=</code></td>
+                    <td><code>!=</code></td>
+                </tr>
+                <tr>
+                    <td>より大きい</td>
+                    <td><code>></code></td>
+                    <td><code>></code></td>
+                    <td><code>></code></td>
+                </tr>
+                <tr>
+                    <td>より小さい</td>
+                    <td><code><</code></td>
+                    <td><code><</code></td>
+                    <td><code><</code></td>
+                </tr>
+                <tr>
+                    <td>以上</td>
+                    <td><code>>=</code></td>
+                    <td><code>>=</code></td>
+                    <td><code>>=</code></td>
+                </tr>
+                <tr>
+                    <td>以下</td>
+                    <td><code><=</code></td>
+                    <td><code><=</code></td>
+                    <td><code><=</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <h3>重要な違い</h3>
+            <ul>
+                <li><strong>JavaScript:</strong> <code>==</code>は型変換を行い、<code>===</code>は厳密等価（型も値も同じ）</li>
+                <li><strong>Ruby:</strong> <code>elsif</code>のスペル、<code>unless</code>による否定条件、<code>case</code>文でbreakが不要</li>
+                <li><strong>Python:</strong> インデントが構文の一部、<code>elif</code>のスペル、<code>match</code>文は3.10以降</li>
+            </ul>
+        </div>
+
+        <h2>特殊な条件分岐パターン</h2>
+        
+        <h3>ガード節（早期リターン）</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>function processUser(user) {
+    if (!user) return null;
+    if (!user.isActive) return null;
+    if (user.age < 18) return null;
+    
+    // メイン処理
+    return processValidUser(user);
+}</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code>def process_user(user)
+  return nil unless user
+  return nil unless user.active?
+  return nil if user.age < 18
+  
+  # メイン処理
+  process_valid_user(user)
+end</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code>def process_user(user):
+    if not user:
+        return None
+    if not user.is_active:
+        return None
+    if user.age < 18:
+        return None
+    
+    # メイン処理
+    return process_valid_user(user)</code></pre>
+            </div>
+        </div>
+
+        <h3>短絡評価</h3>
+        <div class="comparison-grid">
+            <div class="code-block js-example">
+                <h4><span class="language-tag js-tag">JavaScript</span></h4>
+                <pre><code>// デフォルト値の設定
+const name = user.name || "ゲスト";
+
+// 条件付き実行
+user && user.save();
+
+// Null合体演算子（ES2020）
+const value = data ?? defaultValue;</code></pre>
+            </div>
+            <div class="code-block ruby-example">
+                <h4><span class="language-tag ruby-tag">Ruby</span></h4>
+                <pre><code># デフォルト値の設定
+name = user.name || "ゲスト"
+
+# 条件付き実行
+user && user.save
+
+# Safe navigation operator
+user&.save</code></pre>
+            </div>
+            <div class="code-block python-example">
+                <h4><span class="language-tag python-tag">Python</span></h4>
+                <pre><code># デフォルト値の設定
+name = user.name or "ゲスト"
+
+# 条件付き実行
+user and user.save()
+
+# Walrus演算子（3.8以降）
+if (value := get_value()):
+    process(value)</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="navigation.js"></script>
+    <script src="mega-menu.js"></script>
+</body>
+</html>

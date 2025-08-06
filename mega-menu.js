@@ -93,6 +93,7 @@ class MegaMenu {
                             <a href="computer-principles.html">原理原則</a>
                             <a href="computer-concepts.html">概念一覧</a>
                             <a href="operators-comparison.html">演算子比較</a>
+                            <a href="control-flow-comparison.html">条件分岐比較</a>
                             <a href="computer-languages.html">言語の仕組み</a>
                             <a href="parsing-techniques.html">構文解析技術</a>
                             <a href="string-processing.html">文字列処理</a>
