@@ -189,6 +189,7 @@
                 <a href="#">HTML</a>
                 <div class="dropdown-menu">
                     <a href="index.html">HTMLタグ一覧</a>
+                    <a href="#error-cheatsheet">エラー解読チート</a>
                     <a href="html-cheatsheet.html">HTML記法チート</a>
                     <a href="html-history.html">HTMLの歴史</a>
                 </div>
@@ -1140,6 +1141,319 @@
 <td>blockquote要素でインデント<br>見た目のために使用</td>
 <td>Blockquote for Indent</td>
 <td>CSSのmargin-leftを使用。blockquoteは引用専用、インデントは副作用。</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="error-cheatsheet">エラー解読チートシート</h2>
+<p>プログラミングでよく見るエラーメッセージを英語が苦手でも理解できるように解説</p>
+
+<h3>エラー表示の基本構造</h3>
+<table>
+<thead>
+<tr>
+<th>構成要素</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Error:</code> エラー種別</td>
+<td>Error Type</td>
+<td>何のエラーなのかを示す。TypeError、SyntaxError、ReferenceErrorなど</td>
+</tr>
+<tr>
+<td>詳細メッセージ</td>
+<td>Error Message</td>
+<td>何が原因かの具体的説明。テストや比較の条件、エラーのきっかけとなった処理</td>
+</tr>
+<tr>
+<td><code>at file:line:column</code></td>
+<td>Stack Trace</td>
+<td>発生箇所。ファイルパスと行番号:列番号。ここを直せば解決できる可能性大</td>
+</tr>
+</tbody>
+</table>
+
+<h3>よく見るエラー種別</h3>
+<table>
+<thead>
+<tr>
+<th>エラー名</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SyntaxError</code></td>
+<td>Syntax (文法) + Error</td>
+<td>文法ミス。カッコ閉じ忘れ、スペル間違い、セミコロン忘れなど</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td>Type (型) + Error</td>
+<td>型の不一致。文字列に数値演算をしようとした、nullのプロパティにアクセスなど</td>
+</tr>
+<tr>
+<td><code>ReferenceError</code></td>
+<td>Reference (参照) + Error</td>
+<td>存在しない変数や関数を呼んだ。未定義の変数を使用</td>
+</tr>
+<tr>
+<td><code>RangeError</code></td>
+<td>Range (範囲) + Error</td>
+<td>配列の範囲外、数値が許容範囲外、無限ループなど</td>
+</tr>
+<tr>
+<td><code>AssertionError</code></td>
+<td>Assertion (主張・検証)</td>
+<td>テストで「～であるはず」という条件が崩れた</td>
+</tr>
+<tr>
+<td><code>NetworkError</code></td>
+<td>Network (ネットワーク)</td>
+<td>通信できなかった、接続エラー、タイムアウト</td>
+</tr>
+<tr>
+<td><code>PermissionError</code></td>
+<td>Permission (許可)</td>
+<td>権限不足で実行できない。ファイルの読み書き権限なし</td>
+</tr>
+<tr>
+<td><code>ENOENT</code></td>
+<td>Error NO ENTry</td>
+<td>ファイルやディレクトリが見つからない（Unix/Linux系）</td>
+</tr>
+<tr>
+<td><code>EACCES</code></td>
+<td>Error ACCESs</td>
+<td>アクセス権がない。権限エラー（Unix/Linux系）</td>
+</tr>
+<tr>
+<td><code>404 Not Found</code></td>
+<td>Not Found</td>
+<td>HTTPエラー。要求されたページ/リソースが存在しない</td>
+</tr>
+<tr>
+<td><code>500 Internal Server Error</code></td>
+<td>Internal Server Error</td>
+<td>サーバー内部エラー。サーバー側の処理で問題発生</td>
+</tr>
+</tbody>
+</table>
+
+<h3>エラーメッセージの頻出英単語辞書</h3>
+<table>
+<thead>
+<tr>
+<th>英単語</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unexpected</code></td>
+<td>Un (否定) + Expected (期待)</td>
+<td>予期しない、想定外の。文法的に来るはずのないものが来た</td>
+</tr>
+<tr>
+<td><code>undefined</code></td>
+<td>Un (否定) + Defined (定義)</td>
+<td>未定義。変数が宣言されていない、値が設定されていない</td>
+</tr>
+<tr>
+<td><code>invalid</code></td>
+<td>In (否定) + Valid (有効)</td>
+<td>無効な、不正な。形式や値が正しくない</td>
+</tr>
+<tr>
+<td><code>missing</code></td>
+<td>Missing (欠けている)</td>
+<td>見つからない、不足している。必須項目が抜けている</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>Failed (失敗した)</td>
+<td>失敗した。処理が正常に完了しなかった</td>
+</tr>
+<tr>
+<td><code>expected</code></td>
+<td>Expected (期待される)</td>
+<td>期待される値。「Aが来るはずなのにBが来た」の文脈で使用</td>
+</tr>
+<tr>
+<td><code>received</code></td>
+<td>Received (受け取った)</td>
+<td>実際に受け取った値。期待値との比較で使用</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>Token (記号・要素)</td>
+<td>プログラムの構成要素。カッコ、キーワード、演算子など</td>
+</tr>
+<tr>
+<td><code>argument</code></td>
+<td>Argument (引数)</td>
+<td>関数に渡す値。パラメータ</td>
+</tr>
+<tr>
+<td><code>property</code></td>
+<td>Property (属性)</td>
+<td>オブジェクトの属性、プロパティ</td>
+</tr>
+<tr>
+<td><code>cannot</code></td>
+<td>Can + Not (できない)</td>
+<td>～できない。実行不可能</td>
+</tr>
+<tr>
+<td><code>read</code></td>
+<td>Read (読む)</td>
+<td>読み取る。ファイルやプロパティの読み込み</td>
+</tr>
+<tr>
+<td><code>write</code></td>
+<td>Write (書く)</td>
+<td>書き込む。ファイルやプロパティへの書き込み</td>
+</tr>
+<tr>
+<td><code>parse</code></td>
+<td>Parse (解析)</td>
+<td>構文解析。コードやデータの解釈</td>
+</tr>
+<tr>
+<td><code>compile</code></td>
+<td>Compile (コンパイル)</td>
+<td>コンパイル。ソースコードを機械語に変換</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>Time + Out</td>
+<td>タイムアウト。制限時間超過</td>
+</tr>
+<tr>
+<td><code>deprecated</code></td>
+<td>Deprecated (非推奨)</td>
+<td>非推奨。将来削除される予定の古い機能</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>Null (無)</td>
+<td>値が存在しない。「何もない」を表す特別な値</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>Void (空)</td>
+<td>戻り値なし。関数が値を返さない</td>
+</tr>
+<tr>
+<td><code>fatal</code></td>
+<td>Fatal (致命的)</td>
+<td>致命的エラー。プログラムが継続不可能</td>
+</tr>
+</tbody>
+</table>
+
+<h3>実践的なエラー例と解読方法</h3>
+<table>
+<thead>
+<tr>
+<th>エラー例</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SyntaxError: Unexpected token ')'</code></td>
+<td>Syntax Error: Unexpected closing parenthesis</td>
+<td>文法エラー：予期しない閉じカッコ。カッコの対応が間違っている</td>
+</tr>
+<tr>
+<td><code>TypeError: Cannot read property 'length' of undefined</code></td>
+<td>Type Error: Cannot read length of undefined value</td>
+<td>型エラー：undefined（未定義）のlengthプロパティを読めない。変数が未定義</td>
+</tr>
+<tr>
+<td><code>ReferenceError: foo is not defined</code></td>
+<td>Reference Error: foo variable is not defined</td>
+<td>参照エラー：変数fooが定義されていない。変数宣言忘れ</td>
+</tr>
+<tr>
+<td><code>Error: ENOENT: no such file or directory</code></td>
+<td>Error: No Entry - file doesn't exist</td>
+<td>エラー：ファイルまたはディレクトリが存在しない。パスが間違っている</td>
+</tr>
+<tr>
+<td><code>Expected: "Hello" Received: "Hello!"</code></td>
+<td>Expected value vs Actual value</td>
+<td>期待値："Hello"、実際の値："Hello!"。テストで値が一致しない</td>
+</tr>
+<tr>
+<td><code>Maximum call stack size exceeded</code></td>
+<td>Stack overflow - too many function calls</td>
+<td>スタックオーバーフロー。無限ループや再帰が深すぎる</td>
+</tr>
+<tr>
+<td><code>Module not found: Error: Can't resolve 'react'</code></td>
+<td>Module not found - can't find package</td>
+<td>モジュールが見つからない。reactパッケージがインストールされていない</td>
+</tr>
+<tr>
+<td><code>Invalid JSON at position 0</code></td>
+<td>Invalid JSON format at start</td>
+<td>JSONの形式が不正。最初の文字から間違っている</td>
+</tr>
+<tr>
+<td><code>Connection refused</code></td>
+<td>Connection was refused by server</td>
+<td>接続が拒否された。サーバーが起動していない、ポートが間違っている</td>
+</tr>
+<tr>
+<td><code>Permission denied</code></td>
+<td>Access permission denied</td>
+<td>アクセス権限がない。ファイルの読み書き権限不足</td>
+</tr>
+</tbody>
+</table>
+
+<h3>エラー解決のための基本手順</h3>
+<table>
+<thead>
+<tr>
+<th>手順</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. エラー種別を確認</td>
+<td>Check error type</td>
+<td>SyntaxError、TypeErrorなど、何系のエラーかを把握</td>
+</tr>
+<tr>
+<td>2. エラーメッセージを読む</td>
+<td>Read error message</td>
+<td>具体的に何が問題なのかを理解。キーワードを日本語に翻訳</td>
+</tr>
+<tr>
+<td>3. 発生箇所を特定</td>
+<td>Locate error position</td>
+<td>ファイル名:行番号:列番号を確認して、該当箇所を開く</td>
+</tr>
+<tr>
+<td>4. 前後のコードを確認</td>
+<td>Check surrounding code</td>
+<td>エラー箇所の前後数行を確認。カッコの対応、変数宣言など</td>
+</tr>
+<tr>
+<td>5. 修正して再実行</td>
+<td>Fix and retry</td>
+<td>問題を修正して、もう一度実行してみる</td>
 </tr>
 </tbody>
 </table>
