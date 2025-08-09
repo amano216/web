@@ -1145,6 +1145,431 @@
 </tbody>
 </table>
 
+<h2>CSSの基本概念</h2>
+<p>CSS（Cascading Style Sheets）はWebページの見た目を制御するためのスタイルシート言語</p>
+
+<h3>CSSとは</h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CSS</code></td>
+<td>Cascading Style Sheets</td>
+<td>カスケーディングスタイルシート。HTMLの見た目を装飾する言語</td>
+</tr>
+<tr>
+<td>カスケード</td>
+<td>Cascade (滝のように流れる)</td>
+<td>スタイルが階層的に適用される仕組み。親要素から子要素へ継承</td>
+</tr>
+<tr>
+<td>セレクタ</td>
+<td>Selector (選択子)</td>
+<td>スタイルを適用する対象を指定する記述。例：<code>h1</code>、<code>.class</code>、<code>#id</code></td>
+</tr>
+<tr>
+<td>プロパティ</td>
+<td>Property (属性)</td>
+<td>変更したいスタイルの種類。例：<code>color</code>、<code>font-size</code></td>
+</tr>
+<tr>
+<td>値</td>
+<td>Value</td>
+<td>プロパティに設定する具体的な値。例：<code>blue</code>、<code>16px</code></td>
+</tr>
+<tr>
+<td>ルールセット</td>
+<td>Rule Set</td>
+<td>セレクタとプロパティ・値の組み合わせ全体</td>
+</tr>
+</tbody>
+</table>
+
+<h3>CSSの呼び出し方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>インラインスタイル</td>
+<td>Inline Style</td>
+<td>HTML要素に直接記述。<code>style="color: red;"</code>。保守性が低いため非推奨</td>
+</tr>
+<tr>
+<td>内部スタイルシート</td>
+<td>Internal Style Sheet</td>
+<td><code>&lt;head&gt;</code>内の<code>&lt;style&gt;</code>タグに記述。単一ページ専用</td>
+</tr>
+<tr>
+<td>外部スタイルシート</td>
+<td>External Style Sheet</td>
+<td>別ファイル（.css）に記述。<code>&lt;link&gt;</code>タグで読み込み。最も推奨</td>
+</tr>
+<tr>
+<td><code>@import</code></td>
+<td>Import Rule</td>
+<td>CSSファイルから他のCSSファイルを読み込む。<code>@import url('file.css');</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>よく使うCSSプロパティ（テキスト関連）</h3>
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>color</code></td>
+<td>Color (色)</td>
+<td>文字色を指定。値：<code>red</code>、<code>#FF0000</code>、<code>rgb(255, 0, 0)</code></td>
+</tr>
+<tr>
+<td><code>font-size</code></td>
+<td>Font Size</td>
+<td>文字サイズを指定。値：<code>16px</code>、<code>1.2em</code>、<code>1rem</code></td>
+</tr>
+<tr>
+<td><code>font-family</code></td>
+<td>Font Family</td>
+<td>フォントの種類を指定。値：<code>Arial</code>、<code>sans-serif</code></td>
+</tr>
+<tr>
+<td><code>font-weight</code></td>
+<td>Font Weight (太さ)</td>
+<td>文字の太さ。値：<code>normal</code>、<code>bold</code>、<code>100-900</code></td>
+</tr>
+<tr>
+<td><code>text-align</code></td>
+<td>Text Alignment</td>
+<td>テキストの配置。値：<code>left</code>、<code>center</code>、<code>right</code>、<code>justify</code></td>
+</tr>
+<tr>
+<td><code>line-height</code></td>
+<td>Line Height</td>
+<td>行の高さ。値：<code>1.5</code>、<code>24px</code>、<code>150%</code></td>
+</tr>
+<tr>
+<td><code>text-decoration</code></td>
+<td>Text Decoration</td>
+<td>文字装飾。値：<code>none</code>、<code>underline</code>、<code>line-through</code></td>
+</tr>
+<tr>
+<td><code>letter-spacing</code></td>
+<td>Letter Spacing</td>
+<td>文字間隔。値：<code>0.1em</code>、<code>2px</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>よく使うCSSプロパティ（ボックスモデル関連）</h3>
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>margin</code></td>
+<td>Margin (余白)</td>
+<td>要素の外側の余白。値：<code>10px</code>、<code>auto</code>、<code>10px 20px</code></td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>Padding (詰め物)</td>
+<td>要素の内側の余白。値：<code>10px</code>、<code>10px 20px 30px 40px</code></td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>Border (境界線)</td>
+<td>要素の境界線。値：<code>1px solid black</code></td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td>Width (幅)</td>
+<td>要素の幅。値：<code>100px</code>、<code>50%</code>、<code>100vw</code></td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>Height (高さ)</td>
+<td>要素の高さ。値：<code>200px</code>、<code>auto</code>、<code>100vh</code></td>
+</tr>
+<tr>
+<td><code>box-sizing</code></td>
+<td>Box Sizing</td>
+<td>幅と高さの計算方法。値：<code>content-box</code>、<code>border-box</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>よく使うCSSプロパティ（レイアウト関連）</h3>
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display</code></td>
+<td>Display (表示)</td>
+<td>要素の表示形式。値：<code>block</code>、<code>inline</code>、<code>flex</code>、<code>grid</code>、<code>none</code></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>Position (位置)</td>
+<td>配置方法。値：<code>static</code>、<code>relative</code>、<code>absolute</code>、<code>fixed</code>、<code>sticky</code></td>
+</tr>
+<tr>
+<td><code>top</code>/<code>right</code>/<code>bottom</code>/<code>left</code></td>
+<td>Directional Position</td>
+<td>位置指定（positionと併用）。値：<code>10px</code>、<code>50%</code>、<code>auto</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Float (浮動)</td>
+<td>要素を左右に寄せる。値：<code>left</code>、<code>right</code>、<code>none</code></td>
+</tr>
+<tr>
+<td><code>overflow</code></td>
+<td>Overflow (はみ出し)</td>
+<td>はみ出した内容の処理。値：<code>visible</code>、<code>hidden</code>、<code>scroll</code>、<code>auto</code></td>
+</tr>
+<tr>
+<td><code>z-index</code></td>
+<td>Z-axis Index</td>
+<td>重なり順序（positionと併用）。値：<code>1</code>、<code>100</code>、<code>-1</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>CSSセレクタの種類</h3>
+<table>
+<thead>
+<tr>
+<th>セレクタ</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>要素セレクタ<br><code>p</code></td>
+<td>Element Selector</td>
+<td>HTML要素を直接指定。すべての<code>&lt;p&gt;</code>要素を選択</td>
+</tr>
+<tr>
+<td>クラスセレクタ<br><code>.class</code></td>
+<td>Class Selector</td>
+<td>class属性で指定。複数要素に適用可能。ドット（.）で始まる</td>
+</tr>
+<tr>
+<td>IDセレクタ<br><code>#id</code></td>
+<td>ID Selector</td>
+<td>id属性で指定。ページ内で一意。ハッシュ（#）で始まる</td>
+</tr>
+<tr>
+<td>全称セレクタ<br><code>*</code></td>
+<td>Universal Selector</td>
+<td>すべての要素を選択。リセットCSSでよく使用</td>
+</tr>
+<tr>
+<td>子孫セレクタ<br><code>div p</code></td>
+<td>Descendant Selector</td>
+<td>ある要素内のすべての子孫要素を選択</td>
+</tr>
+<tr>
+<td>子セレクタ<br><code>div &gt; p</code></td>
+<td>Child Selector</td>
+<td>直接の子要素のみを選択</td>
+</tr>
+<tr>
+<td>隣接セレクタ<br><code>h1 + p</code></td>
+<td>Adjacent Sibling</td>
+<td>直後の兄弟要素を選択</td>
+</tr>
+<tr>
+<td>属性セレクタ<br><code>[type="text"]</code></td>
+<td>Attribute Selector</td>
+<td>特定の属性を持つ要素を選択</td>
+</tr>
+</tbody>
+</table>
+
+<h3>擬似クラス・擬似要素</h3>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:hover</code></td>
+<td>Hover (浮遊)</td>
+<td>マウスカーソルが乗った時の状態</td>
+</tr>
+<tr>
+<td><code>:active</code></td>
+<td>Active (活性)</td>
+<td>クリック中の状態</td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>Focus (焦点)</td>
+<td>フォーカスが当たった状態（入力欄など）</td>
+</tr>
+<tr>
+<td><code>:first-child</code></td>
+<td>First Child</td>
+<td>最初の子要素</td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>Last Child</td>
+<td>最後の子要素</td>
+</tr>
+<tr>
+<td><code>:nth-child(n)</code></td>
+<td>N-th Child</td>
+<td>n番目の子要素。<code>odd</code>（奇数）、<code>even</code>（偶数）も使用可</td>
+</tr>
+<tr>
+<td><code>::before</code></td>
+<td>Before (前)</td>
+<td>要素の前に内容を挿入</td>
+</tr>
+<tr>
+<td><code>::after</code></td>
+<td>After (後)</td>
+<td>要素の後に内容を挿入</td>
+</tr>
+<tr>
+<td><code>::first-line</code></td>
+<td>First Line</td>
+<td>最初の行のみ</td>
+</tr>
+<tr>
+<td><code>::selection</code></td>
+<td>Selection</td>
+<td>選択された部分</td>
+</tr>
+</tbody>
+</table>
+
+<h3>IDとClassの使い分け</h3>
+<table>
+<thead>
+<tr>
+<th>特徴</th>
+<th>ID（<code>#id</code>）</th>
+<th>Class（<code>.class</code>）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一意性</td>
+<td>ページ内で1つだけ</td>
+<td>複数の要素に適用可能</td>
+</tr>
+<tr>
+<td>優先度（特異性）</td>
+<td>高い（100）</td>
+<td>中程度（10）</td>
+</tr>
+<tr>
+<td>JavaScript連携</td>
+<td>getElementById()で高速アクセス</td>
+<td>getElementsByClassName()で取得</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>ページ内アンカー、一意の要素</td>
+<td>再利用可能なスタイル</td>
+</tr>
+<tr>
+<td>命名例</td>
+<td><code>#header</code>、<code>#main-nav</code></td>
+<td><code>.btn</code>、<code>.card</code>、<code>.active</code></td>
+</tr>
+<tr>
+<td>複数指定</td>
+<td>不可（1要素に1つ）</td>
+<td>可能（<code>class="btn primary large"</code>）</td>
+</tr>
+</tbody>
+</table>
+
+<h3>CSSの単位</h3>
+<table>
+<thead>
+<tr>
+<th>単位</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>px</code></td>
+<td>Pixels</td>
+<td>ピクセル。画面の最小単位。絶対単位</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Percentage</td>
+<td>パーセント。親要素に対する割合</td>
+</tr>
+<tr>
+<td><code>em</code></td>
+<td>Em (M文字の幅)</td>
+<td>親要素のフォントサイズに対する倍率</td>
+</tr>
+<tr>
+<td><code>rem</code></td>
+<td>Root Em</td>
+<td>ルート要素（html）のフォントサイズに対する倍率</td>
+</tr>
+<tr>
+<td><code>vw</code></td>
+<td>Viewport Width</td>
+<td>ビューポート幅の1%</td>
+</tr>
+<tr>
+<td><code>vh</code></td>
+<td>Viewport Height</td>
+<td>ビューポート高さの1%</td>
+</tr>
+<tr>
+<td><code>auto</code></td>
+<td>Automatic</td>
+<td>自動計算。中央寄せで<code>margin: 0 auto;</code></td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="error-cheatsheet">エラー解読チートシート</h2>
 <p>プログラミングでよく見るエラーメッセージを英語が苦手でも理解できるように解説</p>
 
