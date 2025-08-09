@@ -1522,6 +1522,286 @@
 </tbody>
 </table>
 
+<h3>CSSカスケードと優先順位</h3>
+<p>複数のCSSルールが競合した場合、どれが適用されるかを決定する仕組み</p>
+
+<table>
+<thead>
+<tr>
+<th>優先順位</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. !important</strong></td>
+<td>Important (重要)</td>
+<td>最優先。他のすべてを上書き。使用は最小限に</td>
+</tr>
+<tr>
+<td><strong>2. インラインスタイル</strong></td>
+<td>Inline Style</td>
+<td><code>style="..."</code>属性。特異性スコア：1000</td>
+</tr>
+<tr>
+<td><strong>3. IDセレクタ</strong></td>
+<td>ID Selector</td>
+<td><code>#id</code>。特異性スコア：100</td>
+</tr>
+<tr>
+<td><strong>4. クラス・属性・擬似クラス</strong></td>
+<td>Class/Attribute/Pseudo-class</td>
+<td><code>.class</code>、<code>[attr]</code>、<code>:hover</code>。特異性スコア：10</td>
+</tr>
+<tr>
+<td><strong>5. 要素・擬似要素</strong></td>
+<td>Element/Pseudo-element</td>
+<td><code>p</code>、<code>::before</code>。特異性スコア：1</td>
+</tr>
+<tr>
+<td><strong>6. 全称セレクタ</strong></td>
+<td>Universal Selector</td>
+<td><code>*</code>。特異性スコア：0</td>
+</tr>
+</tbody>
+</table>
+
+<h3>特異性（Specificity）の計算方法</h3>
+<table>
+<thead>
+<tr>
+<th>セレクタの例</th>
+<th>計算式</th>
+<th>特異性スコア</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>0-0-1 (要素1つ)</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>.class</code></td>
+<td>0-1-0 (クラス1つ)</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>#id</code></td>
+<td>1-0-0 (ID1つ)</td>
+<td>100</td>
+</tr>
+<tr>
+<td><code>p.class</code></td>
+<td>0-1-1 (クラス1つ + 要素1つ)</td>
+<td>11</td>
+</tr>
+<tr>
+<td><code>#id .class p</code></td>
+<td>1-1-1 (ID1つ + クラス1つ + 要素1つ)</td>
+<td>111</td>
+</tr>
+<tr>
+<td><code>div#id .class p:hover</code></td>
+<td>1-2-2 (ID1つ + クラス1つ + 擬似クラス1つ + 要素2つ)</td>
+<td>122</td>
+</tr>
+<tr>
+<td><code>style="..."</code></td>
+<td>インラインスタイル</td>
+<td>1000</td>
+</tr>
+<tr>
+<td><code>p { color: red !important; }</code></td>
+<td>!important付き</td>
+<td>∞（最優先）</td>
+</tr>
+</tbody>
+</table>
+
+<h3>CSSの継承（Inheritance）</h3>
+<table>
+<thead>
+<tr>
+<th>プロパティの種類</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>継承される</strong></td>
+<td>Inherited Properties</td>
+<td>親要素から子要素へ自動的に引き継がれる</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>Text Color</td>
+<td>文字色は子要素に継承される</td>
+</tr>
+<tr>
+<td><code>font-family</code></td>
+<td>Font Family</td>
+<td>フォントファミリーは継承される</td>
+</tr>
+<tr>
+<td><code>font-size</code></td>
+<td>Font Size</td>
+<td>文字サイズは継承される</td>
+</tr>
+<tr>
+<td><code>line-height</code></td>
+<td>Line Height</td>
+<td>行の高さは継承される</td>
+</tr>
+<tr>
+<td><code>text-align</code></td>
+<td>Text Alignment</td>
+<td>テキスト配置は継承される</td>
+</tr>
+<tr>
+<td><strong>継承されない</strong></td>
+<td>Non-inherited Properties</td>
+<td>各要素で個別に指定が必要</td>
+</tr>
+<tr>
+<td><code>margin</code></td>
+<td>Margin</td>
+<td>外側余白は継承されない</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>Padding</td>
+<td>内側余白は継承されない</td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>Border</td>
+<td>境界線は継承されない</td>
+</tr>
+<tr>
+<td><code>background</code></td>
+<td>Background</td>
+<td>背景は継承されない</td>
+</tr>
+<tr>
+<td><code>width</code>/<code>height</code></td>
+<td>Dimensions</td>
+<td>幅・高さは継承されない</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>Position</td>
+<td>配置方法は継承されない</td>
+</tr>
+</tbody>
+</table>
+
+<h3>カスケードの順序（同じ特異性の場合）</h3>
+<table>
+<thead>
+<tr>
+<th>順序</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. 出現順序</strong></td>
+<td>Source Order</td>
+<td>後に書かれたルールが優先される（上書き）</td>
+</tr>
+<tr>
+<td><strong>2. スタイルシートの種類</strong></td>
+<td>Stylesheet Type</td>
+<td>作成者 > ユーザー > ブラウザデフォルト</td>
+</tr>
+<tr>
+<td><strong>3. メディアクエリ</strong></td>
+<td>Media Query</td>
+<td>条件に合致するメディアクエリ内のルールが優先</td>
+</tr>
+</tbody>
+</table>
+
+<h3>優先順位の実例</h3>
+<table>
+<thead>
+<tr>
+<th>CSSルール</th>
+<th>特異性</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p { color: black; }</code></td>
+<td>0-0-1</td>
+<td>基本ルール</td>
+</tr>
+<tr>
+<td><code>.text { color: blue; }</code></td>
+<td>0-1-0</td>
+<td>クラスが勝つ → 青</td>
+</tr>
+<tr>
+<td><code>p.text { color: green; }</code></td>
+<td>0-1-1</td>
+<td>より詳細が勝つ → 緑</td>
+</tr>
+<tr>
+<td><code>#main p { color: red; }</code></td>
+<td>1-0-1</td>
+<td>IDが勝つ → 赤</td>
+</tr>
+<tr>
+<td><code>&lt;p style="color: yellow;"&gt;</code></td>
+<td>1000</td>
+<td>インラインが勝つ → 黄</td>
+</tr>
+<tr>
+<td><code>p { color: purple !important; }</code></td>
+<td>∞</td>
+<td>!importantが最強 → 紫</td>
+</tr>
+</tbody>
+</table>
+
+<h3>!importantの注意点</h3>
+<table>
+<thead>
+<tr>
+<th>問題点</th>
+<th>英語の意味 (Meaning)</th>
+<th>日本語の意味・用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保守性の低下</td>
+<td>Maintenance Difficulty</td>
+<td>後から変更が困難になる。デバッグが複雑化</td>
+</tr>
+<tr>
+<td>カスケードの破壊</td>
+<td>Cascade Disruption</td>
+<td>自然な優先順位の流れを断ち切る</td>
+</tr>
+<tr>
+<td>特異性の無効化</td>
+<td>Specificity Override</td>
+<td>通常の特異性計算が意味をなさなくなる</td>
+</tr>
+<tr>
+<td>適切な使用場面</td>
+<td>Appropriate Use Cases</td>
+<td>ユーティリティクラス、外部ライブラリの上書きのみ</td>
+</tr>
+</tbody>
+</table>
+
 <h3>CSSの単位</h3>
 <table>
 <thead>
