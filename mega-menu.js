@@ -41,6 +41,7 @@ class MegaMenu {
                         <p class="category-description">HTML・CSSの基本的な要素とスタイリング</p>
                         <div class="mega-menu-links">
                             <a href="index.html">HTMLタグ一覧</a>
+                            <a href="index.html#css-basics">CSS基本概念</a>
                             <a href="index.html#error-cheatsheet">エラー解読チート</a>
                             <a href="html-cheatsheet.html">HTML記法チート</a>
                             <a href="html-history.html">HTMLの歴史</a>

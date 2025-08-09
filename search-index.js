@@ -16,6 +16,10 @@ const searchIndex = [
             { heading: "テーブル", keywords: ["table", "thead", "tbody", "tr", "td", "th"] },
             { heading: "フォーム", keywords: ["form", "input", "textarea", "select", "button", "label", "<form>", "<input>", "<textarea>", "<select>", "<button>", "<label>"] },
             { heading: "フォーム属性", keywords: ["action", "method", "name", "value", "placeholder", "required", "disabled", "readonly", "maxlength", "minlength", "pattern", "autocomplete", "autofocus"] },
+            { heading: "CSSの基本概念", keywords: ["CSS", "カスケード", "cascade", "セレクタ", "selector", "プロパティ", "property", "値", "value", "ルールセット"] },
+            { heading: "CSSプロパティ", keywords: ["color", "font-size", "font-family", "margin", "padding", "border", "width", "height", "display", "position", "float", "overflow", "z-index"] },
+            { heading: "CSSセレクタ", keywords: ["要素セレクタ", "クラスセレクタ", "IDセレクタ", "子孫セレクタ", "子セレクタ", "隣接セレクタ", "属性セレクタ", "擬似クラス", "擬似要素", ":hover", ":focus", "::before", "::after"] },
+            { heading: "CSSカスケードと優先順位", keywords: ["!important", "インラインスタイル", "特異性", "specificity", "継承", "inheritance", "優先順位", "カスケード"] },
             { heading: "エラー解読チートシート", keywords: ["エラー", "error", "SyntaxError", "TypeError", "ReferenceError", "RangeError", "AssertionError", "NetworkError", "PermissionError", "ENOENT", "EACCES", "404", "500"] },
             { heading: "エラーメッセージの頻出英単語", keywords: ["unexpected", "undefined", "invalid", "missing", "failed", "expected", "received", "token", "argument", "property", "cannot", "read", "write", "parse", "compile", "timeout", "deprecated", "null", "void", "fatal"] },
             { heading: "エラー解決の基本手順", keywords: ["stack trace", "スタックトレース", "エラー種別", "エラーメッセージ", "発生箇所", "デバッグ", "debug", "修正", "fix"] }
@@ -433,7 +437,7 @@ const searchIndex = [
 
 // ページ内容のキャッシュ（実際のコンテンツから抽出）
 const contentCache = {
-    "index.html": "HTML HyperText Markup Language ハイパーテキスト マークアップ 言語 DOCTYPE 文書型宣言 head メタデータ body 本文 title タイトル meta メタ情報 link リンク style スタイル script スクリプト href src alt target download rel width height loading crossorigin referrerpolicy エラー解読チートシート error SyntaxError TypeError ReferenceError RangeError AssertionError NetworkError PermissionError ENOENT EACCES unexpected undefined invalid missing failed expected received token argument property cannot read write parse compile timeout deprecated null void fatal stack trace",
+    "index.html": "HTML HyperText Markup Language ハイパーテキスト マークアップ 言語 DOCTYPE 文書型宣言 head メタデータ body 本文 title タイトル meta メタ情報 link リンク style スタイル script スクリプト href src alt target download rel width height loading crossorigin referrerpolicy CSS カスケーディングスタイルシート カスケード セレクタ プロパティ 値 color font-size margin padding border display position float overflow z-index 優先順位 特異性 specificity !important インラインスタイル 継承 inheritance エラー解読チートシート error SyntaxError TypeError ReferenceError RangeError AssertionError NetworkError PermissionError ENOENT EACCES unexpected undefined invalid missing failed expected received token argument property cannot read write parse compile timeout deprecated null void fatal stack trace",
     "html-cheatsheet.html": "HTML5 テンプレート template 最小限 minimal 完全 complete DOCTYPE html lang charset viewport description keywords author favicon Open Graph Twitter 属性 attribute href src alt class id style",
     "css-reference.html": "CSS Cascading Style Sheets カスケーディング スタイルシート color 色 font フォント font-size 文字サイズ margin 外側余白 padding 内側余白 border 境界線",
     "css-cheatsheet.html": "セレクタ selector 要素 element クラス class ID 属性 attribute 擬似クラス pseudo-class 擬似要素 pseudo-element hover active focus before after",
